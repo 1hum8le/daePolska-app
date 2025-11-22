@@ -1,0 +1,146 @@
+/* Konfiguracja kolorów i fontów */
+:root {
+    --accent-orange: #FF5722; /* Główny kolor akcentu - żywy pomarańcz */
+}
+
+.font-montserrat { font-family: 'Montserrat', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+.text-accent-orange { color: var(--accent-orange); }
+.bg-accent-orange { background-color: var(--accent-orange); }
+
+/* WIDEO TŁO (Fixed) */
+.video-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Pod spodem */
+    overflow: hidden;
+}
+
+.back-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Wypełnij ekran bez deformacji */
+}
+
+/* Przyciemnienie wideo */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient od ciemnego u góry do nieco jaśniejszego na dole */
+    background: linear-gradient(to bottom, rgba(10, 10, 15, 0.85), rgba(10, 10, 20, 0.7));
+    z-index: 1;
+}
+
+/* SCROLL SNAP (Okienkowe przewijanie) */
+.snap-container {
+    /* Wymusza wysokość ekranu i włącza przewijanie w osi Y */
+    height: 100vh;
+    overflow-y: scroll;
+    /* Kluczowe właściwości Scroll Snap */
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* Każda sekcja zajmuje cały ekran i jest punktem zatrzymania */
+.snap-section {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    /* Dla zawartości, która jest wyższa niż ekran (np. na mobile), pozwól na wewnętrzny scroll */
+    overflow-y: auto; 
+    padding-top: 80px; /* Miejsce na navbar */
+    padding-bottom: 40px;
+}
+
+/* GLASSMORPHISM (Efekt szkła) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.07); /* Bardzo przezroczyste białe tło */
+    backdrop-filter: blur(12px); /* Rozmycie tła pod spodem */
+    -webkit-backdrop-filter: blur(12px); /* Dla Safari */
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Delikatna krawędź */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-nav {
+    background: rgba(10, 10, 15, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.2);
+}
+
+/* Stripe Element styling fix for glass dark theme */
+.StripeElement {
+    background: transparent;
+}
+
+/* Inne efekty */
+.text-stroke {
+    /* Obrys tekstu w Webkit */
+    -webkit-text-stroke: 1px var(--accent-orange);
+    color: transparent;
+    /* Fallback dla innych przeglądarek, jeśli potrzebny */
+    @supports (-webkit-text-stroke: 1px black) {
+       color: transparent;
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Animacja wejścia */
+.animate-fade-up {
+    animation: fadeUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dostosowanie dla bardzo małych ekranów, aby scroll snap nie ucinał treści */
+@media (max-height: 700px) {
+    .snap-section {
+        height: auto; /* Pozwól sekcji rosnąć */
+        min-height: 100vh; /* Ale nie mniej niż ekran */
+        padding-top: 100px;
+    }
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inspection Report - EN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* A4 PAPER SETUP */
+        @page { size: A4; margin: 0; }
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #555; --webkit-print-color-adjust: exact; }
+        
+        /* UI CONTROLS (HIDDEN IN PDF) */
+        .ui-controls {
+            position: fixed; top: 20px; right: 20px; background: white; padding: 15px; 
+            border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; text-align: center;
+            width: 200px;
+        }
+        .btn-save {
+            background: #FF5722; color: white; border: none; padding: 10px 20px; font-weight: bold; 
+            border-radius: 4px; cursor: pointer; font-family: 'Montserrat'; width: 100%;
+        }
+        .btn-save:hover { background: #e64a19; }
+        .hint { font-size: 11px; color: #666; margin-top: 8px; display: block; }
+
+        /* REPORT SHEET */
+        .sheet { 
+            width: 210mm; height: 296mm; background: white; position: relative; overflow: hidden; 
+            margin: 20px auto; box-shadow: 0 0 15px rgba(0,0,0,0.2); page-break-after: always; 
+        }
+
+        /* DESIGN SYSTEM */
+        :root { --primary: #FF5722; --dark: #111; --gray: #f4f4f4; --border: #ddd; }
+        
+        /* HEADER */
+        .header { 
+            height: 22mm; background: var(--dark); color: white; display: flex; align-items: center; 
+            justify-content: space-between; padding: 0 15mm; 
+        }
+        .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22pt; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        .meta { text-align: right; font-size: 9pt; color: #ccc; }
+
+        /* CONTENT */
+        .content { padding: 15mm; }
+        
+        h1 { font-family: 'Montserrat'; font-weight: 900; font-size: 28pt; text-transform: uppercase; margin: 0; color: var(--dark); line-height: 1.1; }
+        h2 { font-family: 'Montserrat'; font-weight: 700; font-size: 14pt; text-transform: uppercase; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-top: 20px; margin-bottom: 15px; }
+        
+        /* HERO IMAGE */
+        .cover-photo { 
+            width: 100%; height: 85mm; background: #eee; margin: 15px 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; overflow: hidden; position: relative; border-radius: 4px; 
+            border: 2px dashed #ccc; cursor: pointer; transition: 0.2s;
+        }
+        .cover-photo:hover { border-color: var(--primary); background: #f9f9f9; }
+        .cover-photo img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .ph-icon { font-size: 30px; color: #aaa; margin-bottom: 10px; }
+        .ph-text { font-size: 12px; color: #888; font-weight: bold; }
+
+        /* INFO GRID */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .box { background: var(--gray); padding: 15px; border-radius: 6px; }
+        .row { display: flex; justify-content: space-between; border-bottom: 1px solid #e0e0e0; padding: 4px 0; font-size: 10pt; }
+        .row:last-child { border: none; }
+        .lbl { font-weight: 600; color: #666; }
+        .val { font-weight: 700; color: #000; }
+
+        /* VERDICT */
+        .verdict { 
+            display: flex; justify-content: space-between; align-items: center; background: var(--dark); 
+            color: white; padding: 15px 25px; border-radius: 6px; margin-top: 10px;
+        }
+        .v-label { font-size: 12pt; font-weight: bold; color: #aaa; }
+        .v-score { font-size: 32pt; font-weight: 900; font-family: 'Montserrat'; color: var(--primary); line-height: 1; }
+        .v-text { font-size: 20pt; font-weight: 700; text-transform: uppercase; color: #2ecc71; }
+
+        /* CHECKLISTS */
+        .check-section { margin-bottom: 15px; }
+        .check-item { display: flex; justify-content: space-between; align-items: center; font-size: 9pt; margin-bottom: 5px; padding: 3px 0; border-bottom: 1px dotted #ddd; }
+        .c-name { font-weight: 600; }
+        
+        /* STATUS BADGES (Editable) */
+        .st { padding: 2px 8px; border-radius: 3px; font-size: 8pt; font-weight: 800; color: white; min-width: 50px; text-align: center; cursor: pointer; }
+        .ok { background: #27ae60; }
+        .warn { background: #f39c12; }
+        .bad { background: #c0392b; }
+
+        /* PAINT MAP */
+        .paint-container { position: relative; width: 100%; height: 60mm; margin-bottom: 10mm; background: #f9f9f9; border: 1px solid #eee; }
+        .car-outline { width: 100%; height: 100%; opacity: 0.15; background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Sedan_top_view.svg/1280px-Sedan_top_view.svg.png') no-repeat center; background-size: contain; }
+        .pt-val { 
+            position: absolute; background: white; border: 2px solid var(--primary); font-size: 9pt; 
+            padding: 2px 6px; font-weight: 800; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* GALLERY */
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .g-slot { 
+            height: 55mm; background: #eee; border: 2px dashed #ccc; border-radius: 4px; 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden;
+        }
+        .g-slot:hover { background: #f0f0f0; border-color: var(--primary); }
+        .g-slot img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+
+        /* FOOTER */
+        .footer { 
+            position: absolute; bottom: 0; width: 100%; height: 15mm; background: #f9f9f9; 
+            border-top: 1px solid #ddd; display: flex; align-items: center; justify-content: center; 
+            font-size: 8pt; color: #888; 
+        }
+
+        /* PRINT HIDING */
+        @media print {
+            body { background: white; }
+            .ui-controls { display: none; }
+            .sheet { margin: 0; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ui-controls">
+        <button class="btn-save" onclick="window.print()"><i class="fas fa-file-pdf"></i> SAVE AS PDF</button>
+        <span class="hint">Destination: Save as PDF<br>Margins: None</span>
+    </div>
+
+    <div class="sheet">
+        <div class="header">
+            <div class="logo">DAE<span>POLSKA</span></div>
+            <div class="meta">
+                <div>REPORT ID: <span contenteditable="true">#2025-001</span></div>
+                <div>DATE: <span contenteditable="true">22.11.2025</span></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1 contenteditable="true">BMW 530d xDrive M-Sport</h1>
+            <div style="color: #666; font-size: 12pt; font-weight: 500; margin-top: 5px;" contenteditable="true">Full Pre-Purchase Inspection Report</div>
+
+            <div class="cover-photo" onclick="upload(this)">
+                <i class="fas fa-camera ph-icon"></i>
+                <span class="ph-text">CLICK TO UPLOAD MAIN PHOTO</span>
+                <input type="file" hidden onchange="preview(this)">
+            </div>
+
+            <div class="info-grid">
+                <div class="box">
+                    <div class="row"><span class="lbl">VIN</span><span class="val" contenteditable="true">WBAJC310X0B123456</span></div>
+                    <div class="row"><span class="lbl">First Reg.</span><span class="val" contenteditable="true">03/2020</span></div>
+                    <div class="row"><span class="lbl">Mileage</span><span class="val" contenteditable="true">142,000 km</span></div>
+                    <div class="row"><span class="lbl">Engine/Fuel</span><span class="val" contenteditable="true">3.0 Diesel</span></div>
+                    <div class="row"><span class="lbl">Transmission</span><span class="val" contenteditable="true">Automatic</span></div>
+                </div>
+                <div class="box">
+                    <div class="row"><span class="lbl">Location</span><span class="val" contenteditable="true">Essen, Germany</span></div>
+                    <div class="row"><span class="lbl">Seller Type</span><span class="val" contenteditable="true">Dealership</span></div>
+                    <div class="row"><span class="lbl">Keys</span><span class="val" contenteditable="true">2 Keys</span></div>
+                    <div class="row"><span class="lbl">Inspector</span><span class="val" contenteditable="true">Jakub S.</span></div>
+                    <div class="row"><span class="lbl">Package</span><span class="val" contenteditable="true">Premium</span></div>
+                </div>
+            </div>
+
+            <h2>Inspector Summary</h2>
+            <div style="border: 1px solid #ddd; padding: 15px; min-height: 120px; font-size: 10pt; line-height: 1.5; border-radius: 4px;" contenteditable="true">
+                The vehicle is in excellent mechanical condition. The engine starts cold without hesitation, runs smoothly, and has full power. 
+                The gearbox shifts imperceptibly. The suspension is tight with no play or noise.
+                <br><br>
+                <strong>Cosmetics:</strong> Original paint on the entire vehicle except for the rear bumper (cosmetic repaint). 
+                Small stone chips on the bonnet consistent with mileage.
+                <br><br>
+                <strong>Recommendation:</strong> Vehicle requires new rear brake pads within 5,000 km.
+            </div>
+
+            <div class="verdict">
+                <div>
+                    <div class="v-label">OVERALL RATING</div>
+                    <div class="v-score" contenteditable="true">9/10</div>
+                </div>
+                <div class="v-text" contenteditable="true">HIGHLY RECOMMENDED</div>
+            </div>
+        </div>
+        <div class="footer">daePolska - Diagnostic Auto Export | www.daepolska.com</div>
+    </div>
+
+    <div class="sheet">
+        <div class="header">
+            <div class="logo">DAE<span>POLSKA</span></div>
+            <div class="meta">TECHNICAL DETAILS</div>
+        </div>
+        <div class="content">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                
+                <div>
+                    <h2>Engine & Drivetrain</h2>
+                    <div class="check-item"><span class="c-name">Cold Start</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Idle Stability</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Fluid Leaks (Top)</span><span class="st ok" contenteditable="true">NONE</span></div>
+                    <div class="check-item"><span class="c-name">Fluid Leaks (Bottom)</span><span class="st ok" contenteditable="true">NONE</span></div>
+                    <div class="check-item"><span class="c-name">Exhaust Smoke</span><span class="st ok" contenteditable="true">CLEAN</span></div>
+                    <div class="check-item"><span class="c-name">Turbo Noise</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Coolant System</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Oil Condition</span><span class="st warn" contenteditable="true">CHANGE</span></div>
+
+                    <h2>Suspension & Brakes</h2>
+                    <div class="check-item"><span class="c-name">Test Drive</span><span class="st ok" contenteditable="true">PERFECT</span></div>
+                    <div class="check-item"><span class="c-name">Steering Play</span><span class="st ok" contenteditable="true">NONE</span></div>
+                    <div class="check-item"><span class="c-name">Suspension Noise</span><span class="st ok" contenteditable="true">NONE</span></div>
+                    <div class="check-item"><span class="c-name">Front Discs/Pads</span><span class="st ok" contenteditable="true">80%</span></div>
+                    <div class="check-item"><span class="c-name">Rear Discs/Pads</span><span class="st warn" contenteditable="true">20%</span></div>
+                    <div class="check-item"><span class="c-name">Handbrake</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Tires (Front)</span><span class="st ok" contenteditable="true">6mm (2023)</span></div>
+                    <div class="check-item"><span class="c-name">Tires (Rear)</span><span class="st ok" contenteditable="true">5mm (2023)</span></div>
+                </div>
+
+                <div>
+                    <h2>Interior & Electronics</h2>
+                    <div class="check-item"><span class="c-name">Dashboard</span><span class="st ok" contenteditable="true">CLEAN</span></div>
+                    <div class="check-item"><span class="c-name">Upholstery</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Steering Wheel</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">AC / Climate</span><span class="st ok" contenteditable="true">COLD</span></div>
+                    <div class="check-item"><span class="c-name">Windows/Mirrors</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Infotainment</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Seat Heating</span><span class="st ok" contenteditable="true">OK</span></div>
+                    <div class="check-item"><span class="c-name">Sunroof</span><span class="st ok" contenteditable="true">N/A</span></div>
+
+                    <h2>Documents</h2>
+                    <div class="check-item"><span class="c-name">Registration Part 1</span><span class="st ok" contenteditable="true">YES</span></div>
+                    <div class="check-item"><span class="c-name">Registration Part 2</span><span class="st ok" contenteditable="true">YES</span></div>
+                    <div class="check-item"><span class="c-name">COC Certificate</span><span class="st ok" contenteditable="true">YES</span></div>
+                    <div class="check-item"><span class="c-name">Service History</span><span class="st ok" contenteditable="true">DIGITAL</span></div>
+                    <div class="check-item"><span class="c-name">Inspection Valid</span><span class="st warn" contenteditable="true">EXPIRED</span></div>
+                </div>
+            </div>
+
+            <h2>OBD Diagnostic Scan</h2>
+            <div style="background: #eee; border: 1px solid #ccc; padding: 10px; font-family: monospace; font-size: 9pt; min-height: 80px; border-radius: 4px;" contenteditable="true">
+                > CONNECTING TO ECU... OK<br>
+                > SCANNING ENGINE MODULE... NO FAULTS FOUND<br>
+                > SCANNING TRANSMISSION MODULE... NO FAULTS FOUND<br>
+                > SCANNING AIRBAG MODULE... NO FAULTS FOUND<br>
+                > SCANNING BODY CONTROL... 1 FAULT FOUND<br>
+                - Code 8041A: Right mirror heating element open circuit.
+            </div>
+        </div>
+        <div class="footer">daePolska - Diagnostic Auto Export | www.daepolska.com</div>
+    </div>
+
+    <div class="sheet">
+        <div class="header">
+            <div class="logo">DAE<span>POLSKA</span></div>
+            <div class="meta">VISUAL REPORT</div>
+        </div>
+        <div class="content">
+            <h2>Paint Thickness (Microns / µm)</h2>
+            
+            <div class="paint-container">
+                <div class="car-outline"></div>
+                <div class="pt-val" style="top: 10%; left: 47%;" contenteditable="true">110</div> <div class="pt-val" style="top: 45%; left: 47%;" contenteditable="true">120</div> <div class="pt-val" style="top: 85%; left: 47%;" contenteditable="true">115</div> <div class="pt-val" style="top: 35%; left: 10%;" contenteditable="true">105</div> <div class="pt-val" style="top: 35%; right: 10%;" contenteditable="true">108</div> <div class="pt-val" style="top: 60%; left: 10%;" contenteditable="true">190</div> <div class="pt-val" style="top: 60%; right: 10%;" contenteditable="true">110</div> </div>
+
+            <h2>Photo Gallery</h2>
+            <div class="gallery">
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+                <div class="g-slot" onclick="upload(this)"><i class="fas fa-plus"></i><input type="file" hidden onchange="preview(this)"></div>
+            </div>
+        </div>
+        <div class="footer">daePolska - Diagnostic Auto Export | www.daepolska.com</div>
+    </div>
+
+    <script>
+        function upload(el) { el.querySelector('input').click(); }
+        function preview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var parent = input.parentElement;
+                    // Remove old img/icon
+                    var oldImg = parent.querySelector('img');
+                    if(oldImg) oldImg.remove();
+                    var icons = parent.querySelectorAll('i, span');
+                    icons.forEach(i => i.style.display = 'none');
+                    
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    parent.appendChild(img);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

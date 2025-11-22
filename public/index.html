@@ -1,178 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>daePolska | Professional Vehicle Inspections</title>
+    <title>daePolska | Profesjonalne Inspekcje Pojazdów</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .hero-bg {
-            background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://images.unsplash.com/photo-1562519819-016930ada315?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        .animate-fade-in { animation: fadeIn 1s ease-out; }
-        .animate-slide-up { animation: slideUp 0.8s ease-out; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="text-white antialiased">
 
-    <nav class="bg-white/95 backdrop-blur-sm shadow-md fixed w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-extrabold text-blue-900 tracking-wide">
-                <i class="fas fa-car-side mr-2"></i>dae<span class="text-red-600">Polska</span>
+    <div class="video-bg-container">
+        <div class="video-overlay"></div>
+        <video autoplay muted loop playsinline class="back-video" poster="src/poster.jpg">
+            <source src="src/video_bg.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat">
+                DAE<span class="text-accent-orange">POLSKA</span>
             </a>
-            <div class="flex items-center space-x-6">
-                <div class="hidden md:flex space-x-6 font-medium text-gray-600">
-                    <a href="#services" class="hover:text-blue-600 transition" data-i18n="nav_services">Services</a>
-                    <a href="#order" class="hover:text-blue-600 transition" data-i18n="nav_order">Order Inspection</a>
-                    <a href="#contact" class="hover:text-blue-600 transition" data-i18n="nav_contact">Contact</a>
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <div class="hidden md:flex space-x-6 font-inter font-medium text-sm uppercase">
+                    <a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info">Proces</a>
+                    <a href="#services" class="hover:text-accent-orange transition" data-i18n="nav_services">Cennik</a>
+                    <a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews">Opinie & FAQ</a>
+                    <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
                 </div>
                 <div class="relative">
-                    <select id="lang-selector" class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-                        <option value="en">🇺🇸 EN (EUR)</option>
-                        <option value="pl">🇵🇱 PL (PLN)</option>
-                        <option value="nl">🇳🇱 NL (EUR)</option>
+                    <select id="lang-selector" class="bg-transparent border border-white/30 text-white py-1 px-2 md:py-2 md:px-4 text-xs md:text-sm rounded-full focus:outline-none focus:border-accent-orange cursor-pointer backdrop-blur-md">
+                        <option value="pl" class="text-gray-900" selected>🇵🇱 PL</option>
+                        <option value="en" class="text-gray-900">🇬🇧 EN</option>
+                        <option value="nl" class="text-gray-900">🇳🇱 NL</option>
                     </select>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-bg h-screen flex items-center justify-center text-center text-white relative">
-        <div class="px-4 max-w-4xl animate-slide-up">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight" data-i18n="hero_title">
-                Professional Vehicle Inspections
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 text-gray-200" data-i18n="hero_subtitle">
-                We verify cars in Belgium, Netherlands & Germany. Buy with confidence.
-            </p>
-            <a href="#order" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full text-lg font-bold shadow-lg transition transform hover:scale-105" data-i18n="hero_btn">
-                Book Inspection Now
-            </a>
-        </div>
-        <div class="absolute bottom-10 animate-bounce">
-            <i class="fas fa-chevron-down text-2xl"></i>
-        </div>
-    </header>
+    <main class="snap-container">
 
-    <section id="services" class="py-24 container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800" data-i18n="packages_title">Select Your Package</h2>
-        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            
-            <div class="bg-white p-8 rounded-2xl shadow border border-gray-100 card-hover transition-all duration-300 cursor-pointer group" onclick="selectPackage('Basic')">
-                <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition">BASIC</h3>
-                    <p class="text-4xl font-extrabold text-blue-900 mt-2 price-display" data-pkg="basic">€200</p>
+        <section id="hero" class="snap-section flex items-center justify-center text-center px-4">
+            <div class="max-w-7xl w-full space-y-8 animate-fade-up">
+                <div>
+                    <h1 class="text-4xl md:text-7xl lg:text-8xl font-black font-montserrat leading-tight mb-6" data-i18n="hero_title">
+                        KUPUJ AUTA ZZA GRANICY<br><span class="text-accent-orange text-stroke">BEZ RYZYKA.</span>
+                    </h1>
+                    <p class="text-base md:text-2xl font-inter text-gray-200 max-w-4xl mx-auto leading-relaxed font-light" data-i18n="hero_subtitle">
+                        Kompleksowe raporty techniczne aut w Belgii, Holandii i Niemczech. Sprawdzamy to, czego handlarz nie powie. Oszczędź czas i uniknij kosztownych wpadek.
+                    </p>
                 </div>
-                <ul class="space-y-4 text-gray-600 mb-8">
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_photos">30-40 Photos</span></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_docs">Document Check</span></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_pdf">PDF Report</span></li>
-                </ul>
-                <button class="w-full bg-gray-100 text-gray-800 font-bold py-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition" data-i18n="btn_select">Select</button>
-            </div>
 
-            <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-blue-600 transform md:-translate-y-4 relative cursor-pointer group" onclick="selectPackage('Standard')">
-                <span class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl uppercase" data-i18n="badge_popular">Most Popular</span>
-                <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition">STANDARD</h3>
-                    <p class="text-5xl font-extrabold text-blue-900 mt-2 price-display" data-pkg="standard">€300</p>
-                </div>
-                <ul class="space-y-4 text-gray-600 mb-8">
-                    <li class="flex items-center"><i class="fas fa-check-double text-blue-600 mr-3"></i> <strong data-i18n="pkg_basic_incl">Everything in Basic</strong></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_obd">OBD Diagnostics</span></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_paint">Paint Thickness</span></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_drive">Test Drive</span></li>
-                </ul>
-                <button class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-blue-700 transition transform hover:scale-105" data-i18n="btn_select">Select Standard</button>
-            </div>
-
-             <div class="bg-white p-8 rounded-2xl shadow border border-gray-100 card-hover transition-all duration-300 cursor-pointer group" onclick="selectPackage('Premium')">
-                <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition">PREMIUM</h3>
-                    <p class="text-4xl font-extrabold text-purple-900 mt-2 price-display" data-pkg="premium">€450</p>
-                </div>
-                <ul class="space-y-4 text-gray-600 mb-8">
-                    <li class="flex items-center"><i class="fas fa-check-double text-purple-600 mr-3"></i> <strong data-i18n="pkg_standard_incl">Everything in Standard</strong></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_negotiation">Price Negotiation</span></li>
-                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_video">4K Video</span></li>
-                </ul>
-                <button class="w-full bg-gray-100 text-gray-800 font-bold py-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition" data-i18n="btn_select">Select</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="order" class="bg-gray-100 py-24">
-        <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800" data-i18n="form_title">Order Your Inspection</h2>
-            
-            <form id="inspection-form" class="bg-white p-10 rounded-2xl shadow-xl">
-                <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-100 flex justify-between items-center">
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto shadow-2xl">
                     <div>
-                        <span class="block text-sm text-blue-600 font-bold uppercase" data-i18n="form_selected">Selected Package</span>
-                        <input type="text" id="selected-pkg" class="bg-transparent font-bold text-xl text-gray-800 focus:outline-none" readonly value="Standard">
+                        <span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">500+</span>
+                        <span class="text-xs md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_cars">Sprawdzonych Aut</span>
                     </div>
-                    <div class="text-right">
-                        <span class="block text-2xl font-bold text-blue-900" id="display-price-form">€300</span>
-                        <input type="hidden" id="pkg-price-eur" value="300">
-                        <input type="hidden" id="pkg-price-pln" value="1300">
-                        <input type="hidden" id="current-currency" value="eur">
+                    <div>
+                        <span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">€2M+</span>
+                        <span class="text-xs md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_saved">Zaoszczędzone</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">24h</span>
+                        <span class="text-xs md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_time">Czas Reakcji</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">100%</span>
+                        <span class="text-xs md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_satisfaction">Gwarancja Usługi</span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
-                    <input type="email" id="email" placeholder="Email Address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                <div class="pt-4">
+                    <p class="text-gray-400 text-sm mb-3 font-inter uppercase tracking-wide" data-i18n="hero_cta_desc">Zaufaj ekspertom. Oszczędź czas, nerwy i pieniądze.</p>
+                    <a href="#services" class="bg-accent-orange text-white px-10 py-4 md:px-14 md:py-5 rounded-full text-sm md:text-xl font-black font-montserrat hover:bg-orange-600 transition transform hover:scale-105 inline-block shadow-lg shadow-orange-500/40" data-i18n="hero_btn">
+                        SPRAWDŹ OFERTĘ
+                    </a>
                 </div>
-                <div class="mb-6">
-                    <input type="text" id="phone" placeholder="Phone Number" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
-                </div>
-
-                <hr class="border-gray-100 my-8">
-                <h3 class="font-bold mb-6 text-lg text-gray-700" data-i18n="form_car_details">Vehicle Details</h3>
-
-                <div class="mb-6">
-                    <input type="url" id="url" placeholder="Link to Advertisement (mobile.de, autoscout24...)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
-                </div>
-                <div class="mb-8">
-                    <input type="text" id="location" placeholder="Vehicle Location (City, Country)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
-                </div>
-
-                <h3 class="font-bold mb-4 text-lg text-gray-700" data-i18n="form_payment">Secure Payment</h3>
-                
-                <div id="card-element" class="p-4 border border-gray-200 rounded-lg mb-2 bg-gray-50"></div>
-                <div id="card-errors" role="alert" class="text-red-500 text-sm mb-6 h-5"></div>
-
-                <button type="submit" id="submit-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex justify-center items-center">
-                    <i class="fas fa-lock mr-3"></i> <span data-i18n="btn_pay">Pay & Order</span>
-                </button>
-                <p class="text-center text-gray-400 text-xs mt-4"><i class="fas fa-shield-alt"></i> SSL Encrypted Payment powered by Stripe</p>
-            </form>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-2xl font-bold mb-4">daePolska</h2>
-            <p class="text-gray-400 mb-8">Diagnostic Auto Export</p>
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p class="text-gray-600 text-sm">&copy; 2025 daePolska. All rights reserved.</p>
-        </div>
-    </footer>
+        </section>
 
+        <section id="info" class="snap-section flex items-center justify-center px-4">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="info_title">CO DOKŁADNIE SPRAWDZAMY?</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-car text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_body_title">1. Nadwozie i Lakier</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_body_desc">
+                            Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-cogs text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_eng_title">2. Silnik i Osprzęt</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_eng_desc">
+                            Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-tachometer-alt text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_drive_title">3. Napęd i Zawieszenie</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_drive_desc">
+                            Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-chair text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_int_title">4. Wnętrze i Wyposażenie</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_int_desc">
+                            Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-laptop-medical text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_diag_title">5. Diagnostyka Komputerowa</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_diag_desc">
+                            Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
+                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-road text-2xl"></i></div>
+                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_test_title">6. Jazda Próbna</h3>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_test_desc">
+                            Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="snap-section flex items-center justify-center px-4">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 hover:-translate-y-3 transition-all duration-500 cursor-pointer group relative" onclick="selectPackage('Basic')">
+                        <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-accent-orange transition">BASIC</h3>
+                        <p class="text-5xl font-black text-accent-orange mb-6 price-display font-montserrat" data-pkg="basic">€120</p>
+                        <ul class="space-y-3 text-gray-300 font-inter mb-8 text-base">
+                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_photos">30-40 Zdjęć</span></li>
+                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_docs">Dokumenty</span></li>
+                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_pdf">Raport PDF</span></li>
+                        </ul>
+                        <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-accent-orange group-hover:border-accent-orange transition" data-i18n="btn_select">WYBIERZ</button>
+                    </div>
+
+                    <div class="glass-card p-8 border-accent-orange/50 transform md:scale-110 z-10 cursor-pointer relative shadow-2xl shadow-orange-500/10" onclick="selectPackage('Standard')">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-accent-orange"></div>
+                        <div class="flex justify-between items-center mb-2">
+                             <h3 class="text-2xl font-bold font-montserrat text-accent-orange">STANDARD</h3>
+                             <span class="bg-accent-orange text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Bestseller</span>
+                        </div>
+                        <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€245</p>
+                        <ul class="space-y-3 text-gray-200 font-inter mb-8 text-base">
+                             <li class="font-bold text-white"><i class="fas fa-check-double text-accent-orange mr-3"></i> <span data-i18n="pkg_basic_incl">Wszystko z Basic</span></li>
+                            <li><i class="fas fa-laptop text-accent-orange mr-3"></i> <span data-i18n="pkg_obd">Diagnostyka OBD</span></li>
+                            <li><i class="fas fa-layer-group text-accent-orange mr-3"></i> <span data-i18n="pkg_paint">Miernik Lakieru</span></li>
+                            <li><i class="fas fa-car text-accent-orange mr-3"></i> <span data-i18n="pkg_drive">Jazda Próbna</span></li>
+                        </ul>
+                        <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg" data-i18n="btn_select">WYBIERZ</button>
+                    </div>
+
+                     <div class="glass-card p-8 cursor-pointer group relative" onclick="selectPackage('Premium')">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
+                        <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-purple-400 transition">PREMIUM</h3>
+                        <p class="text-5xl font-black text-purple-400 mb-6 price-display font-montserrat" data-pkg="premium">€545</p>
+                        <ul class="space-y-3 text-gray-300 font-inter mb-8 text-base">
+                            <li class="font-bold text-white"><i class="fas fa-check-double text-purple-400 mr-3"></i> <span data-i18n="pkg_standard_incl">Wszystko ze Standard</span></li>
+                            <li><i class="fas fa-handshake text-purple-400 mr-3"></i> <span data-i18n="pkg_negotiation">Negocjacja Ceny</span></li>
+                            <li><i class="fas fa-video text-purple-400 mr-3"></i> <span data-i18n="pkg_video">Wideo 4K + VIP</span></li>
+                        </ul>
+                         <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-purple-500 group-hover:border-purple-500 transition" data-i18n="btn_select">WYBIERZ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews-faq" class="snap-section flex items-center justify-center px-4">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid md:grid-cols-2 gap-12">
+                    
+                    <div>
+                        <h2 class="text-3xl font-black mb-8 font-montserrat text-accent-orange uppercase" data-i18n="reviews_title">Klienci o nas</h2>
+                        <div class="space-y-6">
+                            <div class="glass-card p-6 hover:bg-white/5 transition">
+                                <div class="flex items-center space-x-4 mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">MK</div>
+                                    <div><h4 class="font-bold">Marek K.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
+                                </div>
+                                <p class="text-gray-300 text-sm italic" data-i18n="review_1">"Uratowali mnie przed zakupem powypadkowego BMW. Raport był niesamowicie szczegółowy."</p>
+                            </div>
+                            <div class="glass-card p-6 hover:bg-white/5 transition">
+                                <div class="flex items-center space-x-4 mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">TW</div>
+                                    <div><h4 class="font-bold">Tomasz W.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
+                                </div>
+                                <p class="text-gray-300 text-sm italic" data-i18n="review_2">"Profesjonalne podejście. Wideo z inspekcji pokazało problemy z silnikiem, które bym przeoczył."</p>
+                            </div>
+                             <div class="glass-card p-6 hover:bg-white/5 transition">
+                                <div class="flex items-center space-x-4 mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">AZ</div>
+                                    <div><h4 class="font-bold">Anna Z.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
+                                </div>
+                                <p class="text-gray-300 text-sm italic" data-i18n="review_3">"Auto kupione! Negocjacje pokryły koszt usługi z nawiązką. Polecam."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-3xl font-black mb-8 font-montserrat text-white uppercase" data-i18n="faq_title">Częste Pytania</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q1">Jak szybko otrzymam raport?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a1">Działamy błyskawicznie. Raport otrzymasz zazwyczaj w ciągu 24-48h od opłacenia zamówienia, zależnie od dostępności sprzedającego.</p>
+                            </div>
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q2">Czy negocjujecie cenę?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a2">Tak, w pakiecie Premium. Znamy lokalny rynek i język, co pozwala nam często uzyskać rabaty przewyższające koszt naszej usługi.</p>
+                            </div>
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q3">Gdzie dokładnie działacie?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a3">Nasza baza to Antwerpia. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (Nadrenia Północna-Westfalia).</p>
+                            </div>
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a4">Jeśli nie zdążymy dojechać na inspekcję, bo auto zniknie z rynku – otrzymujesz natychmiastowy zwrot 100% środków.</p>
+                            </div>
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q5">Czy mogę jechać z wami?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a5">Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas, ale w pakiecie VIP jest możliwość wspólnego wyjazdu lub odbioru z lotniska.</p>
+                            </div>
+                            <div class="glass-card p-5">
+                                <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q6">Jak wygląda płatność?</h3>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a6">Płacisz bezpiecznie online (Karta/BLIK) przez Stripe. Otrzymujesz fakturę na każdą usługę.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="order" class="snap-section flex items-center justify-center px-4">
+             <div class="container mx-auto max-w-3xl">
+                <div class="glass-card p-6 md:p-10 animate-fade-up">
+                    <h2 class="text-2xl md:text-4xl font-black text-center mb-6 md:mb-10 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
+                    <form id="inspection-form">
+                        <div class="mb-6 p-4 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
+                            <div>
+                                <span class="block text-xs text-accent-orange font-bold uppercase" data-i18n="form_selected">Wybrano</span>
+                                <input type="text" id="selected-pkg" class="bg-transparent font-black text-xl text-white w-24" readonly value="Standard">
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-3xl font-black text-accent-orange" id="display-price-form">1050 PLN</span>
+                                <input type="hidden" id="pkg-price-eur" value="245">
+                                <input type="hidden" id="pkg-price-pln" value="1050">
+                                <input type="hidden" id="current-currency" value="pln">
+                            </div>
+                        </div>
+
+                         <div class="mb-6">
+                            <label class="block text-xs font-bold mb-2 uppercase text-gray-400" data-i18n="form_payment_method">Wybierz metodę płatności</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="border border-accent-orange bg-accent-orange/20 p-3 rounded text-center cursor-pointer transition">
+                                    <i class="fas fa-credit-card text-xl mb-1"></i><br><span class="text-xs font-bold">Karta</span>
+                                </div>
+                                <div class="border border-white/10 bg-white/5 p-3 rounded text-center cursor-pointer hover:bg-white/10 transition opacity-50">
+                                    <i class="fab fa-paypal text-xl mb-1"></i><br><span class="text-xs font-bold">PayPal</span>
+                                </div>
+                                <div class="border border-white/10 bg-white/5 p-3 rounded text-center cursor-pointer hover:bg-white/10 transition opacity-50">
+                                    <i class="fas fa-mobile-alt text-xl mb-1"></i><br><span class="text-xs font-bold">BLIK</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 font-inter">
+                            <input type="text" id="name" placeholder="Imię i Nazwisko" class="glass-input text-sm" required>
+                            <input type="email" id="email" placeholder="Adres Email" class="glass-input text-sm" required>
+                        </div>
+                        <div class="mb-6 font-inter">
+                            <input type="text" id="phone" placeholder="Numer Telefonu" class="glass-input text-sm" required>
+                        </div>
+                        
+                        <h3 class="font-bold mb-4 text-sm md:text-lg font-montserrat" data-i18n="form_car_details">DANE POJAZDU</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 font-inter">
+                             <input type="url" id="url" placeholder="Link do ogłoszenia" class="glass-input text-sm" required>
+                             <input type="text" id="location" placeholder="Miasto, Kraj" class="glass-input text-sm" required>
+                        </div>
+                        
+                        <div id="card-element" class="p-4 glass-input mb-4"></div>
+                        <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mb-6 h-4"></div>
+
+                        <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-4 rounded-xl text-lg transition flex justify-center items-center shadow-lg font-montserrat">
+                            <i class="fas fa-lock mr-3"></i> <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="snap-section flex items-center justify-center px-4">
+             <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="text-left space-y-8">
+                        <div>
+                            <h2 class="text-4xl md:text-6xl font-black mb-4 font-montserrat" data-i18n="contact_title">GOTOWY NA IMPORT?</h2>
+                            <p class="text-gray-300 text-lg" data-i18n="contact_desc">Masz pytania przed zamówieniem? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość.</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-accent-orange/20 flex items-center justify-center text-accent-orange"><i class="fas fa-phone"></i></div>
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase font-bold">Telefon / WhatsApp</p>
+                                    <p class="text-xl font-bold">+32 471 943 560</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase font-bold">Email</p>
+                                    <p class="text-xl font-bold">info@daepolska.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-8 md:p-10">
+                        <h3 class="text-2xl font-bold mb-6 font-montserrat" data-i18n="contact_form_title">Wyślij zapytanie</h3>
+                        <form id="contact-form">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-gray-400 mb-1 ml-1" data-i18n="lbl_name">Imię</label>
+                                    <input type="text" id="contact-name" class="glass-input" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-400 mb-1 ml-1" data-i18n="lbl_email">Email</label>
+                                    <input type="email" id="contact-email" class="glass-input" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-400 mb-1 ml-1" data-i18n="lbl_message">Wiadomość</label>
+                                    <textarea id="contact-message" rows="4" class="glass-input" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition" data-i18n="btn_send">WYŚLIJ WIADOMOŚĆ</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                
+                <footer class="border-t border-white/10 mt-16 pt-8 text-center text-xs text-gray-500 font-inter">
+                    <p>&copy; 2025 daePolska. <span data-i18n="footer_rights">Wszelkie prawa zastrzeżone.</span></p>
+                </footer>
+            </div>
+        </section>
+
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
