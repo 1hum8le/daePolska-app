@@ -50,7 +50,7 @@ daePolska-app/
 ├── server.js             # Main backend application entry point
 ├── package.json          # Project dependencies
 └── README.md             # Documentation
-
+```
 ## 🚀 Installation & Setup
 
 ### Prerequisites
