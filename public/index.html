@@ -2,15 +2,40 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>daePolska | Profesjonalne Inspekcje Pojazdów</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://js.stripe.com/v3/"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .float-wa {
+            position: fixed; width: 50px; height: 50px; bottom: 20px; right: 20px;
+            background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center;
+            font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100;
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.1); background-color: #20b858; }
+        .custom-checkbox { accent-color: #FF5722; width: 16px; height: 16px; cursor: pointer; }
+        
+        /* Fix na miganie treści przy ładowaniu */
+        body { opacity: 0; animation: fadeIn 0.5s ease-in forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
 </head>
 <body class="text-white antialiased">
+
+    <a href="https://wa.me/32471943560" class="float-wa" target="_blank" title="Napisz na WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <div class="video-bg-container">
         <div class="video-overlay"></div>
@@ -22,7 +47,7 @@
     <nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#hero" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat">
-                DAE<span class="text-accent-orange">POLSKA</span>
+                DAE<span class="text-accent-orange">POLAND</span>
             </a>
             <div class="flex items-center space-x-4 md:space-x-8">
                 <div class="hidden md:flex space-x-6 font-inter font-medium text-sm uppercase">
@@ -43,7 +68,7 @@
     </nav>
 
     <main class="snap-container">
-
+            <!-- Hero Section -->
         <section id="hero" class="snap-section flex items-center justify-center text-center px-4">
             <div class="max-w-7xl w-full space-y-8 animate-fade-up">
                 <div>
@@ -82,7 +107,7 @@
                 </div>
             </div>
         </section>
-
+            <!-- Info Section -->
         <section id="info" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="info_title">CO DOKŁADNIE SPRAWDZAMY?</h2>
@@ -92,59 +117,48 @@
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-car text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_body_title">1. Nadwozie i Lakier</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_body_desc">
-                            Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_body_desc">Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.</p>
                     </div>
 
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-cogs text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_eng_title">2. Silnik i Osprzęt</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_eng_desc">
-                            Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_eng_desc">Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.</p>
                     </div>
 
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-tachometer-alt text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_drive_title">3. Napęd i Zawieszenie</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_drive_desc">
-                            Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_drive_desc">Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.</p>
                     </div>
 
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-chair text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_int_title">4. Wnętrze i Wyposażenie</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_int_desc">
-                            Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_int_desc">Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.</p>
                     </div>
 
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-laptop-medical text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_diag_title">5. Diagnostyka Komputerowa</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_diag_desc">
-                            Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_diag_desc">Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.</p>
                     </div>
 
                     <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
                         <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-road text-2xl"></i></div>
                         <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_test_title">6. Jazda Próbna</h3>
-                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_test_desc">
-                            Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.
-                        </p>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_test_desc">Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.</p>
                     </div>
 
                 </div>
             </div>
         </section>
-
+            <!-- Services Section -->
         <section id="services" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
                 <div class="grid md:grid-cols-3 gap-8">
+                    
                     <div class="glass-card p-8 hover:-translate-y-3 transition-all duration-500 cursor-pointer group relative" onclick="selectPackage('Basic')">
                         <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-accent-orange transition">BASIC</h3>
                         <p class="text-5xl font-black text-accent-orange mb-6 price-display font-montserrat" data-pkg="basic">€120</p>
@@ -165,9 +179,9 @@
                         <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€245</p>
                         <ul class="space-y-3 text-gray-200 font-inter mb-8 text-base">
                              <li class="font-bold text-white"><i class="fas fa-check-double text-accent-orange mr-3"></i> <span data-i18n="pkg_basic_incl">Wszystko z Basic</span></li>
-                            <li><i class="fas fa-laptop text-accent-orange mr-3"></i> <span data-i18n="pkg_obd">Diagnostyka OBD</span></li>
-                            <li><i class="fas fa-layer-group text-accent-orange mr-3"></i> <span data-i18n="pkg_paint">Miernik Lakieru</span></li>
-                            <li><i class="fas fa-car text-accent-orange mr-3"></i> <span data-i18n="pkg_drive">Jazda Próbna</span></li>
+                            <li><i class="fas fa-laptop text-accent-orange mr-3"></i> <span data-i18n="pkg_obd">Pełna Diagnostyka OBD</span></li>
+                            <li><i class="fas fa-layer-group text-accent-orange mr-3"></i> <span data-i18n="pkg_paint">Mierzenie Lakieru</span></li>
+                            <li><i class="fas fa-car text-accent-orange mr-3"></i> <span data-i18n="pkg_drive">Wykonanie Jazdy Próbnej</span></li>
                         </ul>
                         <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg" data-i18n="btn_select">WYBIERZ</button>
                     </div>
@@ -186,7 +200,7 @@
                 </div>
             </div>
         </section>
-
+            <!-- Reviews Section -->
         <section id="reviews-faq" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <div class="grid md:grid-cols-2 gap-12">
@@ -199,14 +213,14 @@
                                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">MK</div>
                                     <div><h4 class="font-bold">Marek K.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
                                 </div>
-                                <p class="text-gray-300 text-sm italic" data-i18n="review_1">"Uratowali mnie przed zakupem powypadkowego BMW. Raport był niesamowicie szczegółowy."</p>
+                                <p class="text-gray-300 text-sm italic" data-i18n="review_1">"Uratowali mnie przed zakupem powypadkowego BMW. Raport był niesamowicie szczegółowy. Dobrze wydane pieniądze."</p>
                             </div>
                             <div class="glass-card p-6 hover:bg-white/5 transition">
                                 <div class="flex items-center space-x-4 mb-3">
                                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">TW</div>
                                     <div><h4 class="font-bold">Tomasz W.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
                                 </div>
-                                <p class="text-gray-300 text-sm italic" data-i18n="review_2">"Profesjonalne podejście. Wideo z inspekcji pokazało problemy z silnikiem, które bym przeoczył."</p>
+                                <p class="text-gray-300 text-sm italic" data-i18n="review_2">"Profesjonalne podejście. Wideo z inspekcji pokazało problemy z silnikiem, które bym przeoczył. Polecam każdemu."</p>
                             </div>
                              <div class="glass-card p-6 hover:bg-white/5 transition">
                                 <div class="flex items-center space-x-4 mb-3">
@@ -235,7 +249,7 @@
                             </div>
                             <div class="glass-card p-5">
                                 <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</h3>
-                                <p class="text-gray-400 text-xs" data-i18n="faq_a4">Jeśli nie zdążymy dojechać na inspekcję, bo auto zniknie z rynku – otrzymujesz natychmiastowy zwrot 100% środków.</p>
+                                <p class="text-gray-400 text-xs" data-i18n="faq_a4">Jeśli nie zdążymy dojechać na inspekcję, bo auto zniknie z rynku - otrzymujesz natychmiastowy zwrot 100% środków.</p>
                             </div>
                             <div class="glass-card p-5">
                                 <h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q5">Czy mogę jechać z wami?</h3>
@@ -251,65 +265,86 @@
                 </div>
             </div>
         </section>
-
-        <section id="order" class="snap-section flex items-center justify-center px-4">
-             <div class="container mx-auto max-w-3xl">
-                <div class="glass-card p-6 md:p-10 animate-fade-up">
-                    <h2 class="text-2xl md:text-4xl font-black text-center mb-6 md:mb-10 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
+            <!-- Order Section -->
+       <section id="order" class="snap-section flex items-center justify-center px-4 py-12"> <div class="container mx-auto max-w-2xl"> <div class="glass-card p-6 md:p-8 animate-fade-up"> <h2 class="text-2xl md:text-3xl font-black text-center mb-6 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
+                    
                     <form id="inspection-form">
-                        <div class="mb-6 p-4 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
+                        <div class="mb-5 p-3 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
                             <div>
-                                <span class="block text-xs text-accent-orange font-bold uppercase" data-i18n="form_selected">Wybrano</span>
-                                <input type="text" id="selected-pkg" class="bg-transparent font-black text-xl text-white w-24" readonly value="Standard">
+                                <span class="block text-[10px] text-accent-orange font-bold uppercase" data-i18n="form_selected">Wybrano</span>
+                                <input type="text" id="selected-pkg" class="bg-transparent font-black text-lg text-white w-24 focus:outline-none" readonly value="Standard">
                             </div>
                             <div class="text-right">
-                                <span class="block text-3xl font-black text-accent-orange" id="display-price-form">1050 PLN</span>
+                                <span class="block text-2xl font-black text-accent-orange" id="display-price-form">1050 PLN</span>
                                 <input type="hidden" id="pkg-price-eur" value="245">
                                 <input type="hidden" id="pkg-price-pln" value="1050">
                                 <input type="hidden" id="current-currency" value="pln">
                             </div>
                         </div>
 
-                         <div class="mb-6">
-                            <label class="block text-xs font-bold mb-2 uppercase text-gray-400" data-i18n="form_payment_method">Wybierz metodę płatności</label>
-                            <div class="grid grid-cols-3 gap-3">
-                                <div class="border border-accent-orange bg-accent-orange/20 p-3 rounded text-center cursor-pointer transition">
-                                    <i class="fas fa-credit-card text-xl mb-1"></i><br><span class="text-xs font-bold">Karta</span>
+                        <div class="mb-5">
+                            <label class="block text-[10px] font-bold mb-2 uppercase text-gray-400" data-i18n="form_payment_method">Wybierz metodę płatności</label>
+                            <input type="hidden" id="selected-payment-method" value="card">
+                            <div class="grid grid-cols-3 gap-2"> <div id="pm-card" onclick="selectPayment('card')" class="payment-option border border-accent-orange bg-accent-orange/20 p-2 rounded-lg text-center cursor-pointer transition transform scale-105 shadow-lg shadow-orange-500/20">
+                                    <i class="fas fa-credit-card text-lg mb-1 text-white"></i><br><span class="text-[10px] font-bold text-white">Karta</span>
                                 </div>
-                                <div class="border border-white/10 bg-white/5 p-3 rounded text-center cursor-pointer hover:bg-white/10 transition opacity-50">
-                                    <i class="fab fa-paypal text-xl mb-1"></i><br><span class="text-xs font-bold">PayPal</span>
+                                <div id="pm-paypal" onclick="selectPayment('paypal')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer transition opacity-60 hover:opacity-100 hover:bg-white/10">
+                                    <i class="fab fa-paypal text-lg mb-1 text-blue-400"></i><br><span class="text-[10px] font-bold text-gray-300">PayPal</span>
                                 </div>
-                                <div class="border border-white/10 bg-white/5 p-3 rounded text-center cursor-pointer hover:bg-white/10 transition opacity-50">
-                                    <i class="fas fa-mobile-alt text-xl mb-1"></i><br><span class="text-xs font-bold">BLIK</span>
+                                <div id="pm-blik" onclick="selectPayment('blik')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer transition opacity-60 hover:opacity-100 hover:bg-white/10">
+                                    <i class="fas fa-mobile-alt text-lg mb-1 text-red-500"></i><br><span class="text-[10px] font-bold text-gray-300">BLIK</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 font-inter">
-                            <input type="text" id="name" placeholder="Imię i Nazwisko" class="glass-input text-sm" required>
-                            <input type="email" id="email" placeholder="Adres Email" class="glass-input text-sm" required>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3 font-inter">
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1 ml-1">* <span data-i18n="lbl_name">Imię i Nazwisko</span></label>
+                                <input type="text" id="name" class="glass-input text-sm py-2" required placeholder="Jan Kowalski" data-i18n-placeholder="ph_name">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-gray-400 mb-1 ml-1">* <span data-i18n="lbl_email">Email</span></label>
+                                <input type="email" id="email" class="glass-input text-sm py-2" required placeholder="jan@przyklad.com" data-i18n-placeholder="ph_email">
+                            </div>
                         </div>
-                        <div class="mb-6 font-inter">
-                            <input type="text" id="phone" placeholder="Numer Telefonu" class="glass-input text-sm" required>
+                        <div class="mb-3 font-inter">
+                            <label class="block text-[10px] text-gray-400 mb-1 ml-1"><span data-i18n="lbl_phone">Telefon (Opcjonalnie)</span></label>
+                            <input type="text" id="phone" class="glass-input text-sm py-2" placeholder="+48 ... (Opcjonalnie)" data-i18n-placeholder="ph_phone">
                         </div>
                         
-                        <h3 class="font-bold mb-4 text-sm md:text-lg font-montserrat" data-i18n="form_car_details">DANE POJAZDU</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 font-inter">
-                             <input type="url" id="url" placeholder="Link do ogłoszenia" class="glass-input text-sm" required>
-                             <input type="text" id="location" placeholder="Miasto, Kraj" class="glass-input text-sm" required>
+                        <h3 class="font-bold mb-3 text-sm font-montserrat" data-i18n="form_car_details">DANE POJAZDU</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 font-inter">
+                             <input type="url" id="url" class="glass-input text-sm py-2" required placeholder="Link do ogłoszenia" data-i18n-placeholder="ph_url">
+                             <input type="text" id="location" class="glass-input text-sm py-2" required placeholder="Miasto, Kraj" data-i18n-placeholder="ph_loc">
+                        </div>
+
+                        <div class="mb-6 flex items-start space-x-3">
+                            <input type="checkbox" id="terms" required class="custom-checkbox mt-1">
+                            <label for="terms" class="text-[10px] text-gray-400 leading-relaxed cursor-pointer">
+                                <span data-i18n="terms_text">Akceptuję Regulamin. Rozumiem, że usługa jest opinią techniczną.</span>
+                            </label>
                         </div>
                         
-                        <div id="card-element" class="p-4 glass-input mb-4"></div>
+                        <div id="stripe-section" class="mb-4 animate-fade-up">
+                            <div id="card-element" class="p-3 glass-input"></div> <p class="text-[10px] text-gray-500 mt-2"><i class="fas fa-lock"></i> <span data-i18n="txt_secure">Szyfrowane SSL</span></p>
+                        </div>
+
+                        <div id="alt-payment-section" class="hidden mb-6 p-3 bg-blue-500/20 border border-blue-500/30 rounded-xl text-center animate-fade-up">
+                            <p class="text-xs font-bold mb-1" data-i18n="txt_redirect">Przekierowanie</p>
+                            <p class="text-[10px] text-gray-300" data-i18n="txt_redirect_desc">Zostaniesz przeniesiony do bramki płatności.</p>
+                        </div>
+                        
                         <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mb-6 h-4"></div>
 
-                        <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-4 rounded-xl text-lg transition flex justify-center items-center shadow-lg font-montserrat">
+                        <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-3 rounded-xl text-base transition flex justify-center items-center shadow-lg font-montserrat">
                             <i class="fas fa-lock mr-3"></i> <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
+                            <p id="order-status" class="mt-3 text-sm font-bold text-center hidden"></p>
                         </button>
                     </form>
                 </div>
             </div>
         </section>
-
+            <!-- Contact Section -->
         <section id="contact" class="snap-section flex items-center justify-center px-4">
              <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -332,7 +367,7 @@
                                 <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500"><i class="fas fa-envelope"></i></div>
                                 <div>
                                     <p class="text-xs text-gray-400 uppercase font-bold">Email</p>
-                                    <p class="text-xl font-bold">info@daepolska.com</p>
+                                    <p class="text-xl font-bold">info@daePoland.com</p>
                                 </div>
                             </div>
                         </div>
@@ -355,6 +390,7 @@
                                     <textarea id="contact-message" rows="4" class="glass-input" required></textarea>
                                 </div>
                                 <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition" data-i18n="btn_send">WYŚLIJ WIADOMOŚĆ</button>
+                                <p id="contact-status" class="mt-3 text-sm font-bold text-center hidden"></p>
                             </div>
                         </form>
                     </div>
@@ -362,12 +398,12 @@
                 </div>
                 
                 <footer class="border-t border-white/10 mt-16 pt-8 text-center text-xs text-gray-500 font-inter">
-                    <p>&copy; 2025 daePolska. <span data-i18n="footer_rights">Wszelkie prawa zastrzeżone.</span></p>
+                    <p>&copy; 2025 daePoland. <span data-i18n="footer_rights">Wszelkie prawa zastrzeżone.</span></p>
                 </footer>
             </div>
         </section>
 
     </main>
-    <script src="script.js"></script>
+    <script type="module" src="script.js" defer></script>
 </body>
 </html>
