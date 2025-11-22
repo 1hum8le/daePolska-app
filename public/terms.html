@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulamin | daePoland</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-white antialiased bg-gray-900">
+
+    <nav class="w-full py-4 px-6 border-b border-white/10 bg-black/40 backdrop-blur-md fixed top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-black font-montserrat">DAE<span class="text-accent-orange">POLAND</span></a>
+            <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">Powrót</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-2xl px-4 py-32">
+        <div class="glass-card p-8 md:p-12">
+            <h1 class="text-3xl md:text-4xl font-black font-montserrat mb-8 text-accent-orange">Regulamin Świadczenia Usług</h1>
+            
+            <div class="space-y-8 font-inter text-gray-300 text-sm leading-relaxed">
+                
+                <section>
+                    <h2 class="text-xl font-bold text-white mb-4">1. Definicje</h2>
+                    <p><strong>Usługodawca:</strong> daePoland z siedzibą w [MIEJSCOWOŚĆ].</p>
+                    <p><strong>Klient:</strong> Osoba fizyczna lub prawna zlecająca inspekcję pojazdu.</p>
+                    <p><strong>Usługa:</strong> Weryfikacja stanu technicznego pojazdu na terenie Belgii, Holandii lub Niemiec, zakończona raportem.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-white mb-4">2. Zakres Usługi i Odpowiedzialność</h2>
+                    <p class="mb-2">Usługa polega na profesjonalnych oględzinach pojazdu w miejscu jego postoju. Raport z inspekcji stanowi <strong>subiektywną opinię techniczną eksperta</strong> sporządzoną na podstawie stanu faktycznego w momencie oględzin.</p>
+                    <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-lg">
+                        <p class="text-red-200 font-bold">Ważne:</p>
+                        <p>Raport nie jest gwarancją na pojazd. Usługodawca nie ponosi odpowiedzialności za wady ukryte, których wykrycie wymagałoby demontażu części pojazdu, użycia podnośnika warsztatowego (jeśli niedostępny u sprzedawcy) lub ujawniły się po czasie.</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-white mb-4">3. Zamówienia i Płatności</h2>
+                    <p>Zamówienie usługi następuje poprzez wypełnienie formularza na stronie daePoland.com i opłacenie z góry 100% wartości zamówienia. Płatności obsługiwane są przez operatora Stripe.</p>
+                    <p class="mt-2">Usługodawca przystępuje do realizacji zlecenia (kontaktu ze sprzedawcą) niezwłocznie po zaksięgowaniu wpłaty.</p>
+                </section>
+
+                <section id="refunds">
+                    <h2 class="text-xl font-bold text-white mb-4">4. Polityka Zwrotów i Odstąpienie od Umowy</h2>
+                    <ul class="list-decimal ml-5 mt-2 space-y-2">
+                        <li><strong>Auto sprzedane/niedostępne:</strong> Jeśli po przyjęciu zlecenia okaże się, że pojazd został sprzedany lub sprzedawca odmawia udostępnienia go do oględzin, Klient otrzymuje <strong>zwrot 100% wpłaconych środków</strong> w ciągu 3 dni roboczych.</li>
+                        <li><strong>Rezygnacja Klienta:</strong> Klient ma prawo zrezygnować z usługi.
+                            <ul class="list-disc ml-5 mt-1 text-gray-400">
+                                <li>Jeśli inspektor nie wyjechał jeszcze do pojazdu: Zwrot 100%.</li>
+                                <li>Jeśli inspektor jest w trakcie dojazdu lub na miejscu: Zwrot nie przysługuje.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Prawo odstąpienia (14 dni):</strong> Zgodnie z art. 38 ustawy o prawach konsumenta, prawo odstąpienia od umowy zawartej poza lokalem przedsiębiorstwa nie przysługuje w odniesieniu do umów o świadczenie usług, jeżeli przedsiębiorca wykonał w pełni usługę za wyraźną zgodą konsumenta.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-white mb-4">5. Reklamacje</h2>
+                    <p>Wszelkie reklamacje dotyczące jakości wykonanej usługi należy zgłaszać drogą mailową na adres info@daepoland.com w terminie 14 dni od otrzymania raportu. Reklamacje rozpatrywane są w ciągu 14 dni.</p>
+                </section>
+
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 text-center">
+                <p class="text-xs text-gray-500">Obowiązuje od: 22.11.2025</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
