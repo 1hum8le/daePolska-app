@@ -60,7 +60,7 @@ daePolska-app/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/daePolska-app.git
+git clone https://github.com/1hum8le/daePolska-app.git
 cd daePolska-app
 ```
 ### 2. Install dependencies
@@ -72,23 +72,27 @@ npm install
 Create a `.env` file in the root directory and add the following credentials. **Do not commit this file to GitHub.**
 
 # Database Configuration
+```bash
 DB_USER=postgres
 DB_PASSWORD=your_db_password
 DB_HOST=localhost
 DB_NAME=daepolska_db
 DB_PORT=5432
-
+```
 # Stripe Configuration (Use pk_test_... for local development)
+```bash
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLIC_KEY=pk_test_...
-
+```
 # Email Configuration (Gmail/Outlook with App Password)
+```bash
 EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_app_password
-
+```
 # Server Config
+```text
 PORT=3000
-
+```
 ### 4. Database Setup
 
 Run the following SQL commands (using pgAdmin or psql) to create the necessary tables:
