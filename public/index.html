@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>daePolska | Professional Vehicle Inspections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://images.unsplash.com/photo-1562519819-016930ada315?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out; }
+        .animate-slide-up { animation: slideUp 0.8s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <nav class="bg-white/95 backdrop-blur-sm shadow-md fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold text-blue-900 tracking-wide">
+                <i class="fas fa-car-side mr-2"></i>dae<span class="text-red-600">Polska</span>
+            </a>
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex space-x-6 font-medium text-gray-600">
+                    <a href="#services" class="hover:text-blue-600 transition" data-i18n="nav_services">Services</a>
+                    <a href="#order" class="hover:text-blue-600 transition" data-i18n="nav_order">Order Inspection</a>
+                    <a href="#contact" class="hover:text-blue-600 transition" data-i18n="nav_contact">Contact</a>
+                </div>
+                <div class="relative">
+                    <select id="lang-selector" class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                        <option value="en">🇺🇸 EN (EUR)</option>
+                        <option value="pl">🇵🇱 PL (PLN)</option>
+                        <option value="nl">🇳🇱 NL (EUR)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-bg h-screen flex items-center justify-center text-center text-white relative">
+        <div class="px-4 max-w-4xl animate-slide-up">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight" data-i18n="hero_title">
+                Professional Vehicle Inspections
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 text-gray-200" data-i18n="hero_subtitle">
+                We verify cars in Belgium, Netherlands & Germany. Buy with confidence.
+            </p>
+            <a href="#order" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full text-lg font-bold shadow-lg transition transform hover:scale-105" data-i18n="hero_btn">
+                Book Inspection Now
+            </a>
+        </div>
+        <div class="absolute bottom-10 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <section id="services" class="py-24 container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800" data-i18n="packages_title">Select Your Package</h2>
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <div class="bg-white p-8 rounded-2xl shadow border border-gray-100 card-hover transition-all duration-300 cursor-pointer group" onclick="selectPackage('Basic')">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition">BASIC</h3>
+                    <p class="text-4xl font-extrabold text-blue-900 mt-2 price-display" data-pkg="basic">€200</p>
+                </div>
+                <ul class="space-y-4 text-gray-600 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_photos">30-40 Photos</span></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_docs">Document Check</span></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_pdf">PDF Report</span></li>
+                </ul>
+                <button class="w-full bg-gray-100 text-gray-800 font-bold py-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition" data-i18n="btn_select">Select</button>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-blue-600 transform md:-translate-y-4 relative cursor-pointer group" onclick="selectPackage('Standard')">
+                <span class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl uppercase" data-i18n="badge_popular">Most Popular</span>
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition">STANDARD</h3>
+                    <p class="text-5xl font-extrabold text-blue-900 mt-2 price-display" data-pkg="standard">€300</p>
+                </div>
+                <ul class="space-y-4 text-gray-600 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-double text-blue-600 mr-3"></i> <strong data-i18n="pkg_basic_incl">Everything in Basic</strong></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_obd">OBD Diagnostics</span></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_paint">Paint Thickness</span></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_drive">Test Drive</span></li>
+                </ul>
+                <button class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-blue-700 transition transform hover:scale-105" data-i18n="btn_select">Select Standard</button>
+            </div>
+
+             <div class="bg-white p-8 rounded-2xl shadow border border-gray-100 card-hover transition-all duration-300 cursor-pointer group" onclick="selectPackage('Premium')">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition">PREMIUM</h3>
+                    <p class="text-4xl font-extrabold text-purple-900 mt-2 price-display" data-pkg="premium">€450</p>
+                </div>
+                <ul class="space-y-4 text-gray-600 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-double text-purple-600 mr-3"></i> <strong data-i18n="pkg_standard_incl">Everything in Standard</strong></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_negotiation">Price Negotiation</span></li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> <span data-i18n="pkg_video">4K Video</span></li>
+                </ul>
+                <button class="w-full bg-gray-100 text-gray-800 font-bold py-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition" data-i18n="btn_select">Select</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="bg-gray-100 py-24">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800" data-i18n="form_title">Order Your Inspection</h2>
+            
+            <form id="inspection-form" class="bg-white p-10 rounded-2xl shadow-xl">
+                <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-100 flex justify-between items-center">
+                    <div>
+                        <span class="block text-sm text-blue-600 font-bold uppercase" data-i18n="form_selected">Selected Package</span>
+                        <input type="text" id="selected-pkg" class="bg-transparent font-bold text-xl text-gray-800 focus:outline-none" readonly value="Standard">
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-2xl font-bold text-blue-900" id="display-price-form">€300</span>
+                        <input type="hidden" id="pkg-price-eur" value="300">
+                        <input type="hidden" id="pkg-price-pln" value="1300">
+                        <input type="hidden" id="current-currency" value="eur">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                    <input type="email" id="email" placeholder="Email Address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                </div>
+                <div class="mb-6">
+                    <input type="text" id="phone" placeholder="Phone Number" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                </div>
+
+                <hr class="border-gray-100 my-8">
+                <h3 class="font-bold mb-6 text-lg text-gray-700" data-i18n="form_car_details">Vehicle Details</h3>
+
+                <div class="mb-6">
+                    <input type="url" id="url" placeholder="Link to Advertisement (mobile.de, autoscout24...)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                </div>
+                <div class="mb-8">
+                    <input type="text" id="location" placeholder="Vehicle Location (City, Country)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" required>
+                </div>
+
+                <h3 class="font-bold mb-4 text-lg text-gray-700" data-i18n="form_payment">Secure Payment</h3>
+                
+                <div id="card-element" class="p-4 border border-gray-200 rounded-lg mb-2 bg-gray-50"></div>
+                <div id="card-errors" role="alert" class="text-red-500 text-sm mb-6 h-5"></div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex justify-center items-center">
+                    <i class="fas fa-lock mr-3"></i> <span data-i18n="btn_pay">Pay & Order</span>
+                </button>
+                <p class="text-center text-gray-400 text-xs mt-4"><i class="fas fa-shield-alt"></i> SSL Encrypted Payment powered by Stripe</p>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">daePolska</h2>
+            <p class="text-gray-400 mb-8">Diagnostic Auto Export</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="text-gray-600 text-sm">&copy; 2025 daePolska. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

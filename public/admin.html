@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-200 p-10">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-5">Admin Dashboard - Orders</h1>
+        <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-800 text-white uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">ID</th>
+                        <th class="py-3 px-6 text-left">Client</th>
+                        <th class="py-3 px-6 text-left">Car URL</th>
+                        <th class="py-3 px-6 text-center">Package</th>
+                        <th class="py-3 px-6 text-center">Status</th>
+                        <th class="py-3 px-6 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table" class="text-gray-600 text-sm font-light">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Prosty skrypt do pobierania zamówień
+        async function loadOrders() {
+            const response = await fetch('/api/admin/orders'); // W produkcji dodaj nagłówek Auth
+            const orders = await response.json();
+            const tbody = document.getElementById('orders-table');
+            
+            orders.forEach(order => {
+                const row = `<tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left">${order.id}</td>
+                    <td class="py-3 px-6 text-left font-medium">${order.client_name}<br><span class="text-xs text-gray-500">${order.email}</span></td>
+                    <td class="py-3 px-6 text-left"><a href="${order.listing_url}" target="_blank" class="text-blue-500 underline">View Link</a></td>
+                    <td class="py-3 px-6 text-center">${order.package_type}</td>
+                    <td class="py-3 px-6 text-center"><span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">${order.status}</span></td>
+                    <td class="py-3 px-6 text-center">
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded text-xs">View</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+        loadOrders();
+    </script>
+</body>
+</html>
