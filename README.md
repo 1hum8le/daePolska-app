@@ -71,24 +71,19 @@ npm install
 Create a `.env` file in the root directory and add the following credentials. **Do not commit this file to GitHub.**
 
 # Database Configuration
-```
 DB_USER=postgres
 DB_PASSWORD=your_db_password
 DB_HOST=localhost
 DB_NAME=daepolska_db
 DB_PORT=5432
-```
 
 # Stripe Configuration (Use pk_test_... for local development)
-```
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLIC_KEY=pk_test_...
-```
+
 # Email Configuration (Gmail/Outlook with App Password)
-```
 EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_app_password
-```
 
 # Server Config
 PORT=3000
