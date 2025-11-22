@@ -34,6 +34,7 @@
 
 ## 📂 Project Structure
 
+```text
 daePolska-app/
 ├── public/               # Static files served by Express
 │   ├── src/              # Assets (videos, images)
