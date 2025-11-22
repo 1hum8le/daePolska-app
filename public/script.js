@@ -2,7 +2,7 @@ import { translations } from './translations.js';
 
 // --- 1. KONFIGURACJA STRIPE ---
 // Pamiętaj: Użyj klucza pk_test_... do testów lokalnych!
-const STRIPE_KEY = 'pk_test_51SWHULKFe9AoXQziiNpozXsfUqZ2hLoTD5GCWae1GlRt9zyWW1y3jj4nNaKhYLXG35osEkXFxNZP80BnA1OnaJTc00Mw8A5rXK'; 
+const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3MzwoGaoTbfl8VWJCxhwciaFrMKikw8I6eWy12x4000FmqMoFgh'; 
 const stripe = Stripe(STRIPE_KEY); 
 let elements = null;
 let card = null;
