@@ -12,22 +12,23 @@ const app = express();
 app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 // --- DEBUGOWANIE OUTLOOKA ---
+// --- KONFIGURACJA EMAIL (BREVO SMTP) ---
+// To rozwiązanie omija blokady Microsoft/Gmail na serwerach chmurowych
 const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
+    host: "smtp-relay.brevo.com", // Serwer Brevo
     port: 587,
-    secure: false, // false dla 587, true dla 465
+    secure: false, // false dla portu 587
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: process.env.EMAIL_USER, // Twój login do Brevo
+        pass: process.env.EMAIL_PASS  // Twój klucz SMTP z Brevo
     },
     tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false
-    },
-    // Te opcje pokażą nam w logach co się dzieje:
-    debug: true, 
-    logger: true 
+        rejectUnauthorized: false // Pomaga przy błędach certyfikatów
+    }
 });
+
+// WAŻNE: Brevo wymaga, aby pole "from" w mailu było zgodne ze zweryfikowanym nadawcą!
+// W mailOptions upewnij się, że "from" to process.env.EMAIL_USER
 
 // --- ZABEZPIECZENIA ---
 // Zabezpieczenia nagłówków (Z wyłączonym CSP dla Tailwinda i Stripe)
@@ -109,7 +110,7 @@ app.post('/api/orders', async (req, res) => {
         const clientMailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
-            subject: 'Potwierdzenie zamówienia - daePolska',
+            subject: `Potwierdzenie zamówienia ${packageType} - daePoland 🚗`,
             text: `
                 Dzień dobry ${name}!
                 
@@ -118,7 +119,7 @@ app.post('/api/orders', async (req, res) => {
                 
                 Nasz koordynator skontaktuje się ze sprzedawcą auta w ciągu 24h i potwierdzi termin inspekcji.
                 Jest to informacja automatyczna - prosimy nie odpowiadać na tego maila.
-                W razie potrzeby prosimy o kontakt poprzez formularz na stronie.
+                W razie potrzeby prosimy o kontakt poprzez formularz na stronie badz droga email
                 Dziękujemy za zaufanie!
 
                 
@@ -127,7 +128,9 @@ app.post('/api/orders', async (req, res) => {
                 Link do auta: ${url}
                 
                 Pozdrawiamy,
-                Zespół daePolska
+                Zespół daePoland
+
+                Email: daePoland@outlook.com
             `
         };
 
