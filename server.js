@@ -7,45 +7,33 @@ const { Pool } = require('pg');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require('nodemailer');
 
+// Import szablonów emaili
+const { getAdminEmailText, getClientEmailText } = require('./emailTemplates');
+
 const app = express();
-
-// 1. Konfiguracja Proxy (Kluczowe dla Render.com, aby rate limiter działał poprawnie)
-app.set('trust proxy', 1);
-
+app.set('trust proxy', 1); // Wymagane dla Render
 const PORT = process.env.PORT || 3000;
 
 // --- KONFIGURACJA EMAIL (BREVO SMTP) ---
-// Używamy Brevo, aby ominąć blokady Microsoftu/Gmaila na serwerach w chmurze
 const transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
     port: 587,
-    secure: false, // false dla portu 587 (STARTTLS)
+    secure: false, 
     auth: {
-        user: process.env.EMAIL_USER, // Twój login Brevo
-        pass: process.env.EMAIL_PASS  // Twój KLUCZ SMTP (nie hasło do poczty!)
+        user: process.env.EMAIL_USER, // Login techniczny Brevo
+        pass: process.env.EMAIL_PASS  // Klucz SMTP Brevo
     },
-    tls: {
-        rejectUnauthorized: false
-    }
+    tls: { rejectUnauthorized: false }
 });
+
+// Adres widoczny dla klienta
+const SENDER_EMAIL = 'daePoland@outlook.com'; 
 
 // --- ZABEZPIECZENIA ---
-app.use(helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false,
-}));
-
-const limiter = rateLimit({ 
-    windowMs: 15 * 60 * 1000, 
-    max: 100 
-});
+app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use(limiter);
-
-const contactLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, 
-    max: 5,
-    message: "Za dużo wiadomości. Spróbuj później."
-});
+const contactLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5, message: "Za dużo wiadomości." });
 
 // --- MIDDLEWARE ---
 app.use(cors());
@@ -65,136 +53,91 @@ const pool = new Pool({
 
 // --- ENDPOINTY ---
 
-// 1. Płatność Stripe (Tworzenie intencji)
+// 1. Płatność Stripe
 app.post('/create-payment-intent', async (req, res) => {
     const { amount, currency } = req.body;
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount,
-            currency,
-        });
+        const paymentIntent = await stripe.paymentIntents.create({ amount, currency });
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (e) {
-        console.error("Stripe Error:", e);
         res.status(500).json({ error: e.message });
     }
 });
 
-// 2. Zapis Zamówienia + WYSYŁKA EMAILA (Główna logika)
+// 2. Zapis Zamówienia + EMAIL (Używa szablonów)
 app.post('/api/orders', async (req, res) => {
     const { name, email, phone, url, location, packageType, price, paymentId } = req.body;
     
     try {
-        // A. Zapisz w bazie danych
+        // A. Zapisz w bazie
         const newOrder = await pool.query(
             "INSERT INTO orders (client_name, email, phone, listing_url, vehicle_location, package_type, price, status, stripe_payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7, 'paid', $8) RETURNING *",
             [name, email, phone, url, location, packageType, price, paymentId]
         );
 
-        const orderId = newOrder.rows[0].id;
+        // B. Generuj treść z szablonów
+        const adminText = getAdminEmailText({ name, email, phone, url, location, packageType, price, paymentId });
+        const clientText = getClientEmailText({ name, orderId: newOrder.rows[0].id, packageType, url, location });
 
-        // B. Treść Emaila dla ADMINA (Ciebie)
+        // C. Wyślij maile
         const adminMailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER, // Wysyłasz do siebie
+            from: SENDER_EMAIL,
+            to: SENDER_EMAIL,
             subject: `💰 NOWE ZLECENIE: ${packageType} - ${name}`,
-            text: `
-=========================================
- NOWE ZAMÓWIENIE OPŁACONE
-=========================================
-
-DANE KLIENTA:
-👤 Imię i nazwisko: ${name}
-📧 Email: ${email}
-📞 Telefon: ${phone || "Nie podano"}
-
-SZCZEGÓŁY ZLECENIA:
-📦 Pakiet: ${packageType}
-💰 Kwota: ${price}
-🆔 ID Płatności: ${paymentId}
-
-DANE POJAZDU:
-📍 Lokalizacja: ${location}
-🚗 Link: ${url}
-
------------------------------------------
-Zaloguj się do bazy lub Stripe, aby sprawdzić szczegóły.
-`
+            text: adminText
         };
         
-        // C. Treść Emaila dla KLIENTA (Ładnie sformatowana)
         const clientMailOptions = {
-            from: process.env.EMAIL_USER,
+            from: SENDER_EMAIL,
             to: email,
-            subject: `Potwierdzenie zamówienia #${orderId} - daePoland 🚗`,
-            text: `
-Dzień dobry ${name}!
-
-Dziękujemy za opłacenie zamówienia na inspekcję pojazdu.
-Twój numer zamówienia to: #${orderId}
-
-Co dzieje się teraz?
-1. Nasz koordynator skontaktuje się ze sprzedawcą auta (zazwyczaj w ciągu 24h).
-2. Potwierdzimy dostępność samochodu.
-3. Ustalimy termin inspekcji i poinformujemy Cię mailowo.
-
-SZCZEGÓŁY ZAMÓWIENIA:
---------------------------------------------------
-📦 Pakiet: ${packageType}
-🚗 Link do auta: ${url}
-📍 Lokalizacja: ${location}
---------------------------------------------------
-
-Ważne informacje:
-Jest to wiadomość automatyczna - prosimy na nią nie odpowiadać bezpośrednio.
-W razie pytań prosimy o kontakt poprzez formularz na stronie lub bezpośrednio na email biura.
-
-Dziękujemy za zaufanie!
-
-Pozdrawiamy,
-Zespół daePoland
-
---
-Email: info@daepoland.com
-Strona: https://daepoland.com
-            `
+            subject: `Potwierdzenie zamówienia #${newOrder.rows[0].id} - daePoland 🚗`,
+            text: clientText
         };
 
-        // Wysyłamy maile w tle (bez await, żeby nie blokować odpowiedzi serwera)
-        transporter.sendMail(adminMailOptions).catch(err => console.error("Błąd wysyłki do Admina:", err));
-        transporter.sendMail(clientMailOptions).catch(err => console.error("Błąd wysyłki do Klienta:", err));
+        transporter.sendMail(adminMailOptions).catch(err => console.error("Błąd admin mail:", err));
+        transporter.sendMail(clientMailOptions).catch(err => console.error("Błąd client mail:", err));
 
-        // Zwracamy sukces do frontendu
         res.json(newOrder.rows[0]);
-
     } catch (err) {
-        console.error("Błąd bazy danych (Orders):", err.message);
+        console.error("Błąd bazy:", err.message);
         res.status(500).send("Server Error");
     }
 });
 
-// 3. Formularz Kontaktowy + EMAIL
+// 3. Formularz Kontaktowy
 app.post('/api/contact', contactLimiter, async (req, res) => {
     const { name, email, message } = req.body;
     try {
-        // Zapisz w bazie
         await pool.query(
             "INSERT INTO messages (name, email, message) VALUES ($1, $2, $3)",
             [name, email, message]
         );
 
-        // Wyślij powiadomienie do Ciebie
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            replyTo: email, // Abyś mógł kliknąć "Odpowiedz" i pisać do klienta
+            from: SENDER_EMAIL,
+            to: SENDER_EMAIL,
+            replyTo: email,
             subject: `📩 WIADOMOŚĆ ZE STRONY od: ${name}`,
-            text: `Masz nowe zapytanie ze strony:\n\nOd: ${name} (${email})\n\nTreść wiadomości:\n${message}`
+            text: `Masz nowe zapytanie:\nOd: ${name} (${email})\n\n${message}`
         });
 
         res.json({ status: 'success' });
     } catch (err) {
-        console.error("Błąd kontaktu:", err);
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+});
+
+// 4. Admin Login
+app.post('/api/admin/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) return res.status(401).json("Invalid Credential");
+        const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
+        if (!validPassword) return res.status(401).json("Invalid Credential");
+        res.json({ status: 'logged_in' }); 
+    } catch (err) {
         res.status(500).send("Server Error");
     }
 });
