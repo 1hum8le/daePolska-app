@@ -54,7 +54,7 @@ Pozdrawiamy,
 Zespół daePoland
 
 --
-Email: daePoland.kontakt@gmail.com
+Email: daePoland@outlook.com
 Strona: https://daepoland.com
 `;
 };

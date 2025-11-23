@@ -5,7 +5,6 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { Pool } = require('pg');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const nodemailer = require('nodemailer');
 
 // Import szablonów
 const { getAdminEmailText, getClientEmailText } = require('./emailTemplates');
@@ -14,25 +13,43 @@ const app = express();
 app.set('trust proxy', 1); 
 const PORT = process.env.PORT || 3000;
 
-// --- KONFIGURACJA EMAIL (GMAIL - SZTYWNA) ---
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // Konkretny adres serwera
-    port: 465,              // Port SSL
-    secure: true,           // Wymagane dla portu 465
-    auth: {
-        user: process.env.EMAIL_USER, // Twój nowy gmail
-        pass: process.env.EMAIL_PASS  // Hasło Aplikacji (16 znaków)
-    },
-    tls: {
-        rejectUnauthorized: false
-    },
-    // --- TO JEST KLUCZ DO SUKCESU ---
-    family: 4, // Wymusza IPv4 (Render domyślnie pcha IPv6 co powoduje błąd)
-    connectionTimeout: 10000 // 10 sekund timeoutu
-});
+// --- FUNKCJA WYSYŁAJĄCA (BREVO API - HTTP) ---
+// To jest "Złoty Graal". Nie używa portów pocztowych, więc Render tego nie zablokuje.
+async function sendEmail(to, subject, textContent, replyToEmail = null) {
+    const url = 'https://api.brevo.com/v3/smtp/email';
+    
+    const body = {
+        sender: { email: process.env.EMAIL_USER, name: 'daePoland' },
+        to: [{ email: to }],
+        subject: subject,
+        textContent: textContent
+    };
 
-// Nadawca to ten sam Gmail (żeby uniknąć blokady antyspamowej)
-const SENDER_EMAIL = process.env.EMAIL_USER; 
+    if (replyToEmail) {
+        body.replyTo = { email: replyToEmail };
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY, // Klucz API (xkeysib...)
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.text();
+            console.error("❌ Błąd Brevo API:", errorData);
+        } else {
+            console.log(`✅ Email wysłany do: ${to}`);
+        }
+    } catch (error) {
+        console.error("❌ Błąd połączenia z Brevo API:", error);
+    }
+}
 
 // --- ZABEZPIECZENIA ---
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
@@ -81,27 +98,13 @@ app.post('/api/orders', async (req, res) => {
         const adminText = getAdminEmailText({ name, email, phone, url, location, packageType, price, paymentId });
         const clientText = getClientEmailText({ name, orderId: newOrder.rows[0].id, packageType, url, location });
 
-        // Wysyłka
-        const adminMailOptions = {
-            from: SENDER_EMAIL,
-            to: SENDER_EMAIL, // Do Ciebie (na Gmaila)
-            subject: `💰 NOWE ZLECENIE: ${packageType} - ${name}`,
-            text: adminText
-        };
-        
-        const clientMailOptions = {
-            from: SENDER_EMAIL,
-            to: email, // Do Klienta
-            subject: `Potwierdzenie zamówienia #${newOrder.rows[0].id}`,
-            text: clientText
-        };
-
-        transporter.sendMail(adminMailOptions).catch(console.error);
-        transporter.sendMail(clientMailOptions).catch(console.error);
+        // Wysyłka przez API (nie blokuje odpowiedzi)
+        sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType}`, adminText);
+        sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id}`, clientText);
 
         res.json(newOrder.rows[0]);
     } catch (err) {
-        console.error(err);
+        console.error("DB Error:", err);
         res.status(500).send("Server Error");
     }
 });
@@ -114,24 +117,32 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             [name, email, message]
         );
 
-        await transporter.sendMail({
-            from: SENDER_EMAIL,
-            to: SENDER_EMAIL, // Do Ciebie
-            replyTo: email,   // Żebyś mógł kliknąć "Odpowiedz"
-            subject: `📩 WIADOMOŚĆ ZE STRONY: ${name}`,
-            text: `Od: ${name} (${email})\n\n${message}`
-        });
+        // Wysyłka przez API
+        await sendEmail(
+            process.env.EMAIL_USER, 
+            `📩 WIADOMOŚĆ: ${name}`, 
+            `Od: ${name} (${email})\n\n${message}`,
+            email
+        );
 
         res.json({ status: 'success' });
     } catch (err) {
-        console.error(err);
+        console.error("Contact Error:", err);
         res.status(500).send("Server Error");
     }
 });
 
 app.post('/api/admin/login', async (req, res) => {
-    // ... (logika logowania bez zmian) ...
-    res.json({ status: 'logged_in' }); 
+    const { username, password } = req.body;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) return res.status(401).json("Invalid Credential");
+        const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
+        if (!validPassword) return res.status(401).json("Invalid Credential");
+        res.json({ status: 'logged_in' }); 
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
 });
 
 app.listen(PORT, () => {
