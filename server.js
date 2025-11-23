@@ -14,17 +14,18 @@ const PORT = process.env.PORT || 3000;
 
 // --- KONFIGURACJA EMAIL (OUTLOOK / OFFICE 365) ---
 const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", // Dla kont prywatnych (@outlook, @hotmail)
-    // Jeśli masz konto firmowe (Office 365), użyj: "smtp.office365.com"
+    host: "smtp-mail.outlook.com",
     port: 587,
-    secure: false, // false dla portu 587 (STARTTLS)
+    secure: false, // false dla 587
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
     tls: {
-        ciphers: 'SSLv3' // Wymagane przez Outlooka
-    }
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false // To czasem pomaga na błędy certyfikatów na Renderze
+    },
+    connectionTimeout: 10000 // Ustawiamy limit 10 sekund - żeby nie wisiało w nieskończoność
 });
 
 // --- ZABEZPIECZENIA ---
