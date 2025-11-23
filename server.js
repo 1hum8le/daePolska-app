@@ -14,16 +14,21 @@ const app = express();
 app.set('trust proxy', 1); 
 const PORT = process.env.PORT || 3000;
 
-// --- KONFIGURACJA EMAIL (GMAIL DIRECT) ---
+// --- KONFIGURACJA EMAIL (GMAIL - SZTYWNA) ---
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Node sam wie, jakie to porty (465)
+    host: 'smtp.gmail.com', // Konkretny adres serwera
+    port: 465,              // Port SSL
+    secure: true,           // Wymagane dla portu 465
     auth: {
-        user: process.env.EMAIL_USER, // Twój nowy Gmail
-        pass: process.env.EMAIL_PASS  // Hasło Aplikacji z Google (16 znaków)
+        user: process.env.EMAIL_USER, // Twój nowy gmail
+        pass: process.env.EMAIL_PASS  // Hasło Aplikacji (16 znaków)
     },
     tls: {
         rejectUnauthorized: false
-    }
+    },
+    // --- TO JEST KLUCZ DO SUKCESU ---
+    family: 4, // Wymusza IPv4 (Render domyślnie pcha IPv6 co powoduje błąd)
+    connectionTimeout: 10000 // 10 sekund timeoutu
 });
 
 // Nadawca to ten sam Gmail (żeby uniknąć blokady antyspamowej)
