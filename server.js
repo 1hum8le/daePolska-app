@@ -131,6 +131,7 @@ app.post('/api/orders', async (req, res) => {
                 Zespół daePoland
 
                 Email: daePoland@outlook.com
+                Strona: https://daepoland.com
             `
         };
 
