@@ -14,20 +14,24 @@ const app = express();
 app.set('trust proxy', 1); // Wymagane dla Render
 const PORT = process.env.PORT || 3000;
 
-// --- KONFIGURACJA EMAIL (BREVO SMTP) ---
+// --- KONFIGURACJA EMAIL (BREVO - PORT SSL 465) ---
+// Używamy pełnego szyfrowania SSL, które najłatwiej przebija firewalle chmurowe
 const transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false, 
+    port: 465,    // <--- ZMIANA NA PORT SSL
+    secure: true, // <--- WAŻNE: Musi być true dla portu 465
     auth: {
-        user: process.env.EMAIL_USER, // Login techniczny Brevo
-        pass: process.env.EMAIL_PASS  // Klucz SMTP Brevo
+        user: process.env.EMAIL_USER, // Login techniczny (np. 9c50a...)
+        pass: process.env.EMAIL_PASS  // Klucz SMTP
     },
-    tls: { 
-        rejectUnauthorized: false 
+    tls: {
+        // Nie odrzucaj błędów certyfikatów (pomaga na Renderze)
+        rejectUnauthorized: false
     },
-    family: 4, // Force IPv4
-    connectionTimeout: 10000 // 10 sekund timeout
+    // Wymuszenie IPv4 i dłuższy czas na połączenie
+    family: 4,
+    connectionTimeout: 20000, // Zwiększamy do 20 sekund
+    greetingTimeout: 10000
 });
 
 // Adres widoczny dla klienta
