@@ -18,8 +18,8 @@ const PORT = process.env.PORT || 3000;
 // Używamy pełnego szyfrowania SSL, które najłatwiej przebija firewalle chmurowe
 const transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
-    port: 465,    // <--- ZMIANA NA PORT SSL
-    secure: true, // <--- WAŻNE: Musi być true dla portu 465
+    port: 587,    // <--- ZMIANA NA PORT SSL
+    secure: false, // <--- WAŻNE: Musi być true dla portu 465
     auth: {
         user: process.env.EMAIL_USER, // Login techniczny (np. 9c50a...)
         pass: process.env.EMAIL_PASS  // Klucz SMTP
