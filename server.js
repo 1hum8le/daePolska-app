@@ -13,8 +13,9 @@ app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 // --- KONFIGURACJA EMAIL (OUTLOOK / OFFICE 365) ---
+// --- KONFIGURACJA EMAIL (POPRAWIONA DLA RENDER) ---
 const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
+    host: "smtp.office365.com", // Zmiana z smtp-mail.outlook.com (często stabilniejszy)
     port: 587,
     secure: false, // false dla 587
     auth: {
@@ -23,9 +24,13 @@ const transporter = nodemailer.createTransport({
     },
     tls: {
         ciphers: 'SSLv3',
-        rejectUnauthorized: false // To czasem pomaga na błędy certyfikatów na Renderze
+        rejectUnauthorized: false // Ignoruj błędy certyfikatów
     },
-    connectionTimeout: 10000 // Ustawiamy limit 10 sekund - żeby nie wisiało w nieskończoność
+    // KLUCZOWE ZMIANY PONIŻEJ:
+    family: 4, // <--- Wymusza użycie IPv4 (Render często ma problem z IPv6)
+    connectionTimeout: 10000, // 10 sekund na nawiązanie połączenia
+    greetingTimeout: 5000,    // 5 sekund na przywitanie serwera
+    socketTimeout: 10000      // 10 sekund na brak aktywności
 });
 
 // --- ZABEZPIECZENIA ---
