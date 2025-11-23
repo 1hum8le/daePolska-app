@@ -23,7 +23,11 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USER, // Login techniczny Brevo
         pass: process.env.EMAIL_PASS  // Klucz SMTP Brevo
     },
-    tls: { rejectUnauthorized: false }
+    tls: { 
+        rejectUnauthorized: false 
+    },
+    family: 4, // Force IPv4
+    connectionTimeout: 10000 // 10 sekund timeout
 });
 
 // Adres widoczny dla klienta
