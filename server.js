@@ -117,6 +117,10 @@ app.post('/api/orders', async (req, res) => {
                 Twój numer zamówienia to: #${newOrder.rows[0].id}
                 
                 Nasz koordynator skontaktuje się ze sprzedawcą auta w ciągu 24h i potwierdzi termin inspekcji.
+                Jest to informacja automatyczna - prosimy nie odpowiadać na tego maila.
+                W razie potrzeby prosimy o kontakt poprzez formularz na stronie.
+                Dziękujemy za zaufanie!
+
                 
                 Szczegóły:
                 Pakiet: ${packageType}
@@ -150,10 +154,11 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 
         // Wyślij powiadomienie do Ciebie
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            subject: `📩 NOWA WIADOMOŚĆ od ${name}`,
-            text: `Od: ${name} (${email})\n\nWiadomość:\n${message}`
+    from: process.env.EMAIL_USER, // 
+    to: process.env.EMAIL_USER,
+    replyTo: email, // <-- Tu wstawiamy email klienta, żebyś mógł mu odpisać "Odpowiedz"
+    subject: `📩 NOWA WIADOMOŚĆ od ${name}`,
+    text: `Wiadomość od klienta: ${email}\n\nTreść:\n${message}`
         });
 
         res.json({ status: 'success' });
