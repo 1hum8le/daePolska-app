@@ -17,6 +17,9 @@
     height: 100%;
     z-index: -1;
     overflow: hidden;
+    /* NOWE: Akceleracja sprzętowa */
+    transform: translateZ(0); 
+    will-change: transform; 
 }
 
 .back-video {
@@ -62,21 +65,25 @@ html {
     justify-content: center;
 }
 
-/* GLASSMORPHISM (Efekt szkła) */
 .glass-card {
     background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    /* Zmniejszamy blur z 12px na 8px dla wydajności */
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    /* NOWE: Akceleracja */
+    transform: translateZ(0);
 }
 
 .glass-nav {
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(10, 10, 15, 0.85); /* Bardziej pełny kolor, mniej przezroczystości = szybciej */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    /* NOWE: Akceleracja */
+    transform: translateZ(0);
 }
 
 .glass-input {
