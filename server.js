@@ -28,6 +28,7 @@ const transporter = nodemailer.createTransport({
         rejectUnauthorized: false // Ignoruj błędy certyfikatów
     },
     family: 4, // <--- KLUCZOWE: Wymusza IPv4. Render + Gmail + IPv6 = Timeout.
+    timeout: 5000 // 5 sekund timeout
 });
 
 // Adres nadawcy to Twój Gmail
