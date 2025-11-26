@@ -34,6 +34,7 @@
 
 ## 📂 Project Structure
 
+```
 daePolska-app/
 ├── public/               # Static files served by Express
 │   ├── src/              # Assets (videos, images, favicon)
@@ -50,6 +51,7 @@ daePolska-app/
 ├── server.js             # Main backend application entry point
 ├── package.json          # Project dependencies
 └── README.md             # Documentation
+```
 
 ## 🚀 Installation & Setup
 
