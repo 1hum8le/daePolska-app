@@ -215,48 +215,107 @@
             </div>
         </section>
 
-        <section id="services" class="snap-section flex items-center justify-center px-4">
+       <section id="services" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
-                <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
+                <h2 class="text-3xl md:text-5xl font-black text-center mb-4 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
+                <p class="text-center text-gray-400 mb-12 font-inter text-sm max-w-2xl mx-auto">Każdy pakiet zawiera dojazd do klienta w promieniu 100km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
+                
                 <div class="grid md:grid-cols-3 gap-8">
                     
-                    <div class="glass-card p-8 hover:-translate-y-3 transition-all duration-500 cursor-pointer group relative" onclick="selectPackage('Basic')">
+                    <div class="glass-card p-8 hover:-translate-y-3 transition-all duration-500 cursor-pointer group relative flex flex-col" onclick="selectPackage('Basic')">
                         <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-accent-orange transition">BASIC</h3>
                         <p class="text-5xl font-black text-accent-orange mb-6 price-display font-montserrat" data-pkg="basic">€120</p>
-                        <ul class="space-y-3 text-gray-200 font-inter mb-8 text-base">
-                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_photos">30-40 Zdjęć</span></li>
-                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_docs">Dokumenty</span></li>
-                            <li><i class="fas fa-check text-accent-orange mr-3"></i> <span data-i18n="pkg_pdf">Raport PDF</span></li>
+                        
+                        <ul class="space-y-5 text-gray-300 font-inter mb-8 text-sm flex-grow">
+                            <li class="flex items-start">
+                                <i class="fas fa-camera text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_photos">30-40 Zdjęć</span>
+                                    <span class="text-xs text-gray-500">Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_docs">Weryfikacja Dokumentów</span>
+                                    <span class="text-xs text-gray-500">Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-pdf text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_pdf">Raport PDF</span>
+                                    <span class="text-xs text-gray-500">Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.</span>
+                                </div>
+                            </li>
                         </ul>
-                        <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-accent-orange group-hover:border-accent-orange transition" data-i18n="btn_select">WYBIERZ</button>
+                        <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-accent-orange group-hover:border-accent-orange transition" data-i18n="btn_select">WYBIERZ PAKIET</button>
                     </div>
 
-                    <div class="glass-card p-8 border-accent-orange/50 transform md:scale-110 z-10 cursor-pointer relative shadow-2xl shadow-orange-500/10" onclick="selectPackage('Standard')">
+                    <div class="glass-card p-8 border-accent-orange/50 transform md:scale-105 z-10 cursor-pointer relative shadow-2xl shadow-orange-500/10 flex flex-col" onclick="selectPackage('Standard')">
                         <div class="absolute top-0 left-0 w-full h-1 bg-accent-orange"></div>
                         <div class="flex justify-between items-center mb-2">
                              <h3 class="text-2xl font-bold font-montserrat text-accent-orange">STANDARD</h3>
-                             <span class="bg-accent-orange text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Bestseller</span>
+                             <span class="bg-accent-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">Najczęściej Wybierany</span>
                         </div>
                         <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€245</p>
-                        <ul class="space-y-3 text-gray-200 font-inter mb-8 text-base">
-                             <li class="font-bold text-white"><i class="fas fa-check-double text-accent-orange mr-3"></i> <span data-i18n="pkg_basic_incl">Wszystko z Basic</span></li>
-                            <li><i class="fas fa-laptop text-accent-orange mr-3"></i> <span data-i18n="pkg_obd">Diagnostyka OBD</span></li>
-                            <li><i class="fas fa-layer-group text-accent-orange mr-3"></i> <span data-i18n="pkg_paint">Miernik Lakieru</span></li>
-                            <li><i class="fas fa-car text-accent-orange mr-3"></i> <span data-i18n="pkg_drive">Jazda Próbna</span></li>
+                        
+                        <ul class="space-y-5 text-gray-200 font-inter mb-8 text-sm flex-grow">
+                             <li class="flex items-start">
+                                <i class="fas fa-check-double text-accent-orange mt-1 mr-3"></i> 
+                                <span class="font-bold text-accent-orange" data-i18n="pkg_basic_incl">Wszystko co w pakiecie Basic</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-laptop-medical text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_obd">Pełna Diagnostyka OBD</span>
+                                    <span class="text-xs text-gray-400">Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-layer-group text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_paint">Miernik Lakieru</span>
+                                    <span class="text-xs text-gray-400">Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-tachometer-alt text-accent-orange mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_drive">Jazda Próbna</span>
+                                    <span class="text-xs text-gray-400">Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.</span>
+                                </div>
+                            </li>
                         </ul>
-                        <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg" data-i18n="btn_select">WYBIERZ</button>
+                        <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg hover:shadow-orange-500/50" data-i18n="btn_select">WYBIERZ STANDARD</button>
                     </div>
 
-                     <div class="glass-card p-8 cursor-pointer group relative" onclick="selectPackage('Premium')">
+                     <div class="glass-card p-8 cursor-pointer group relative flex flex-col" onclick="selectPackage('Premium')">
                         <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
                         <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-purple-400 transition">PREMIUM</h3>
                         <p class="text-5xl font-black text-purple-400 mb-6 price-display font-montserrat" data-pkg="premium">€545</p>
-                        <ul class="space-y-3 text-gray-200 font-inter mb-8 text-base">
-                            <li class="font-bold text-white"><i class="fas fa-check-double text-purple-400 mr-3"></i> <span data-i18n="pkg_standard_incl">Wszystko ze Standard</span></li>
-                            <li><i class="fas fa-handshake text-purple-400 mr-3"></i> <span data-i18n="pkg_negotiation">Negocjacja Ceny</span></li>
-                            <li><i class="fas fa-video text-purple-400 mr-3"></i> <span data-i18n="pkg_video">Wideo 4K + VIP</span></li>
+                        
+                        <ul class="space-y-5 text-gray-300 font-inter mb-8 text-sm flex-grow">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-double text-purple-400 mt-1 mr-3"></i> 
+                                <span class="font-bold text-white" data-i18n="pkg_standard_incl">Wszystko co w pakiecie Standard</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-handshake text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_negotiation">Negocjacja Ceny</span>
+                                    <span class="text-xs text-gray-500">Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-video text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-bold block text-white" data-i18n="pkg_video">Wideo 4K + VIP</span>
+                                    <span class="text-xs text-gray-500">Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.</span>
+                                </div>
+                            </li>
                         </ul>
-                         <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-purple-500 group-hover:border-purple-500 transition" data-i18n="btn_select">WYBIERZ</button>
+                         <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-purple-500 group-hover:border-purple-500 transition" data-i18n="btn_select">WYBIERZ PREMIUM</button>
                     </div>
                 </div>
             </div>
