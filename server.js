@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 3000;
 // --- KONFIGURACJA GMAIL (BYPASS FIREWALL) ---
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,              // Używamy 587 zamiast 465 (lepiej przechodzi przez chmury)
-    secure: false,          // Musi być false dla portu 587
+    port: 465,              // Używamy 465 zamiast 587
+    secure: true,          // true dla portu 465
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
@@ -28,7 +28,12 @@ const transporter = nodemailer.createTransport({
         rejectUnauthorized: false // Ignoruj błędy certyfikatów
     },
     family: 4, // <--- KLUCZOWE: Wymusza IPv4. Render + Gmail + IPv6 = Timeout.
-    timeout: 5000 // 5 sekund timeout
+    connectionTimeout: 5000, // 5 sekund timeout
+    greetingTimeout: 5000,
+    socketTimeout: 10000,
+
+    logger: true,
+    debug: true
 });
 
 // Adres nadawcy to Twój Gmail
