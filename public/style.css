@@ -1,4 +1,26 @@
-/* Konfiguracja kolorów i fontów */
+/* 💡 Gdzie możesz edytować "rozmiary" (dla programisty):
+Odstępy między sekcjami:
+
+Szukaj klasy .snap-section.
+
+Wartości: padding-top: 80px i padding-bottom: 40px.
+
+W sekcji @media (max-width: 1024px) są osobne wartości dla mobilnych (np. 90px).
+
+Wielkość kart (szkła):
+
+Klasa .glass-card.
+
+Paddingi (p-8, p-6) są ustawiane w HTML (klasy Tailwind), ale bazowy styl jest w CSS.
+
+Prędkość paska opinii:
+
+Klasa .marquee-content -> animation: scroll 40s linear infinite;.
+
+Zmień 40s na 20s (szybciej) lub 60s (wolniej). */
+
+
+/* --- KONFIGURACJA KOLORÓW I FONTÓW --- */
 :root {
     --accent-orange: #FF5722;
 }
@@ -8,7 +30,7 @@
 .text-accent-orange { color: var(--accent-orange); }
 .bg-accent-orange { background-color: var(--accent-orange); }
 
-/* WIDEO TŁO (Naprawione pozycjonowanie) */
+/* --- TŁO WIDEO (Zoptymalizowane) --- */
 .video-bg-container {
     position: fixed;
     top: 0;
@@ -17,8 +39,7 @@
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    /* NOWE: Akceleracja sprzętowa */
-    transform: translateZ(0); 
+    transform: translateZ(0); /* Akceleracja GPU */
     will-change: transform; 
 }
 
@@ -28,25 +49,25 @@
     object-fit: cover;
 }
 
-/* Przyciemnienie wideo */
 .video-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(10, 10, 15, 0.85), rgba(10, 10, 20, 0.7));
+    /* Ciemniejszy gradient na dole dla czytelności stopki */
+    background: linear-gradient(to bottom, rgba(10, 10, 15, 0.80), rgba(10, 10, 20, 0.95));
     z-index: 1;
 }
 
-/* SCROLL SNAP (Działa na desktopie, bezpieczny na mobile) */
+/* --- SCROLL SNAP (Przewijanie) --- */
 html {
     scroll-behavior: smooth;
 }
 
 .snap-container {
     height: 100vh;
-    height: 100dvh; /* Dla mobilnych przeglądarek */
+    height: 100dvh; /* Fix dla mobilnych pasków adresu */
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
@@ -58,6 +79,7 @@ html {
     min-height: 100dvh;
     scroll-snap-align: start;
     position: relative;
+    /* Domyślne paddingi (Desktop) - EDYTUJ TUTAJ ODSTĘPY GÓRA/DÓŁ */
     padding-top: 80px;
     padding-bottom: 40px;
     display: flex;
@@ -65,37 +87,42 @@ html {
     justify-content: center;
 }
 
+/* --- SZKŁO (GLASSMORPHISM) --- */
 .glass-card {
-    background: rgba(255, 255, 255, 0.07);
-    /* Zmniejszamy blur z 12px na 8px dla wydajności */
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 16px;
+    /* Domyślnie (Mobile/Tablet): Brak rozmycia dla wydajności, ciemniejsze tło */
+    background: rgba(20, 20, 30, 0.85); 
     border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    /* NOWE: Akceleracja */
     transform: translateZ(0);
 }
 
+/* Tylko na Desktopie włączamy pełne szkło */
+@media (min-width: 1025px) {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
 .glass-nav {
-    background: rgba(10, 10, 15, 0.85); /* Bardziej pełny kolor, mniej przezroczystości = szybciej */
+    background: rgba(10, 10, 15, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    /* NOWE: Akceleracja */
-    transform: translateZ(0);
 }
 
 .glass-input {
     width: 100%;
-    padding: 0.6rem 0.8rem;
+    padding: 0.7rem 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: white;
     outline: none;
     transition: all 0.3s;
-    font-size: 16px; /* 16px zapobiega zoomowaniu na iPhone przy kliknięciu */
+    font-size: 16px; /* Zapobiega zoomowi na iOS */
 }
 
 .glass-input:focus {
@@ -103,16 +130,14 @@ html {
     border-color: var(--accent-orange);
 }
 
-/* Stripe fix */
+/* --- KOMPONENTY --- */
 .StripeElement { background: transparent; }
 
-/* Tekst z obrysem */
 .text-stroke {
     -webkit-text-stroke: 1px var(--accent-orange);
     color: transparent;
 }
 
-/* Animacja */
 .animate-fade-up {
     animation: fadeUp 0.8s ease-out forwards;
     opacity: 0;
@@ -123,24 +148,110 @@ html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- RESPNSYWNOŚĆ (MEDIA QUERIES) --- */
+/* --- MARQUEE (Pływający pasek) --- */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Zanikanie po bokach */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
 
-/* Poniżej 1024px (Tablety i Mobile) */
+.marquee-content {
+    display: flex;
+    gap: 1.5rem; /* Odstęp między opiniami */
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- FAQ AKORDEON --- */
+.faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+.faq-item:last-child { border-bottom: none; }
+
+.faq-question {
+    cursor: pointer;
+    padding: 1.2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #e5e7eb;
+    transition: color 0.3s;
+    font-size: 0.95rem;
+}
+.faq-question:hover { color: var(--accent-orange); }
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    padding-bottom: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px; /* Limit wysokości rozwinięcia */
+    padding-bottom: 1.2rem;
+}
+
+.faq-icon { transition: transform 0.3s; }
+.faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
+
+/* --- RESPONSYWNOŚĆ (RWD) --- */
+
+/* TABLET I MNIEJSZE (poniżej 1024px) */
 @media (max-width: 1024px) {
     .snap-section {
-        height: auto;
-        display: block; /* Wyłączamy flex centering, by treść się mieściła */
-        padding-top: 100px;
+        height: auto; 
+        min-height: auto; /* Wyłączamy wymuszanie 100vh */
+        display: block;   /* Zdejmujemy centrowanie Flex */
+        padding-top: 90px;
+        padding-bottom: 60px;
     }
     
     .snap-container {
-        scroll-snap-type: none; /* Wyłączamy przyciąganie na dotykowych, bo bywa irytujące */
+        scroll-snap-type: none; /* Wyłączamy przyciąganie, bo na dotyku jest irytujące */
         height: auto;
         overflow-y: auto;
     }
     
     .text-stroke {
         -webkit-text-stroke: 0px;
-        color: var(--accent-orange); /* Na małych ekranach pełny kolor jest czytelniejszy */
+        color: var(--accent-orange); /* Pełny kolor jest czytelniejszy na małym ekranie */
     }
+    
+    /* Dostosowanie nagłówków */
+    h1 { line-height: 1.2; }
+}
+
+/* TELEFON (poniżej 640px) */
+@media (max-width: 640px) {
+    .snap-section {
+        padding-top: 80px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .glass-card {
+        padding: 1.5rem; /* Mniejszy padding wewnątrz kart */
+        border-radius: 12px;
+    }
+    
+    /* Zmniejszenie odstępów w Marquee */
+    .marquee-content { gap: 1rem; }
 }

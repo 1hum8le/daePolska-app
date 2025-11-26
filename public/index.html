@@ -321,43 +321,6 @@
             </div>
         </section>
 
-        <section id="reviews-faq" class="snap-section flex items-center justify-center px-4">
-            <div class="container mx-auto max-w-7xl">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h2 class="text-3xl font-black mb-8 font-montserrat text-accent-orange uppercase" data-i18n="reviews_title">Klienci o nas</h2>
-                        <div class="space-y-6">
-                            <div class="glass-card p-6 hover:bg-white/5 transition">
-                                <div class="flex items-center space-x-4 mb-3">
-                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">MK</div>
-                                    <div><h4 class="font-bold">Marek K.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
-                                </div>
-                                <p class="text-gray-200 text-sm italic" data-i18n="review_1">"Uratowali mnie przed zakupem powypadkowego BMW. Raport był niesamowicie szczegółowy. Dobrze wydane pieniądze."</p>
-                            </div>
-                            <div class="glass-card p-6 hover:bg-white/5 transition">
-                                <div class="flex items-center space-x-4 mb-3">
-                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">TW</div>
-                                    <div><h4 class="font-bold">Tomasz W.</h4><div class="text-accent-orange text-xs">★★★★★</div></div>
-                                </div>
-                                <p class="text-gray-200 text-sm italic" data-i18n="review_2">"Profesjonalne podejście. Wideo z inspekcji pokazało problemy z silnikiem, które bym przeoczył. Polecam każdemu."</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-black mb-8 font-montserrat text-white uppercase" data-i18n="faq_title">Częste Pytania</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q1">Jak szybko otrzymam raport?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a1">Działamy błyskawicznie. Raport otrzymasz zazwyczaj w ciągu 24-48h od opłacenia zamówienia, zależnie od dostępności sprzedającego.</p></div>
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q2">Czy negocjujecie cenę?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a2">Tak, w pakiecie Premium. Znamy lokalny rynek i język, co pozwala nam często uzyskać rabaty przewyższające koszt naszej usługi.</p></div>
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q3">Gdzie dokładnie działacie?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a3">Nasza baza to Antwerpia. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (Nadrenia Północna-Westfalia).</p></div>
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a4">Jeśli nie zdążymy dojechać na inspekcję, bo auto zniknie z rynku – otrzymujesz natychmiastowy zwrot 100% środków.</p></div>
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q5">Czy mogę jechać z wami?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a5">Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas, ale w pakiecie VIP jest możliwość wspólnego wyjazdu lub odbioru z lotniska.</p></div>
-                            <div class="glass-card p-5"><h3 class="font-bold text-accent-orange text-sm mb-1" data-i18n="faq_q6">Jak wygląda płatność?</h3><p class="text-gray-200 text-xs" data-i18n="faq_a6">Płacisz bezpiecznie online (Karta/BLIK) przez Stripe. Otrzymujesz fakturę na każdą usługę.</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="order" class="snap-section flex items-center justify-center px-4 py-12">
              <div class="container mx-auto max-w-2xl">
                 <div class="glass-card p-6 md:p-8 animate-fade-up">
@@ -445,6 +408,129 @@
                             <p id="order-status" class="mt-3 text-sm font-bold text-center hidden"></p>
                         </button>
                     </form>
+                </div>
+            </div>
+        </section>
+
+      <section id="reviews-faq" class="snap-section flex flex-col justify-center px-4 py-16 bg-black/20 overflow-hidden">
+            
+            <div class="w-full mb-16">
+                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="reviews_title">HISTORIE KLIENTÓW</h2>
+                
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div>
+                                <div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div>
+                            </div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!"</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div>
+                                <div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div>
+                            </div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div>
+                                <div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div>
+                            </div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-blue-500">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div>
+                                <div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div>
+                            </div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!"</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
+                        </div>
+                         <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="faq_title">CZĘSTE PYTANIA</h2>
+                
+                <div class="glass-card px-6 py-2">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q1">Jak szybko otrzymam raport?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a1">
+                            Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q2">Czy negocjujecie cenę?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a2">
+                            Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q3">Gdzie dokładnie działacie?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a3">
+                            Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a4">
+                            Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q5">Czy sprawdzacie auta od osób prywatnych?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a5">
+                            Tak, sprawdzamy samochody zarówno w komisach, autoryzowanych salonach (ASO), jak i u sprzedawców prywatnych.
+                        </div>
+                    </div>
+
+                     <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <span data-i18n="faq_q6">Jak wygląda płatność?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer" data-i18n="faq_a6">
+                            Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp. Otrzymujesz fakturę na każdą usługę.
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

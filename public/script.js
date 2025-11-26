@@ -321,6 +321,21 @@ if(contactForm) {
     });
 }
 
+// --- OBSŁUGA FAQ (AKORDEON) ---
+window.toggleFaq = function(element) {
+    // Jeśli kliknięty element jest już aktywny, zamknij go
+    if (element.classList.contains('active')) {
+        element.classList.remove('active');
+    } else {
+        // Zamknij wszystkie inne otwarte pytania (opcjonalne, dla estetyki)
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        // Otwórz kliknięty
+        element.classList.add('active');
+    }
+}
+
 // --- START APLIKACJI ---
 setupStripe('pl');
 updatePricesDisplay();
