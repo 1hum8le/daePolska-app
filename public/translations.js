@@ -1,57 +1,141 @@
 export const translations = {
     // ================= POLSKI (PL) - BAZA =================
     pl: {
-        nav_info: "Proces", nav_services: "Cennik", nav_reviews: "Opinie & FAQ", nav_contact: "Kontakt",
+        // --- NAWIGACJA ---
+        nav_info: "Proces", 
+        nav_services: "Cennik", 
+        nav_reviews: "Opinie", 
+        nav_contact: "Kontakt",
         
+        // --- HERO SECTION ---
         hero_title: "KUPUJ AUTA ZZA GRANICY<br><span class=\"text-accent-orange text-stroke\">BEZ RYZYKA.</span>",
         hero_subtitle: "Kompleksowe raporty techniczne aut w Belgii, Holandii i Niemczech. Sprawdzamy to, czego handlarz nie powie. Oszczędź czas i uniknij kosztownych wpadek.",
-        stat_cars: "Sprawdzonych Aut", stat_saved: "Zaoszczędzone", stat_time: "Czas Reakcji", stat_satisfaction: "Gwarancja Usługi",
+        stat_cars: "Sprawdzonych Aut", 
+        stat_saved: "Zaoszczędzone", 
+        stat_time: "Czas Reakcji", 
+        stat_satisfaction: "Gwarancja Usługi",
         hero_cta_desc: "Zaufaj ekspertom. Oszczędź czas, nerwy i pieniądze.",
         hero_btn: "SPRAWDŹ OFERTĘ",
 
+        // --- PROCES (6 KAFELKÓW) ---
         info_title: "CO DOKŁADNIE SPRAWDZAMY?",
-        info_body_title: "1. Nadwozie i Lakier", info_body_desc: "Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.",
-        info_eng_title: "2. Silnik i Osprzęt", info_eng_desc: "Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.",
-        info_drive_title: "3. Napęd i Zawieszenie", info_drive_desc: "Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.",
-        info_int_title: "4. Wnętrze i Wyposażenie", info_int_desc: "Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.",
-        info_diag_title: "5. Diagnostyka Komputerowa", info_diag_desc: "Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.",
-        info_test_title: "6. Jazda Próbna", info_test_desc: "Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.",
+        info_body_title: "1. Nadwozie i Lakier", 
+        info_body_desc: "Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.",
+        
+        info_eng_title: "2. Silnik i Osprzęt", 
+        info_eng_desc: "Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.",
+        
+        info_drive_title: "3. Napęd i Zawieszenie", 
+        info_drive_desc: "Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.",
+        
+        info_int_title: "4. Wnętrze i Wyposażenie", 
+        info_int_desc: "Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.",
+        
+        info_diag_title: "5. Diagnostyka Komputerowa", 
+        info_diag_desc: "Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.",
+        
+        info_test_title: "6. Jazda Próbna", 
+        info_test_desc: "Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.",
 
+        // --- DLACZEGO MY? (NOWA SEKCJA) ---
+        why_title: "DLACZEGO TO SIĘ <span class=\"text-accent-orange\">OPŁACA?</span>",
+        why_desc: "Import auta to nie tylko lepsza jakość dróg i serwisu. To przede wszystkim matematyka. Kupując bezpośrednio, omijasz marżę handlarza, koszty jego transportu i ryzyko \"korekty licznika\".",
+        why_ex_title: "PRZYKŁAD Z ŻYCIA (BMW Seria 3):",
+        why_pl_label: "Cena u handlarza w PL:",
+        why_be_label: "To samo auto w Belgii:",
+        why_save_label: "TWOJA OSZCZĘDNOŚĆ:",
+        why_note: "*Nawet po odliczeniu kosztów inspekcji i transportu, zyskujesz pewne auto i tysiące złotych w kieszeni.",
+        
+        why_icon1_title: "Digital Control",
+        why_icon1_desc: "Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.",
+        why_icon2_title: "Pomoc w Transporcie",
+        why_icon2_desc: "Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.",
+        why_icon3_title: "Negocjacje w cenie",
+        why_icon3_desc: "Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.",
+
+        // --- CENNIK (PAKIETY) ---
         packages_title: "WYBIERZ PAKIET",
-        pkg_photos: "30-40 Zdjęć", pkg_docs: "Dokumenty", pkg_pdf: "Raport PDF",
-        pkg_basic_incl: "Wszystko z Basic", pkg_obd: "Pełna Diagnostyka OBD", pkg_paint: "Mierzenie Lakieru", pkg_drive: "Wykonanie Jazdy Próbnej",
-        pkg_standard_incl: "Wszystko ze Standard", pkg_negotiation: "Negocjacja Ceny", pkg_video: "Wideo 4K",
+        
+        // Basic
+        pkg_photos: "30-40 Zdjęć", 
+        pkg_photos_desc: "Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.",
+        pkg_docs: "Weryfikacja Dokumentów", 
+        pkg_docs_desc: "Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.",
+        pkg_pdf: "Raport PDF", 
+        pkg_pdf_desc: "Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.",
+        
+        // Standard
+        pkg_basic_incl: "Wszystko co w pakiecie Basic",
+        pkg_obd: "Pełna Diagnostyka OBD", 
+        pkg_obd_desc: "Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.",
+        pkg_paint: "Miernik Lakieru", 
+        pkg_paint_desc: "Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.",
+        pkg_drive: "Jazda Próbna", 
+        pkg_drive_desc: "Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.",
+
+        // Premium
+        pkg_standard_incl: "Wszystko co w pakiecie Standard",
+        pkg_negotiation: "Negocjacja Ceny", 
+        pkg_negotiation_desc: "Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.",
+        pkg_video: "Wideo 4K + VIP", 
+        pkg_video_desc: "Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.",
+
         btn_select: "WYBIERZ",
 
-        reviews_title: "Klienci o nas",
-        review_1: "\"Uratowali mnie przed zakupem powypadkowego BMW. Raport był niesamowicie szczegółowy. Dobrze wydane pieniądze.\"",
-        review_2: "\"Profesjonalne podejście. Wideo z inspekcji pokazało problemy z silnikiem, które bym przeoczył. Polecam.\"",
-        review_3: "\"Auto kupione! Negocjacje pokryły koszt usługi z nawiązką. Polecam.\"",
+        // --- OPINIE ---
+        reviews_title: "HISTORIE KLIENTÓW",
+        review_1: "\"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!\"",
+        review_2: "\"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować.\"",
+        review_3: "\"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam.\"",
         
-        faq_title: "Częste Pytania",
-        faq_q1: "Jak szybko otrzymam raport?", faq_a1: "Działamy błyskawicznie. Raport otrzymasz zazwyczaj w ciągu 24-48h od opłacenia zamówienia, zależnie od dostępności sprzedającego.",
-        faq_q2: "Czy negocjujecie cenę?", faq_a2: "Tak, w pakiecie Premium. Znamy lokalny rynek i język, co pozwala nam często uzyskać rabaty przewyższające koszt naszej usługi.",
-        faq_q3: "Gdzie dokładnie działacie?", faq_a3: "Nasza baza to Antwerpia. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (Nadrenia Północna-Westfalia).",
-        faq_q4: "Co jeśli auto zostanie sprzedane?", faq_a4: "Jeśli nie zdążymy dojechać na inspekcję, bo auto zniknie z rynku – otrzymujesz natychmiastowy zwrot 100% środków.",
-        faq_q5: "Czy mogę jechać z wami?", faq_a5: "Niestety nie ze względów ubezpieczeniowych i odpowiedzialności prawnej.",
-        faq_q6: "Jak mogę zapłacić?", faq_a6: "Akceptujemy płatności przez Stripe, co umożliwia bezpieczne płatności kartą kredytową oraz Apple/Google Pay.",
+        // --- FAQ ---
+        faq_title: "CZĘSTE PYTANIA",
+        faq_q1: "Jak szybko otrzymam raport?", 
+        faq_a1: "Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).",
+        
+        faq_q2: "Czy negocjujecie cenę?", 
+        faq_a2: "Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.",
+        
+        faq_q3: "Gdzie dokładnie działacie?", 
+        faq_a3: "Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).",
+        
+        faq_q4: "Co jeśli auto zostanie sprzedane?", 
+        faq_a4: "Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.",
+        
+        faq_q5: "Czy mogę jechać z wami?", 
+        faq_a5: "Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas. W pakiecie VIP (do ustalenia) możliwy jest wspólny wyjazd lub odbiór z lotniska.",
+        
+        faq_q6: "Jak wygląda płatność?", 
+        faq_a6: "Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.",
 
-        form_title: "SFINALIZUJ ZAMÓWIENIE", form_selected: "Wybrano", form_payment_method: "Wybierz metodę płatności",
-        form_car_details: "DANE POJAZDU", btn_pay: "ZAPŁAĆ BEZPIECZNIE",
+        // --- FORMULARZ I KONTAKT ---
+        form_title: "SFINALIZUJ ZAMÓWIENIE", 
+        form_selected: "Wybrano", 
+        form_payment_method: "Wybierz metodę płatności",
+        form_car_details: "DANE POJAZDU", 
+        btn_pay: "ZAPŁAĆ BEZPIECZNIE",
+        
         contact_title: "GOTOWY NA IMPORT?",
         contact_desc: "Masz pytania przed zamówieniem? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość.",
-        contact_form_title: "Wyślij zapytanie", lbl_name: "Imię i Nazwisko", lbl_email: "Email", lbl_message: "Wiadomość", btn_send: "WYŚLIJ WIADOMOŚĆ",
+        contact_form_title: "Wyślij zapytanie", 
+        lbl_name: "Imię i Nazwisko", ph_name: "Jan Kowalski",
+        lbl_email: "Email", ph_email: "jan@przyklad.com",
+        lbl_message: "Wiadomość", 
+        btn_send: "WYŚLIJ WIADOMOŚĆ",
         footer_rights: "Wszelkie prawa zastrzeżone.",
         
-        lbl_phone: "Telefon (Opcjonalnie)", ph_name: "Jan Kowalski", ph_email: "jan@przyklad.com", ph_phone: "+48 ...",
+        lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
-        txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności.",
+        
+        txt_secure: "Płatności szyfrowane SSL", 
+        txt_redirect: "Przekierowanie", 
+        txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
         terms_text: "Akceptuję Regulamin i Politykę Prywatności. Rozumiem, że usługa jest opinią techniczną w momencie oględzin."
     },
 
-    // ================= ANGIELSKI (EN) - PEŁNY =================
+    // ================= ANGIELSKI (EN) =================
     en: {
-        nav_info: "Process", nav_services: "Pricing", nav_reviews: "Reviews & FAQ", nav_contact: "Contact",
+        nav_info: "Process", nav_services: "Pricing", nav_reviews: "Reviews", nav_contact: "Contact",
         
         hero_title: "BUY CARS ABROAD<br><span class=\"text-accent-orange text-stroke\">WITHOUT RISK.</span>",
         hero_subtitle: "Comprehensive technical reports in Belgium, Netherlands, and Germany. We verify what the dealer won't tell you. Save time and avoid costly mistakes.",
@@ -67,24 +151,46 @@ export const translations = {
         info_diag_title: "5. Computer Diagnostics", info_diag_desc: "Connection of a professional OBD scanner. Reading active and historic faults. DPF saturation verification and mileage comparison in control modules.",
         info_test_title: "6. Test Drive", info_test_desc: "Dynamic test at various speeds. Verification of handling, emergency braking, suspension operation on bumps, and disturbing noises.",
 
+        why_title: "WHY IS IT <span class=\"text-accent-orange\">WORTH IT?</span>",
+        why_desc: "Importing a car is not just about better roads and service. It's mainly math. Buying directly, you skip the dealer's margin, transport costs, and \"mileage correction\" risks.",
+        why_ex_title: "REAL EXAMPLE (BMW 3 Series):",
+        why_pl_label: "Dealer price in PL:",
+        why_be_label: "Same car in Belgium:",
+        why_save_label: "YOUR SAVINGS:",
+        why_note: "*Even after deducting inspection and transport costs, you gain a reliable car and thousands in your pocket.",
+        
+        why_icon1_title: "Digital Control", why_icon1_desc: "Full transparency. You see the car as if you were there. 50+ photos and 4K video.",
+        why_icon2_title: "Transport Help", why_icon2_desc: "Don't have a trailer? We help organize safe transport to your door at a fair price.",
+        why_icon3_title: "Price Negotiation", why_icon3_desc: "We know the language and market. We often cut more from the price than our service costs.",
+
         packages_title: "SELECT YOUR TIER",
-        pkg_photos: "30-40 Photos", pkg_docs: "Docs Check", pkg_pdf: "PDF Report",
-        pkg_basic_incl: "All in Basic", pkg_obd: "Full OBD Diagnostics", pkg_paint: "Paint Thickness Measurement", pkg_drive: "Test Drive",
-        pkg_standard_incl: "All in Standard", pkg_negotiation: "Price Negotiation", pkg_video: "4K Video",
+        pkg_photos: "30-40 Photos", pkg_photos_desc: "High resolution. Documentation of every scratch, dent, and interior detail.",
+        pkg_docs: "Docs Verification", pkg_docs_desc: "Checking VIN match, registration papers, Car-Pass, and service history.",
+        pkg_pdf: "PDF Report", pkg_pdf_desc: "A clear visual condition summary sent directly to your email.",
+        
+        pkg_basic_incl: "All in Basic",
+        pkg_obd: "Full OBD Diagnostics", pkg_obd_desc: "Computer connection. Scanning injectors, DPF, gearbox, and verifying mileage in modules.",
+        pkg_paint: "Paint Thickness", pkg_paint_desc: "Professional coating measurement. We detect putty and accident history.",
+        pkg_drive: "Test Drive", pkg_drive_desc: "Dynamic test. Checking suspension, brakes, clutch, and handling.",
+
+        pkg_standard_incl: "All in Standard",
+        pkg_negotiation: "Price Negotiation", pkg_negotiation_desc: "We negotiate on your behalf in the local language. We often recover the service cost with interest.",
+        pkg_video: "4K Video + VIP", pkg_video_desc: "Detailed recording with expert commentary. Priority service execution.",
+
         btn_select: "SELECT",
 
-        reviews_title: "Client Stories",
-        review_1: "\"Saved me from buying a wrecked BMW. The report was incredibly detailed. Best money spent.\"",
-        review_2: "\"Professional approach. The inspection video showed engine issues I would have missed. Highly recommended.\"",
-        review_3: "\"Car bought! The negotiations covered the service cost and more. Highly recommended.\"",
+        reviews_title: "CLIENT STORIES",
+        review_1: "\"The dealer swore the car was perfect. DAE report showed a welded quarter panel and missing airbags. You saved me 60k PLN. Thank you!\"",
+        review_2: "\"I wanted to drive 1200km blindly. Inspection revealed damaged injectors and flywheel. Repair would exceed car value. Not worth the risk.\"",
+        review_3: "\"I took the Premium package. Mr. Jakub negotiated an 800 EUR discount in Dutch. The service paid for itself and I even made a profit.\"",
 
-        faq_title: "Frequently Asked Questions",
+        faq_title: "FREQUENTLY ASKED QUESTIONS",
         faq_q1: "How fast do I get the report?", faq_a1: "We act fast. Usually within 24-48h of payment, depending on seller availability.",
         faq_q2: "Do you negotiate prices?", faq_a2: "Yes, in the Premium package. We know the local market and language, often saving you more than our service fee.",
         faq_q3: "Where do you operate?", faq_a3: "Our base is Antwerp. We cover Belgium, Netherlands, and Western Germany (North Rhine-Westphalia).",
-        faq_q4: "What if the car is sold?", faq_a4: "If we cannot inspect because the car is gone from the market, you get a 100% instant refund.",
-        faq_q5: "Can I come along?", faq_a5: "Unfortunately not, due to insurance and liability issues.",
-        faq_q6: "How can I pay?", faq_a6: "We accept payments via Stripe, enabling secure credit card payments and Apple/Google Pay.",
+        faq_q4: "What if the car is sold?", faq_a4: "We are fair. If we cannot inspect because the car is gone from the market, you get a 100% instant refund.",
+        faq_q5: "Can I come along?", faq_a5: "We usually work remotely to save your time. In VIP package (to be agreed), a joint trip or airport pickup is possible.",
+        faq_q6: "How can I pay?", faq_a6: "Secure online payment (Card/Google Pay/Apple Pay) via Stripe. Bank transfer or BLIK also available upon contact.",
 
         form_title: "FINALIZE ORDER", form_selected: "Selected", form_payment_method: "Payment Method",
         form_car_details: "VEHICLE DETAILS", btn_pay: "PAY SECURELY",
@@ -94,15 +200,15 @@ export const translations = {
         lbl_name: "Full Name", lbl_email: "Email", lbl_message: "Message", btn_send: "SEND MESSAGE",
         footer_rights: "All rights reserved.",
         
-        lbl_phone: "Phone Number (Optional)", ph_name: "John Doe", ph_email: "john@example.com", ph_phone: "+1 ...",
+        lbl_phone: "Phone (Optional)", ph_name: "John Doe", ph_email: "john@example.com", ph_phone: "+1 ...",
         ph_url: "Listing Link", ph_loc: "City, Country",
         txt_secure: "Encrypted by Stripe SSL", txt_redirect: "Redirecting...", txt_redirect_desc: "You will be redirected to payment gateway.",
         terms_text: "I accept the Terms & Privacy Policy. I understand the service is a technical opinion at the time of inspection."
     },
 
-    // ================= NIDERLANDZKI (NL) - PEŁNY =================
+    // ================= NIDERLANDZKI (NL) =================
     nl: {
-        nav_info: "Proces", nav_services: "Prijzen", nav_reviews: "Reviews & FAQ", nav_contact: "Contact",
+        nav_info: "Proces", nav_services: "Prijzen", nav_reviews: "Reviews", nav_contact: "Contact",
         
         hero_title: "KOOP AUTO'S IN HET BUITENLAND<br><span class=\"text-accent-orange text-stroke\">ZONDER RISICO.</span>",
         hero_subtitle: "Uitgebreide technische rapporten in België, Nederland en Duitsland. Wij controleren wat de dealer niet vertelt. Bespaar tijd en vermijd miskopen.",
@@ -118,35 +224,228 @@ export const translations = {
         info_diag_title: "5. Computer Diagnose", info_diag_desc: "Aansluiting van professionele OBD-scanner. Uitlezen van actieve en historische foutcodes. Verificatie van DPF-vulling en vergelijking van kilometerstand in stuurmodules.",
         info_test_title: "6. Proefrit", info_test_desc: "Dynamische test bij verschillende snelheden. Verificatie van weggedrag, noodstop, werking van de ophanging op oneffenheden en verontrustende geluiden.",
 
+        why_title: "WAAROM IS HET <span class=\"text-accent-orange\">DE MOEITE WAARD?</span>",
+        why_desc: "Een auto importeren gaat niet alleen over betere wegen. Het is vooral wiskunde. Door direct te kopen, vermijdt u de marge van de handelaar, transportkosten en risico op tellerfraude.",
+        why_ex_title: "VOORBEELD (BMW 3 Serie):",
+        why_pl_label: "Prijs bij handelaar in PL:",
+        why_be_label: "Zelfde auto in België:",
+        why_save_label: "UW BESPARING:",
+        why_note: "*Zelfs na aftrek van inspectie- en transportkosten wint u een betrouwbare auto en duizenden zloty's.",
+        
+        why_icon1_title: "Digital Control", why_icon1_desc: "Volledige transparantie. U ziet de auto alsof u er zelf bij was. 50+ foto's en 4K video.",
+        why_icon2_title: "Hulp bij Transport", why_icon2_desc: "Geen trailer? Wij helpen veilig transport tot aan uw deur te organiseren voor een eerlijke prijs.",
+        why_icon3_title: "Prijs Onderhandeling", why_icon3_desc: "Wij kennen de taal en de markt. Vaak onderhandelen we meer van de prijs af dan onze dienst kost.",
+
         packages_title: "KIES UW PAKKET",
-        pkg_photos: "30-40 Foto's", pkg_docs: "Documenten", pkg_pdf: "PDF Rapport",
-        pkg_basic_incl: "Alles in Basic", pkg_obd: "Volledige OBD Diagnose", pkg_paint: "Lakdikte Meting", pkg_drive: "Proefrit",
-        pkg_standard_incl: "Alles in Standaard", pkg_negotiation: "Prijs Onderhandeling", pkg_video: "4K Video",
+        pkg_photos: "30-40 Foto's", 
+        pkg_photos_desc: "Hoge resolutie. Documentatie van elke kras, deuk en interieurdetail.",
+        pkg_docs: "Documenten", 
+        pkg_docs_desc: "Controle van VIN, registratiebewijs, Car-Pass en onderhoudshistorie.",
+        pkg_pdf: "PDF Rapport", 
+        pkg_pdf_desc: "Duidelijk overzicht van de visuele staat rechtstreeks naar uw e-mail.",
+        
+        pkg_basic_incl: "Alles in Basic",
+        pkg_obd: "Volledige OBD Diagnose", 
+        pkg_obd_desc: "Computer aansluiting. Scannen van injectoren, DPF, versnellingsbak en kilometerverificatie.",
+        pkg_paint: "Lakdikte Meting", 
+        pkg_paint_desc: "Professionele laagdikte meting. Wij detecteren plamuur en ongevalhistorie.",
+        pkg_drive: "Proefrit", 
+        pkg_drive_desc: "Dynamische test. Controle van ophanging, remmen, koppeling en weggedrag.",
+
+        pkg_standard_incl: "Alles in Standaard",
+        pkg_negotiation: "Prijs Onderhandeling", 
+        pkg_negotiation_desc: "Wij onderhandelen namens u in de lokale taal. Vaak verdienen we de servicekosten terug.",
+        pkg_video: "4K Video + VIP", 
+        pkg_video_desc: "Gedetailleerde opname met commentaar van de expert. Prioritaire uitvoering.",
+
         btn_select: "KIES",
 
-        reviews_title: "Klantverhalen",
-        review_1: "\"Heeft me gered van een miskoop. Het rapport was ongelooflijk gedetailleerd. Beste investering.\"",
-        review_2: "\"Professionele aanpak. De video toonde motorproblemen aan die ik anders gemist zou hebben. Aanrader.\"",
-        review_3: "\"Auto gekocht! De onderhandeling betaalde de servicekosten ruimschoots terug. Zeer aan te bevelen.\"",
+        reviews_title: "KLANTVERHALEN",
+        review_1: "\"De handelaar zwoer dat de auto perfect was. DAE rapport toonde een gelast kwartpaneel en ontbrekende airbags. Jullie hebben me 60k PLN bespaard. Bedankt!\"",
+        review_2: "\"Ik wilde 1200km blind rijden. Inspectie toonde defecte injectoren en vliegwiel. Reparatiekosten hoger dan de auto. Het risico niet waard.\"",
+        review_3: "\"Ik nam het Premium pakket. Dhr. Jakub onderhandelde 800 EUR korting in het Nederlands. De dienst betaalde zichzelf terug en ik maakte winst.\"",
         
-        faq_title: "Veelgestelde Vragen",
+        faq_title: "VEELGESTELDE VRAGEN",
         faq_q1: "Hoe snel krijg ik het rapport?", faq_a1: "Wij handelen snel. Meestal binnen 24-48 uur na betaling, afhankelijk van beschikbaarheid van de verkoper.",
         faq_q2: "Onderhandelen jullie over de prijs?", faq_a2: "Ja, in het Premium pakket. Wij kennen de lokale markt en taal, en besparen u vaak meer dan onze kosten.",
         faq_q3: "Waar werken jullie?", faq_a3: "Onze basis is Antwerpen. Wij dekken heel België, Nederland en West-Duitsland (Noordrijn-Westfalen).",
         faq_q4: "Wat als de auto verkocht is?", faq_a4: "Als we de auto niet kunnen inspecteren omdat deze van de markt is, krijgt u direct 100% terugbetaling.",
-        faq_q5: "Mag ik met jullie mee?", faq_a5: "Helaas is dat niet mogelijk vanwege verzekerings- en aansprakelijkheidskwesties.",
-        faq_q6: "Hoe kan ik betalen?", faq_a6: "We accepteren betalingen via Stripe, wat veilige creditcardbetalingen en Apple/Google Pay mogelijk maakt.",
+        faq_q5: "Mag ik met jullie mee?", faq_a5: "Meestal werken we op afstand om uw tijd te besparen. In het VIP-pakket (te bespreken) is een gezamenlijke reis of ophalen van de luchthaven mogelijk.",
+        faq_q6: "Hoe kan ik betalen?", faq_a6: "Veilig online via Stripe (Creditcard/Google Pay/Apple Pay). Overboeking of BLIK ook mogelijk na contact.",
+        
         form_title: "BESTELLING AFRONDEN", form_selected: "Geselecteerd", form_payment_method: "Betaalmethode",
         form_car_details: "VOERTUIGDETAILS", btn_pay: "VEILIG BETALEN",
         contact_title: "KLAAR VOOR IMPORT?",
         contact_desc: "Vragen vooraf? Neem direct contact op of stuur een bericht.",
         contact_form_title: "Stuur bericht", 
-        lbl_name: "Volledige Naam", lbl_email: "E-mail", lbl_message: "Bericht", btn_send: "VERSTUUR",
+        lbl_name: "Naam", lbl_email: "E-mail", lbl_message: "Bericht", btn_send: "VERSTUUR",
         footer_rights: "Alle rechten voorbehouden.",
         
         lbl_phone: "Telefoon (Optioneel)", ph_name: "Jan Jansen", ph_email: "jan@voorbeeld.nl", ph_phone: "+32 ...",
         ph_url: "Link naar advertentie", ph_loc: "Stad, Land",
         txt_secure: "Betalingen versleuteld via Stripe SSL", txt_redirect: "Doorverwijzing...", txt_redirect_desc: "U wordt doorgestuurd naar de betaalpagina.",
         terms_text: "Ik ga akkoord met de voorwaarden en privacybeleid. Ik begrijp dat de dienst een technische momentopname is."
+    },
+
+    // ================= FRANCUSKI (FR) =================
+    fr: {
+        nav_info: "Processus", nav_services: "Tarifs", nav_reviews: "Avis & FAQ", nav_contact: "Contact",
+        
+        hero_title: "ACHETEZ À L'ÉTRANGER<br><span class=\"text-accent-orange text-stroke\">SANS RISQUE.</span>",
+        hero_subtitle: "Rapports techniques complets en Belgique, aux Pays-Bas et en Allemagne. Nous vérifions ce que le vendeur ne vous dit pas. Gagnez du temps et évitez les erreurs coûteuses.",
+        stat_cars: "Voitures inspectées", stat_saved: "Économisé", stat_time: "Temps de réponse", stat_satisfaction: "Garantie",
+        hero_cta_desc: "Faites confiance aux experts. Économisez du temps, du stress et de l'argent.",
+        hero_btn: "VOIR LES OFFRES",
+
+        info_title: "QUE VÉRIFIONS-NOUS EXACTEMENT ?",
+        info_body_title: "1. Carrosserie & Peinture", info_body_desc: "Mesure précise de l'épaisseur de la peinture (détection de mastic et de seconde couche). Évaluation de l'ajustement des panneaux, de l'originalité des vitres, de l'état des pneus et des jantes, et recherche de traces de démontage.",
+        info_eng_title: "2. Moteur & Composants", info_eng_desc: "Analyse du fonctionnement du moteur à froid et à chaud. Vérification des fuites, performance des injecteurs, fonctionnement du turbocompresseur, courroie accessoire et fumée d'échappement.",
+        info_drive_title: "3. Transmission & Suspension", info_drive_desc: "Test de la boîte de vitesses (fluidité, à-coups). Évaluation des freins (disques/plaquettes), amortisseurs, jeu de direction et bruits de suspension.",
+        info_int_title: "4. Intérieur & Équipement", info_int_desc: "Vérification de l'usure (volant, sièges) par rapport au kilométrage. Test de toute l'électronique, climatisation, systèmes audio et recherche de traces d'humidité/inondation.",
+        info_diag_title: "5. Diagnostic Informatique", info_diag_desc: "Connexion d'un scanner OBD professionnel. Lecture des défauts actifs et historiques. Vérification de la saturation du FAP et comparaison du kilométrage dans les modules de commande.",
+        info_test_title: "6. Essai Routier", info_test_desc: "Test dynamique à différentes vitesses. Vérification de la tenue de route, freinage d'urgence, comportement de la suspension sur les bosses et bruits anormaux.",
+
+        why_title: "POURQUOI <span class=\"text-accent-orange\">ÇA VAUT LE COUP ?</span>",
+        why_desc: "L'importation n'est pas seulement une question de meilleures routes. C'est surtout des mathématiques. En achetant directement, vous évitez la marge du revendeur et le risque de compteur trafiqué.",
+        why_ex_title: "EXEMPLE RÉEL (BMW Série 3) :",
+        why_pl_label: "Prix revendeur en PL :",
+        why_be_label: "Même voiture en Belgique :",
+        why_save_label: "VOTRE ÉCONOMIE :",
+        why_note: "*Même après déduction de l'inspection et du transport, vous gagnez une voiture fiable et des milliers en poche.",
+        
+        why_icon1_title: "Contrôle Numérique", why_icon1_desc: "Transparence totale. Vous voyez la voiture comme si vous y étiez. 50+ photos et vidéo 4K.",
+        why_icon2_title: "Aide au Transport", why_icon2_desc: "Pas de remorque ? Nous aidons à organiser un transport sûr jusqu'à votre porte à un prix équitable.",
+        why_icon3_title: "Négociation de Prix", why_icon3_desc: "Nous connaissons la langue et le marché. Nous réduisons souvent le prix bien plus que le coût de notre service.",
+
+        packages_title: "CHOISISSEZ VOTRE PACK",
+        pkg_photos: "30-40 Photos", 
+        pkg_photos_desc: "Haute résolution. Documentation de chaque rayure, bosse et détail intérieur.",
+        pkg_docs: "Vérification Documents", 
+        pkg_docs_desc: "Vérification VIN, carte grise, Car-Pass et historique d'entretien.",
+        pkg_pdf: "Rapport PDF", 
+        pkg_pdf_desc: "Résumé clair de l'état visuel envoyé directement sur votre e-mail.",
+
+        pkg_basic_incl: "Tout dans Basic",
+        pkg_obd: "Diagnostic OBD Complet", 
+        pkg_obd_desc: "Connexion ordinateur. Scan des injecteurs, FAP, boîte et vérification kilométrage modules.",
+        pkg_paint: "Mesure Peinture", 
+        pkg_paint_desc: "Mesure professionnelle. Nous détectons le mastic et l'historique d'accidents.",
+        pkg_drive: "Essai Routier", 
+        pkg_drive_desc: "Test dynamique. Vérification suspension, freins, embrayage et conduite.",
+
+        pkg_standard_incl: "Tout dans Standard",
+        pkg_negotiation: "Négociation Prix", 
+        pkg_negotiation_desc: "Nous négocions pour vous en langue locale. Nous récupérons souvent le coût du service avec intérêts.",
+        pkg_video: "Vidéo 4K + VIP", 
+        pkg_video_desc: "Enregistrement détaillé avec commentaire d'expert. Exécution prioritaire.",
+
+        btn_select: "CHOISIR",
+
+        reviews_title: "AVIS CLIENTS",
+        review_1: "\"Le vendeur jurait que la voiture était parfaite. Le rapport DAE a montré une aile soudée et pas d'airbags. Vous m'avez sauvé 60k PLN. Merci !\"",
+        review_2: "\"Je voulais faire 1200km à l'aveugle. L'inspection a révélé des injecteurs et volant moteur HS. Réparation supérieure à la valeur. Pas de risque.\"",
+        review_3: "\"J'ai pris le pack Premium. M. Jakub a négocié 800 EUR de rabais en néerlandais. Le service s'est remboursé et j'ai fait un bénéfice.\"",
+
+        faq_title: "QUESTIONS FRÉQUENTES",
+        faq_q1: "En combien de temps reçois-je le rapport ?", faq_a1: "Nous agissons rapidement. Généralement sous 24-48h après paiement, selon la disponibilité du vendeur.",
+        faq_q2: "Négociez-vous les prix ?", faq_a2: "Oui, dans le pack Premium. Nous connaissons le marché local et la langue, économisant souvent plus que nos frais de service.",
+        faq_q3: "Où opérez-vous ?", faq_a3: "Notre base est à Anvers. Nous couvrons la Belgique, les Pays-Bas et l'Allemagne de l'Ouest (Rhénanie-du-Nord-Westphalie).",
+        faq_q4: "Et si la voiture est vendue ?", faq_a4: "Nous sommes honnêtes. Si la voiture disparaît du marché avant notre arrivée, vous obtenez un remboursement instantané de 100%.",
+        faq_q5: "Puis-je venir avec vous ?", faq_a5: "Généralement nous travaillons à distance pour gagner du temps. En pack VIP (à convenir), un voyage commun ou accueil aéroport est possible.",
+        faq_q6: "Comment payer ?", faq_a6: "Paiement sécurisé via Stripe (Carte/Google/Apple Pay). Virement ou BLIK disponible après contact.",
+        
+        form_title: "FINALISER LA COMMANDE", form_selected: "Sélectionné", form_payment_method: "Méthode de paiement",
+        form_car_details: "DÉTAILS DU VÉHICULE", btn_pay: "PAYER EN TOUTE SÉCURITÉ",
+        contact_title: "PRÊT À IMPORTER ?",
+        contact_desc: "Des questions avant de commander ? Contactez-nous directement ou envoyez un message.",
+        contact_form_title: "Envoyer une demande", 
+        lbl_name: "Nom complet", lbl_email: "Email", lbl_message: "Message", btn_send: "ENVOYER",
+        footer_rights: "Tous droits réservés.",
+        
+        lbl_phone: "Téléphone (Optionnel)", ph_name: "Jean Dupont", ph_email: "jean@exemple.fr", ph_phone: "+33 ...",
+        ph_url: "Lien de l'annonce", ph_loc: "Ville, Pays",
+        txt_secure: "Crypté par Stripe SSL", txt_redirect: "Redirection...", txt_redirect_desc: "Vous serez redirigé vers la passerelle de paiement.",
+        terms_text: "J'accepte les conditions générales et la politique de confidentialité. Je comprends que le service est un avis technique au moment de l'inspection."
+    },
+
+    // ================= HISZPAŃSKI (ES) =================
+    es: {
+        nav_info: "Proceso", nav_services: "Precios", nav_reviews: "Reseñas y FAQ", nav_contact: "Contacto",
+        
+        hero_title: "COMPRA COCHES EN EL EXTRANJERO<br><span class=\"text-accent-orange text-stroke\">SIN RIESGO.</span>",
+        hero_subtitle: "Informes técnicos completos en Bélgica, Países Bajos y Alemania. Verificamos lo que el vendedor no te dice. Ahorra tiempo y evita errores costosos.",
+        stat_cars: "Coches Inspeccionados", stat_saved: "Ahorrado", stat_time: "Tiempo de Respuesta", stat_satisfaction: "Garantía",
+        hero_cta_desc: "Confía en los expertos. Ahorra tiempo, estrés y dinero.",
+        hero_btn: "VER PRECIOS",
+
+        info_title: "¿QUÉ VERIFICAMOS EXACTAMENTE?",
+        info_body_title: "1. Carrocería y Pintura", info_body_desc: "Medición precisa del espesor de la pintura (detección de masilla y segundas capas). Evaluación de ajuste de paneles, originalidad de vidrios, estado de neumáticos y llantas, y búsqueda de rastros de desmontaje.",
+        info_eng_title: "2. Motor y Componentes", info_eng_desc: "Análisis del funcionamiento del motor en frío y caliente. Verificación de fugas, rendimiento de inyectores, funcionamiento del turbocompresor, correa de accesorios y humo de escape.",
+        info_drive_title: "3. Transmisión y Suspensión", info_drive_desc: "Prueba de funcionamiento de la caja de cambios (suavidad, tirones). Evaluación de frenos (discos/pastillas), amortiguadores, juego de dirección y ruidos de suspensión.",
+        info_int_title: "4. Interior y Equipamiento", info_int_desc: "Verificación de desgaste (volante, asientos) frente al kilometraje. Prueba de toda la electrónica, aire acondicionado, sistemas de audio y búsqueda de rastros de humedad/inundación.",
+        info_diag_title: "5. Diagnóstico por Computadora", info_diag_desc: "Conexión de escáner OBD profesional. Lectura de fallos activos e históricos. Verificación de saturación de DPF y comparación de kilometraje en módulos de control.",
+        info_test_title: "6. Prueba de Conducción", info_test_desc: "Prueba dinámica a varias velocidades. Verificación de manejo, frenado de emergencia, comportamiento de la suspensión en baches y ruidos anormales.",
+
+        why_title: "¿POR QUÉ <span class=\"text-accent-orange\">VALE LA PENA?</span>",
+        why_desc: "Importar un coche no es solo mejores carreteras y servicio. Es principalmente matemáticas. Comprando directamente, evitas el margen del intermediario, costos de transporte y riesgo de \"ajuste de kilometraje\".",
+        why_ex_title: "EJEMPLO REAL (BMW Serie 3):",
+        why_pl_label: "Precio distribuidor en PL:",
+        why_be_label: "Mismo coche en Bélgica:",
+        why_save_label: "TU AHORRO:",
+        why_note: "*Incluso después de deducir la inspección y transporte, ganas un coche fiable y miles en el bolsillo.",
+        
+        why_icon1_title: "Control Digital", why_icon1_desc: "Transparencia total. Ves el coche como si estuvieras allí. 50+ fotos y video 4K.",
+        why_icon2_title: "Ayuda en Transporte", why_icon2_desc: "¿Sin remolque? Ayudamos a organizar transporte seguro a tu puerta a precio justo.",
+        why_icon3_title: "Negociación de Precio", why_icon3_desc: "Conocemos el idioma y mercado. A menudo reducimos el precio más que el costo de nuestro servicio.",
+
+        packages_title: "SELECCIONA TU PAQUETE",
+        pkg_photos: "30-40 Fotos", 
+        pkg_photos_desc: "Alta resolución. Documentación de cada rasguño, abolladura y detalle interior.",
+        pkg_docs: "Verificación Docs", 
+        pkg_docs_desc: "Verificación de VIN, papeles de registro, Car-Pass e historial de servicio.",
+        pkg_pdf: "Informe PDF", 
+        pkg_pdf_desc: "Resumen claro de la condición visual enviado directamente a tu email.",
+
+        pkg_basic_incl: "Todo en Básico",
+        pkg_obd: "Diagnóstico OBD Completo", 
+        pkg_obd_desc: "Conexión computadora. Escaneo de inyectores, DPF, caja de cambios y verificación de kilometraje en módulos.",
+        pkg_paint: "Medición de Pintura", 
+        pkg_paint_desc: "Medición profesional de recubrimiento. Detectamos masilla e historial de accidentes.",
+        pkg_drive: "Prueba de Conducción", 
+        pkg_drive_desc: "Prueba dinámica. Verificación de suspensión, frenos, embrague y manejo.",
+
+        pkg_standard_incl: "Todo en Estándar",
+        pkg_negotiation: "Negociación de Precio", 
+        pkg_negotiation_desc: "Negociamos en tu nombre en el idioma local. A menudo recuperamos el costo del servicio con intereses.",
+        pkg_video: "Video 4K + VIP", 
+        pkg_video_desc: "Grabación detallada con comentarios de expertos. Ejecución de servicio prioritaria.",
+
+        btn_select: "SELECCIONAR",
+
+        reviews_title: "HISTORIAS DE CLIENTES",
+        review_1: "\"El vendedor juraba que el coche era perfecto. El informe DAE mostró un cuarto soldado y falta de airbags. Me ahorraron 60k PLN. ¡Gracias!\"",
+        review_2: "\"Quería conducir 1200km a ciegas. La inspección reveló inyectores y volante dañados. La reparación superaría el valor. No vale la pena el riesgo.\"",
+        review_3: "\"Tomé el paquete Premium. El Sr. Jakub negoció un descuento de 800 EUR en holandés. El servicio se pagó solo y obtuve ganancias.\"",
+
+        faq_title: "PREGUNTAS FRECUENTES",
+        faq_q1: "¿Qué tan rápido recibo el informe?", faq_a1: "Actuamos rápido. Generalmente dentro de 24-48h tras el pago, dependiendo de la disponibilidad del vendedor.",
+        faq_q2: "¿Negocian los precios?", faq_a2: "Sí, en el paquete Premium. Conocemos el mercado local y el idioma, a menudo ahorrándote más que nuestra tarifa de servicio.",
+        faq_q3: "¿Dónde operan?", faq_a3: "Nuestra base es Amberes. Cubrimos Bélgica, Países Bajos y Alemania Occidental (Renania del Norte-Westphalie).",
+        faq_q4: "¿Qué pasa si el coche se vende?", faq_a4: "Somos justos. Si no podemos inspeccionar porque el coche ha salido del mercado antes de llegar, obtienes un reembolso instantáneo del 100%.",
+        faq_q5: "¿Puedo ir con ustedes?", faq_a5: "Generalmente trabajamos remotamente para ahorrar tu tiempo. En paquete VIP (a convenir) es posible viaje conjunto o recogida en aeropuerto.",
+        faq_q6: "¿Cómo puedo pagar?", faq_a6: "Pago seguro online (Tarjeta/Google Pay/Apple Pay) vía Stripe. Transferencia o BLIK también disponible tras contacto.",
+        
+        form_title: "FINALIZAR PEDIDO", form_selected: "Seleccionado", form_payment_method: "Método de Pago",
+        form_car_details: "DETALLES DEL VEHÍCULO", btn_pay: "PAGAR SEGURO",
+        contact_title: "¿LISTO PARA IMPORTAR?",
+        contact_desc: "¿Preguntas antes de pedir? Contáctanos directamente o envía un mensaje.",
+        contact_form_title: "Enviar consulta", 
+        lbl_name: "Nombre completo", lbl_email: "Email", lbl_message: "Mensaje", btn_send: "ENVIAR",
+        footer_rights: "Todos los derechos reservados.",
+        
+        lbl_phone: "Teléfono (Opcional)", ph_name: "Juan Pérez", ph_email: "juan@ejemplo.es", ph_phone: "+34 ...",
+        ph_url: "Enlace del anuncio", ph_loc: "Ciudad, País",
+        txt_secure: "Encriptado por Stripe SSL", txt_redirect: "Redirigiendo...", txt_redirect_desc: "Serás redirigido a la pasarela de pago.",
+        terms_text: "Acepto los Términos y Política de Privacidad. Entiendo que el servicio es una opinión técnica en el momento de la inspección."
     }
 };

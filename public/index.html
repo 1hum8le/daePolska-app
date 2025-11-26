@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>daePoland | Profesjonalne Inspekcje Pojazdów</title>
     
-    <meta name="description" content="Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Sprawdzamy lakier, silnik i elektronikę. Raport w 24h.">
-    <meta name="keywords" content="inspekcja auta, sprawdzanie samochodu, belgia, holandia, niemcy, auto z zagranicy, raport vin, mechanik antwerpia">
+    <meta name="description" content="Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Sprawdzamy lakier, silnik i elektronikę. Raport nawet do 24h.">
+    <meta name="keywords" content="inspekcja auta, sprawdzanie samochodu, belgia, holandia, niemcy, auto z zagranicy, raport vin, mechanik antwerpia, export, import auta, diagnostyka komputerowa, miernik lakieru, jazda próbna, daePoland, sprawdzanie samochodu przed zakupem, profesjonalna inspekcja pojazdu, kupno auta z zagranicy, raport techniczny auta, auto z niemiec, auto z holandii, auto z belgii, sprawdzenie historii pojazdu, car-pass, kontrola samochodu, usługa inspekcji auta">
     <meta name="author" content="daePoland">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://daepoland-web.onrender.com">
+    <meta property="og:url" content="https://daepoland.com/">
     <meta property="og:title" content="daePoland | Nie kupuj kota w worku! Profesjonalne Inspekcje Aut">
     <meta property="og:description" content="Sprawdzamy auta w Belgii, Holandii i Niemczech. Oszczędź czas i pieniądze. Pełny raport techniczny, zdjęcia i wideo w 24h. Zamów online.">
     <meta property="og:image" content="/src/og-image.jpg">
 
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://daepoland-web.onrender.com/">
+    <meta property="twitter:url" content="https://daepoland.com/">
     <meta property="twitter:title" content="daePoland | Profesjonalne Inspekcje Pojazdów">
     <meta property="twitter:description" content="Kupujesz auto z zachodu? Sprawdź je z nami przed zakupem. Raporty z Belgii, Holandii i Niemiec.">
     <meta property="twitter:image" content="/src/og-image.jpg">
@@ -30,11 +30,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .float-wa:hover { transform: scale(1.1); background-color: #20b858; }
         .custom-checkbox { accent-color: #FF5722; width: 18px; height: 18px; cursor: pointer; }
         body { opacity: 0; animation: fadeIn 0.5s ease-in forwards; }
@@ -43,7 +42,7 @@
 </head>
 <body class="text-white antialiased selection:bg-accent-orange selection:text-white">
 
-    <a href="https://wa.me/32471943560" class="float-wa" target="_blank" title="Napisz na WhatsApp" aria-label="Czat WhatsApp">
+    <a href="https://wa.me/32471943560" class="float-wa" target="_blank" title="Napisz na WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -56,22 +55,25 @@
 
     <nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#hero" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat">
+            <a href="#" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat">
                 DAE<span class="text-accent-orange">POLAND</span>
             </a>
             <div class="flex items-center space-x-4 md:space-x-8">
-                <div class="hidden md:flex space-x-6 font-inter font-medium text-sm uppercase">
+                <div class="hidden lg:flex space-x-6 font-inter font-medium text-sm uppercase tracking-wide">
                     <a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info">Proces</a>
+                    <a href="#why-us" class="hover:text-accent-orange transition">Dlaczego My?</a>
                     <a href="#services" class="hover:text-accent-orange transition" data-i18n="nav_services">Cennik</a>
                     <a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews">Opinie</a>
                     <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
                 </div>
                 <div class="relative">
-                    <label for="lang-selector" class="sr-only">Wybierz język</label>
-                    <select id="lang-selector" class="bg-transparent border border-white/30 text-white py-1 px-2 md:py-2 md:px-4 text-xs md:text-sm rounded-full focus:outline-none focus:border-accent-orange cursor-pointer backdrop-blur-md uppercase">
+                    <label for="lang-selector" class="sr-only">Wybierz Język</label>
+                    <select id="lang-selector" class="bg-transparent border border-white/30 text-white py-1 px-2 md:py-2 md:px-4 text-xs md:text-sm rounded-full focus:outline-none focus:border-accent-orange cursor-pointer backdrop-blur-md uppercase font-bold">
                         <option value="pl" class="text-gray-900" selected>PL</option>
                         <option value="en" class="text-gray-900">EN</option>
                         <option value="nl" class="text-gray-900">NL</option>
+                        <option value="fr" class="text-gray-900">FR</option>
+                        <option value="es" class="text-gray-900">ES</option>
                     </select>
                 </div>
             </div>
@@ -82,7 +84,7 @@
 
         <section id="hero" class="snap-section flex items-center justify-center text-center px-4">
             <div class="max-w-7xl w-full space-y-8 animate-fade-up">
-                <div>
+                <div class="mt-10 md:mt-0">
                     <h1 class="text-4xl md:text-7xl lg:text-8xl font-black font-montserrat leading-tight mb-6" data-i18n="hero_title">
                         KUPUJ AUTA ZZA GRANICY<br><span class="text-accent-orange text-stroke">BEZ RYZYKA.</span>
                     </h1>
@@ -91,15 +93,15 @@
                     </p>
                 </div>
 
-                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto shadow-2xl">
-                    <div><span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">500+</span><span class="text-xs md:text-sm text-gray-200 font-inter uppercase tracking-widest" data-i18n="stat_cars">Aut</span></div>
-                    <div><span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">€2M+</span><span class="text-xs md:text-sm text-gray-200 font-inter uppercase tracking-widest" data-i18n="stat_saved">Zaoszczędzone</span></div>
-                    <div><span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">24h</span><span class="text-xs md:text-sm text-gray-200 font-inter uppercase tracking-widest" data-i18n="stat_time">Czas Reakcji</span></div>
-                    <div><span class="block text-3xl md:text-5xl font-black text-accent-orange font-montserrat">100%</span><span class="text-xs md:text-sm text-gray-200 font-inter uppercase tracking-widest" data-i18n="stat_satisfaction">Gwarancja</span></div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto shadow-2xl">
+                    <div><span class="block text-2xl md:text-5xl font-black text-accent-orange font-montserrat">500+</span><span class="text-[10px] md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_cars">Sprawdzonych Aut</span></div>
+                    <div><span class="block text-2xl md:text-5xl font-black text-accent-orange font-montserrat">€2M+</span><span class="text-[10px] md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_saved">Zaoszczędzone</span></div>
+                    <div><span class="block text-2xl md:text-5xl font-black text-accent-orange font-montserrat">24h</span><span class="text-[10px] md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_time">Czas Reakcji</span></div>
+                    <div><span class="block text-2xl md:text-5xl font-black text-accent-orange font-montserrat">100%</span><span class="text-[10px] md:text-sm text-gray-300 font-inter uppercase tracking-widest" data-i18n="stat_satisfaction">Gwarancja Usługi</span></div>
                 </div>
 
-                <div class="pt-4">
-                    <p class="text-gray-300 text-sm mb-3 font-inter uppercase tracking-wide" data-i18n="hero_cta_desc">Zaufaj ekspertom. Oszczędź czas, nerwy i pieniądze.</p>
+                <div class="pt-4 pb-4">
+                    <p class="text-gray-300 text-xs md:text-sm mb-3 font-inter uppercase tracking-wide" data-i18n="hero_cta_desc">Zaufaj ekspertom. Oszczędź czas, nerwy i pieniądze.</p>
                     <a href="#services" class="bg-accent-orange text-white px-10 py-4 md:px-14 md:py-5 rounded-full text-sm md:text-xl font-black font-montserrat hover:bg-orange-600 transition transform hover:scale-105 inline-block shadow-lg shadow-orange-500/40" data-i18n="hero_btn">
                         SPRAWDŹ OFERTĘ
                     </a>
@@ -111,102 +113,114 @@
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-12 font-montserrat" data-i18n="info_title">CO DOKŁADNIE SPRAWDZAMY?</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-car text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_body_title">1. Nadwozie i Lakier</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_body_desc">Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-car"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_body_title">1. Nadwozie i Lakier</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_body_desc">Precyzyjny pomiar grubości lakieru (wykrywanie szpachli i drugiej warstwy). Ocena spasowania elementów, oryginalności szyb, stanu opon i felg oraz poszukiwanie śladów demontażu.</p>
                     </div>
 
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-cogs text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_eng_title">2. Silnik i Osprzęt</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_eng_desc">Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-cogs"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_eng_title">2. Silnik i Osprzęt</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_eng_desc">Analiza pracy na zimnym i ciepłym silniku. Weryfikacja wycieków, pracy wtryskiwaczy, turbosprężarki, paska osprzętu oraz dymienia z układu wydechowego.</p>
                     </div>
 
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-tachometer-alt text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_drive_title">3. Napęd i Zawieszenie</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_drive_desc">Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-tachometer-alt"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_drive_title">3. Napęd i Zawieszenie</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_drive_desc">Test pracy skrzyni biegów (płynność, szarpanie). Ocena stanu hamulców (tarcze/klocki), amortyzatorów oraz luzów w układzie kierowniczym i zawieszeniu.</p>
                     </div>
 
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-chair text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_int_title">4. Wnętrze</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_int_desc">Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-chair"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_int_title">4. Wnętrze i Wyposażenie</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_int_desc">Weryfikacja zużycia (kierownica, fotele) względem przebiegu. Test całej elektroniki, klimatyzacji, systemów audio oraz poszukiwanie śladów wilgoci/zalania.</p>
                     </div>
 
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-laptop-medical text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_diag_title">5. Komputer</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_diag_desc">Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-laptop-medical"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_diag_title">5. Diagnostyka Komputerowa</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_diag_desc">Podłączenie profesjonalnego skanera OBD. Odczyt błędów aktywnych i historycznych. Weryfikacja zapełnienia DPF oraz porównanie przebiegu w modułach sterujących.</p>
                     </div>
 
-                    <div class="glass-card p-8 hover:bg-white/5 transition duration-300">
-                        <div class="bg-accent-orange/20 w-14 h-14 rounded-2xl flex items-center justify-center text-accent-orange mb-4"><i class="fas fa-road text-2xl"></i></div>
-                        <h3 class="text-xl font-bold font-montserrat mb-3" data-i18n="info_test_title">6. Jazda Próbna</h3>
-                        <p class="text-gray-200 text-sm font-inter leading-relaxed" data-i18n="info_test_desc">Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.</p>
+                    <div class="glass-card p-6 md:p-8 hover:bg-white/5 transition duration-300 border-l-4 border-transparent hover:border-accent-orange">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-accent-orange/20 w-12 h-12 rounded-xl flex items-center justify-center text-accent-orange text-2xl"><i class="fas fa-road"></i></div>
+                            <h3 class="text-xl font-bold font-montserrat" data-i18n="info_test_title">6. Jazda Próbna</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm font-inter leading-relaxed" data-i18n="info_test_desc">Test dynamiczny przy różnych prędkościach. Weryfikacja prowadzenia, hamowania awaryjnego, pracy zawieszenia na nierównościach oraz niepokojących dźwięków.</p>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <section id="why-us" class="snap-section px-4 bg-black/20">
+        <section id="why-us" class="snap-section px-4 bg-black/30">
             <div class="container mx-auto max-w-6xl">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     
-                    <div class="space-y-6 animate-fade-up">
+                    <div class="space-y-8 animate-fade-up">
                         <h2 class="text-3xl md:text-5xl font-black font-montserrat leading-tight">
                             DLACZEGO TO SIĘ <span class="text-accent-orange">OPŁACA?</span>
                         </h2>
                         <p class="text-gray-300 text-lg leading-relaxed font-inter">
-                            Import auta to nie tylko lepsza jakość dróg i serwisu. To przede wszystkim matematyka. Kupując bezpośrednio, omijasz marżę handlarza, koszty jego transportu i "korektę licznika".
+                            Import auta to nie tylko lepsza jakość dróg i serwisu. To przede wszystkim matematyka. Kupując bezpośrednio, omijasz marżę handlarza, koszty jego transportu i ryzyko "korekty licznika".
                         </p>
                         
                         <div class="bg-white/5 border-l-4 border-accent-orange p-6 rounded-r-xl mt-6">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-gray-300">Cena u handlarza w PL:</span>
-                                <span class="font-bold text-red-400 text-lg">65 000 PLN</span>
+                                <span class="font-bold text-red-400 text-xl">65 000 PLN</span>
                             </div>
                             <div class="flex justify-between items-center mb-4">
                                 <span class="text-gray-300">To samo auto w Belgii:</span>
-                                <span class="font-bold text-white text-lg">~12 500 EUR (53 000 PLN)</span>
+                                <span class="font-bold text-white text-xl">~12 500 EUR (53 000 PLN)</span>
                             </div>
                             <hr class="border-white/10 mb-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-accent-orange font-bold uppercase text-sm">TWOJA OSZCZĘDNOŚĆ:</span>
-                                <span class="font-black text-green-400 text-2xl">12 000 PLN</span>
+                                <span class="font-black text-green-400 text-3xl">12 000 PLN</span>
                             </div>
                         </div>
 
-                        <p class="text-sm text-gray-400 italic mt-4">
-                            *Nawet po odliczeniu naszej inspekcji i transportu, zyskujesz pewne auto i tysiące złotych w kieszeni.
+                        <p class="text-sm text-gray-400 italic mt-2">
+                            *Nawet po odliczeniu kosztów inspekcji i transportu, zyskujesz pewne auto i tysiące złotych w kieszeni.
                         </p>
                     </div>
 
-                    <div class="grid gap-4">
-                        <div class="glass-card p-6 flex items-center space-x-4 hover:bg-white/10 transition cursor-default">
-                            <div class="bg-green-500/20 w-12 h-12 rounded-full flex items-center justify-center text-green-400 text-xl"><i class="fas fa-shield-alt"></i></div>
+                    <div class="grid gap-6">
+                        <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
+                            <div class="bg-green-500/20 w-14 h-14 rounded-full flex items-center justify-center text-green-400 text-2xl"><i class="fas fa-shield-alt"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white">Digital Control</h3>
-                                <p class="text-xs text-gray-400">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg">Digital Control</h3>
+                                <p class="text-sm text-gray-400 mt-1">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
                             </div>
                         </div>
-                        <div class="glass-card p-6 flex items-center space-x-4 hover:bg-white/10 transition cursor-default">
-                            <div class="bg-blue-500/20 w-12 h-12 rounded-full flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-truck"></i></div>
+                        <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
+                            <div class="bg-blue-500/20 w-14 h-14 rounded-full flex items-center justify-center text-blue-400 text-2xl"><i class="fas fa-truck"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white">Pomoc w Transporcie</h3>
-                                <p class="text-xs text-gray-400">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg">Pomoc w Transporcie</h3>
+                                <p class="text-sm text-gray-400 mt-1">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
                             </div>
                         </div>
-                        <div class="glass-card p-6 flex items-center space-x-4 hover:bg-white/10 transition cursor-default">
-                            <div class="bg-purple-500/20 w-12 h-12 rounded-full flex items-center justify-center text-purple-400 text-xl"><i class="fas fa-comments-dollar"></i></div>
+                        <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
+                            <div class="bg-purple-500/20 w-14 h-14 rounded-full flex items-center justify-center text-purple-400 text-2xl"><i class="fas fa-comments-dollar"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white">Negocjacje w cenie</h3>
-                                <p class="text-xs text-gray-400">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg">Negocjacje w cenie</h3>
+                                <p class="text-sm text-gray-400 mt-1">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
                             </div>
                         </div>
                     </div>
@@ -215,7 +229,7 @@
             </div>
         </section>
 
-       <section id="services" class="snap-section flex items-center justify-center px-4">
+        <section id="services" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-4 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
                 <p class="text-center text-gray-400 mb-12 font-inter text-sm max-w-2xl mx-auto">Każdy pakiet zawiera dojazd do klienta w promieniu 100km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
@@ -321,6 +335,87 @@
             </div>
         </section>
 
+        <section id="reviews-faq" class="snap-section flex flex-col justify-center px-4 py-20 bg-black/20 overflow-hidden">
+            
+            <div class="container mx-auto max-w-3xl mb-20 z-10 relative">
+                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="faq_title">CZĘSTE PYTANIA</h2>
+                
+                <div class="glass-card px-8 py-4">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q1">Jak szybko otrzymam raport?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a1">Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q2">Czy negocjujecie cenę?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a2">Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q3">Gdzie dokładnie działacie?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a3">Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a4">Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.</div>
+                    </div>
+                     <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q5">Czy mogę jechać z wami?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a5">Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas. W pakiecie VIP (do ustalenia) możliwy jest wspólny wyjazd lub odbiór z lotniska.</div>
+                    </div>
+                     <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question"><span data-i18n="faq_q6">Jak wygląda płatność?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                        <div class="faq-answer" data-i18n="faq_a6">Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-accent-orange" data-i18n="reviews_title">HISTORIE KLIENTÓW</h2>
+                
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_1">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_2">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_3">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-blue-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
+                        </div>
+                         <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
+                        </div>
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-blue-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
+                        </div>
+
+                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
+                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
+                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="order" class="snap-section flex items-center justify-center px-4 py-12">
              <div class="container mx-auto max-w-2xl">
                 <div class="glass-card p-6 md:p-8 animate-fade-up">
@@ -387,7 +482,7 @@
                         <div class="mb-6 flex items-start space-x-3">
                             <input type="checkbox" id="terms" required class="custom-checkbox mt-1">
                             <label for="terms" class="text-[10px] text-gray-300 leading-relaxed cursor-pointer">
-                                <span data-i18n="terms_text">Akceptuję Regulamin.</span>
+                                <span data-i18n="terms_text">Akceptuję Regulamin. Rozumiem, że usługa jest opinią techniczną w momencie oględzin.</span>
                             </label>
                         </div>
                         
@@ -412,133 +507,13 @@
             </div>
         </section>
 
-      <section id="reviews-faq" class="snap-section flex flex-col justify-center px-4 py-16 bg-black/20 overflow-hidden">
-            
-            <div class="container mx-auto max-w-2xl mb-16 z-10 relative">
-                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="faq_title">CZĘSTE PYTANIA</h2>
-                
-                <div class="glass-card px-6 py-2">
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q1">Jak szybko otrzymam raport?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a1">
-                            Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q2">Czy negocjujecie cenę?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a2">
-                            Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q3">Gdzie dokładnie działacie?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a3">
-                            Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).
-                        </div>
-                    </div>
-
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a4">
-                            Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q5">Czy sprawdzacie auta od osób prywatnych?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a5">
-                            Tak, sprawdzamy samochody zarówno w komisach, autoryzowanych salonach (ASO), jak i u sprzedawców prywatnych.
-                        </div>
-                    </div>
-
-                     <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question">
-                            <span data-i18n="faq_q6">Jak wygląda płatność?</span>
-                            <i class="fas fa-chevron-down faq-icon"></i>
-                        </div>
-                        <div class="faq-answer" data-i18n="faq_a6">
-                            Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full">
-                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-accent-orange" data-i18n="reviews_title">KLIENCI O NAS</h2>
-                
-                <div class="marquee-container">
-                    <div class="marquee-content">
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!"</p>
-                        </div>
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-green-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta."</p>
-                        </div>
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-purple-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
-                        </div>
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-blue-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
-                        </div>
-
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!"</p>
-                        </div>
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-green-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta."</p>
-                        </div>
-                         <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-purple-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
-                        </div>
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-blue-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
-                        </div>
-
-                        <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!"</p>
-                        </div>
-                         <div class="glass-card p-5 w-72 flex-shrink-0 border-t-2 border-green-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="contact" class="snap-section flex flex-col justify-between pt-20 pb-0 px-0">
             <div class="container mx-auto max-w-7xl px-6 flex-grow flex flex-col justify-center">
                 <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
                     <div class="text-left space-y-8">
                         <div>
                             <h2 class="text-4xl md:text-6xl font-black mb-4 font-montserrat" data-i18n="contact_title">GOTOWY NA IMPORT?</h2>
-                            <p class="text-gray-300 text-lg" data-i18n="contact_desc">Masz pytania?</p>
+                            <p class="text-gray-300 text-lg" data-i18n="contact_desc">Masz pytania przed zamówieniem? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość.</p>
                         </div>
                         <div class="space-y-6">
                             <div class="flex items-center space-x-5">
@@ -565,6 +540,7 @@
                     </div>
                 </div>
             </div>
+            
             <footer class="w-full border-t border-white/10 bg-black/40 backdrop-blur-xl pt-10 pb-6">
                 <div class="container mx-auto max-w-[95%] px-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -617,6 +593,13 @@
         </section>
 
     </main>
+    
+    <script>
+        function toggleFaq(el) {
+            el.classList.toggle('active');
+        }
+    </script>
+    
     <script type="module" src="script.js" defer></script>
 </body>
 </html>
