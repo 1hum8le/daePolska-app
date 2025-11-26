@@ -1,13 +1,12 @@
 import { translations } from './translations.js';
 
-// --- 1. KONFIGURACJA STRIPE ---
-// Pamiętaj: Użyj klucza pk_test_... do testów lokalnych!
+// --- 1. KONFIGURACJA I ZMIENNE ---
+// Pamiętaj: Użyj klucza pk_test_... do testów lokalnych, a pk_live_... na produkcji!
 const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3MzwoGaoTbfl8VWJCxhwciaFrMKikw8I6eWy12x4000FmqMoFgh'; 
 const stripe = Stripe(STRIPE_KEY); 
 let elements = null;
 let card = null;
 
-// --- 2. USTAWIENIA POCZĄTKOWE ---
 let currentLang = 'pl';
 let currentPackage = 'Standard';
 
@@ -17,9 +16,8 @@ const prices = {
     Premium: { eur: 545, pln: 2350 }
 };
 
-// --- 3. FUNKCJE POMOCNICZE ---
+// --- 2. FUNKCJE POMOCNICZE (UI) ---
 
-// Funkcja do wyświetlania komunikatów (zamiast alertów)
 function showMessage(elementId, message, isError = false) {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -28,25 +26,24 @@ function showMessage(elementId, message, isError = false) {
     el.classList.remove('hidden', 'text-green-500', 'text-red-400', 'text-red-500'); 
     
     if (isError) {
-        el.classList.add('text-red-400'); // Czerwony dla błędu
+        el.classList.add('text-red-400');
     } else {
-        el.classList.add('text-green-500'); // Zielony dla sukcesu
+        el.classList.add('text-green-500');
     }
     
     el.style.display = 'block';
     
-    // Ukryj automatycznie po 6 sekundach
     setTimeout(() => {
         el.style.display = 'none';
     }, 6000);
 }
 
-// --- 4. STRIPE I PŁATNOŚCI ---
+// --- 3. ZARZĄDZANIE STRIPE I CENAMI ---
 
 function setupStripe(locale) {
     if (card) card.destroy();
     
-    // Mapowanie języków dla Stripe
+    // Mapowanie języków dla Stripe (obsługuje tylko główne kody)
     const stripeLocale = locale === 'pl' ? 'pl' : (locale === 'nl' ? 'nl' : 'en');
     
     elements = stripe.elements({ locale: stripeLocale });
@@ -65,17 +62,15 @@ function setupStripe(locale) {
     card.mount('#card-element');
 }
 
-// --- 5. ZARZĄDZANIE TREŚCIĄ I CENAMI ---
-
 function updateContent() {
-    // Tłumaczenie tekstów
+    // Teksty
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[currentLang] && translations[currentLang][key]) {
             element.innerHTML = translations[currentLang][key];
         }
     });
-    // Tłumaczenie placeholderów
+    // Placeholdery
     document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
         const key = element.getAttribute('data-i18n-placeholder');
         if (translations[currentLang] && translations[currentLang][key]) {
@@ -113,22 +108,27 @@ function updateSelectedPackageText() {
     if(inputPrice) inputPrice.value = prices[currentPackage]['eur'];
 }
 
-// --- 6. ZDARZENIA (EVENT LISTENERS) ---
+// --- 4. FUNKCJE GLOBALNE (DLA HTML) ---
 
-// Zmiana Języka
-const langSelector = document.getElementById('lang-selector');
-if(langSelector) {
-    langSelector.addEventListener('change', (e) => {
-        currentLang = e.target.value;
-        updateContent();
-        setupStripe(currentLang);
-        updatePricesDisplay();
-        updateSelectedPackageText();
-    });
+// Zmiana Języka (Custom Dropdown)
+window.changeLanguage = function(langCode, flag, name) {
+    // Aktualizacja UI przycisku
+    const flagEl = document.getElementById('current-flag');
+    const nameEl = document.getElementById('current-lang-name');
+    if(flagEl) flagEl.innerText = flag;
+    if(nameEl) nameEl.innerText = name;
+    
+    currentLang = langCode;
+    
+    // Zamknij menu (logika toggle jest niżej w Event Listeners)
+    // Tu po prostu wymuszamy odświeżenie widoku
+    updateContent();
+    setupStripe(currentLang);
+    updatePricesDisplay();
+    updateSelectedPackageText();
 }
 
-// --- 7. FUNKCJE GLOBALNE (Dostępne dla HTML) ---
-
+// Wybór Pakietu (Scrolluje do formularza)
 window.selectPackage = function(pkgName) {
     currentPackage = pkgName;
     const input = document.getElementById('selected-pkg');
@@ -140,11 +140,12 @@ window.selectPackage = function(pkgName) {
     if(section) section.scrollIntoView({behavior: 'smooth'});
 }
 
+// Wybór Płatności (Wizualny + Logika chowania)
 window.selectPayment = function(method) {
     const input = document.getElementById('selected-payment-method');
     if(input) input.value = method;
     
-    // Reset Stylów
+    // Reset stylów
     document.querySelectorAll('.payment-option').forEach(opt => {
         opt.className = 'payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer transition opacity-60 hover:opacity-100 hover:bg-white/10';
         opt.querySelector('span').className = 'text-[10px] font-bold text-gray-300';
@@ -166,7 +167,7 @@ window.selectPayment = function(method) {
         activeIcon.classList.add('text-white');
     }
 
-    // Widoczność sekcji
+    // Pokaż/Ukryj sekcje
     const stripeSection = document.getElementById('stripe-section');
     const altSection = document.getElementById('alt-payment-section');
 
@@ -179,8 +180,64 @@ window.selectPayment = function(method) {
     }
 }
 
-// --- 8. OBSŁUGA FORMULARZA ZAMÓWIENIA (GŁÓWNA LOGIKA) ---
+// Akordeon FAQ
+window.toggleFaq = function(element) {
+    if (element.classList.contains('active')) {
+        element.classList.remove('active');
+    } else {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+}
 
+// --- 5. EVENT LISTENERS (OBSŁUGA ZDARZEŃ) ---
+
+// Menu Językowe (Dropdown)
+const langBtn = document.getElementById('lang-btn');
+const langDropdown = document.getElementById('lang-dropdown');
+const langArrow = document.getElementById('lang-arrow');
+let isLangOpen = false;
+
+function toggleLangMenu() {
+    if (isLangOpen) {
+        langDropdown.classList.remove('hidden', 'scale-95', 'opacity-0');
+        langDropdown.classList.add('scale-100', 'opacity-100');
+        if(langArrow) langArrow.style.transform = 'rotate(180deg)';
+    } else {
+        langDropdown.classList.add('scale-95', 'opacity-0');
+        if(langArrow) langArrow.style.transform = 'rotate(0deg)';
+        setTimeout(() => {
+             if(!isLangOpen) langDropdown.classList.add('hidden');
+        }, 200);
+    }
+}
+
+if(langBtn) {
+    langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isLangOpen = !isLangOpen;
+        toggleLangMenu();
+    });
+}
+
+document.addEventListener('click', (e) => {
+    if (isLangOpen && langDropdown && !langDropdown.contains(e.target) && !langBtn.contains(e.target)) {
+        isLangOpen = false;
+        toggleLangMenu();
+    }
+});
+
+// Zmiana Języka (dla starego selecta, jeśli jeszcze gdzieś został - dla kompatybilności)
+const langSelector = document.getElementById('lang-selector');
+if(langSelector && langSelector.tagName === 'SELECT') {
+    langSelector.addEventListener('change', (e) => {
+        window.changeLanguage(e.target.value, '', '');
+    });
+}
+
+// Formularz Zamówienia
 const orderForm = document.getElementById('inspection-form');
 const submitBtn = document.getElementById('submit-btn');
 const originalBtnText = submitBtn ? submitBtn.innerHTML : 'ZAPŁAĆ';
@@ -189,31 +246,25 @@ if(orderForm) {
     orderForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         
-        // 1. Sprawdzenie metody płatności
         const method = document.getElementById('selected-payment-method').value;
         if (method !== 'card') {
-            // Zamiast alertu, pokazujemy błąd w polu błędów i przełączamy na kartę
             const msg = currentLang === 'pl' 
                 ? "Automatyczna płatność dostępna tylko kartą. Przełączono na Kartę." 
                 : "Only Card payment is currently automated. Switched to Card.";
-            
             showMessage('card-errors', msg, true);
             window.selectPayment('card');
             return;
         }
 
-        // 2. UI Loading
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> ...';
         document.getElementById('card-errors').innerText = '';
 
-        // 3. Dane do płatności
         const currency = currentLang === 'pl' ? 'pln' : 'eur';
         const priceValue = prices[currentPackage][currency];
         const amount = priceValue * 100;
 
         try {
-            // 4. Pobierz Client Secret z serwera
             const response = await fetch('/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -222,7 +273,6 @@ if(orderForm) {
             const data = await response.json();
             if (data.error) throw new Error(data.error);
 
-            // 5. Potwierdź płatność w Stripe
             const result = await stripe.confirmCardPayment(data.clientSecret, {
                 payment_method: {
                     card: card,
@@ -235,7 +285,6 @@ if(orderForm) {
 
             if (result.error) throw new Error(result.error.message);
 
-            // 6. SUKCES! Zapisz i Przekieruj
             if (result.paymentIntent.status === 'succeeded') {
                 
                 const orderData = {
@@ -249,28 +298,25 @@ if(orderForm) {
                     paymentId: result.paymentIntent.id
                 };
 
-                // Zapisz w bazie danych
+                // Zapisz w bazie + Wyślij Emaile
                 await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)
                 });
                 
-                // PRZEKIEROWANIE DO SUCCESS PAGE
+                // Przekierowanie na stronę sukcesu
                 const clientName = encodeURIComponent(orderData.name);
                 const clientEmail = encodeURIComponent(orderData.email);
                 const pkgName = encodeURIComponent(currentPackage);
                 const priceDisplay = encodeURIComponent(document.getElementById('display-price-form').innerText);
                 const orderId = result.paymentIntent.id.slice(-8).toUpperCase();
-                 // Pobierz metodę z formularza (tę z hidden input)
                 const paymentMethod = document.getElementById('selected-payment-method').value;
 
-                // Dodaj &method=${paymentMethod} na końcu linku
                 window.location.href = `/success.html?name=${clientName}&email=${clientEmail}&pkg=${pkgName}&price=${priceDisplay}&id=${orderId}&lang=${currentLang}&method=${paymentMethod}`;
             }
 
         } catch (error) {
-            // Obsługa błędów
             console.error(error);
             showMessage('card-errors', error.message || "Błąd płatności", true);
             submitBtn.disabled = false;
@@ -279,14 +325,13 @@ if(orderForm) {
     });
 }
 
-// --- 9. OBSŁUGA FORMULARZA KONTAKTOWEGO ---
-
+// Formularz Kontaktowy
 const contactForm = document.getElementById('contact-form');
 if(contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = contactForm.querySelector('button');
-        const originalText = btn.innerText;
+        const orgText = btn.innerText;
         
         btn.disabled = true;
         btn.innerText = "...";
@@ -312,31 +357,16 @@ if(contactForm) {
                 throw new Error('Server Error');
             }
         } catch (err) {
-            const errorMsg = currentLang === 'pl' ? 'Błąd wysyłania. Spróbuj WhatsApp.' : 'Error. Try WhatsApp.';
+            const errorMsg = currentLang === 'pl' ? 'Błąd. Spróbuj WhatsApp.' : 'Error. Try WhatsApp.';
             showMessage('contact-status', errorMsg, true);
         } finally {
             btn.disabled = false;
-            btn.innerText = originalText;
+            btn.innerText = orgText;
         }
     });
 }
 
-// --- OBSŁUGA FAQ (AKORDEON) ---
-window.toggleFaq = function(element) {
-    // Jeśli kliknięty element jest już aktywny, zamknij go
-    if (element.classList.contains('active')) {
-        element.classList.remove('active');
-    } else {
-        // Zamknij wszystkie inne otwarte pytania (opcjonalne, dla estetyki)
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        // Otwórz kliknięty
-        element.classList.add('active');
-    }
-}
-
-// --- START APLIKACJI ---
+// --- 6. START APLIKACJI ---
 setupStripe('pl');
 updatePricesDisplay();
 updateSelectedPackageText();

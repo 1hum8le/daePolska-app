@@ -53,11 +53,12 @@
         </video>
     </div>
 
-    <nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
+<nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat">
+            <a href="#" class="text-2xl md:text-3xl font-black tracking-wider font-montserrat" onclick="window.location.reload()">
                 DAE<span class="text-accent-orange">POLAND</span>
             </a>
+
             <div class="flex items-center space-x-4 md:space-x-8">
                 <div class="hidden lg:flex space-x-6 font-inter font-medium text-sm uppercase tracking-wide">
                     <a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info">Proces</a>
@@ -66,15 +67,45 @@
                     <a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews">Opinie</a>
                     <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
                 </div>
-                <div class="relative">
-                    <label for="lang-selector" class="sr-only">Wybierz Język</label>
-                    <select id="lang-selector" class="bg-transparent border border-white/30 text-white py-1 px-2 md:py-2 md:px-4 text-xs md:text-sm rounded-full focus:outline-none focus:border-accent-orange cursor-pointer backdrop-blur-md uppercase font-bold">
-                        <option value="pl" class="text-gray-900" selected>PL</option>
-                        <option value="en" class="text-gray-900">EN</option>
-                        <option value="nl" class="text-gray-900">NL</option>
-                        <option value="fr" class="text-gray-900">FR</option>
-                        <option value="es" class="text-gray-900">ES</option>
-                    </select>
+
+                <div class="relative" id="lang-container">
+                    <button id="lang-btn" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md">
+                        <span id="current-flag" class="text-lg">🇵🇱</span>
+                        <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">Polski</span>
+                        <i class="fas fa-chevron-down text-xs text-accent-orange ml-1 transition-transform duration-300" id="lang-arrow"></i>
+                    </button>
+
+                    <div id="lang-dropdown" class="absolute right-0 mt-2 w-48 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden transform origin-top-right transition-all duration-200 scale-95 opacity-0">
+                        <ul class="text-sm font-inter text-gray-300">
+                            <li>
+                                <button onclick="changeLanguage('pl', '🇵🇱', 'Polski')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
+                                    <span class="text-lg">🇵🇱</span> Polski
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="changeLanguage('en', '🇬🇧', 'English')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
+                                    <span class="text-lg">🇬🇧</span> English
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="changeLanguage('nl', '🇳🇱', 'Nederlands')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
+                                    <span class="text-lg">🇳🇱</span> Nederlands
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="changeLanguage('fr', '🇫🇷', 'Français')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
+                                    <span class="text-lg">🇫🇷</span> Français
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="changeLanguage('es', '🇪🇸', 'Español')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition">
+                                    <span class="text-lg">🇪🇸</span> Español
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <input type="hidden" id="lang-selector" value="pl">
                 </div>
             </div>
         </div>
@@ -172,31 +203,31 @@
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     
                     <div class="space-y-8 animate-fade-up">
-                        <h2 class="text-3xl md:text-5xl font-black font-montserrat leading-tight">
+                        <h2 class="text-3xl md:text-5xl font-black font-montserrat leading-tight" data-i18n="why_title">
                             DLACZEGO TO SIĘ <span class="text-accent-orange">OPŁACA?</span>
                         </h2>
-                        <p class="text-gray-300 text-lg leading-relaxed font-inter">
+                        <p class="text-gray-300 text-lg leading-relaxed font-inter" data-i18n="why_desc">
                             Import auta to nie tylko lepsza jakość dróg i serwisu. To przede wszystkim matematyka. Kupując bezpośrednio, omijasz marżę handlarza, koszty jego transportu i ryzyko "korekty licznika".
                         </p>
                         
                         <div class="bg-white/5 border-l-4 border-accent-orange p-6 rounded-r-xl mt-6">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4" data-i18n="why_ex_title">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-300">Cena u handlarza w PL:</span>
+                                <span class="text-gray-300" data-i18n="why_pl_label">Cena u handlarza w PL:</span>
                                 <span class="font-bold text-red-400 text-xl">65 000 PLN</span>
                             </div>
                             <div class="flex justify-between items-center mb-4">
-                                <span class="text-gray-300">To samo auto w Belgii:</span>
+                                <span class="text-gray-300" data-i18n="why_be_label">To samo auto w Belgii:</span>
                                 <span class="font-bold text-white text-xl">~12 500 EUR (53 000 PLN)</span>
                             </div>
                             <hr class="border-white/10 mb-4">
                             <div class="flex justify-between items-center">
-                                <span class="text-accent-orange font-bold uppercase text-sm">TWOJA OSZCZĘDNOŚĆ:</span>
+                                <span class="text-accent-orange font-bold uppercase text-sm" data-i18n="why_save_label">TWOJA OSZCZĘDNOŚĆ:</span>
                                 <span class="font-black text-green-400 text-3xl">12 000 PLN</span>
                             </div>
                         </div>
 
-                        <p class="text-sm text-gray-400 italic mt-2">
+                        <p class="text-sm text-gray-400 italic mt-2" data-i18n="why_note">
                             *Nawet po odliczeniu kosztów inspekcji i transportu, zyskujesz pewne auto i tysiące złotych w kieszeni.
                         </p>
                     </div>
@@ -205,22 +236,22 @@
                         <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
                             <div class="bg-green-500/20 w-14 h-14 rounded-full flex items-center justify-center text-green-400 text-2xl"><i class="fas fa-shield-alt"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white text-lg">Digital Control</h3>
-                                <p class="text-sm text-gray-400 mt-1">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon1_title">Digital Control</h3>
+                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon1_desc">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
                             </div>
                         </div>
                         <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
                             <div class="bg-blue-500/20 w-14 h-14 rounded-full flex items-center justify-center text-blue-400 text-2xl"><i class="fas fa-truck"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white text-lg">Pomoc w Transporcie</h3>
-                                <p class="text-sm text-gray-400 mt-1">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon2_title">Pomoc w Transporcie</h3>
+                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon2_desc">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
                             </div>
                         </div>
                         <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
                             <div class="bg-purple-500/20 w-14 h-14 rounded-full flex items-center justify-center text-purple-400 text-2xl"><i class="fas fa-comments-dollar"></i></div>
                             <div>
-                                <h3 class="font-bold font-montserrat text-white text-lg">Negocjacje w cenie</h3>
-                                <p class="text-sm text-gray-400 mt-1">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
+                                <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon3_title">Negocjacje w cenie</h3>
+                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon3_desc">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
                             </div>
                         </div>
                     </div>
