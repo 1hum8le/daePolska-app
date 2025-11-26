@@ -10,15 +10,15 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { getAdminEmailText, getClientEmailText } = require('./emailTemplates');
 
 const app = express();
+// Ustawienie proxy dla Rendera (ważne dla rate limitera)
 app.set('trust proxy', 1); 
 const PORT = process.env.PORT || 3000;
 
-// --- FUNKCJA WYSYŁAJĄCA (BREVO API - HTTP) ---
-// To omija blokady portów SMTP, bo działa jak przeglądanie strony www
+// --- FUNKCJA WYSYŁAJĄCA (BREVO API - HTTP FETCH) ---
 async function sendEmail(to, subject, textContent, replyToEmail = null) {
     const url = 'https://api.brevo.com/v3/smtp/email';
     
-    // Adres nadawcy (Musi być zweryfikowany w Brevo -> Senders)
+    // Nadawca: Twój Gmail (Musi być zweryfikowany w Brevo -> Senders)
     const senderEmail = process.env.EMAIL_USER; 
 
     const body = {
@@ -39,14 +39,13 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
             method: 'POST',
             headers: {
                 'accept': 'application/json',
-                'api-key': process.env.BREVO_API_KEY, // Tu musi być klucz xkeysib...
+                'api-key': process.env.BREVO_API_KEY, // Klucz xkeysib...
                 'content-type': 'application/json'
             },
             body: JSON.stringify(body)
         });
 
         if (!response.ok) {
-            // Jeśli API zwróci błąd, wypisz go w logach
             const errorData = await response.json();
             console.error("❌ Błąd Brevo API:", JSON.stringify(errorData, null, 2));
         } else {
@@ -102,14 +101,15 @@ app.post('/api/orders', async (req, res) => {
             [name, email, phone, url, location, packageType, price, paymentId]
         );
 
-        // 2. Generuj treści
+        // 2. Generuj treści z szablonów
         const adminText = getAdminEmailText({ name, email, phone, url, location, packageType, price, paymentId });
         const clientText = getClientEmailText({ name, orderId: newOrder.rows[0].id, packageType, url, location });
 
         // 3. Wyślij przez API (w tle)
-        // Mail do Ciebie
+        // Mail do Ciebie (na Gmaila)
         sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType} - ${name}`, adminText);
-        // Mail do Klienta
+        
+        // Mail do Klienta (Potwierdzenie)
         sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id} - daePoland`, clientText);
 
         res.json(newOrder.rows[0]);
@@ -129,7 +129,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             [name, email, message]
         );
 
-        // Wysyłka przez API
+        // Wysyłka przez API do Ciebie
         await sendEmail(
             process.env.EMAIL_USER, // Do Ciebie
             `📩 WIADOMOŚĆ ZE STRONY: ${name}`, 
@@ -145,8 +145,16 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 });
 
 app.post('/api/admin/login', async (req, res) => {
-    // Logika logowania bez zmian...
-    res.json({ status: 'logged_in' }); 
+    const { username, password } = req.body;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) return res.status(401).json("Invalid Credential");
+        const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
+        if (!validPassword) return res.status(401).json("Invalid Credential");
+        res.json({ status: 'logged_in' }); 
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
 });
 
 app.listen(PORT, () => {
