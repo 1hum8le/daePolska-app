@@ -50,8 +50,13 @@ async function initializePayment() {
     const paymentElement = elements.create("payment", {
         layout: "tabs",
     });
-    paymentElement.mount("#card-element"); // Montujemy w divie z HTML
-}
+    // Sprawdźmy czy element istnieje zanim zamontujemy, żeby uniknąć błędu w konsoli
+    const mountPoint = document.getElementById("payment-element");
+    if (mountPoint) {
+        paymentElement.mount("#payment-element");
+    } else {
+        console.error("Błąd: Nie znaleziono kontenera #payment-element w HTML!");
+    }
 
 // --- 3. UI & TŁUMACZENIA ---
 
