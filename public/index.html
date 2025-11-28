@@ -269,7 +269,7 @@
                     
                     <div class="glass-card p-8 hover:-translate-y-3 transition-all duration-500 cursor-pointer group relative flex flex-col" onclick="selectPackage('Basic')">
                         <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-accent-orange transition">BASIC</h3>
-                        <p class="text-5xl font-black text-accent-orange mb-6 price-display font-montserrat" data-pkg="basic">€120</p>
+                        <p class="text-5xl font-black text-accent-orange mb-6 price-display font-montserrat" data-pkg="basic">€115</p>
                         
                         <ul class="space-y-5 text-gray-300 font-inter mb-8 text-sm flex-grow">
                             <li class="flex items-start">
@@ -303,7 +303,7 @@
                              <h3 class="text-2xl font-bold font-montserrat text-accent-orange" data-i18n="pkg_standard">STANDARD</h3>
                              <span class="bg-accent-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg" data-i18n="most_popular">Najczęściej Wybierany</span>
                         </div>
-                        <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€245</p>
+                        <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€235</p>
                         
                         <ul class="space-y-5 text-gray-200 font-inter mb-8 text-sm flex-grow">
                              <li class="flex items-start">
@@ -338,7 +338,7 @@
                      <div class="glass-card p-8 cursor-pointer group relative flex flex-col" onclick="selectPackage('Premium')">
                         <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
                         <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-purple-400 transition" data-i18n="pkg_premium">PREMIUM</h3>
-                        <p class="text-5xl font-black text-purple-400 mb-6 price-display font-montserrat" data-pkg="premium">€545</p>
+                        <p class="text-5xl font-black text-purple-400 mb-6 price-display font-montserrat" data-pkg="premium">€525</p>
                         
                         <ul class="space-y-5 text-gray-300 font-inter mb-8 text-sm flex-grow">
                             <li class="flex items-start">
@@ -489,9 +489,9 @@
                                     <input type="text" id="selected-pkg" class="bg-transparent font-black text-2xl text-white w-full focus:outline-none font-montserrat" readonly value="Standard">
                                 </div>
                                 <div class="text-right">
-                                    <span class="block text-2xl font-black text-accent-orange font-montserrat" id="display-price-form">1050 PLN</span>
-                                    <input type="hidden" id="pkg-price-eur" value="245">
-                                    <input type="hidden" id="pkg-price-pln" value="1050">
+                                    <span class="block text-2xl font-black text-accent-orange font-montserrat" id="display-price-form">990 PLN</span>
+                                    <input type="hidden" id="pkg-price-eur" value="235">
+                                    <input type="hidden" id="pkg-price-pln" value="990">
                                     <input type="hidden" id="current-currency" value="pln">
                                 </div>
                             </div>
@@ -535,7 +535,7 @@
                             <div class="flex items-start space-x-3 mt-8 p-4 bg-white/5 rounded-lg">
                                 <input type="checkbox" id="terms" required class="custom-checkbox mt-1 shrink-0">
                                 <label for="terms" class="text-[11px] text-gray-300 leading-relaxed cursor-pointer">
-                                    <span data-i18n="terms_text">Akceptuję Regulamin...</span>
+                                    <span data-i18n="terms_text">Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną."</span>
                                 </label>
                             </div>
                             <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_terms">Wymagana akceptacja.</p>

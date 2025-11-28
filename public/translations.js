@@ -120,7 +120,11 @@ export const translations = {
         txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
         footer_rights: "Wszelkie prawa zastrzeżone.",
 
-        
+        // --- NOWE KLUCZE DO FORMULARZA (WKLEJ DO translations.js) ---
+        lbl_client_data: "Dane Zlecającego", // Client Details
+        lbl_url: "Link do ogłoszenia",       // Listing Link / Ad URL
+        lbl_loc: "Lokalizacja (Miasto)",     // Location (City)
+        form_payment_header: "Płatność",     // Payment
         
         lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
@@ -212,6 +216,12 @@ export const translations = {
         review_2: "\"I wanted to drive 1200km blindly. Inspection revealed damaged injectors and dual-mass flywheel. Repair would exceed car value. Not worth the risk.\"",
         review_3: "\"I took the Premium package. Mr. Jakub negotiated an 800 EUR discount in Dutch. The service paid for itself and I even made a profit.\"",
         review_4: "\"The PDF report is a masterpiece. 50 photos, 4K video, measurement of every body element. I knew more about the car than the seller did.\"",
+
+        lbl_client_data: "Client Details", // Client Details
+        lbl_url: "Listing Link",       // Listing Link / Ad URL
+        lbl_loc: "Location (City)",     // Location (City)
+        form_payment_header: "Payment",     // Payment
+
 
 // --- FAQ (English - Full Sales Copy) ---
         faq_title: "FREQUENTLY ASKED QUESTIONS",
@@ -411,6 +421,11 @@ export const translations = {
         err_required: "Dit veld is verplicht.",
         err_terms: "U moet de voorwaarden accepteren.",
 
+        lbl_client_data: "Klantgegevens",
+        lbl_url: "Link naar advertentie",
+        lbl_loc: "Locatie (Stad)",
+        form_payment_header: "Betaling",
+
         // --- FOOTER (WITH NEW KEYS) ---
         footer_about: "Professionele aankoopkeuringen in België, Nederland en Duitsland. Wij beschermen uw kapitaal tegen oneerlijke verkopers door betrouwbare technische kennis te leveren.",
         footer_nav_title: "Navigatie",
@@ -424,6 +439,7 @@ export const translations = {
         footer_refunds: "Retourneren & Klachten",
         footer_secured: "Veilige Betaling via Stripe",
         footer_ssl: "SSL Versleutelde Verbinding",
+        
     },
 
 // ================= FRANCUSKI (FR) =================
@@ -486,6 +502,10 @@ export const translations = {
         review_3: "\"J'ai pris le pack Premium. M. Jakub a négocié 800 EUR de rabais en néerlandais. Le service s'est remboursé et j'ai fait un bénéfice.\"",
         review_4: "\"Le rapport PDF est un chef-d'œuvre. 50 photos, vidéo 4K, mesure de chaque élément de carrosserie. Je savais plus sur la voiture que le vendeur.\"",
 
+        lbl_client_data: "Détails Client", // Client Details
+        lbl_url: "Lien de l'annonce",       // Listing Link / Ad URL    
+        lbl_loc: "Emplacement (Ville)",     // Location (City)
+        form_payment_header: "Paiement",     // Payment
 
        // --- FAQ (Français - Full Sales Copy) ---
         faq_title: "QUESTIONS FRÉQUENTES",
@@ -597,6 +617,11 @@ export const translations = {
         review_2: "\"Quería conducir 1200km a ciegas. La inspección reveló inyectores y volante dañados. La reparación superaría el valor. No vale la pena el riesgo.\"",
         review_3: "\"Tomé el paquete Premium. El Sr. Jakub negoció un descuento de 800 EUR en holandés. El servicio se pagó solo y obtuve ganancias.\"",
         review_4: "\"El informe PDF es una obra maestra. 50 fotos, video 4K, medición de cada elemento de la carrocería. Sabía más sobre el coche que el vendedor.\"",
+
+        lbl_client_data: "Detalles del Cliente", // Client Details
+        lbl_url: "Enlace del anuncio",       // Listing Link / Ad URL    
+        lbl_loc: "Ubicación (Ciudad)",     // Location (City)
+        form_payment_header: "Pago",    // Payment
 
 // --- FAQ (Español - Full Sales Copy) ---
         faq_title: "PREGUNTAS FRECUENTES",

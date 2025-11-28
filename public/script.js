@@ -10,9 +10,9 @@ let currentPackage = 'Standard';
 let clientSecret = null;
 
 const prices = {
-    Basic: { eur: 120, pln: 520 },
-    Standard: { eur: 245, pln: 1050 },
-    Premium: { eur: 545, pln: 2350 }
+    Basic: { eur: 115, pln: 497 },
+    Standard: { eur: 235, pln: 990 },
+    Premium: { eur: 525, pln: 2250 }
 };
 
 // --- 2. PŁATNOŚCI (PAYMENT ELEMENT) ---
