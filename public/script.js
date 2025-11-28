@@ -46,7 +46,7 @@ async function initializePayment() {
     };
 
     // Rysujemy formularz (Stripe sam dobiera metody np. BLIK)
-    elements = stripe.elements({ appearance, clientSecret });
+    elements = stripe.elements({ appearance, clientSecret, locale: currentLang });
     const paymentElement = elements.create("payment", {
         layout: "tabs",
     });
