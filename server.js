@@ -80,12 +80,20 @@ const pool = new Pool({
 
 // --- ENDPOINTY ---
 
+// 1. Płatność Stripe (Payment Element - BLIK, Bancontact, Apple Pay)
 app.post('/create-payment-intent', async (req, res) => {
     const { amount, currency } = req.body;
     try {
-        const paymentIntent = await stripe.paymentIntents.create({ amount, currency });
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency,
+            // To magiczna linijka: włącza BLIK, Bancontact, Klarnę itd.
+            // (pod warunkiem, że włączyłeś je w Stripe Dashboard)
+            automatic_payment_methods: { enabled: true },
+        });
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (e) {
+        console.error("Stripe Error:", e);
         res.status(500).json({ error: e.message });
     }
 });

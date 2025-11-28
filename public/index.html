@@ -467,7 +467,7 @@
             </div>
         </section>
 
-<section id="order" class="snap-section flex flex-col justify-center items-center px-4 py-20">
+       <section id="order" class="snap-section flex flex-col justify-center items-center px-4 py-20">
              <div class="container mx-auto max-w-lg w-full relative z-10">
                 <div class="glass-card p-6 animate-fade-up">
                     
@@ -481,8 +481,7 @@
                     <h2 class="text-2xl font-black text-center mb-6 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
                     
                     <form id="inspection-form" novalidate>
-                        
-                        <div class="mb-4 p-3 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
+                        <div class="mb-6 p-3 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
                             <div>
                                 <span class="block text-[10px] text-accent-orange font-bold uppercase" data-i18n="form_selected">Wybrano</span>
                                 <input type="text" id="selected-pkg" class="bg-transparent font-black text-base text-white w-24 focus:outline-none" readonly value="Standard">
@@ -492,22 +491,6 @@
                                 <input type="hidden" id="pkg-price-eur" value="245">
                                 <input type="hidden" id="pkg-price-pln" value="1050">
                                 <input type="hidden" id="current-currency" value="pln">
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-[10px] font-bold mb-2 uppercase text-gray-300" data-i18n="form_payment_method">Wybierz metodę płatności</label>
-                            <input type="hidden" id="selected-payment-method" value="card">
-                            <div class="grid grid-cols-3 gap-2">
-                                <div id="pm-card" onclick="selectPayment('card')" class="payment-option border border-accent-orange bg-accent-orange/20 p-2 rounded-lg text-center cursor-pointer transition transform scale-105 shadow-lg shadow-orange-500/20">
-                                    <i class="fas fa-credit-card text-lg mb-1 text-white"></i><br><span class="text-[10px] font-bold text-white">Karta</span>
-                                </div>
-                                <div id="pm-paypal" onclick="selectPayment('paypal')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer opacity-60 hover:opacity-100 hover:bg-white/10">
-                                    <i class="fab fa-paypal text-lg mb-1 text-blue-400"></i><br><span class="text-[10px] font-bold text-gray-300">PayPal</span>
-                                </div>
-                                <div id="pm-blik" onclick="selectPayment('blik')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer opacity-60 hover:opacity-100 hover:bg-white/10">
-                                    <i class="fas fa-mobile-alt text-lg mb-1 text-red-500"></i><br><span class="text-[10px] font-bold text-gray-300">BLIK</span>
-                                </div>
                             </div>
                         </div>
 
@@ -541,31 +524,23 @@
                              </div>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-6">
                             <div class="flex items-start space-x-3">
                                 <input type="checkbox" id="terms" required class="custom-checkbox mt-1 shrink-0">
                                 <label for="terms" class="text-[10px] text-gray-300 leading-relaxed cursor-pointer">
-                                    <span data-i18n="terms_text">Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.</span>
+                                    <span data-i18n="terms_text">Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną."</span>
                                 </label>
                             </div>
                             <p class="text-red-500 text-[10px] mt-1 ml-6 hidden error-msg" data-i18n="err_terms">Musisz zaakceptować regulamin.</p>
                         </div>
                         
-                        <div id="stripe-section" class="mb-4">
-                            <div id="card-element" class="p-3 glass-input"></div>
-                            <p class="text-[10px] text-gray-400 mt-2"><i class="fas fa-lock"></i> <span data-i18n="txt_secure">Płatności szyfrowane SSL</span></p>
-                        </div>
-
-                        <div id="alt-payment-section" class="hidden mb-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-xl text-center">
-                            <p class="text-xs font-bold mb-1" data-i18n="txt_redirect">Przekierowanie</p>
-                            <p class="text-[10px] text-gray-300" data-i18n="txt_redirect_desc">Zostaniesz przeniesiony do bramki płatności po kliknięciu.</p>
-                        </div>
+                        <div id="payment-element" class="mb-6 min-h-[200px]">
+                            </div>
                         
                         <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mb-4 h-auto"></div>
 
                         <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-3 rounded-xl text-sm transition flex justify-center items-center shadow-lg font-montserrat">
                             <i class="fas fa-lock mr-2"></i> <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
-                            <p id="order-status" class="ml-2 text-xs hidden"></p>
                         </button>
                     </form>
                 </div>

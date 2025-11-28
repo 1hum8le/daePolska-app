@@ -63,21 +63,31 @@ export const translations = {
         review_3: "\"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam.\"",
         review_4: "\"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający.\"",
         
-        // FAQ
+       // --- FAQ (Zgodne z index.html PL) ---
         faq_title: "CZĘSTE PYTANIA",
-        faq_q1: "Jak szybko otrzymam raport?", faq_a1: "Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).",
-        faq_q2: "Czy negocjujecie cenę?", faq_a2: "Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.",
-        faq_q3: "Gdzie dokładnie działacie?", faq_a3: "Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).",
-        faq_q4: "Co jeśli auto zostanie sprzedane?", faq_a4: "Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.",
-        faq_q5: "Czy mogę jechać z wami?", faq_a5: "Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas. W pakiecie VIP (do ustalenia) możliwy jest wspólny wyjazd lub odbiór z lotniska.",
-        faq_q6: "Jak wygląda płatność?", faq_a6: "Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.",
+        faq_q1: "Jak szybko otrzymam raport?", 
+        faq_a1: "Szanujemy Twój czas, a dobre auta znikają szybko. Działamy natychmiast po zaksięgowaniu wpłaty. Kontaktujemy się ze sprzedawcą, rezerwujemy oględziny i zazwyczaj dostarczamy pełny raport w ciągu 24-48 godzin roboczych.",
         
+        faq_q2: "Czy wynegocjujecie lepszą cenę?", 
+        faq_a2: "Tak, to kluczowy element pakietu Premium. Znamy lokalny rynek, język i techniczne argumenty, których trudno użyć przez telefon z Polski. Często uzyskujemy rabaty przewyższające koszt naszej usługi, więc inspekcja może Cię nic nie kosztować.",
+        
+        faq_q3: "Gdzie dokładnie działacie?", 
+        faq_a3: "Nasza baza operacyjna znajduje się w strategicznym punkcie – w Antwerpii. Pozwala nam to szybko dotrzeć do każdego auta w Belgii, całej Holandii oraz w zachodniej części Niemiec (rejon Nadrenii Północnej-Westfalii). Dalsze trasy realizujemy po indywidualnej wycenie.",
+        
+        faq_q4: "Co jeśli auto zostanie sprzedane przed waszym przyjazdem?", 
+        faq_a4: "Nic nie ryzykujesz. Działamy fair. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku lub sprzedawca odmówił oględzin zanim wyruszyliśmy w trasę – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków na konto.",
+        
+        faq_q5: "Czy mogę jechać z wami na inspekcję?", 
+        faq_a5: "Nasz model pracy opiera się na szybkości i logistyce – inspektorzy często realizują kilka zleceń na jednej trasie, dlatego pracujemy zdalnie. Jesteśmy Twoimi oczami na miejscu. Jeśli zależy Ci na wspólnym wyjeździe lub odbiorze z lotniska, skontaktuj się z nami w celu ustalenia indywidualnej usługi Concierge.",
+        
+        faq_q6: "Jak wygląda płatność i faktura?", 
+        faq_a6: "Stawiamy na bezpieczeństwo. Płatność odbywa się przez certyfikowaną bramkę Stripe (Karta, Google Pay, Apple Pay). Środki są chronione. Na każdą usługę wystawiamy legalną fakturę/rachunek (bez VAT lub VAT marża w zależności od usługi), co jest gwarancją legalności naszej firmy.",
         
         // FORMULARZ
         raport:"ZOBACZ PRZYKŁADOWY RAPORT",
         form_title: "SFINALIZUJ ZAMÓWIENIE", form_selected: "Wybrano", form_payment_method: "Wybierz metodę płatności",
         form_car_details: "DANE POJAZDU", btn_pay: "ZAPŁAĆ BEZPIECZNIE", 
-terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.",
+        terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.",
         err_required: "To pole jest wymagane.",
         err_terms: "Musisz zaakceptować regulamin.",
         
@@ -178,25 +188,26 @@ terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline ho
         review_3: "\"I took the Premium package. Mr. Jakub negotiated an 800 EUR discount in Dutch. The service paid for itself and I even made a profit.\"",
         review_4: "\"The PDF report is a masterpiece. 50 photos, 4K video, measurement of every body element. I knew more about the car than the seller did.\"",
 
-        // --- FAQ ---
+// --- FAQ (English - Full Sales Copy) ---
         faq_title: "FREQUENTLY ASKED QUESTIONS",
+        
         faq_q1: "How fast do I get the report?", 
-        faq_a1: "We act fast. Usually within 24-48h of payment, depending on seller availability.",
+        faq_a1: "We respect your time, and good cars disappear quickly. We act immediately after the payment is booked. We contact the seller, schedule the inspection, and usually deliver the full report within 24-48 working hours.",
         
         faq_q2: "Do you negotiate prices?", 
-        faq_a2: "Yes, in the Premium package. We know the local market and language, often saving you more than our service fee.",
+        faq_a2: "Yes, this is a key element of the Premium package. We know the local market, the language, and technical arguments that are hard to use over the phone from abroad. We often obtain discounts exceeding the cost of our service, so the inspection might cost you nothing.",
         
-        faq_q3: "Where do you operate?", 
-        faq_a3: "Our base is Antwerp. We cover Belgium, Netherlands, and Western Germany (North Rhine-Westphalia).",
+        faq_q3: "Where exactly do you operate?", 
+        faq_a3: "Our operational base is located in a strategic point – Antwerp. This allows us to quickly reach any car in Belgium, the entire Netherlands, and Western Germany (North Rhine-Westphalia). Further routes are realized upon individual valuation.",
         
-        faq_q4: "What if the car is sold?", 
-        faq_a4: "We are fair. If we cannot inspect because the car is gone from the market, you get a 100% instant refund.",
+        faq_q4: "What if the car is sold before your arrival?", 
+        faq_a4: "You risk nothing. We play fair. If, after paying for the order, it turns out the car has disappeared from the market or the seller refused inspection before we hit the road – you receive an instant 100% refund to your account.",
         
-        faq_q5: "Can I come along?", 
-        faq_a5: "We usually work remotely to save your time. In VIP package (to be agreed), a joint trip or airport pickup is possible.",
+        faq_q5: "Can I go with you for the inspection?", 
+        faq_a5: "Our work model is based on speed and logistics – inspectors often handle several orders on one route, which is why we work remotely. We are your eyes on the spot. If you care about a joint trip or airport pickup, please contact us to arrange an individual Concierge service.",
         
-        faq_q6: "How can I pay?", 
-        faq_a6: "We accept payments via Stripe (Credit Cards, Apple/Google Pay). Bank transfer or BLIK also available upon contact.",
+        faq_q6: "What does payment and invoice look like?", 
+        faq_a6: "We focus on security. Payment takes place via the certified Stripe gateway (Card, Google Pay, Apple Pay). Funds are protected. For every service, we issue a legal invoice/bill, which is a guarantee of our company's legality.",
 
         // --- ORDER FORM & CONTACT ---
         form_title: "FINALIZE ORDER", 
@@ -312,25 +323,26 @@ terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline ho
         review_3: "\"Ik nam het Premium pakket. Dhr. Jakub onderhandelde 800 EUR korting in het Nederlands. De dienst betaalde zichzelf terug en ik maakte winst.\"",
         review_4: "\"Het PDF rapport is een meesterwerk. 50 foto's, 4K video, meting van elk carrosserie-element. Ik wist meer over de auto dan de verkoper.\"",
         
-        // --- FAQ ---
+        // --- FAQ (Nederlands - Full Sales Copy) ---
         faq_title: "VEELGESTELDE VRAGEN",
-        faq_q1: "Hoe snel krijg ik het rapport?", 
-        faq_a1: "Wij handelen snel. Meestal binnen 24-48 uur na betaling, afhankelijk van beschikbaarheid van de verkoper.",
+        
+        faq_q1: "Hoe snel ontvang ik het rapport?", 
+        faq_a1: "Wij respecteren uw tijd, en goede auto's zijn snel weg. Wij handelen direct na ontvangst van de betaling. We nemen contact op met de verkoper, plannen de inspectie en leveren het volledige rapport meestal binnen 24-48 werkuren.",
         
         faq_q2: "Onderhandelen jullie over de prijs?", 
-        faq_a2: "Ja, in het Premium pakket. Wij kennen de lokale markt en taal, en besparen u vaak meer dan onze kosten.",
+        faq_a2: "Ja, dit is een essentieel onderdeel van het Premium-pakket. Wij kennen de lokale markt, de taal en technische argumenten die telefonisch lastig over te brengen zijn. Vaak bedingen wij kortingen die hoger zijn dan de kosten van onze service, waardoor de inspectie u per saldo niets kost.",
         
-        faq_q3: "Waar werken jullie?", 
-        faq_a3: "Onze basis is Antwerpen. Wij dekken heel België, Nederland en West-Duitsland (Noordrijn-Westfalen).",
+        faq_q3: "Waar zijn jullie precies actief?", 
+        faq_a3: "Onze operationele basis bevindt zich op een strategisch punt – in Antwerpen. Hierdoor kunnen we snel elke auto in België, heel Nederland en het westen van Duitsland (Noordrijn-Westfalen) bereiken. Verdere routes voeren wij uit op basis van een individuele offerte.",
         
-        faq_q4: "Wat als de auto verkocht is?", 
-        faq_a4: "Wij zijn eerlijk. Als we de auto niet kunnen inspecteren omdat deze van de markt is, krijgt u direct 100% terugbetaling.",
+        faq_q4: "Wat als de auto verkocht is voor jullie aankomst?", 
+        faq_a4: "U loopt geen enkel risico. Wij spelen open kaart. Als na betaling blijkt dat de auto van de markt is verdwenen of de verkoper een inspectie weigert voordat wij vertrokken zijn – ontvangt u direct 100% van het betaalde bedrag terug op uw rekening.",
         
-        faq_q5: "Mag ik met jullie mee?", 
-        faq_a5: "Meestal werken we op afstand om uw tijd te besparen. In het VIP-pakket (te bespreken) is een gezamenlijke reis of ophalen van de luchthaven mogelijk.",
+        faq_q5: "Kan ik met jullie meegaan naar de inspectie?", 
+        faq_a5: "Ons werkmodel is gebaseerd op snelheid en logistiek – inspecteurs combineren vaak meerdere opdrachten op één route, daarom werken wij op afstand. Wij zijn uw ogen ter plaatse. Als u waarde hecht aan een gezamenlijke reis of ophalen van de luchthaven, neem dan contact met ons op voor een individuele Concierge-service.",
         
-        faq_q6: "Hoe kan ik betalen?", 
-        faq_a6: "Veilig online via Stripe (Creditcard/Google Pay/Apple Pay). Overboeking of BLIK ook mogelijk na contact.",
+        faq_q6: "Hoe zien de betaling en factuur eruit?", 
+        faq_a6: "Wij zetten in op veiligheid. De betaling verloopt via de gecertificeerde Stripe-gateway (Kaart, Google Pay, Apple Pay). Uw geld is beschermd. Voor elke dienst reiken wij een wettelijke factuur uit, wat de legaliteit van ons bedrijf garandeert.",
 
         // --- FORMULIEREN ---
         form_title: "BESTELLING AFRONDEN", 
@@ -420,13 +432,26 @@ terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline ho
         review_4: "\"Le rapport PDF est un chef-d'œuvre. 50 photos, vidéo 4K, mesure de chaque élément de carrosserie. Je savais plus sur la voiture que le vendeur.\"",
 
 
+       // --- FAQ (Français - Full Sales Copy) ---
         faq_title: "QUESTIONS FRÉQUENTES",
-        faq_q1: "En combien de temps reçois-je le rapport ?", faq_a1: "Nous agissons rapidement. Généralement sous 24-48h après paiement, selon la disponibilité du vendeur.",
-        faq_q2: "Négociez-vous les prix ?", faq_a2: "Oui, dans le pack Premium. Nous connaissons le marché local et la langue, économisant souvent plus que nos frais de service.",
-        faq_q3: "Où opérez-vous ?", faq_a3: "Notre base est à Anvers. Nous couvrons la Belgique, les Pays-Bas et l'Allemagne de l'Ouest (Rhénanie-du-Nord-Westphalie).",
-        faq_q4: "Et si la voiture est vendue ?", faq_a4: "Nous sommes honnêtes. Si la voiture disparaît du marché avant notre arrivée, vous obtenez un remboursement instantané de 100%.",
-        faq_q5: "Puis-je venir avec vous ?", faq_a5: "Généralement nous travaillons à distance pour gagner du temps. En pack VIP (à convenir), un voyage commun ou accueil aéroport est possible.",
-        faq_q6: "Comment payer ?", faq_a6: "Nous acceptons les paiements via Stripe (Carte/Google/Apple Pay). Virement ou BLIK disponible après contact.",
+        
+        faq_q1: "En combien de temps reçois-je le rapport ?", 
+        faq_a1: "Nous respectons votre temps, et les bonnes voitures partent vite. Nous agissons immédiatement après l'enregistrement du paiement. Nous contactons le vendeur, planifions l'inspection et fournissons généralement le rapport complet sous 24-48 heures ouvrables.",
+        
+        faq_q2: "Négociez-vous les prix ?", 
+        faq_a2: "Oui, c'est un élément clé du pack Premium. Nous connaissons le marché local, la langue et les arguments techniques difficiles à utiliser au téléphone depuis l'étranger. Nous obtenons souvent des rabais supérieurs au coût de notre service, l'inspection peut donc ne rien vous coûter au final.",
+        
+        faq_q3: "Où opérez-vous exactement ?", 
+        faq_a3: "Notre base opérationnelle est située à un point stratégique – Anvers. Cela nous permet d'atteindre rapidement n'importe quelle voiture en Belgique, dans tous les Pays-Bas et dans l'ouest de l'Allemagne (Rhénanie-du-Nord-Westphalie). Les trajets plus lointains sont réalisés sur devis individuel.",
+        
+        faq_q4: "Que se passe-t-il si la voiture est vendue avant votre arrivée ?", 
+        faq_a4: "Vous ne risquez rien. Nous jouons franc jeu. Si, après le paiement, il s'avère que la voiture a disparu du marché ou que le vendeur a refusé l'inspection avant notre départ – vous recevez un remboursement immédiat de 100% des fonds sur votre compte.",
+        
+        faq_q5: "Puis-je venir avec vous pour l'inspection ?", 
+        faq_a5: "Notre modèle repose sur la rapidité et la logistique – les inspecteurs traitent souvent plusieurs commandes sur un même itinéraire, c'est pourquoi nous travaillons à distance. Nous sommes vos yeux sur place. Si vous souhaitez un voyage commun ou une prise en charge à l'aéroport, contactez-nous pour un service Concierge individuel.",
+        
+        faq_q6: "Comment se passent le paiement et la facturation ?", 
+        faq_a6: "Nous misons sur la sécurité. Le paiement s'effectue via la passerelle certifiée Stripe (Carte, Google Pay, Apple Pay). Les fonds sont protégés. Pour chaque service, nous émettons une facture légale, ce qui garantit la légalité de notre entreprise.",
         
         form_title: "FINALISER LA COMMANDE", form_selected: "Sélectionné", form_payment_method: "Méthode de paiement",
         form_car_details: "DÉTAILS DU VÉHICULE", btn_pay: "PAYER EN TOUTE SÉCURITÉ",
@@ -504,13 +529,26 @@ terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline ho
         review_3: "\"Tomé el paquete Premium. El Sr. Jakub negoció un descuento de 800 EUR en holandés. El servicio se pagó solo y obtuve ganancias.\"",
         review_4: "\"El informe PDF es una obra maestra. 50 fotos, video 4K, medición de cada elemento de la carrocería. Sabía más sobre el coche que el vendedor.\"",
 
+// --- FAQ (Español - Full Sales Copy) ---
         faq_title: "PREGUNTAS FRECUENTES",
-        faq_q1: "¿Qué tan rápido recibo el informe?", faq_a1: "Actuamos rápido. Generalmente dentro de 24-48h tras el pago, dependiendo de la disponibilidad del vendedor.",
-        faq_q2: "¿Negocian los precios?", faq_a2: "Sí, en el paquete Premium. Conocemos el mercado local y el idioma, a menudo ahorrándote más que nuestra tarifa de servicio.",
-        faq_q3: "¿Dónde operan?", faq_a3: "Nuestra base es Amberes. Cubrimos Bélgica, Países Bajos y Alemania Occidental (Renania del Norte-Westphalie).",
-        faq_q4: "¿Qué pasa si el coche se vende?", faq_a4: "Somos justos. Si no podemos inspeccionar porque el coche ha salido del mercado antes de llegar, obtienes un reembolso instantáneo del 100%.",
-        faq_q5: "¿Puedo ir con ustedes?", faq_a5: "Generalmente trabajamos remotamente para ahorrar tu tiempo. En paquete VIP (a convenir) es posible viaje conjunto o recogida en aeropuerto.",
-        faq_q6: "¿Cómo puedo pagar?", faq_a6: "Pago seguro online (Tarjeta/Google Pay/Apple Pay) vía Stripe. Transferencia o BLIK también disponible tras contacto.",
+        
+        faq_q1: "¿Qué tan rápido recibo el informe?", 
+        faq_a1: "Respetamos tu tiempo y los buenos coches desaparecen rápido. Actuamos inmediatamente después de registrar el pago. Contactamos al vendedor, programamos la inspección y generalmente entregamos el informe completo en 24-48 horas laborables.",
+        
+        faq_q2: "¿Negocian los precios?", 
+        faq_a2: "Sí, es un elemento clave del paquete Premium. Conocemos el mercado local, el idioma y los argumentos técnicos que son difíciles de usar por teléfono desde el extranjero. A menudo obtenemos descuentos que superan el costo de nuestro servicio, por lo que la inspección puede no costarte nada.",
+        
+        faq_q3: "¿Dónde operan exactamente?", 
+        faq_a3: "Nuestra base operativa se encuentra en un punto estratégico: Amberes. Esto nos permite llegar rápidamente a cualquier coche en Bélgica, todos los Países Bajos y el oeste de Alemania (Renania del Norte-Westfalia). Las rutas más lejanas se realizan bajo presupuesto individual.",
+        
+        faq_q4: "¿Qué pasa si el coche se vende antes de su llegada?", 
+        faq_a4: "No arriesgas nada. Jugamos limpio. Si después de pagar el pedido resulta que el coche ha desaparecido del mercado o el vendedor ha rechazado la inspección antes de que salgamos a la carretera, recibes un reembolso instantáneo del 100% de los fondos en tu cuenta.",
+        
+        faq_q5: "¿Puedo ir con ustedes a la inspección?", 
+        faq_a5: "Nuestro modelo de trabajo se basa en la rapidez y la logística: los inspectores a menudo manejan varios pedidos en una sola ruta, por eso trabajamos de forma remota. Somos tus ojos en el lugar. Si te interesa un viaje conjunto o recogida en el aeropuerto, contáctanos para concertar un servicio de Concierge individual.",
+        
+        faq_q6: "¿Cómo son el pago y la factura?", 
+        faq_a6: "Apostamos por la seguridad. El pago se realiza a través de la pasarela certificada Stripe (Tarjeta, Google Pay, Apple Pay). Los fondos están protegidos. Por cada servicio emitimos una factura legal, lo que garantiza la legalidad de nuestra empresa.",
         
         form_title: "FINALIZAR PEDIDO", form_selected: "Seleccionado", form_payment_method: "Método de Pago",
         form_car_details: "DETALLES DEL VEHÍCULO", btn_pay: "PAGAR SEGURO",
