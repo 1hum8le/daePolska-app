@@ -3,6 +3,8 @@ export const translations = {
     pl: {
         // NAWIGACJA
         nav_info: "Proces", nav_services: "Cennik", nav_reviews: "Opinie", nav_contact: "Kontakt", nav_whyus: "Dlaczego My?",
+        // NAWIGACJA FOOTER
+        nav_info_footer: "Proces Inspekcji", nav_services_footer: "Cennik i Pakiety", nav_reviews_footer: "Opinie Klientow", nav_contact_footer: "Kontakt", nav_whyus_footer: "Dlaczego My?",
         
         // HERO
         hero_title: "KUPUJ AUTA ZZA GRANICY<br><span class=\"text-accent-orange text-stroke\">BEZ RYZYKA.</span>",
@@ -41,13 +43,13 @@ export const translations = {
         pkg_docs: "Weryfikacja Dokumentów", pkg_docs_desc: "Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.",
         pkg_pdf: "Raport PDF", pkg_pdf_desc: "Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.",
         // Standard
-        pkg_basic_incl: "Wszystko z Basic",
+        pkg_basic_incl: "Wszystko co w pakiecie Basic",
         most_popular: "Najczęściej Wybierany",
         pkg_obd: "Pełna Diagnostyka OBD", pkg_obd_desc: "Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.",
         pkg_paint: "Miernik Lakieru", pkg_paint_desc: "Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.",
         pkg_drive: "Jazda Próbna", pkg_drive_desc: "Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.",
         // Premium
-        pkg_standard_incl: "Wszystko ze Standard",
+        pkg_standard_incl: "Wszystko co w pakiecie Standard",
         pkg_negotiation: "Negocjacja Ceny", pkg_negotiation_desc: "Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.",
         pkg_video: "Wideo 4K + VIP", pkg_video_desc: "Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.",
         
@@ -92,10 +94,33 @@ export const translations = {
         err_terms: "Musisz zaakceptować regulamin.",
         
         // KONTAKT
-        contact_title: "GOTOWY NA IMPORT?", contact_desc: "Masz pytania przed zamówieniem? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość.",
+        contact_title: "GOTOWY NA IMPORT?", contact_desc: "Masz pytania przed zamówieniem? Chcesz ustalić szczegóły nietypowego zlecenia? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość przez formularz.",
         contact_form_title: "Wyślij zapytanie", lbl_name: "Imię i Nazwisko", ph_name: "Jan Kowalski",
-        lbl_email: "Email", ph_email: "jan@przyklad.com", lbl_message: "Wiadomość", btn_send: "WYŚLIJ WIADOMOŚĆ",
+        lbl_email: "Email", ph_email: "jan@przyklad.com", lbl_message: "Wiadomość", btn_send: "WYŚLIJ WIADOMOŚĆ", ph_message: "Treść wiadomości...",
+        lbl_phone_title: "Telefon / WhatsApp", // NOWE
+        lbl_email_title: "Email", // NOWE
+
+        // --- FOOTER (Z NOWYMI KLUCZAMI) ---
+        footer_about: "Profesjonalne inspekcje przedzakupowe na terenie Belgii, Holandii i Niemiec. Chronimy Twój kapitał przed nieuczciwymi sprzedawcami, dostarczając rzetelną wiedzę techniczną.", // NOWE
+        footer_nav_title: "Nawigacja", // NOWE
+        footer_docs_title: "Dokumenty Prawne", // NOWE
+        footer_office_title: "Dane Kontaktowe", // NOWE
+        footer_address: "Antwerpia, Belgia", // NOWE
+        footer_hq: "(Baza Operacyjna / Siedziba)", // NOWE
         footer_rights: "Wszelkie prawa zastrzeżone.",
+        footer_terms: "Regulamin Świadczenia Usług", // NOWE
+        footer_privacy: "Polityka Prywatności (RODO)", // NOWE
+        footer_cookies: "Polityka Plików Cookies", // NOWE
+        footer_refunds: "Zwroty i Reklamacje", // NOWE
+        footer_secured: "Secure Payments by Stripe", // NOWE
+        footer_ssl: "SSL Encrypted Connection", // NOWE
+        
+        lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
+        ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
+        txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
+        footer_rights: "Wszelkie prawa zastrzeżone.",
+
+        
         
         lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
@@ -217,13 +242,16 @@ export const translations = {
         btn_pay: "PAY SECURELY",
         
         contact_title: "READY TO IMPORT?",
-        contact_desc: "Have questions before ordering? Contact us directly or send a message.",
+        contact_desc: "Have questions before ordering? Want to discuss the details of a custom order? Contact us directly or send a message through the form.",
         contact_form_title: "Send Inquiry", 
         lbl_name: "Full Name", ph_name: "John Doe",
-        lbl_email: "Email", ph_email: "john@example.com",
-        lbl_message: "Message", 
+        lbl_email: "Email", ph_email: "john@example.com", 
+        lbl_message: "Message", ph_message: "Your message...",
         btn_send: "SEND MESSAGE",
         footer_rights: "All rights reserved.",
+
+        lbl_phone_title: "Phone / WhatsApp",
+        lbl_email_title: "Email",
         
         lbl_phone: "Phone (Optional)", ph_phone: "+1 ... (Optional)",
         ph_url: "Listing Link", ph_loc: "City, Country",
@@ -236,8 +264,22 @@ export const translations = {
         err_required: "This field is required.",
         err_terms: "You must accept the terms.",
         // ...
+        // --- FOOTER (WITH NEW KEYS) ---
+        footer_about: "Professional pre-purchase inspections in Belgium, Netherlands, and Germany. We protect your capital from dishonest sellers by providing reliable technical knowledge.",
+        footer_nav_title: "Navigation",
+        footer_docs_title: "Legal Documents",
+        footer_office_title: "Contact Details",
+        footer_address: "Antwerp, Belgium",
+        footer_hq: "(Operational Base / HQ)",
+        footer_terms: "Terms of Service",
+        footer_privacy: "Privacy Policy (GDPR)",
+        footer_cookies: "Cookie Policy",
+        footer_refunds: "Returns & Complaints",
+        footer_secured: "Secure Payments by Stripe",
+        footer_ssl: "SSL Encrypted Connection",
+        
     },
-
+    
     // ================= NIDERLANDZKI (NL) =================
     nl: {
         // --- NAVIGATIE ---
@@ -302,13 +344,13 @@ export const translations = {
         pkg_docs: "Documenten", pkg_docs_desc: "Controle van VIN, inschrijvingsbewijs, Car-Pass en onderhoudshistorie.",
         pkg_pdf: "PDF Rapport", pkg_pdf_desc: "Duidelijk overzicht van de visuele staat rechtstreeks naar uw e-mail.",
         // Standard
-        pkg_basic_incl: "Alles in Basic",
+        pkg_basic_incl: "Alles wat in het Basic pakket zit",
         most_popular: "Meest Gekozen",
         pkg_obd: "Volledige OBD Diagnose", pkg_obd_desc: "Computer aansluiting. Scannen van injectoren, DPF, versnellingsbak en kilometerverificatie.",
         pkg_paint: "Lakdikte Meting", pkg_paint_desc: "Professionele meting. Wij detecteren plamuur en ongevalhistorie.",
         pkg_drive: "Proefrit", pkg_drive_desc: "Dynamische test. Controle van ophanging, remmen, koppeling en weggedrag.",
         // Premium
-        pkg_standard_incl: "Alles in Standaard",
+        pkg_standard_incl: "Alles wat in het Standaard pakket zit",
         pkg_negotiation: "Prijs Onderhandeling", pkg_negotiation_desc: "Wij onderhandelen namens u in de lokale taal. Vaak verdienen we de servicekosten terug.",
         pkg_video: "4K Video + VIP", pkg_video_desc: "Gedetailleerde opname met commentaar van de expert. Prioritaire uitvoering.",
 
@@ -352,11 +394,11 @@ export const translations = {
         btn_pay: "VEILIG BETALEN",
         
         contact_title: "KLAAR VOOR IMPORT?",
-        contact_desc: "Vragen vooraf? Neem direct contact op of stuur een bericht.",
+        contact_desc: "Vragen vooraf? Wil je de details van een speciaal verzoek bespreken? Neem direct contact op of stuur een bericht via het formulier.",
         contact_form_title: "Stuur bericht", 
         lbl_name: "Volledige Naam", ph_name: "Jan Jansen",
         lbl_email: "E-mail", ph_email: "jan@voorbeeld.nl",
-        lbl_message: "Bericht", 
+        lbl_message: "Bericht",  ph_message: "Uw bericht...",
         btn_send: "VERSTUUR",
         footer_rights: "Alle rechten voorbehouden.",
         
@@ -369,6 +411,19 @@ export const translations = {
         err_required: "Dit veld is verplicht.",
         err_terms: "U moet de voorwaarden accepteren.",
 
+        // --- FOOTER (WITH NEW KEYS) ---
+        footer_about: "Professionele aankoopkeuringen in België, Nederland en Duitsland. Wij beschermen uw kapitaal tegen oneerlijke verkopers door betrouwbare technische kennis te leveren.",
+        footer_nav_title: "Navigatie",
+        footer_docs_title: "Juridische Documenten",
+        footer_office_title: "Contactgegevens",
+        footer_address: "Antwerpen, België",
+        footer_hq: "(Operationele Basis / Hoofdkantoor)",
+        footer_terms: "Algemene Voorwaarden",
+        footer_privacy: "Privacybeleid (AVG)",
+        footer_cookies: "Cookiebeleid",
+        footer_refunds: "Retourneren & Klachten",
+        footer_secured: "Veilige Betaling via Stripe",
+        footer_ssl: "SSL Versleutelde Verbinding",
     },
 
 // ================= FRANCUSKI (FR) =================
@@ -410,13 +465,13 @@ export const translations = {
         pkg_docs: "Vérification Docs", pkg_docs_desc: "Vérification VIN, carte grise, Car-Pass et historique d'entretien.",
         pkg_pdf: "Rapport PDF", pkg_pdf_desc: "Résumé clair de l'état visuel envoyé directement sur votre e-mail.",
         // Standard
-        pkg_basic_incl: "Tout dans Basic",
+        pkg_basic_incl: "Tout ce qui est dans le pack Basic",
         most_popular: "Le Plus Populaire",
         pkg_obd: "Diagnostic OBD Complet", pkg_obd_desc: "Connexion ordinateur. Scan des injecteurs, FAP, boîte et vérification kilométrage modules.",
         pkg_paint: "Mesure Peinture", pkg_paint_desc: "Mesure professionnelle. Nous détectons le mastic et l'historique d'accidents.",
         pkg_drive: "Essai Routier", pkg_drive_desc: "Test dynamique. Vérification suspension, freins, embrayage et conduite.",
         // Premium
-        pkg_standard_incl: "Tout dans Standard",
+        pkg_standard_incl: "Tout ce qui est dans le pack Standard",
         pkg_negotiation: "Négociation Prix", pkg_negotiation_desc: "Nous négocions pour vous en langue locale. Nous récupérons souvent le coût du service avec intérêts.",
         pkg_video: "Vidéo 4K + VIP", pkg_video_desc: "Enregistrement détaillé avec commentaire d'expert. Exécution prioritaire.",
 
@@ -456,9 +511,9 @@ export const translations = {
         form_title: "FINALISER LA COMMANDE", form_selected: "Sélectionné", form_payment_method: "Méthode de paiement",
         form_car_details: "DÉTAILS DU VÉHICULE", btn_pay: "PAYER EN TOUTE SÉCURITÉ",
         contact_title: "PRÊT À IMPORTER ?",
-        contact_desc: "Des questions avant de commander ? Contactez-nous directement ou envoyez un message.",
+        contact_desc: "Des questions avant de commander ? Vous souhaitez discuter des détails d'une commande personnalisée ? Contactez-nous directement ou envoyez un message via le formulaire.",
         contact_form_title: "Envoyer une demande", 
-        lbl_name: "Nom complet", lbl_email: "Email", lbl_message: "Message", btn_send: "ENVOYER",
+        lbl_name: "Nom complet", lbl_email: "Email", lbl_message: "Message", ph_message: "Votre message...", btn_send: "ENVOYER",
         footer_rights: "Tous droits réservés.",
         
         lbl_phone: "Téléphone (Optionnel)", ph_name: "Jean Dupont", ph_email: "jean@exemple.fr", ph_phone: "+33 ...",
@@ -467,6 +522,20 @@ export const translations = {
         terms_text: "J'accepte les <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Conditions</a> et la <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politique de Confidentialité</a>.",
         err_required: "Ce champ est requis.",
         err_terms: "Vous devez accepter les conditions.",
+
+        // --- FOOTER (WITH NEW KEYS) ---
+        footer_about: "Inspections professionnelles avant achat en Belgique, aux Pays-Bas et en Allemagne. Nous protégeons votre capital contre les vendeurs malhonnêtes en fournissant des connaissances techniques fiables.",
+        footer_nav_title: "Navigation",
+        footer_docs_title: "Documents Légaux",
+        footer_office_title: "Coordonnées",
+        footer_address: "Anvers, Belgique",
+        footer_hq: "(Base Opérationnelle / Siège)",
+        footer_terms: "Conditions Générales",
+        footer_privacy: "Politique de Confidentialité (RGPD)",
+        footer_cookies: "Politique de Cookies",
+        footer_refunds: "Retours & Réclamations",
+        footer_secured: "Paiements Sécurisés par Stripe",
+        footer_ssl: "Connexion Cryptée SSL",
     },
 
     // ================= HISZPAŃSKI (ES) =================
@@ -508,13 +577,13 @@ export const translations = {
         pkg_docs: "Verificación Docs", pkg_docs_desc: "Verificación de VIN, papeles de registro, Car-Pass e historial de servicio.",
         pkg_pdf: "Informe PDF", pkg_pdf_desc: "Resumen claro de la condición visual enviado directamente a tu email.",
         // Standard
-        pkg_basic_incl: "Todo en Básico",
+        pkg_basic_incl: "Todo lo que incluye el paquete Básico",
         most_popular: "Más Popular",
         pkg_obd: "Diagnóstico OBD", pkg_obd_desc: "Conexión computadora. Escaneo de inyectores, DPF, caja de cambios y verificación de kilometraje en módulos.",
         pkg_paint: "Medición Pintura", pkg_paint_desc: "Medición profesional. Detectamos masilla e historial de accidentes.",
         pkg_drive: "Prueba Manejo", pkg_drive_desc: "Prueba dinámica. Verificación de suspensión, frenos, embrague y manejo.",
         // Premium
-        pkg_standard_incl: "Todo en Estándar",
+        pkg_standard_incl: "Todo lo que incluye el paquete Estándar",
         pkg_negotiation: "Negociación", pkg_negotiation_desc: "Negociamos en tu nombre en el idioma local. A menudo recuperamos el costo del servicio con intereses.",
         pkg_video: "Video 4K + VIP", pkg_video_desc: "Grabación detallada con comentarios de expertos. Ejecución de servicio prioritaria.",
 
@@ -553,9 +622,9 @@ export const translations = {
         form_title: "FINALIZAR PEDIDO", form_selected: "Seleccionado", form_payment_method: "Método de Pago",
         form_car_details: "DETALLES DEL VEHÍCULO", btn_pay: "PAGAR SEGURO",
         contact_title: "¿LISTO PARA IMPORTAR?",
-        contact_desc: "¿Preguntas antes de pedir? Contáctanos directamente o envía un mensaje.",
+        contact_desc: "¿Preguntas antes de pedir? ¿Quieres discutir los detalles de un pedido personalizado? Contáctanos directamente o envía un mensaje a través del formulario.",
         contact_form_title: "Enviar consulta", 
-        lbl_name: "Nombre completo", lbl_email: "Email", lbl_message: "Mensaje", btn_send: "ENVIAR",
+        lbl_name: "Nombre completo", lbl_email: "Email", lbl_message: "Mensaje", ph_message: "Tu mensaje...", btn_send: "ENVIAR",
         footer_rights: "Todos los derechos reservados.",
         
         lbl_phone: "Teléfono (Opcional)", ph_name: "Juan Pérez", ph_email: "juan@ejemplo.es", ph_phone: "+34 ...",
@@ -564,5 +633,19 @@ export const translations = {
         terms_text: "Acepto los <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Términos</a> y la <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Política de Privacidad</a>.",
         err_required: "Este campo es obligatorio.",
         err_terms: "Debes aceptar los términos.",
+
+        // --- FOOTER (WITH NEW KEYS) ---
+        footer_about: "Inspecciones profesionales pre-compra en Bélgica, Países Bajos y Alemania. Protegemos tu capital de vendedores deshonestos proporcionando conocimientos técnicos fiables.",
+        footer_nav_title: "Navegación",
+        footer_docs_title: "Documentos Legales",
+        footer_office_title: "Datos de Contacto",
+        footer_address: "Amberes, Bélgica",
+        footer_hq: "(Base Operativa / Sede)",
+        footer_terms: "Términos y Condiciones",
+        footer_privacy: "Política de Privacidad (RGPD)",
+        footer_cookies: "Política de Cookies",
+        footer_refunds: "Devoluciones y Quejas",
+        footer_secured: "Pagos Seguros por Stripe",
+        footer_ssl: "Conexión Encriptada SSL",
     }
 };
