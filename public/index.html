@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>daePoland | Profesjonalne Inspekcje Pojazdów</title>
     
     <meta name="description" content="Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Sprawdzamy lakier, silnik i elektronikę. Raport nawet do 24h.">
@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -42,13 +42,13 @@
 </head>
 <body class="text-white antialiased selection:bg-accent-orange selection:text-white">
 
-    <a href="https://wa.me/32471943560" class="float-wa" target="_blank" title="Napisz na WhatsApp">
+    <a href="https://wa.me/32471943560" class="float-wa" target="_blank" title="Napisz na WhatsApp" aria-label="Napisz na WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <div class="video-bg-container">
         <div class="video-overlay"></div>
-        <video autoplay muted loop playsinline class="back-video" poster="src/poster.jpg">
+        <video autoplay muted loop playsinline class="back-video" poster="src/poster.jpg" role="presentation">
             <source src="src/video_bg.webm" type="video/webm">
         </video>
     </div>
@@ -68,7 +68,7 @@
                     <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
                 </div>
 
-                <div class="relative" id="lang-container">
+                <div class="relative" id="lang-container" class="sr-only" aria-label:="Wybór języka">
                     <button id="lang-btn" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md">
                         <span id="current-flag" class="text-lg">🇵🇱</span>
                         <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">Polski</span>
@@ -211,7 +211,7 @@
                         </p>
                         
                         <div class="bg-white/5 border-l-4 border-accent-orange p-6 rounded-r-xl mt-6">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4" data-i18n="why_ex_title">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
+                            <p class="text-xs font-bold text-gray-200 uppercase tracking-widest mb-4" data-i18n="why_ex_title">PRZYKŁAD Z ŻYCIA (BMW Seria 3):</p>
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-gray-300" data-i18n="why_pl_label">Cena u handlarza w PL:</span>
                                 <span class="font-bold text-red-400 text-xl">65 000 PLN</span>
@@ -227,7 +227,7 @@
                             </div>
                         </div>
 
-                        <p class="text-sm text-gray-400 italic mt-2" data-i18n="why_note">
+                        <p class="text-sm text-gray-200 italic mt-2" data-i18n="why_note">
                             *Nawet po odliczeniu kosztów inspekcji i transportu, zyskujesz pewne auto i tysiące złotych w kieszeni.
                         </p>
                     </div>
@@ -237,21 +237,21 @@
                             <div class="bg-green-500/20 w-14 h-14 rounded-full flex items-center justify-center text-green-400 text-2xl"><i class="fas fa-shield-alt"></i></div>
                             <div>
                                 <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon1_title">Digital Control</h3>
-                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon1_desc">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
+                                <p class="text-sm text-gray-200 mt-1" data-i18n="why_icon1_desc">Pełna transparentność. Widzisz auto tak, jakbyś tam był. 50+ zdjęć i wideo 4K.</p>
                             </div>
                         </div>
                         <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
                             <div class="bg-blue-500/20 w-14 h-14 rounded-full flex items-center justify-center text-blue-400 text-2xl"><i class="fas fa-truck"></i></div>
                             <div>
                                 <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon2_title">Pomoc w Transporcie</h3>
-                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon2_desc">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
+                                <p class="text-sm text-gray-200 mt-1" data-i18n="why_icon2_desc">Nie masz lawety? Pomożemy zorganizować bezpieczny transport pod Twój dom w uczciwej cenie.</p>
                             </div>
                         </div>
                         <div class="glass-card p-6 flex items-center space-x-6 hover:bg-white/10 transition cursor-default">
                             <div class="bg-purple-500/20 w-14 h-14 rounded-full flex items-center justify-center text-purple-400 text-2xl"><i class="fas fa-comments-dollar"></i></div>
                             <div>
                                 <h3 class="font-bold font-montserrat text-white text-lg" data-i18n="why_icon3_title">Negocjacje w cenie</h3>
-                                <p class="text-sm text-gray-400 mt-1" data-i18n="why_icon3_desc">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
+                                <p class="text-sm text-gray-200 mt-1" data-i18n="why_icon3_desc">Znamy język i rynek. Często urywamy z ceny więcej, niż kosztuje nasza usługa.</p>
                             </div>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
         <section id="services" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-4 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
-                <p class="text-center text-gray-400 mb-12 font-inter text-sm max-w-2xl mx-auto" data-i18n="package_desc">Każdy pakiet zawiera dojazd do klienta w promieniu 150km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
+                <p class="text-center text-gray-200 mb-12 font-inter text-sm max-w-2xl mx-auto" data-i18n="package_desc">Każdy pakiet zawiera dojazd do klienta w promieniu 150km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
                 
                 <div class="grid md:grid-cols-3 gap-8">
                     
@@ -276,21 +276,21 @@
                                 <i class="fas fa-camera text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_photos">30-40 Zdjęć</span>
-                                    <span class="text-xs text-gray-500" data-i18n="pkg_photos_desc">Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.</span>
+                                    <span class="text-xs text-gray-300" data-i18n="pkg_photos_desc">Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-file-alt text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_docs">Weryfikacja Dokumentów</span>
-                                    <span class="text-xs text-gray-500" data-i18n="pkg_docs_desc">Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.</span>
+                                    <span class="text-xs text-gray-300" data-i18n="pkg_docs_desc">Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-file-pdf text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_pdf">Raport PDF</span>
-                                    <span class="text-xs text-gray-500" data-i18n="pkg_pdf_desc">Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.</span>
+                                    <span class="text-xs text-gray-300" data-i18n="pkg_pdf_desc">Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.</span>
                                 </div>
                             </li>
                         </ul>
@@ -314,21 +314,21 @@
                                 <i class="fas fa-laptop-medical text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_obd">Pełna Diagnostyka OBD</span>
-                                    <span class="text-xs text-gray-400" data-i18n="pkg_obd_desc">Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.</span>
+                                    <span class="text-xs text-gray-200" data-i18n="pkg_obd_desc">Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-layer-group text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_paint">Miernik Lakieru</span>
-                                    <span class="text-xs text-gray-400" data-i18n="pkg_paint_desc">Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.</span>
+                                    <span class="text-xs text-gray-200" data-i18n="pkg_paint_desc">Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-tachometer-alt text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_drive">Jazda Próbna</span>
-                                    <span class="text-xs text-gray-400" data-i18n="pkg_drive_desc">Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.</span>
+                                    <span class="text-xs text-gray-200" data-i18n="pkg_drive_desc">Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.</span>
                                 </div>
                             </li>
                         </ul>
@@ -349,14 +349,14 @@
                                 <i class="fas fa-handshake text-purple-400 mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_negotiation">Negocjacja Ceny</span>
-                                    <span class="text-xs text-gray-500" data-i18n="pkg_negotiation_desc">Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.</span>
+                                    <span class="text-xs text-gray-300" data-i18n="pkg_negotiation_desc">Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-video text-purple-400 mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_video">Wideo 4K + VIP</span>
-                                    <span class="text-xs text-gray-500" data-i18n="pkg_video_desc">Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.</span>
+                                    <span class="text-xs text-gray-300" data-i18n="pkg_video_desc">Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.</span>
                                 </div>
                             </li>
                         </ul>
@@ -558,11 +558,11 @@
                         <div class="space-y-6">
                             <div class="flex items-center space-x-5">
                                 <div class="w-12 h-12 rounded-full bg-accent-orange/20 flex items-center justify-center text-accent-orange"><i class="fas fa-phone"></i></div>
-                                <div><p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Telefon / WhatsApp</p><p class="text-xl font-bold text-white">+32 471 943 560</p></div>
+                                <div><p class="text-[10px] text-gray-200 uppercase font-bold tracking-wider">Telefon / WhatsApp</p><p class="text-xl font-bold text-white">+32 471 943 560</p></div>
                             </div>
                             <div class="flex items-center space-x-5">
                                 <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500"><i class="fas fa-envelope"></i></div>
-                                <div><p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Email</p><p class="text-xl font-bold text-white">daePoland.kontakt@gmail.com</p></div>
+                                <div><p class="text-[10px] text-gray-200 uppercase font-bold tracking-wider">Email</p><p class="text-xl font-bold text-white">daePoland.kontakt@gmail.com</p></div>
                             </div>
                         </div>
                     </div>
@@ -570,9 +570,9 @@
                         <h3 class="text-xl font-bold mb-6 font-montserrat" data-i18n="contact_form_title">Wyślij zapytanie</h3>
                         <form id="contact-form">
                             <div class="space-y-4">
-                                <div><label for="contact-name" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase" data-i18n="lbl_name">Imię</label><input type="text" id="contact-name" class="glass-input text-sm py-2" required></div>
-                                <div><label for="contact-email" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase" data-i18n="lbl_email">Email</label><input type="email" id="contact-email" class="glass-input text-sm py-2" required></div>
-                                <div><label for="contact-message" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase" data-i18n="lbl_message">Wiadomość</label><textarea id="contact-message" rows="3" class="glass-input text-sm py-2" required></textarea></div>
+                                <div><label for="contact-name" class="block text-[10px] text-gray-200 mb-1 ml-1 uppercase" data-i18n="lbl_name">Imię</label><input type="text" id="contact-name" class="glass-input text-sm py-2" required></div>
+                                <div><label for="contact-email" class="block text-[10px] text-gray-200 mb-1 ml-1 uppercase" data-i18n="lbl_email">Email</label><input type="email" id="contact-email" class="glass-input text-sm py-2" required></div>
+                                <div><label for="contact-message" class="block text-[10px] text-gray-200 mb-1 ml-1 uppercase" data-i18n="lbl_message">Wiadomość</label><textarea id="contact-message" rows="3" class="glass-input text-sm py-2" required></textarea></div>
                                 <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition text-xs tracking-widest" data-i18n="btn_send">WYŚLIJ WIADOMOŚĆ</button>
                                 <p id="contact-status" class="mt-3 text-xs font-bold text-center hidden"></p>
                             </div>
@@ -586,16 +586,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                         <div class="space-y-3">
                             <a href="#" class="text-xl font-black tracking-wider font-montserrat block">DAE<span class="text-accent-orange">POLAND</span></a>
-                            <p class="text-gray-500 text-[10px] leading-relaxed font-inter max-w-xs">Profesjonalne inspekcje przedzakupowe w Belgii, Holandii i Niemczech.</p>
+                            <p class="text-gray-300 text-[10px] leading-relaxed font-inter max-w-xs">Profesjonalne inspekcje przedzakupowe w Belgii, Holandii i Niemczech.</p>
                             <div class="flex space-x-4 pt-2">
-                                <a href="#" class="text-gray-500 hover:text-white transition text-sm"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="text-gray-500 hover:text-white transition text-sm"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="text-gray-500 hover:text-white transition text-sm"><i class="fab fa-tiktok"></i></a>
+                                <a href="#" class="text-gray-300 hover:text-white transition text-sm" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="text-gray-300 hover:text-white transition text-sm" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-gray-300 hover:text-white transition text-sm" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                             </div>
                         </div>
                         <div>
                             <h4 class="font-bold text-white mb-3 font-montserrat uppercase text-[10px] tracking-widest">Nawigacja</h4>
-                            <ul class="space-y-1.5 text-[11px] text-gray-400 font-inter">
+                            <ul class="space-y-1.5 text-[11px] text-gray-200 font-inter">
                                 <li><a href="#info" class="hover:text-accent-orange transition">Proces Inspekcji</a></li>
                                 <li><a href="#services" class="hover:text-accent-orange transition">Cennik i Pakiety</a></li>
                                 <li><a href="#reviews-faq" class="hover:text-accent-orange transition">Opinie Klientów</a></li>
@@ -604,7 +604,7 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-white mb-3 font-montserrat uppercase text-[10px] tracking-widest">Dokumenty</h4>
-                            <ul class="space-y-1.5 text-[11px] text-gray-400 font-inter">
+                            <ul class="space-y-1.5 text-[11px] text-gray-200 font-inter">
                                 <li><a href="terms.html" class="hover:text-accent-orange transition">Regulamin Usług</a></li>
                                 <li><a href="privacy.html" class="hover:text-accent-orange transition">Polityka Prywatności</a></li>
                                 <li><a href="privacy.html#cookies" class="hover:text-accent-orange transition">Polityka Cookies</a></li>
@@ -613,7 +613,7 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-white mb-3 font-montserrat uppercase text-[10px] tracking-widest">Biuro</h4>
-                            <ul class="space-y-2 text-[11px] text-gray-400 font-inter">
+                            <ul class="space-y-2 text-[11px] text-gray-200 font-inter">
                                 <li class="flex items-start"><i class="fas fa-map-marker-alt mt-0.5 w-4 text-accent-orange"></i> <span>Antwerpia, Belgia<br>(Baza Operacyjna)</span></li>
                                 <li class="flex items-center"><i class="fas fa-phone-alt w-4 text-accent-orange"></i> <span>+32 471 943 560</span></li>
                                 <li class="flex items-center"><i class="fas fa-envelope w-4 text-accent-orange"></i> <span>daePoland.kontakt@gmail.com</span></li>
