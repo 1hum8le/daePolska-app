@@ -2,7 +2,7 @@ export const translations = {
     // ================= POLSKI (PL) - BAZA =================
     pl: {
         // NAWIGACJA
-        nav_info: "Proces", nav_services: "Cennik", nav_reviews: "Opinie", nav_contact: "Kontakt",
+        nav_info: "Proces", nav_services: "Cennik", nav_reviews: "Opinie", nav_contact: "Kontakt", nav_whyus: "Dlaczego My?",
         
         // HERO
         hero_title: "KUPUJ AUTA ZZA GRANICY<br><span class=\"text-accent-orange text-stroke\">BEZ RYZYKA.</span>",
@@ -35,25 +35,33 @@ export const translations = {
 
         // CENNIK
         packages_title: "WYBIERZ PAKIET",
+        package_desc: "Każdy pakiet zawiera dojazd do klienta w promieniu 150km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.",
+        // Basic
         pkg_photos: "30-40 Zdjęć", pkg_photos_desc: "Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.",
         pkg_docs: "Weryfikacja Dokumentów", pkg_docs_desc: "Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.",
         pkg_pdf: "Raport PDF", pkg_pdf_desc: "Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.",
-        
+        // Standard
         pkg_basic_incl: "Wszystko z Basic",
+        most_popular: "Najczęściej Wybierany",
         pkg_obd: "Pełna Diagnostyka OBD", pkg_obd_desc: "Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.",
         pkg_paint: "Miernik Lakieru", pkg_paint_desc: "Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.",
         pkg_drive: "Jazda Próbna", pkg_drive_desc: "Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.",
-
+        // Premium
         pkg_standard_incl: "Wszystko ze Standard",
         pkg_negotiation: "Negocjacja Ceny", pkg_negotiation_desc: "Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.",
         pkg_video: "Wideo 4K + VIP", pkg_video_desc: "Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.",
-        btn_select: "WYBIERZ",
-
+        
+        // PRZYCISKI WYBORU
+        btn_select_basic: "WYBIERZ BASIC",
+        btn_select_standard: "WYBIERZ STANDARD",
+        btn_select_premium: "WYBIERZ PREMIUM",
+        
         // OPINIE
         reviews_title: "HISTORIE KLIENTÓW",
         review_1: "\"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł. Dziękuję!\"",
         review_2: "\"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski i dwumasę. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować.\"",
         review_3: "\"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam.\"",
+        review_4: "\"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający.\"",
         
         // FAQ
         faq_title: "CZĘSTE PYTANIA",
@@ -63,10 +71,15 @@ export const translations = {
         faq_q4: "Co jeśli auto zostanie sprzedane?", faq_a4: "Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.",
         faq_q5: "Czy mogę jechać z wami?", faq_a5: "Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas. W pakiecie VIP (do ustalenia) możliwy jest wspólny wyjazd lub odbiór z lotniska.",
         faq_q6: "Jak wygląda płatność?", faq_a6: "Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.",
-
+        
+        
         // FORMULARZ
+        raport:"ZOBACZ PRZYKŁADOWY RAPORT",
         form_title: "SFINALIZUJ ZAMÓWIENIE", form_selected: "Wybrano", form_payment_method: "Wybierz metodę płatności",
-        form_car_details: "DANE POJAZDU", btn_pay: "ZAPŁAĆ BEZPIECZNIE",
+        form_car_details: "DANE POJAZDU", btn_pay: "ZAPŁAĆ BEZPIECZNIE", 
+terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.",
+        err_required: "To pole jest wymagane.",
+        err_terms: "Musisz zaakceptować regulamin.",
         
         // KONTAKT
         contact_title: "GOTOWY NA IMPORT?", contact_desc: "Masz pytania przed zamówieniem? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość.",
@@ -77,7 +90,6 @@ export const translations = {
         lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
         txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
-        terms_text: "Akceptuję Regulamin i Politykę Prywatności. Rozumiem, że usługa jest opinią techniczną w momencie oględzin."
     },
 
     // ================= ANGIELSKI (EN) =================
@@ -87,6 +99,7 @@ export const translations = {
         nav_services: "Pricing", 
         nav_reviews: "Reviews", 
         nav_contact: "Contact",
+        nav_whyus: "Why Us?",
         
         // --- HERO SECTION ---
         hero_title: "BUY CARS ABROAD<br><span class=\"text-accent-orange text-stroke\">WITHOUT RISK.</span>",
@@ -134,40 +147,36 @@ export const translations = {
         why_icon3_title: "Price Negotiation", 
         why_icon3_desc: "We know the language and market. We often cut more from the price than our service costs.",
 
-        // --- PRICING ---
+     // PRICING
         packages_title: "SELECT YOUR TIER",
-        
+        package_desc: "Every package includes travel within a 150km radius of Antwerp. Further distances are priced individually.",
+        raport: "VIEW SAMPLE REPORT",
         // Basic
-        pkg_photos: "30-40 Photos", 
-        pkg_photos_desc: "High resolution. Documentation of every scratch, dent, and interior detail.",
-        pkg_docs: "Docs Verification", 
-        pkg_docs_desc: "Checking VIN match, registration papers, Car-Pass, and service history.",
-        pkg_pdf: "PDF Report", 
-        pkg_pdf_desc: "A clear visual condition summary sent directly to your email.",
-        
+        pkg_photos: "30-40 Photos", pkg_photos_desc: "High resolution. Documentation of every scratch, dent, and interior detail.",
+        pkg_docs: "Docs Verification", pkg_docs_desc: "Checking VIN match, registration papers, Car-Pass, and service history.",
+        pkg_pdf: "PDF Report", pkg_pdf_desc: "A clear visual condition summary sent directly to your email.",
         // Standard
         pkg_basic_incl: "All in Basic",
-        pkg_obd: "Full OBD Diagnostics", 
-        pkg_obd_desc: "Computer connection. Scanning injectors, DPF, gearbox, and verifying mileage in modules.",
-        pkg_paint: "Paint Thickness", 
-        pkg_paint_desc: "Professional coating measurement. We detect putty and accident history.",
-        pkg_drive: "Test Drive", 
-        pkg_drive_desc: "Dynamic test. Checking suspension, brakes, clutch, and handling.",
-
+        most_popular: "Most Popular",
+        pkg_obd: "Full OBD Diagnostics", pkg_obd_desc: "Computer connection. Scanning injectors, DPF, gearbox, and verifying mileage in modules.",
+        pkg_paint: "Paint Thickness", pkg_paint_desc: "Professional coating measurement. We detect putty and accident history.",
+        pkg_drive: "Test Drive", pkg_drive_desc: "Dynamic test. Checking suspension, brakes, clutch, and handling.",
         // Premium
         pkg_standard_incl: "All in Standard",
-        pkg_negotiation: "Price Negotiation", 
-        pkg_negotiation_desc: "We negotiate on your behalf in the local language. We often recover the service cost with interest.",
-        pkg_video: "4K Video + VIP", 
-        pkg_video_desc: "Detailed recording with expert commentary. Priority service execution.",
+        pkg_negotiation: "Price Negotiation", pkg_negotiation_desc: "We negotiate on your behalf in the local language. We often recover the service cost with interest.",
+        pkg_video: "4K Video + VIP", pkg_video_desc: "Detailed recording with expert commentary. Priority service execution.",
 
-        btn_select: "SELECT",
+        // BUTTONS
+        btn_select_basic: "CHOOSE BASIC",
+        btn_select_standard: "CHOOSE STANDARD",
+        btn_select_premium: "CHOOSE PREMIUM",
 
         // --- REVIEWS ---
         reviews_title: "CLIENT STORIES",
         review_1: "\"The dealer swore the car was perfect. DAE report showed a welded quarter panel and missing airbags. You saved me 60k PLN. Thank you!\"",
         review_2: "\"I wanted to drive 1200km blindly. Inspection revealed damaged injectors and dual-mass flywheel. Repair would exceed car value. Not worth the risk.\"",
         review_3: "\"I took the Premium package. Mr. Jakub negotiated an 800 EUR discount in Dutch. The service paid for itself and I even made a profit.\"",
+        review_4: "\"The PDF report is a masterpiece. 50 photos, 4K video, measurement of every body element. I knew more about the car than the seller did.\"",
 
         // --- FAQ ---
         faq_title: "FREQUENTLY ASKED QUESTIONS",
@@ -211,7 +220,11 @@ export const translations = {
         txt_secure: "Encrypted by Stripe SSL", 
         txt_redirect: "Redirecting...", 
         txt_redirect_desc: "You will be redirected to payment gateway.",
-        terms_text: "I accept the Terms & Privacy Policy. I understand the service is a technical opinion at the time of inspection."
+        // ...
+        terms_text: "I accept the <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Terms</a> & <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Privacy Policy</a>. I understand the service is a technical opinion.",
+        err_required: "This field is required.",
+        err_terms: "You must accept the terms.",
+        // ...
     },
 
     // ================= NIDERLANDZKI (NL) =================
@@ -221,6 +234,7 @@ export const translations = {
         nav_services: "Tarieven", 
         nav_reviews: "Reviews", 
         nav_contact: "Contact",
+        nav_whyus: "Waarom Wij?",
         
         // --- HERO SECTION ---
         hero_title: "KOOP AUTO'S IN HET BUITENLAND<br><span class=\"text-accent-orange text-stroke\">ZONDER RISICO.</span>",
@@ -268,40 +282,35 @@ export const translations = {
         why_icon3_title: "Prijs Onderhandeling", 
         why_icon3_desc: "Wij kennen de taal en de markt. Vaak onderhandelen we meer van de prijs af dan onze dienst kost.",
 
-        // --- TARIEVEN ---
+    // TARIEVEN
         packages_title: "KIES UW PAKKET",
-        
+        package_desc: "Elk pakket is inclusief verplaatsing binnen een straal van 150km rond Antwerpen. Verdere afstanden op aanvraag.",
+        raport:" BEKIJK VOORBEELD RAPPORT",
         // Basic
-        pkg_photos: "30-40 Foto's", 
-        pkg_photos_desc: "Hoge resolutie. Documentatie van elke kras, deuk en interieurdetail.",
-        pkg_docs: "Documenten", 
-        pkg_docs_desc: "Controle van VIN, inschrijvingsbewijs, Car-Pass en onderhoudshistorie.",
-        pkg_pdf: "PDF Rapport", 
-        pkg_pdf_desc: "Duidelijk overzicht van de visuele staat rechtstreeks naar uw e-mail.",
-        
+        pkg_photos: "30-40 Foto's", pkg_photos_desc: "Hoge resolutie. Documentatie van elke kras, deuk en interieurdetail.",
+        pkg_docs: "Documenten", pkg_docs_desc: "Controle van VIN, inschrijvingsbewijs, Car-Pass en onderhoudshistorie.",
+        pkg_pdf: "PDF Rapport", pkg_pdf_desc: "Duidelijk overzicht van de visuele staat rechtstreeks naar uw e-mail.",
         // Standard
         pkg_basic_incl: "Alles in Basic",
-        pkg_obd: "Volledige OBD-diagnose", 
-        pkg_obd_desc: "Computer aansluiting. Scannen van injectoren, DPF, versnellingsbak en kilometerverificatie.",
-        pkg_paint: "Lakdiktemeting", 
-        pkg_paint_desc: "Professionele meting. Wij detecteren plamuur en ongevalhistorie.",
-        pkg_drive: "Proefrit", 
-        pkg_drive_desc: "Dynamische test. Controle van ophanging, remmen, koppeling en weggedrag.",
-
+        most_popular: "Meest Gekozen",
+        pkg_obd: "Volledige OBD Diagnose", pkg_obd_desc: "Computer aansluiting. Scannen van injectoren, DPF, versnellingsbak en kilometerverificatie.",
+        pkg_paint: "Lakdikte Meting", pkg_paint_desc: "Professionele meting. Wij detecteren plamuur en ongevalhistorie.",
+        pkg_drive: "Proefrit", pkg_drive_desc: "Dynamische test. Controle van ophanging, remmen, koppeling en weggedrag.",
         // Premium
         pkg_standard_incl: "Alles in Standaard",
-        pkg_negotiation: "Prijs Onderhandeling", 
-        pkg_negotiation_desc: "Wij onderhandelen namens u in de lokale taal. Vaak verdienen we de servicekosten terug.",
-        pkg_video: "4K Video + VIP", 
-        pkg_video_desc: "Gedetailleerde opname met commentaar van de expert. Prioritaire uitvoering.",
+        pkg_negotiation: "Prijs Onderhandeling", pkg_negotiation_desc: "Wij onderhandelen namens u in de lokale taal. Vaak verdienen we de servicekosten terug.",
+        pkg_video: "4K Video + VIP", pkg_video_desc: "Gedetailleerde opname met commentaar van de expert. Prioritaire uitvoering.",
 
-        btn_select: "KIES",
+        btn_select_basic: "KIES BASIC",
+        btn_select_standard: "KIES STANDAARD",
+        btn_select_premium: "KIES PREMIUM",
 
         // --- REVIEWS ---
         reviews_title: "KLANTVERHALEN",
         review_1: "\"De handelaar zwoer dat de auto perfect was. DAE rapport toonde een gelast achterscherm en ontbrekende airbags. Jullie hebben me 60k PLN bespaard. Bedankt!\"",
         review_2: "\"Ik wilde 1200km blind rijden. Inspectie toonde defecte injectoren en vliegwiel. Reparatiekosten hoger dan de dagwaarde. Het risico niet waard.\"",
         review_3: "\"Ik nam het Premium pakket. Dhr. Jakub onderhandelde 800 EUR korting in het Nederlands. De dienst betaalde zichzelf terug en ik maakte winst.\"",
+        review_4: "\"Het PDF rapport is een meesterwerk. 50 foto's, 4K video, meting van elk carrosserie-element. Ik wist meer over de auto dan de verkoper.\"",
         
         // --- FAQ ---
         faq_title: "VEELGESTELDE VRAGEN",
@@ -344,12 +353,15 @@ export const translations = {
         txt_secure: "Betalingen versleuteld via Stripe SSL", 
         txt_redirect: "Doorverwijzing...", 
         txt_redirect_desc: "U wordt doorgestuurd naar de betaalpagina.",
-        terms_text: "Ik ga akkoord met de voorwaarden en privacybeleid. Ik begrijp dat de dienst een technische momentopname is."
+        terms_text: "Ik ga akkoord met de <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Voorwaarden</a> en <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Privacybeleid</a>.",
+        err_required: "Dit veld is verplicht.",
+        err_terms: "U moet de voorwaarden accepteren.",
+
     },
 
 // ================= FRANCUSKI (FR) =================
     fr: {
-        nav_info: "Processus", nav_services: "Tarifs", nav_reviews: "Avis", nav_contact: "Contact",
+        nav_info: "Processus", nav_services: "Tarifs", nav_reviews: "Avis", nav_contact: "Contact", nav_whyus: "Pourquoi Nous?",
         
         hero_title: "ACHETEZ À L'ÉTRANGER<br><span class=\"text-accent-orange text-stroke\">SANS RISQUE.</span>",
         hero_subtitle: "Rapports techniques complets en Belgique, aux Pays-Bas et en Allemagne. Nous vérifions ce que le vendeur ne vous dit pas. Gagnez du temps et évitez les erreurs coûteuses.",
@@ -377,37 +389,36 @@ export const translations = {
         why_icon2_title: "Aide au Transport", why_icon2_desc: "Pas de remorque ? Nous aidons à organiser un transport sûr jusqu'à votre porte à un prix équitable.",
         why_icon3_title: "Négociation de Prix", why_icon3_desc: "Nous connaissons la langue et le marché. Nous réduisons souvent le prix bien plus que le coût de notre service.",
 
+        // TARIFS
         packages_title: "CHOISISSEZ VOTRE PACK",
+        package_desc: "Chaque pack inclut le déplacement dans un rayon de 150km autour d'Anvers. Distances plus longues sur devis.",
+        raport: "VOIR UN RAPPORT D'EXEMPLE",
         // Basic
-        pkg_photos: "30-40 Photos", 
-        pkg_photos_desc: "Haute résolution. Documentation de chaque rayure, bosse et détail intérieur.",
-        pkg_docs: "Vérification Documents", 
-        pkg_docs_desc: "Vérification VIN, carte grise, Car-Pass et historique d'entretien.",
-        pkg_pdf: "Rapport PDF", 
-        pkg_pdf_desc: "Résumé clair de l'état visuel envoyé directement sur votre e-mail.",
-
+        pkg_photos: "30-40 Photos", pkg_photos_desc: "Haute résolution. Documentation de chaque rayure, bosse et détail intérieur.",
+        pkg_docs: "Vérification Docs", pkg_docs_desc: "Vérification VIN, carte grise, Car-Pass et historique d'entretien.",
+        pkg_pdf: "Rapport PDF", pkg_pdf_desc: "Résumé clair de l'état visuel envoyé directement sur votre e-mail.",
         // Standard
         pkg_basic_incl: "Tout dans Basic",
-        pkg_obd: "Diagnostic OBD Complet", 
-        pkg_obd_desc: "Connexion ordinateur. Scan des injecteurs, FAP, boîte et vérification kilométrage modules.",
-        pkg_paint: "Mesure Peinture", 
-        pkg_paint_desc: "Mesure professionnelle. Nous détectons le mastic et l'historique d'accidents.",
-        pkg_drive: "Essai Routier", 
-        pkg_drive_desc: "Test dynamique. Vérification suspension, freins, embrayage et conduite.",
-
+        most_popular: "Le Plus Populaire",
+        pkg_obd: "Diagnostic OBD Complet", pkg_obd_desc: "Connexion ordinateur. Scan des injecteurs, FAP, boîte et vérification kilométrage modules.",
+        pkg_paint: "Mesure Peinture", pkg_paint_desc: "Mesure professionnelle. Nous détectons le mastic et l'historique d'accidents.",
+        pkg_drive: "Essai Routier", pkg_drive_desc: "Test dynamique. Vérification suspension, freins, embrayage et conduite.",
         // Premium
         pkg_standard_incl: "Tout dans Standard",
-        pkg_negotiation: "Négociation Prix", 
-        pkg_negotiation_desc: "Nous négocions pour vous en langue locale. Nous récupérons souvent le coût du service avec intérêts.",
-        pkg_video: "Vidéo 4K + VIP", 
-        pkg_video_desc: "Enregistrement détaillé avec commentaire d'expert. Exécution prioritaire.",
+        pkg_negotiation: "Négociation Prix", pkg_negotiation_desc: "Nous négocions pour vous en langue locale. Nous récupérons souvent le coût du service avec intérêts.",
+        pkg_video: "Vidéo 4K + VIP", pkg_video_desc: "Enregistrement détaillé avec commentaire d'expert. Exécution prioritaire.",
 
-        btn_select: "CHOISIR",
+        // BUTTONS
+        btn_select_basic: "CHOISIR BASIC",
+        btn_select_standard: "CHOISIR STANDARD",
+        btn_select_premium: "CHOISIR PREMIUM",  
 
         reviews_title: "HISTOIRES CLIENTS",
         review_1: "\"Le vendeur jurait que la voiture était parfaite. Le rapport DAE a montré une aile soudée et pas d'airbags. Vous m'avez sauvé 60k PLN. Merci !\"",
         review_2: "\"Je voulais faire 1200km à l'aveugle. L'inspection a révélé des injecteurs et volant moteur HS. Réparation supérieure à la valeur. Pas de risque.\"",
         review_3: "\"J'ai pris le pack Premium. M. Jakub a négocié 800 EUR de rabais en néerlandais. Le service s'est remboursé et j'ai fait un bénéfice.\"",
+        review_4: "\"Le rapport PDF est un chef-d'œuvre. 50 photos, vidéo 4K, mesure de chaque élément de carrosserie. Je savais plus sur la voiture que le vendeur.\"",
+
 
         faq_title: "QUESTIONS FRÉQUENTES",
         faq_q1: "En combien de temps reçois-je le rapport ?", faq_a1: "Nous agissons rapidement. Généralement sous 24-48h après paiement, selon la disponibilité du vendeur.",
@@ -428,12 +439,14 @@ export const translations = {
         lbl_phone: "Téléphone (Optionnel)", ph_name: "Jean Dupont", ph_email: "jean@exemple.fr", ph_phone: "+33 ...",
         ph_url: "Lien de l'annonce", ph_loc: "Ville, Pays",
         txt_secure: "Crypté par Stripe SSL", txt_redirect: "Redirection...", txt_redirect_desc: "Vous serez redirigé vers la passerelle de paiement.",
-        terms_text: "J'accepte les conditions générales et la politique de confidentialité. Je comprends que le service est un avis technique au moment de l'inspection."
+        terms_text: "J'accepte les <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Conditions</a> et la <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politique de Confidentialité</a>.",
+        err_required: "Ce champ est requis.",
+        err_terms: "Vous devez accepter les conditions.",
     },
 
     // ================= HISZPAŃSKI (ES) =================
     es: {
-        nav_info: "Proceso", nav_services: "Precios", nav_reviews: "Reseñas", nav_contact: "Contacto",
+        nav_info: "Proceso", nav_services: "Precios", nav_reviews: "Reseñas", nav_contact: "Contacto", nav_whyus: "¿Por Qué Nosotros?",
         
         hero_title: "COMPRA COCHES EN EL EXTRANJERO<br><span class=\"text-accent-orange text-stroke\">SIN RIESGO.</span>",
         hero_subtitle: "Informes técnicos completos en Bélgica, Países Bajos y Alemania. Verificamos lo que el vendedor no te dice. Ahorra tiempo y evita errores costosos.",
@@ -461,37 +474,35 @@ export const translations = {
         why_icon2_title: "Ayuda en Transporte", why_icon2_desc: "¿Sin remolque? Ayudamos a organizar transporte seguro a tu puerta a precio justo.",
         why_icon3_title: "Negociación de Precio", why_icon3_desc: "Conocemos el idioma y mercado. A menudo reducimos el precio más que el costo de nuestro servicio.",
 
+        // PRECIOS
         packages_title: "SELECCIONA TU PAQUETE",
+        package_desc: "Cada paquete incluye desplazamiento en un radio de 150km desde Amberes. Distancias mayores bajo presupuesto.",
+        raport: "VER INFORME DE EJEMPLO",
         // Basic
-        pkg_photos: "30-40 Fotos", 
-        pkg_photos_desc: "Alta resolución. Documentación de cada rasguño, abolladura y detalle interior.",
-        pkg_docs: "Verificación Docs", 
-        pkg_docs_desc: "Verificación de VIN, papeles de registro, Car-Pass e historial de servicio.",
-        pkg_pdf: "Informe PDF", 
-        pkg_pdf_desc: "Resumen claro de la condición visual enviado directamente a tu email.",
-
+        pkg_photos: "30-40 Fotos", pkg_photos_desc: "Alta resolución. Documentación de cada rasguño, abolladura y detalle interior.",
+        pkg_docs: "Verificación Docs", pkg_docs_desc: "Verificación de VIN, papeles de registro, Car-Pass e historial de servicio.",
+        pkg_pdf: "Informe PDF", pkg_pdf_desc: "Resumen claro de la condición visual enviado directamente a tu email.",
         // Standard
         pkg_basic_incl: "Todo en Básico",
-        pkg_obd: "Diagnóstico OBD Completo", 
-        pkg_obd_desc: "Conexión computadora. Escaneo de inyectores, DPF, caja de cambios y verificación de kilometraje en módulos.",
-        pkg_paint: "Medición de Pintura", 
-        pkg_paint_desc: "Medición profesional de recubrimiento. Detectamos masilla e historial de accidentes.",
-        pkg_drive: "Prueba de Conducción", 
-        pkg_drive_desc: "Prueba dinámica. Verificación de suspensión, frenos, embrague y manejo.",
-
+        most_popular: "Más Popular",
+        pkg_obd: "Diagnóstico OBD", pkg_obd_desc: "Conexión computadora. Escaneo de inyectores, DPF, caja de cambios y verificación de kilometraje en módulos.",
+        pkg_paint: "Medición Pintura", pkg_paint_desc: "Medición profesional. Detectamos masilla e historial de accidentes.",
+        pkg_drive: "Prueba Manejo", pkg_drive_desc: "Prueba dinámica. Verificación de suspensión, frenos, embrague y manejo.",
         // Premium
         pkg_standard_incl: "Todo en Estándar",
-        pkg_negotiation: "Negociación de Precio", 
-        pkg_negotiation_desc: "Negociamos en tu nombre en el idioma local. A menudo recuperamos el costo del servicio con intereses.",
-        pkg_video: "Video 4K + VIP", 
-        pkg_video_desc: "Grabación detallada con comentarios de expertos. Ejecución de servicio prioritaria.",
+        pkg_negotiation: "Negociación", pkg_negotiation_desc: "Negociamos en tu nombre en el idioma local. A menudo recuperamos el costo del servicio con intereses.",
+        pkg_video: "Video 4K + VIP", pkg_video_desc: "Grabación detallada con comentarios de expertos. Ejecución de servicio prioritaria.",
 
-        btn_select: "SELECCIONAR",
+        // BUTTONS
+        btn_select_basic: "ELEGIR BÁSICO",
+        btn_select_standard: "ELEGIR ESTÁNDAR",
+        btn_select_premium: "ELEGIR PREMIUM",
 
         reviews_title: "HISTORIAS DE CLIENTES",
         review_1: "\"El vendedor juraba que el coche era perfecto. El informe DAE mostró un cuarto soldado y falta de airbags. Me ahorraron 60k PLN. ¡Gracias!\"",
         review_2: "\"Quería conducir 1200km a ciegas. La inspección reveló inyectores y volante dañados. La reparación superaría el valor. No vale la pena el riesgo.\"",
         review_3: "\"Tomé el paquete Premium. El Sr. Jakub negoció un descuento de 800 EUR en holandés. El servicio se pagó solo y obtuve ganancias.\"",
+        review_4: "\"El informe PDF es una obra maestra. 50 fotos, video 4K, medición de cada elemento de la carrocería. Sabía más sobre el coche que el vendedor.\"",
 
         faq_title: "PREGUNTAS FRECUENTES",
         faq_q1: "¿Qué tan rápido recibo el informe?", faq_a1: "Actuamos rápido. Generalmente dentro de 24-48h tras el pago, dependiendo de la disponibilidad del vendedor.",
@@ -512,6 +523,8 @@ export const translations = {
         lbl_phone: "Teléfono (Opcional)", ph_name: "Juan Pérez", ph_email: "juan@ejemplo.es", ph_phone: "+34 ...",
         ph_url: "Enlace del anuncio", ph_loc: "Ciudad, País",
         txt_secure: "Encriptado por Stripe SSL", txt_redirect: "Redirigiendo...", txt_redirect_desc: "Serás redirigido a la pasarela de pago.",
-        terms_text: "Acepto los Términos y Política de Privacidad. Entiendo que el servicio es una opinión técnica en el momento de la inspección."
+        terms_text: "Acepto los <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Términos</a> y la <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Política de Privacidad</a>.",
+        err_required: "Este campo es obligatorio.",
+        err_terms: "Debes aceptar los términos.",
     }
 };

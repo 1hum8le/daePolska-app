@@ -148,30 +148,38 @@ html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- MARQUEE (Pływający pasek) --- */
-.marquee-container {
-    width: 100%;
+/* --- PIONOWE MARQUEE (OPINIE) --- */
+.marquee-vertical-container {
+    height: 600px; /* Wysokość widocznego obszaru */
     overflow: hidden;
     position: relative;
-    /* Zanikanie po bokach */
-    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    /* Zanikanie góra/dół */
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
-.marquee-content {
+.marquee-vertical-content {
     display: flex;
-    gap: 1.5rem; /* Odstęp między opiniami */
-    width: max-content;
-    animation: scroll 40s linear infinite;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: scrollVertical 40s linear infinite;
 }
 
-.marquee-content:hover {
+.marquee-vertical-content:hover {
     animation-play-state: paused;
 }
 
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+/* ZMIANA KIERUNKU: Z góry na dół */
+@keyframes scrollVertical {
+    0% { transform: translateY(-50%); } /* Startujemy od "drugiego zestawu" (przesunięci w górę) */
+    100% { transform: translateY(0); }    /* Zjeżdżamy w dół do zera */
+}
+
+/* Responsywność dla Marquee */
+@media (max-width: 768px) {
+    .marquee-vertical-container {
+        height: 400px;
+    }
 }
 
 /* --- FAQ AKORDEON --- */

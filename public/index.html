@@ -48,8 +48,8 @@
 
     <div class="video-bg-container">
         <div class="video-overlay"></div>
-        <video autoplay muted loop playsinline class="back-video" poster="/src/poster.jpg">
-            <source src="/src/video_bg.webm" type="video/webm">
+        <video autoplay muted loop playsinline class="back-video" poster="src/poster.jpg">
+            <source src="src/video_bg.webm" type="video/webm">
         </video>
     </div>
 
@@ -62,7 +62,7 @@
             <div class="flex items-center space-x-4 md:space-x-8">
                 <div class="hidden lg:flex space-x-6 font-inter font-medium text-sm uppercase tracking-wide">
                     <a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info">Proces</a>
-                    <a href="#why-us" class="hover:text-accent-orange transition">Dlaczego My?</a>
+                    <a href="#why-us" class="hover:text-accent-orange transition" data-i18n="nav_whyus">Dlaczego My?</a>
                     <a href="#services" class="hover:text-accent-orange transition" data-i18n="nav_services">Cennik</a>
                     <a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews">Opinie</a>
                     <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
@@ -263,7 +263,7 @@
         <section id="services" class="snap-section flex items-center justify-center px-4">
             <div class="container mx-auto max-w-7xl">
                 <h2 class="text-3xl md:text-5xl font-black text-center mb-4 font-montserrat" data-i18n="packages_title">WYBIERZ PAKIET</h2>
-                <p class="text-center text-gray-400 mb-12 font-inter text-sm max-w-2xl mx-auto">Każdy pakiet zawiera dojazd do klienta w promieniu 100km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
+                <p class="text-center text-gray-400 mb-12 font-inter text-sm max-w-2xl mx-auto" data-i18n="package_desc">Każdy pakiet zawiera dojazd do klienta w promieniu 150km od Antwerpii. Dalsze trasy wyceniamy indywidualnie.</p>
                 
                 <div class="grid md:grid-cols-3 gap-8">
                     
@@ -276,32 +276,32 @@
                                 <i class="fas fa-camera text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_photos">30-40 Zdjęć</span>
-                                    <span class="text-xs text-gray-500">Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.</span>
+                                    <span class="text-xs text-gray-500" data-i18n="pkg_photos_desc">Wysoka rozdzielczość. Dokumentacja każdej rysy, wgniecenia i detalu wnętrza.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-file-alt text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_docs">Weryfikacja Dokumentów</span>
-                                    <span class="text-xs text-gray-500">Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.</span>
+                                    <span class="text-xs text-gray-500" data-i18n="pkg_docs_desc">Sprawdzenie zgodności VIN, dowodu rej., Car-Pass i historii serwisowej.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-file-pdf text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_pdf">Raport PDF</span>
-                                    <span class="text-xs text-gray-500">Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.</span>
+                                    <span class="text-xs text-gray-500" data-i18n="pkg_pdf_desc">Czytelne podsumowanie stanu wizualnego wysłane na Twój e-mail.</span>
                                 </div>
                             </li>
                         </ul>
-                        <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-accent-orange group-hover:border-accent-orange transition" data-i18n="btn_select">WYBIERZ PAKIET</button>
+                        <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-accent-orange group-hover:border-accent-orange transition" data-i18n="btn_select_basic">WYBIERZ BASIC</button>
                     </div>
 
                     <div class="glass-card p-8 border-accent-orange/50 transform md:scale-105 z-10 cursor-pointer relative shadow-2xl shadow-orange-500/10 flex flex-col" onclick="selectPackage('Standard')">
                         <div class="absolute top-0 left-0 w-full h-1 bg-accent-orange"></div>
                         <div class="flex justify-between items-center mb-2">
-                             <h3 class="text-2xl font-bold font-montserrat text-accent-orange">STANDARD</h3>
-                             <span class="bg-accent-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">Najczęściej Wybierany</span>
+                             <h3 class="text-2xl font-bold font-montserrat text-accent-orange" data-i18n="pkg_standard">STANDARD</h3>
+                             <span class="bg-accent-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg" data-i18n="most_popular">Najczęściej Wybierany</span>
                         </div>
                         <p class="text-6xl font-black text-white mb-6 price-display font-montserrat" data-pkg="standard">€245</p>
                         
@@ -314,30 +314,30 @@
                                 <i class="fas fa-laptop-medical text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_obd">Pełna Diagnostyka OBD</span>
-                                    <span class="text-xs text-gray-400">Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.</span>
+                                    <span class="text-xs text-gray-400" data-i18n="pkg_obd_desc">Podpięcie komputera. Skan wtrysków, DPF, skrzyni i weryfikacja przebiegu w modułach.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-layer-group text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_paint">Miernik Lakieru</span>
-                                    <span class="text-xs text-gray-400">Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.</span>
+                                    <span class="text-xs text-gray-400" data-i18n="pkg_paint_desc">Profesjonalny pomiar grubości powłoki. Wykrywamy szpachlę i powypadkową przeszłość.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-tachometer-alt text-accent-orange mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_drive">Jazda Próbna</span>
-                                    <span class="text-xs text-gray-400">Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.</span>
+                                    <span class="text-xs text-gray-400" data-i18n="pkg_drive_desc">Test dynamiczny. Sprawdzenie zawieszenia, hamulców, sprzęgła i prowadzenia auta.</span>
                                 </div>
                             </li>
                         </ul>
-                        <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg hover:shadow-orange-500/50" data-i18n="btn_select">WYBIERZ STANDARD</button>
+                        <button class="w-full bg-accent-orange py-4 rounded-xl font-bold font-montserrat hover:bg-orange-600 transition shadow-lg hover:shadow-orange-500/50" data-i18n="btn_select_standard">WYBIERZ STANDARD</button>
                     </div>
 
                      <div class="glass-card p-8 cursor-pointer group relative flex flex-col" onclick="selectPackage('Premium')">
                         <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
-                        <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-purple-400 transition">PREMIUM</h3>
+                        <h3 class="text-2xl font-bold mb-2 font-montserrat group-hover:text-purple-400 transition" data-i18n="pkg_premium">PREMIUM</h3>
                         <p class="text-5xl font-black text-purple-400 mb-6 price-display font-montserrat" data-pkg="premium">€545</p>
                         
                         <ul class="space-y-5 text-gray-300 font-inter mb-8 text-sm flex-grow">
@@ -349,189 +349,223 @@
                                 <i class="fas fa-handshake text-purple-400 mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_negotiation">Negocjacja Ceny</span>
-                                    <span class="text-xs text-gray-500">Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.</span>
+                                    <span class="text-xs text-gray-500" data-i18n="pkg_negotiation_desc">Negocjujemy w Twoim imieniu w lokalnym języku. Często odzyskujemy koszt tej usługi z nawiązką.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-video text-purple-400 mt-1 mr-3"></i>
                                 <div>
                                     <span class="font-bold block text-white" data-i18n="pkg_video">Wideo 4K + VIP</span>
-                                    <span class="text-xs text-gray-500">Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.</span>
+                                    <span class="text-xs text-gray-500" data-i18n="pkg_video_desc">Szczegółowe nagranie z komentarzem eksperta. Priorytetowa realizacja zlecenia.</span>
                                 </div>
                             </li>
                         </ul>
-                         <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-purple-500 group-hover:border-purple-500 transition" data-i18n="btn_select">WYBIERZ PREMIUM</button>
+                         <button class="w-full py-4 rounded-xl font-bold font-montserrat border-2 border-white/30 group-hover:bg-purple-500 group-hover:border-purple-500 transition" data-i18n="btn_select_premium">WYBIERZ PREMIUM</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews-faq" class="snap-section flex flex-col justify-center px-4 py-20 bg-black/20 overflow-hidden">
-            
-            <div class="container mx-auto max-w-3xl mb-20 z-10 relative">
-                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="faq_title">CZĘSTE PYTANIA</h2>
-                
-                <div class="glass-card px-8 py-4">
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q1">Jak szybko otrzymam raport?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a1">Działamy błyskawicznie. Po zaksięgowaniu wpłaty kontaktujemy się ze sprzedawcą. Zazwyczaj inspekcja i raport są gotowe w ciągu 24-48h (w dni robocze).</div>
-                    </div>
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q2">Czy negocjujecie cenę?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a2">Tak, to nasza specjalność w pakiecie Premium. Znamy lokalny rynek i niuanse językowe. Często uzyskujemy rabaty, które w pełni pokrywają koszt naszej usługi.</div>
-                    </div>
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q3">Gdzie dokładnie działacie?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a3">Nasza baza operacyjna znajduje się w Antwerpii. Obsługujemy całą Belgię, Holandię oraz zachodnie Niemcy (rejon Nadrenii Północnej-Westfalii).</div>
-                    </div>
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q4">Co jeśli auto zostanie sprzedane?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a4">Jesteśmy uczciwi. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku zanim dojechaliśmy – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków.</div>
-                    </div>
-                     <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q5">Czy mogę jechać z wami?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a5">Zazwyczaj działamy zdalnie, aby oszczędzić Twój czas. W pakiecie VIP (do ustalenia) możliwy jest wspólny wyjazd lub odbiór z lotniska.</div>
-                    </div>
-                     <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-question"><span data-i18n="faq_q6">Jak wygląda płatność?</span><i class="fas fa-chevron-down faq-icon"></i></div>
-                        <div class="faq-answer" data-i18n="faq_a6">Płacisz bezpiecznie przez stronę (Karta/Google Pay/Apple Pay) obsługiwaną przez Stripe. Dla chętnych dostępny jest również tradycyjny przelew lub BLIK po kontakcie na WhatsApp.</div>
-                    </div>
-                </div>
-            </div>
+        <section id="reviews-faq" class="snap-section px-4 py-20 bg-black/20 overflow-hidden">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    
+                   <div class="w-full">
+                        <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-accent-orange" data-i18n="reviews_title">HISTORIE KLIENTÓW</h2>
+                        
+                        <div class="marquee-vertical-container h-[600px]"> <div class="marquee-vertical-content">
+                                
+                                <div class="glass-card p-6 border-l-4 border-red-500">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">MK</div>
+                                        <div><p class="font-bold text-sm">Marek K.</p><p class="text-accent-orange text-xs">★★★★★</p></div>
+                                    </div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_1">
+                                        "Już miałem jechać z lawetą, bo sprzedawca zarzekał się, że auto to 'igła'. Dobrze, że wziąłem raport. Okazało się, że ćwiartka była wspawana, a poduszek brak. Uratowaliście mi 60 tysięcy i masę nerwów. Dzięki!"
+                                    </p>
+                                </div>
 
-            <div class="w-full">
-                <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-accent-orange" data-i18n="reviews_title">HISTORIE KLIENTÓW</h2>
-                
-                <div class="marquee-container">
-                    <div class="marquee-content">
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_1">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
-                        </div>
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_2">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
-                        </div>
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed" data-i18n="review_3">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
-                        </div>
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-blue-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
-                        </div>
+                                <div class="glass-card p-6 border-l-4 border-green-500">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">TW</div>
+                                        <div><p class="font-bold text-sm">Tomasz W.</p><p class="text-accent-orange text-xs">★★★★★</p></div>
+                                    </div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_2">
+                                        "Chciałem jechać 1200km w ciemno. Inspekcja wykazała, że wtryski leją, a dwumasa hałasuje. Koszt naprawy przewyższyłby wartość auta. Za ułamek ceny paliwa dowiedziałem się, że to mina. Szukamy dalej z DAE."
+                                    </p>
+                                </div>
 
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
-                        </div>
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-green-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">TW</div><div><p class="font-bold text-xs">Tomasz W.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała uszkodzone wtryski. Koszt naprawy przewyższyłby wartość auta. Nie warto ryzykować."</p>
-                        </div>
-                         <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-purple-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">AZ</div><div><p class="font-bold text-xs">Anna Z.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Wzięłam pakiet Premium. Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."</p>
-                        </div>
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-blue-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">PJ</div><div><p class="font-bold text-xs">Piotr J.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Raport PDF to mistrzostwo. 50 zdjęć, wideo 4K, pomiar każdego elementu blacharskiego. Wiedziałem o aucie więcej niż sprzedający."</p>
-                        </div>
+                                <div class="glass-card p-6 border-l-4 border-purple-500">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">AZ</div>
+                                        <div><p class="font-bold text-sm">Anna Z.</p><p class="text-accent-orange text-xs">★★★★★</p></div>
+                                    </div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_3">
+                                        "Wahałam się nad pakietem Premium, ale Pan Jakub wynegocjował po niderlandzku 800 EUR rabatu na rysy, których ja bym nawet nie zauważyła. Usługa nie tylko się zwróciła, ale jeszcze na tym zarobiłam."
+                                    </p>
+                                </div>
 
-                        <div class="glass-card p-5 w-80 flex-shrink-0 border-t-2 border-red-500">
-                            <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-xs">MK</div><div><p class="font-bold text-xs">Marek K.</p><p class="text-accent-orange text-[10px]">★★★★★</p></div></div>
-                            <p class="text-[11px] text-gray-300 italic leading-relaxed">"Handlarz zarzekał się, że auto to 'igła'. Raport DAE pokazał wspawaną ćwiartkę i brak poduszek. Uratowaliście mi 60 tys. zł."</p>
+                                <div class="glass-card p-6 border-l-4 border-blue-500">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">PJ</div>
+                                        <div><p class="font-bold text-sm">Piotr J.</p><p class="text-accent-orange text-xs">★★★★★</p></div>
+                                    </div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_4">
+                                        "Raport PDF to mistrzostwo świata. Ponad 50 zdjęć, wideo 4K, pomiar każdego elementu. Po obejrzeniu materiałów wiedziałem o tym aucie więcej niż sam sprzedający. Pełna profeska."
+                                    </p>
+                                </div>
+
+                                <div class="glass-card p-6 border-l-4 border-red-500">
+                                    <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">MK</div><div><p class="font-bold text-sm">Marek K.</p><p class="text-accent-orange text-xs">★★★★★</p></div></div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_1">"Już miałem jechać z lawetą, bo sprzedawca zarzekał się, że auto to 'igła'. Dobrze, że wziąłem raport. Okazało się, że ćwiartka była wspawana, a poduszek brak. Uratowaliście mi 60 tysięcy i masę nerwów. Dzięki!"</p>
+                                </div>
+                                <div class="glass-card p-6 border-l-4 border-green-500">
+                                    <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">TW</div><div><p class="font-bold text-sm">Tomasz W.</p><p class="text-accent-orange text-xs">★★★★★</p></div></div>
+                                    <p class="text-xs text-gray-300 italic leading-relaxed" data-i18n="review_2">"Chciałem jechać 1200km w ciemno. Inspekcja wykazała, że wtryski leją, a dwumasa hałasuje. Koszt naprawy przewyższyłby wartość auta. Za ułamek ceny paliwa dowiedziałem się, że to mina. Szukamy dalej z DAE."</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="w-full">
+                        <h2 class="text-2xl md:text-4xl font-black text-center mb-8 font-montserrat text-white" data-i18n="faq_title">CZĘSTE PYTANIA</h2>
+                        
+                        <div class="glass-card px-8 py-6">
+                            <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q1">Jak szybko otrzymam raport?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a1">Szanujemy Twój czas, a dobre auta znikają szybko. Działamy natychmiast po zaksięgowaniu wpłaty. Kontaktujemy się ze sprzedawcą, rezerwujemy oględziny i zazwyczaj dostarczamy pełny raport w ciągu 24-48 godzin roboczych.</div>
+                            </div>
+                            
+                            <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q2">Czy wynegocjujecie lepszą cenę?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a2">Tak, to kluczowy element pakietu Premium. Znamy lokalny rynek, język i techniczne argumenty, których trudno użyć przez telefon z Polski. Często uzyskujemy rabaty przewyższające koszt naszej usługi, więc inspekcja może Cię nic nie kosztować.</div>
+                            </div>
+
+                            <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q3">Gdzie dokładnie działacie?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a3">Nasza baza operacyjna znajduje się w strategicznym punkcie – w Antwerpii. Pozwala nam to szybko dotrzeć do każdego auta w Belgii, całej Holandii oraz w zachodniej części Niemiec (Nadrenia Północna-Westfalii). Dalsze trasy realizujemy po indywidualnej wycenie.</div>
+                            </div>
+
+                            <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q4">Co jeśli auto zostanie sprzedane przed waszym przyjazdem?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a4">Nic nie ryzykujesz. Działamy fair. Jeśli po opłaceniu zamówienia okaże się, że auto zniknęło z rynku lub sprzedawca odmówił oględzin zanim wyruszyliśmy w trasę – otrzymujesz natychmiastowy zwrot 100% wpłaconych środków na konto.</div>
+                            </div>
+
+                            <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q5">Czy mogę jechać z wami na inspekcję?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a5">Nasz model pracy opiera się na szybkości i logistyce – inspektorzy często realizują kilka zleceń na jednej trasie, dlatego pracujemy zdalnie. Jesteśmy Twoimi oczami na miejscu. Jeśli zależy Ci na wspólnym wyjeździe lub odbiorze z lotniska, skontaktuj się z nami w celu ustalenia indywidualnej usługi Concierge.</div>
+                            </div>
+
+                             <div class="faq-item" onclick="toggleFaq(this)">
+                                <div class="faq-question"><span data-i18n="faq_q6">Jak wygląda płatność i faktura?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+                                <div class="faq-answer" data-i18n="faq_a6">Stawiamy na bezpieczeństwo. Płatność odbywa się przez certyfikowaną bramkę Stripe (Karta, Google Pay, Apple Pay). Środki są chronione. Na każdą usługę wystawiamy legalną fakturę/rachunek (bez VAT lub VAT marża w zależności od usługi), co jest gwarancją legalności naszej firmy.</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <section id="order" class="snap-section flex items-center justify-center px-4 py-12">
-             <div class="container mx-auto max-w-2xl">
-                <div class="glass-card p-6 md:p-8 animate-fade-up">
+<section id="order" class="snap-section flex flex-col justify-center items-center px-4 py-20">
+             <div class="container mx-auto max-w-lg w-full relative z-10">
+                <div class="glass-card p-6 animate-fade-up">
                     
                     <div class="text-center mb-6">
-                        <a href="report_template_pl.html" target="_blank" class="inline-flex items-center justify-center px-6 py-2 border border-accent-orange text-accent-orange hover:bg-accent-orange hover:text-white rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 group">
-                            <i class="fas fa-file-pdf mr-2 group-hover:scale-110 transition-transform"></i> ZOBACZ PRZYKŁADOWY RAPORT
+                        <a href="report_template_pl.html" target="_blank" class="inline-flex items-center justify-center px-6 py-2 border border-accent-orange text-accent-orange hover:bg-accent-orange hover:text-white rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 group">
+                            <i class="fas fa-file-pdf mr-2 group-hover:scale-110 transition-transform"></i>
+                            <span data-i18n="raport">ZOBACZ PRZYKŁADOWY RAPORT</span>
                         </a>
                     </div>
 
-                    <h2 class="text-2xl md:text-3xl font-black text-center mb-6 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
+                    <h2 class="text-2xl font-black text-center mb-6 font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
                     
-                    <form id="inspection-form">
-                        <div class="mb-5 p-3 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
+                    <form id="inspection-form" novalidate>
+                        
+                        <div class="mb-4 p-3 bg-white/10 rounded-xl border border-white/20 flex justify-between items-center">
                             <div>
                                 <span class="block text-[10px] text-accent-orange font-bold uppercase" data-i18n="form_selected">Wybrano</span>
-                                <input type="text" id="selected-pkg" class="bg-transparent font-black text-lg text-white w-24 focus:outline-none" readonly value="Standard">
+                                <input type="text" id="selected-pkg" class="bg-transparent font-black text-base text-white w-24 focus:outline-none" readonly value="Standard">
                             </div>
                             <div class="text-right">
-                                <span class="block text-2xl font-black text-accent-orange" id="display-price-form">1050 PLN</span>
+                                <span class="block text-xl font-black text-accent-orange" id="display-price-form">1050 PLN</span>
                                 <input type="hidden" id="pkg-price-eur" value="245">
                                 <input type="hidden" id="pkg-price-pln" value="1050">
                                 <input type="hidden" id="current-currency" value="pln">
                             </div>
                         </div>
 
-                        <div class="mb-5">
+                        <div class="mb-4">
                             <label class="block text-[10px] font-bold mb-2 uppercase text-gray-300" data-i18n="form_payment_method">Wybierz metodę płatności</label>
                             <input type="hidden" id="selected-payment-method" value="card">
                             <div class="grid grid-cols-3 gap-2">
                                 <div id="pm-card" onclick="selectPayment('card')" class="payment-option border border-accent-orange bg-accent-orange/20 p-2 rounded-lg text-center cursor-pointer transition transform scale-105 shadow-lg shadow-orange-500/20">
                                     <i class="fas fa-credit-card text-lg mb-1 text-white"></i><br><span class="text-[10px] font-bold text-white">Karta</span>
                                 </div>
-                                <div id="pm-paypal" onclick="selectPayment('paypal')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer transition opacity-60 hover:opacity-100 hover:bg-white/10">
+                                <div id="pm-paypal" onclick="selectPayment('paypal')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer opacity-60 hover:opacity-100 hover:bg-white/10">
                                     <i class="fab fa-paypal text-lg mb-1 text-blue-400"></i><br><span class="text-[10px] font-bold text-gray-300">PayPal</span>
                                 </div>
-                                <div id="pm-blik" onclick="selectPayment('blik')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer transition opacity-60 hover:opacity-100 hover:bg-white/10">
+                                <div id="pm-blik" onclick="selectPayment('blik')" class="payment-option border border-white/10 bg-white/5 p-2 rounded-lg text-center cursor-pointer opacity-60 hover:opacity-100 hover:bg-white/10">
                                     <i class="fas fa-mobile-alt text-lg mb-1 text-red-500"></i><br><span class="text-[10px] font-bold text-gray-300">BLIK</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3 font-inter">
+                        <div class="grid grid-cols-1 gap-3 mb-3 font-inter">
                             <div>
-                                <label for="name" class="block text-[10px] text-gray-300 mb-1 ml-1">* <span data-i18n="lbl_name">Imię i Nazwisko</span></label>
+                                <label for="name" class="block text-[10px] text-gray-300 mb-1 ml-1 uppercase" data-i18n="lbl_name">Imię i Nazwisko</label>
                                 <input type="text" id="name" class="glass-input text-sm py-2" required placeholder="Jan Kowalski" data-i18n-placeholder="ph_name">
+                                <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
                             </div>
                             <div>
-                                <label for="email" class="block text-[10px] text-gray-300 mb-1 ml-1">* <span data-i18n="lbl_email">Email</span></label>
+                                <label for="email" class="block text-[10px] text-gray-300 mb-1 ml-1 uppercase" data-i18n="lbl_email">Email</label>
                                 <input type="email" id="email" class="glass-input text-sm py-2" required placeholder="jan@przyklad.com" data-i18n-placeholder="ph_email">
+                                <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
                             </div>
-                        </div>
-                        <div class="mb-3 font-inter">
-                            <label for="phone" class="block text-[10px] text-gray-300 mb-1 ml-1"><span data-i18n="lbl_phone">Telefon (Opcjonalnie)</span></label>
-                            <input type="text" id="phone" class="glass-input text-sm py-2" placeholder="+48 ... (Opcjonalnie)" data-i18n-placeholder="ph_phone">
+                            <div>
+                                <label for="phone" class="block text-[10px] text-gray-300 mb-1 ml-1 uppercase" data-i18n="lbl_phone">Telefon (Opcjonalnie)</label>
+                                <input type="text" id="phone" class="glass-input text-sm py-2" placeholder="+48 ... (Opcjonalnie)" data-i18n-placeholder="ph_phone">
+                            </div>
                         </div>
                         
-                        <h3 class="font-bold mb-3 text-sm font-montserrat" data-i18n="form_car_details">DANE POJAZDU</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 font-inter">
-                             <input type="url" id="url" class="glass-input text-sm py-2" required placeholder="Link do ogłoszenia" data-i18n-placeholder="ph_url">
-                             <input type="text" id="location" class="glass-input text-sm py-2" required placeholder="Miasto, Kraj" data-i18n-placeholder="ph_loc">
+                        <div class="grid grid-cols-1 gap-3 mb-4 font-inter">
+                             <div>
+                                <label for="url" class="sr-only">Link</label>
+                                <input type="url" id="url" class="glass-input text-sm py-2" required placeholder="Link do ogłoszenia" data-i18n-placeholder="ph_url">
+                                <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
+                             </div>
+                             <div>
+                                <label for="location" class="sr-only">Lokalizacja</label>
+                                <input type="text" id="location" class="glass-input text-sm py-2" required placeholder="Miasto, Kraj" data-i18n-placeholder="ph_loc">
+                                <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
+                             </div>
                         </div>
 
-                        <div class="mb-6 flex items-start space-x-3">
-                            <input type="checkbox" id="terms" required class="custom-checkbox mt-1">
-                            <label for="terms" class="text-[10px] text-gray-300 leading-relaxed cursor-pointer">
-                                <span data-i18n="terms_text">Akceptuję Regulamin. Rozumiem, że usługa jest opinią techniczną w momencie oględzin.</span>
-                            </label>
+                        <div class="mb-4">
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" id="terms" required class="custom-checkbox mt-1 shrink-0">
+                                <label for="terms" class="text-[10px] text-gray-300 leading-relaxed cursor-pointer">
+                                    <span data-i18n="terms_text">Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.</span>
+                                </label>
+                            </div>
+                            <p class="text-red-500 text-[10px] mt-1 ml-6 hidden error-msg" data-i18n="err_terms">Musisz zaakceptować regulamin.</p>
                         </div>
                         
-                        <div id="stripe-section" class="mb-4 animate-fade-up">
+                        <div id="stripe-section" class="mb-4">
                             <div id="card-element" class="p-3 glass-input"></div>
                             <p class="text-[10px] text-gray-400 mt-2"><i class="fas fa-lock"></i> <span data-i18n="txt_secure">Płatności szyfrowane SSL</span></p>
                         </div>
 
-                        <div id="alt-payment-section" class="hidden mb-6 p-3 bg-blue-500/20 border border-blue-500/30 rounded-xl text-center animate-fade-up">
+                        <div id="alt-payment-section" class="hidden mb-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-xl text-center">
                             <p class="text-xs font-bold mb-1" data-i18n="txt_redirect">Przekierowanie</p>
                             <p class="text-[10px] text-gray-300" data-i18n="txt_redirect_desc">Zostaniesz przeniesiony do bramki płatności po kliknięciu.</p>
                         </div>
                         
-                        <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mb-6 h-4"></div>
+                        <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mb-4 h-auto"></div>
 
-                        <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-3 rounded-xl text-base transition flex justify-center items-center shadow-lg font-montserrat">
-                            <i class="fas fa-lock mr-3"></i> <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
-                            <p id="order-status" class="mt-3 text-sm font-bold text-center hidden"></p>
+                        <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-3 rounded-xl text-sm transition flex justify-center items-center shadow-lg font-montserrat">
+                            <i class="fas fa-lock mr-2"></i> <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
+                            <p id="order-status" class="ml-2 text-xs hidden"></p>
                         </button>
                     </form>
                 </div>

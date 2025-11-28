@@ -242,10 +242,45 @@ const orderForm = document.getElementById('inspection-form');
 const submitBtn = document.getElementById('submit-btn');
 const originalBtnText = submitBtn ? submitBtn.innerHTML : 'ZAPŁAĆ';
 
+// --- WALIDACJA I WYSYŁKA ZAMÓWIENIA ---
 if(orderForm) {
     orderForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         
+        // 1. Customowa Walidacja (Czerwone ramki + napisy)
+        let isValid = true;
+        
+        // Reset błędów
+        document.querySelectorAll('.error-msg').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.glass-input').forEach(el => el.classList.remove('border-red-500'));
+
+        // Sprawdź inputy wymagane
+        const requiredInputs = orderForm.querySelectorAll('input[required]');
+        requiredInputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add('border-red-500'); // Czerwona ramka
+                // Znajdź najbliższy komunikat błędu w tym samym kontenerze
+                const errorMsg = input.parentElement.querySelector('.error-msg');
+                if (errorMsg) errorMsg.classList.remove('hidden');
+            }
+        });
+
+        // Sprawdź checkbox
+        const terms = document.getElementById('terms');
+        if (!terms.checked) {
+            isValid = false;
+            const termError = terms.parentElement.parentElement.querySelector('.error-msg');
+            if (termError) termError.classList.remove('hidden');
+        }
+
+        // Jeśli walidacja nie przeszła -> Stop
+        if (!isValid) {
+            // Opcjonalnie: potrząśnij przyciskiem lub scrolluj do błędu
+            return;
+        }
+
+        // 2. Metoda Płatności
         const method = document.getElementById('selected-payment-method').value;
         if (method !== 'card') {
             const msg = currentLang === 'pl' 
@@ -256,6 +291,7 @@ if(orderForm) {
             return;
         }
 
+        // 3. Procesowanie Płatności (Stripe)
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> ...';
         document.getElementById('card-errors').innerText = '';
@@ -298,14 +334,14 @@ if(orderForm) {
                     paymentId: result.paymentIntent.id
                 };
 
-                // Zapisz w bazie + Wyślij Emaile
+                // Zapisz i wyślij maila
                 await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)
                 });
                 
-                // Przekierowanie na stronę sukcesu
+                // Przekierowanie
                 const clientName = encodeURIComponent(orderData.name);
                 const clientEmail = encodeURIComponent(orderData.email);
                 const pkgName = encodeURIComponent(currentPackage);
