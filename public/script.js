@@ -57,6 +57,7 @@ async function initializePayment() {
     } else {
         console.error("Błąd: Nie znaleziono kontenera #payment-element w HTML!");
     }
+}
 
 // --- 3. UI & TŁUMACZENIA ---
 
