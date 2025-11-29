@@ -1,36 +1,21 @@
-/* 💡 Gdzie możesz edytować "rozmiary" (dla programisty):
-Odstępy między sekcjami:
-
-Szukaj klasy .snap-section.
-
-Wartości: padding-top: 80px i padding-bottom: 40px.
-
-W sekcji @media (max-width: 1024px) są osobne wartości dla mobilnych (np. 90px).
-
-Wielkość kart (szkła):
-
-Klasa .glass-card.
-
-Paddingi (p-8, p-6) są ustawiane w HTML (klasy Tailwind), ale bazowy styl jest w CSS.
-
-Prędkość paska opinii:
-
-Klasa .marquee-content -> animation: scroll 40s linear infinite;.
-
-Zmień 40s na 20s (szybciej) lub 60s (wolniej). */
-
-
-/* --- KONFIGURACJA KOLORÓW I FONTÓW --- */
+/* =========================================
+   1. KONFIGURACJA PODSTAWOWA
+   ========================================= */
 :root {
     --accent-orange: #FF5722;
 }
 
-/* Dodaj background-color, aby ukryć biały pasek przy przewijaniu na mobile */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #0a0a0f; /* Ciemny kolor pasujący do wideo */
-    overscroll-behavior-y: none; /* Opcjonalnie: blokuje "gumkowanie" na niektórych przeglądarkach */
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0f; /* Ciemne tło ukrywa "biały pasek" przy przewijaniu */
+    overscroll-behavior-y: none; /* Zapobiega "gumkowaniu" strony na iPhone */
+    color: white;
 }
 
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -38,7 +23,9 @@ body {
 .text-accent-orange { color: var(--accent-orange); }
 .bg-accent-orange { background-color: var(--accent-orange); }
 
-/* --- TŁO WIDEO (Zoptymalizowane) --- */
+/* =========================================
+   2. TŁO WIDEO (Zoptymalizowane)
+   ========================================= */
 .video-bg-container {
     position: fixed;
     top: 0;
@@ -63,97 +50,68 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Ciemniejszy gradient na dole dla czytelności stopki */
-    background: linear-gradient(to bottom, rgba(10, 10, 15, 0.80), rgba(10, 10, 20, 0.95));
+    background: linear-gradient(to bottom, rgba(10, 10, 15, 0.85), rgba(10, 10, 20, 0.95));
     z-index: 1;
 }
 
-/* --- SCROLL SNAP (Przewijanie) --- */
-html {
-    scroll-behavior: smooth;
-}
-
+/* =========================================
+   3. SCROLL SNAP (Sektorowe przewijanie)
+   ========================================= */
 .snap-container {
     height: 100vh;
-    height: 100dvh; /* Fix dla mobilnych pasków adresu */
+    height: 100dvh; /* Fix dla mobilnych */
     overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y mandatory; /* WŁĄCZONE PRZYCIĄGANIE */
     scroll-behavior: smooth;
 }
 
 .snap-section {
     width: 100%;
+    
+    /* WAŻNE: min-height pozwala sekcji rosnąć, jeśli treść jest długa */
     min-height: 100vh;
     min-height: 100dvh;
-    scroll-snap-align: start;
+    
+    scroll-snap-align: start; /* Przyklej do góry sekcji */
+    scroll-snap-stop: always; /* Wymuś zatrzymanie */
+    
     position: relative;
-    /* Domyślne paddingi (Desktop) - EDYTUJ TUTAJ ODSTĘPY GÓRA/DÓŁ */
-    padding-top: 80px;
-    padding-bottom: 40px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    
+    padding-top: 80px;
+    padding-bottom: 40px;
 }
-
-/* --- SZKŁO (GLASSMORPHISM) --- */
+/* =========================================
+   4. UI: GLASSMORPHISM (Szkło)
+   ========================================= */
 .glass-card {
-    /* Domyślnie (Mobile/Tablet): Brak rozmycia dla wydajności, ciemniejsze tło */
-    background: rgba(20, 20, 30, 0.85); 
+    /* Mobile: Ciemniejsze tło, brak blura (dla wydajności) */
+    background: rgba(20, 20, 30, 0.90); 
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transform: translateZ(0);
 }
 
-/* Tylko na Desktopie włączamy pełne szkło */
-@media (min-width: 1025px) {
-    .glass-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
-
-    /* 1. Wyłączamy przyciąganie (Scroll Snap) */
-    .snap-container {
-        scroll-snap-type: none;  /* To wyłącza "magnes" */
-        height: auto;            /* Pozwala stronie rosnąć naturalnie */
-        overflow-y: visible;     /* Używa systemowego paska przewijania */
-    }
-
-    /* 2. Sekcje mają naturalną wysokość, a nie wymuszone 100% ekranu */
-    .snap-section {
-        height: auto;            
-        min-height: auto;        
-        display: block;          /* Zdejmujemy Flexbox (centrowanie), żeby treść się układała od góry */
-        padding-top: 80px;       /* Mniejszy odstęp od góry */
-        padding-bottom: 60px;
-    }
-
-    /* 3. Fix na tekst z obrysem (na małym ekranie lepiej widać pełny kolor) */
-    .text-stroke {
-        -webkit-text-stroke: 0px;
-        color: var(--accent-orange);
-    }
-
-}
-
 .glass-nav {
     background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transform: translateZ(0);
 }
 
 .glass-input {
     width: 100%;
-    padding: 0.7rem 1rem;
+    padding: 0.8rem 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: white;
     outline: none;
     transition: all 0.3s;
-    font-size: 16px; /* Zapobiega zoomowi na iOS */
+    font-size: 16px; /* Zapobiega zoomowi na iPhone */
 }
 
 .glass-input:focus {
@@ -161,7 +119,22 @@ html {
     border-color: var(--accent-orange);
 }
 
-/* --- KOMPONENTY --- */
+/* Desktop: Włączamy pełny efekt szkła */
+@media (min-width: 1025px) {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+    .glass-nav {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* =========================================
+   5. ANIMACJE I ELEMENTY
+   ========================================= */
 .StripeElement { background: transparent; }
 
 .text-stroke {
@@ -179,12 +152,11 @@ html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- PIONOWE MARQUEE (OPINIE) --- */
+/* --- MARQUEE (Pionowe opinie) --- */
 .marquee-vertical-container {
-    height: 600px; /* Wysokość widocznego obszaru */
+    height: 600px;
     overflow: hidden;
     position: relative;
-    /* Zanikanie góra/dół */
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
@@ -200,17 +172,29 @@ html {
     animation-play-state: paused;
 }
 
-/* ZMIANA KIERUNKU: Z góry na dół */
 @keyframes scrollVertical {
-    0% { transform: translateY(-50%); } /* Startujemy od "drugiego zestawu" (przesunięci w górę) */
-    100% { transform: translateY(0); }    /* Zjeżdżamy w dół do zera */
+    0% { transform: translateY(-50%); } /* Z góry */
+    100% { transform: translateY(0); }   /* W dół */
 }
 
-/* Responsywność dla Marquee */
-@media (max-width: 768px) {
-    .marquee-vertical-container {
-        height: 400px;
-    }
+/* --- MARQUEE (Poziome - opcjonalnie, jeśli używasz gdzie indziej) --- */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: scrollHorizontal 40s linear infinite;
+}
+
+@keyframes scrollHorizontal {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* --- FAQ AKORDEON --- */
@@ -244,76 +228,45 @@ html {
 }
 
 .faq-item.active .faq-answer {
-    max-height: 300px; /* Limit wysokości rozwinięcia */
+    max-height: 500px;
     padding-bottom: 1.2rem;
 }
 
 .faq-icon { transition: transform 0.3s; }
 .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
 
-/* --- RESPONSYWNOŚĆ (RWD) --- */
+/* =========================================
+   6. RESPNSYWNOŚĆ (MEDIA QUERIES)
+   ========================================= */
 
-/* TABLET I MNIEJSZE (poniżej 1024px) */
-@media (max-width: 1024px) {
-    .snap-section {
-        height: auto; 
-        min-height: auto; /* Wyłączamy wymuszanie 100vh */
-        display: block;   /* Zdejmujemy centrowanie Flex */
-        padding-top: 90px;
-        padding-bottom: 60px;
-    }
-    
-    .snap-container {
-        scroll-snap-type: none; /* Wyłączamy przyciąganie, bo na dotyku jest irytujące */
-        height: auto;
-        overflow-y: auto;
-    }
-    
-    .text-stroke {
-        -webkit-text-stroke: 0px;
-        color: var(--accent-orange); /* Pełny kolor jest czytelniejszy na małym ekranie */
-    }
-    
-    /* Dostosowanie nagłówków */
-    h1 { line-height: 1.2; }
-}
-
-/* TELEFON (poniżej 640px) */
-@media (max-width: 640px) {
-    .snap-section {
-        padding-top: 80px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .glass-card {
-        padding: 1.5rem; /* Mniejszy padding wewnątrz kart */
-        border-radius: 12px;
-    }
-    
-    /* Zmniejszenie odstępów w Marquee */
-    .marquee-content { gap: 1rem; }
-}
-
+/* Ustawienia formularza zamówienia (PC) */
 #order .glass-card {
     width: 100%;
-    max-width: 32rem; /* Odpowiednik max-w-lg (ok. 512px) - idealne na PC */
-    margin: 0 auto;   /* Centrowanie */
+    max-width: 32rem; /* max-w-lg */
+    margin: 0 auto;
 }
 
-/* 2. Ustawienia dla Tabletów i Telefonów (Gdy ekran jest mniejszy) */
-@media (max-width: 768px) {
-    #order .glass-card {
-        /* Kluczowa zmiana: */
-        max-width: 90vw;  /* Karta nigdy nie będzie szersza niż 90% szerokości ekranu */
-        min-width: 300px; /* Ale nie węższa niż 300px (żeby formularz się nie zgniótł) */
-        
-        padding: 1.5rem;  /* Mniejszy padding wewnątrz (więcej miejsca na treść) */
+/* TABLET I MOBILE (< 1024px) */
+@media (max-width: 1024px) {
+
+    .text-stroke {
+        -webkit-text-stroke: 0px;
+        color: var(--accent-orange);
     }
     
-    /* Zmniejszamy też odstępy głównego kontenera na mobile */
+    /* Poprawka dla sekcji order na mobile */
+    #order .glass-card {
+        max-width: 90vw;
+        min-width: 300px;
+        padding: 1.5rem;
+    }
     #order .container {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
+    }
+    
+    /* Marquee na mobile musi być niższe */
+    .marquee-vertical-container {
+        height: 400px;
     }
 }
