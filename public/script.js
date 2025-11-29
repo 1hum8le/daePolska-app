@@ -195,7 +195,8 @@ if(orderForm) {
         if (!isValid) return;
 
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Przetwarzanie...';
+        const processingText = translations[currentLang].btn_processing;
+        submitBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin mr-2"></i> ${processingText}`;
 
         const orderData = {
             name: document.getElementById('name').value,
@@ -230,16 +231,17 @@ if(orderForm) {
                 },
             });
 
-            if (error) {
+           if (error) {
                 document.getElementById('card-errors').innerText = error.message;
                 submitBtn.disabled = false;
-                submitBtn.innerText = 'ZAPŁAĆ BEZPIECZNIE';
+                // Przywracamy tekst "Zapłać" w odpowiednim języku
+                submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${translations[currentLang].btn_pay}`;
             }
         } catch (err) {
             console.error(err);
             document.getElementById('card-errors').innerText = "Błąd połączenia.";
             submitBtn.disabled = false;
-            submitBtn.innerText = 'ZAPŁAĆ BEZPIECZNIE';
+            submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${translations[currentLang].btn_pay}`;
         }
     });
 }

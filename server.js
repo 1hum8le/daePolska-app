@@ -56,6 +56,70 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
     }
 }
 
+// --- BCRYPT DO HASŁA ADMINA ---
+const bcrypt = require('bcrypt');
+
+
+// --- JSON WEB TOKENY (JWT) ---
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// --- MIDDLEWARE SPRAWDZAJĄCY CZY TO ADMIN ---
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer TOKEN"
+
+    if (!token) return res.sendStatus(401); // Brak przepustki
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403); // Zła przepustka
+        req.user = user;
+        next(); // Wchodzisz!
+    });
+}
+
+// --- API DLA ADMINA (CHRONIONE) ---
+
+// 1. Logowanie (Generuje token)
+app.post('/api/admin/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) return res.status(401).json({ error: "Błędny login" });
+        
+        const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
+        if (!validPassword) return res.status(401).json({ error: "Błędne hasło" });
+        
+        // Generuj token ważny 1 godzinę
+        const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token }); 
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
+// 2. Pobierz Zamówienia (Wymaga tokenu)
+app.get('/api/admin/orders', authenticateToken, async (req, res) => {
+    try {
+        // Pobierz 50 ostatnich zamówień
+        const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 50");
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).send("Błąd bazy");
+    }
+});
+
+// 3. Pobierz Wiadomości (Wymaga tokenu)
+app.get('/api/admin/messages', authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 50");
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).send("Błąd bazy");
+    }
+});
+
+
 // --- ZABEZPIECZENIA ---
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });

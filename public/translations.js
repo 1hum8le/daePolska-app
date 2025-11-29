@@ -92,6 +92,7 @@ export const translations = {
         terms_text: "Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną.",
         err_required: "To pole jest wymagane.",
         err_terms: "Musisz zaakceptować regulamin.",
+        btn_processing: "Przetwarzanie...",
         
         // KONTAKT
         contact_title: "GOTOWY NA IMPORT?", contact_desc: "Masz pytania przed zamówieniem? Chcesz ustalić szczegóły nietypowego zlecenia? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość przez formularz.",
@@ -190,6 +191,7 @@ export const translations = {
         packages_title: "SELECT YOUR TIER",
         package_desc: "Every package includes travel within a 150km radius of Antwerp. Further distances are priced individually.",
         raport: "VIEW SAMPLE REPORT",
+        btn_processing: "PROCESSING...",
         // Basic
         pkg_photos: "30-40 Photos", pkg_photos_desc: "High resolution. Documentation of every scratch, dent, and interior detail.",
         pkg_docs: "Docs Verification", pkg_docs_desc: "Checking VIN match, registration papers, Car-Pass, and service history.",
@@ -349,6 +351,7 @@ export const translations = {
         packages_title: "KIES UW PAKKET",
         package_desc: "Elk pakket is inclusief verplaatsing binnen een straal van 150km rond Antwerpen. Verdere afstanden op aanvraag.",
         raport:" BEKIJK VOORBEELD RAPPORT",
+        btn_processing: "VERWERKEN...",
         // Basic
         pkg_photos: "30-40 Foto's", pkg_photos_desc: "Hoge resolutie. Documentatie van elke kras, deuk en interieurdetail.",
         pkg_docs: "Documenten", pkg_docs_desc: "Controle van VIN, inschrijvingsbewijs, Car-Pass en onderhoudshistorie.",
@@ -476,6 +479,7 @@ export const translations = {
         packages_title: "CHOISISSEZ VOTRE PACK",
         package_desc: "Chaque pack inclut le déplacement dans un rayon de 150km autour d'Anvers. Distances plus longues sur devis.",
         raport: "VOIR UN RAPPORT D'EXEMPLE",
+        btn_processing: "TRAITEMENT...",
         // Basic
         pkg_photos: "30-40 Photos", pkg_photos_desc: "Haute résolution. Documentation de chaque rayure, bosse et détail intérieur.",
         pkg_docs: "Vérification Docs", pkg_docs_desc: "Vérification VIN, carte grise, Car-Pass et historique d'entretien.",
@@ -592,6 +596,7 @@ export const translations = {
         packages_title: "SELECCIONA TU PAQUETE",
         package_desc: "Cada paquete incluye desplazamiento en un radio de 150km desde Amberes. Distancias mayores bajo presupuesto.",
         raport: "VER INFORME DE EJEMPLO",
+        btn_processing: "PROCESANDO...",
         // Basic
         pkg_photos: "30-40 Fotos", pkg_photos_desc: "Alta resolución. Documentación de cada rasguño, abolladura y detalle interior.",
         pkg_docs: "Verificación Docs", pkg_docs_desc: "Verificación de VIN, papeles de registro, Car-Pass e historial de servicio.",
