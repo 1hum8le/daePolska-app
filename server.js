@@ -56,10 +56,6 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
     }
 }
 
-// --- BCRYPT DO HASŁA ADMINA ---
-const bcrypt = require('bcrypt');
-
-
 // --- JSON WEB TOKENY (JWT) ---
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;

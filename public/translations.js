@@ -140,6 +140,7 @@ export const translations = {
         nav_reviews: "Reviews", 
         nav_contact: "Contact",
         nav_whyus: "Why Us?",
+         nav_info_footer: "Inspection Process", nav_services_footer: "Pricing and Packages", nav_reviews_footer: "Customer Reviews", nav_contact_footer: "Contact", nav_whyus_footer: "Why Us?",
         
         // --- HERO SECTION ---
         hero_title: "BUY CARS ABROAD<br><span class=\"text-accent-orange text-stroke\">WITHOUT RISK.</span>",
@@ -300,6 +301,7 @@ export const translations = {
         nav_reviews: "Reviews", 
         nav_contact: "Contact",
         nav_whyus: "Waarom Wij?",
+         nav_info_footer: "Inspectieproces", nav_services_footer: "Prijzen en Pakketten", nav_reviews_footer: "Klantenbeoordelingen", nav_contact_footer: "Contact", nav_whyus_footer: "Waarom Wij?",
         
         // --- HERO SECTION ---
         hero_title: "KOOP AUTO'S IN HET BUITENLAND<br><span class=\"text-accent-orange text-stroke\">ZONDER RISICO.</span>",
@@ -448,6 +450,7 @@ export const translations = {
 // ================= FRANCUSKI (FR) =================
     fr: {
         nav_info: "Processus", nav_services: "Tarifs", nav_reviews: "Avis", nav_contact: "Contact", nav_whyus: "Pourquoi Nous?",
+            nav_info_footer: "Processus d'Inspection", nav_services_footer: "Tarifs et Forfaits", nav_reviews_footer: "Avis Clients", nav_contact_footer: "Contact", nav_whyus_footer: "Pourquoi Nous?",
         
         hero_title: "ACHETEZ À L'ÉTRANGER<br><span class=\"text-accent-orange text-stroke\">SANS RISQUE.</span>",
         hero_subtitle: "Rapports techniques complets en Belgique, aux Pays-Bas et en Allemagne. Nous vérifions ce que le vendeur ne vous dit pas. Gagnez du temps et évitez les erreurs coûteuses.",
@@ -565,6 +568,7 @@ export const translations = {
     // ================= HISZPAŃSKI (ES) =================
     es: {
         nav_info: "Proceso", nav_services: "Precios", nav_reviews: "Reseñas", nav_contact: "Contacto", nav_whyus: "¿Por Qué Nosotros?",
+            nav_info_footer: "Proceso de Inspección", nav_services_footer: "Precios y Paquetes", nav_reviews_footer: "Reseñas de Clientes", nav_contact_footer: "Contacto", nav_whyus_footer: "¿Por Qué Nosotros?",
         
         hero_title: "COMPRA COCHES EN EL EXTRANJERO<br><span class=\"text-accent-orange text-stroke\">SIN RIESGO.</span>",
         hero_subtitle: "Informes técnicos completos en Bélgica, Países Bajos y Alemania. Verificamos lo que el vendedor no te dice. Ahorra tiempo y evita errores costosos.",
