@@ -467,104 +467,107 @@
             </div>
         </section>
 
-       <section id="order" class="snap-section flex flex-col justify-center items-center px-4 py-20 bg-black/30">
+      <section id="order" class="snap-section flex flex-col justify-center items-center px-4 py-24 md:py-32 bg-black/30">
+             
              <div class="container mx-auto max-w-5xl w-full relative z-10">
                 
-                <div class="text-center mb-8 animate-fade-up">
-                    <h2 class="text-3xl md:text-4xl font-black font-montserrat mb-4" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
-                    <a href="report_template_pl.html" target="_blank" class="inline-flex items-center justify-center px-5 py-2 border border-accent-orange text-accent-orange hover:bg-accent-orange hover:text-white rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 group">
-                        <i class="fas fa-file-pdf mr-2 group-hover:scale-110 transition-transform"></i>
-                        <span data-i18n="btn_sample_report">ZOBACZ PRZYKŁADOWY RAPORT</span>
-                    </a>
-                </div>
-
                 <div class="glass-card p-0 overflow-hidden animate-fade-up">
-                    <form id="inspection-form" novalidate class="grid lg:grid-cols-5">
+                    <form id="inspection-form" novalidate class="grid lg:grid-cols-5 min-h-[600px]">
                         
-                        <div class="lg:col-span-3 p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-white/10">
+                        <div class="lg:col-span-3 p-8 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between">
                             
-                            <div class="mb-8 p-4 bg-white/5 rounded-xl border border-white/10 flex justify-between items-center">
-                                <div>
-                                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1" data-i18n="form_selected">Wybrany Pakiet</p>
-                                    <input type="text" id="selected-pkg" class="bg-transparent font-black text-2xl text-white w-full focus:outline-none font-montserrat" readonly value="Standard">
+                            <div>
+                                <div class="flex justify-between items-start mb-8">
+                                    <h2 class="text-2xl font-black font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
+                                    <a href="report_template_pl.html" target="_blank" class="text-accent-orange hover:text-white transition text-[10px] font-bold uppercase tracking-widest border border-accent-orange px-3 py-1 rounded-full">
+                                        <i class="fas fa-file-pdf mr-1"></i> <span data-i18n="btn_sample_report">PRZYKŁAD</span>
+                                    </a>
                                 </div>
-                                <div class="text-right">
-                                    <span class="block text-2xl font-black text-accent-orange font-montserrat" id="display-price-form">990 PLN</span>
-                                    <input type="hidden" id="pkg-price-eur" value="235">
-                                    <input type="hidden" id="pkg-price-pln" value="990">
-                                    <input type="hidden" id="current-currency" value="pln">
+
+                                <div class="mb-8 p-5 bg-white/5 rounded-xl border border-white/10 flex justify-between items-center">
+                                    <div>
+                                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1" data-i18n="form_selected">Wybrany Pakiet</p>
+                                        <input type="text" id="selected-pkg" class="bg-transparent font-black text-3xl text-white w-full focus:outline-none font-montserrat" readonly value="Standard">
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-3xl font-black text-accent-orange font-montserrat" id="display-price-form">1050 PLN</span>
+                                        <input type="hidden" id="pkg-price-eur" value="245">
+                                        <input type="hidden" id="pkg-price-pln" value="1050">
+                                        <input type="hidden" id="current-currency" value="pln">
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xs font-bold text-gray-500 mb-4 uppercase tracking-widest border-b border-white/10 pb-2">
+                                    1. <span data-i18n="lbl_client_data">Dane Zlecającego</span>
+                                </h3>
+                                <div class="grid md:grid-cols-2 gap-5 mb-6">
+                                    <div>
+                                        <label for="name" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_name">Imię i Nazwisko</label>
+                                        <input type="text" id="name" class="glass-input text-sm py-3" required placeholder="Jan Kowalski">
+                                        <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">Wymagane</p>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_email">Email</label>
+                                        <input type="email" id="email" class="glass-input text-sm py-3" required placeholder="jan@przyklad.com">
+                                        <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">Wymagane</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="phone" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_phone">Telefon</label>
+                                        <input type="text" id="phone" class="glass-input text-sm py-3" placeholder="+48 ...">
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xs font-bold text-gray-500 mb-4 uppercase tracking-widest border-b border-white/10 pb-2 mt-8">
+                                    2. <span data-i18n="form_car_details">Dane Pojazdu</span>
+                                </h3>
+                                <div class="grid gap-5 mb-6">
+                                    <div>
+                                        <label for="url" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_url">Link do ogłoszenia</label>
+                                        <input type="url" id="url" class="glass-input text-sm py-3" required placeholder="https://mobile.de/...">
+                                        <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">Wymagane</p>
+                                    </div>
+                                    <div>
+                                        <label for="location" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_loc">Lokalizacja (Miasto)</label>
+                                        <input type="text" id="location" class="glass-input text-sm py-3" required placeholder="np. Berlin, Antwerpia">
+                                        <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">Wymagane</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <h3 class="text-sm font-bold text-white mb-4 flex items-center uppercase tracking-wide">
-                                <i class="fas fa-user text-accent-orange mr-2"></i> <span data-i18n="lbl_client_data">Dane Zlecającego</span>
-                            </h3>
-                            <div class="grid md:grid-cols-2 gap-4 mb-6">
-                                <div>
-                                    <label for="name" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_name">Imię i Nazwisko</label>
-                                    <input type="text" id="name" class="glass-input text-sm py-2.5" required placeholder="Jan Kowalski">
-                                    <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
+                            <div class="mt-4">
+                                <div class="flex items-start space-x-3">
+                                    <input type="checkbox" id="terms" required class="custom-checkbox mt-1 shrink-0">
+                                    <label for="terms" class="text-[11px] text-gray-400 leading-relaxed cursor-pointer">
+                                        <span data-i18n="terms_text">Akceptuję Regulamin...</span>
+                                    </label>
                                 </div>
-                                <div>
-                                    <label for="email" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_email">Email</label>
-                                    <input type="email" id="email" class="glass-input text-sm py-2.5" required placeholder="jan@przyklad.com">
-                                    <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="phone" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_phone">Telefon</label>
-                                    <input type="text" id="phone" class="glass-input text-sm py-2.5" placeholder="+48 ...">
-                                </div>
+                                <p class="text-red-500 text-[10px] mt-1 ml-6 hidden error-msg" data-i18n="err_terms">Musisz zaakceptować.</p>
                             </div>
-
-                            <h3 class="text-sm font-bold text-white mb-4 flex items-center uppercase tracking-wide mt-8">
-                                <i class="fas fa-car text-accent-orange mr-2"></i> <span data-i18n="form_car_details">Dane Pojazdu</span>
-                            </h3>
-                            <div class="grid gap-4 mb-6">
-                                <div>
-                                    <label for="url" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_url">Link do ogłoszenia</label>
-                                    <input type="url" id="url" class="glass-input text-sm py-2.5" required placeholder="https://mobile.de/...">
-                                    <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
-                                </div>
-                                <div>
-                                    <label for="location" class="block text-[10px] text-gray-400 mb-1 uppercase font-bold" data-i18n="lbl_loc">Lokalizacja (Miasto)</label>
-                                    <input type="text" id="location" class="glass-input text-sm py-2.5" required placeholder="np. Berlin, Antwerpia">
-                                    <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_required">To pole jest wymagane.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start space-x-3 mt-8 p-4 bg-white/5 rounded-lg">
-                                <input type="checkbox" id="terms" required class="custom-checkbox mt-1 shrink-0">
-                                <label for="terms" class="text-[11px] text-gray-300 leading-relaxed cursor-pointer">
-                                    <span data-i18n="terms_text">Akceptuję <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>Regulamin</a> i <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Politykę Prywatności</a>. Rozumiem, że usługa jest opinią techniczną."</span>
-                                </label>
-                            </div>
-                            <p class="text-red-500 text-[10px] mt-1 ml-1 hidden error-msg" data-i18n="err_terms">Wymagana akceptacja.</p>
                         </div>
 
-                        <div class="lg:col-span-2 p-6 md:p-8 bg-black/20 flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-sm font-bold text-white mb-6 flex items-center uppercase tracking-wide">
-                                    <i class="fas fa-credit-card text-accent-orange mr-2"></i> <span data-i18n="form_payment_header">Płatność</span>
-                                </h3>
-                                
-                                <div id="payment-element" class="min-h-[280px]">
-                                    </div>
-                                <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mt-4"></div>
-                            </div>
+                        <div class="lg:col-span-2 p-8 bg-black/40 flex flex-col justify-center relative">
+                            
+                            <h3 class="text-sm font-bold text-white mb-6 flex items-center uppercase tracking-wide">
+                                <i class="fas fa-credit-card text-accent-orange mr-2"></i> <span data-i18n="form_payment_header">Płatność</span>
+                            </h3>
+                            
+                            <div id="payment-element" class="min-h-[300px]">
+                                </div>
+                            <div id="card-errors" role="alert" class="text-red-400 font-bold text-xs mt-4 text-center"></div>
 
-                            <div class="mt-8">
-                                <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-4 rounded-xl text-sm transition flex justify-center items-center shadow-lg shadow-orange-500/20 font-montserrat tracking-widest group">
-                                    <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
-                                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                                </button>
-                                
-                                <div class="text-center mt-4 flex justify-center gap-3 text-gray-500 text-lg">
+                            <button type="submit" id="submit-btn" class="w-full bg-accent-orange hover:bg-orange-600 text-white font-black py-4 rounded-xl text-sm transition flex justify-center items-center shadow-lg shadow-orange-500/20 font-montserrat tracking-widest group mt-8">
+                                <span data-i18n="btn_pay">ZAPŁAĆ BEZPIECZNIE</span>
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                            
+                            <div class="text-center mt-6">
+                                <div class="flex justify-center gap-4 text-gray-500 text-2xl opacity-50">
                                     <i class="fab fa-cc-visa"></i>
                                     <i class="fab fa-cc-mastercard"></i>
                                     <i class="fab fa-apple"></i>
                                     <i class="fab fa-google"></i>
                                 </div>
-                                <p class="text-center text-[9px] text-gray-500 mt-2 uppercase tracking-wider">Secured by Stripe SSL</p>
+                                <p class="text-[9px] text-gray-600 mt-2 uppercase tracking-wider">Secured by Stripe SSL</p>
                             </div>
                         </div>
 

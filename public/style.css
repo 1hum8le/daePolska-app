@@ -242,7 +242,8 @@ body {
 /* Ustawienia formularza zamówienia (PC) */
 #order .glass-card {
     width: 100%;
-    max-width: 32rem; /* max-w-lg */
+    /* ZMIANA: z 32rem na 64rem (szeroki, wygodny panel) */
+    max-width: 64rem; 
     margin: 0 auto;
 }
 
@@ -253,10 +254,10 @@ body {
         -webkit-text-stroke: 0px;
         color: var(--accent-orange);
     }
-    
+
     /* Poprawka dla sekcji order na mobile */
     #order .glass-card {
-        max-width: 90vw;
+        max-width: 95vw;  /* Wykorzystaj prawie cały ekran telefonu */
         min-width: 300px;
         padding: 1.5rem;
     }
