@@ -5,75 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polityka Prywatności | daePoland</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0f; color: #e5e7eb; }
+        .glass-header { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .content-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-family: 'Montserrat', sans-serif; color: #fff; }
+        h2 { font-family: 'Montserrat', sans-serif; color: #FF5722; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.25rem; }
+        p, li { line-height: 1.7; color: #cbd5e1; margin-bottom: 1rem; }
+        ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        a { color: #FF5722; text-decoration: none; transition: color 0.3s; }
+        a:hover { color: #ff8a65; }
+        .legal-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 12px; }
+    </style>
 </head>
-<body class="text-white antialiased bg-gray-900">
+<body>
 
-    <nav class="w-full py-4 px-6 border-b border-white/10 bg-black/40 backdrop-blur-md fixed top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-xl font-black font-montserrat">DAE<span class="text-accent-orange">POLAND</span></a>
-            <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">Powrót</a>
+    <nav class="glass-header fixed w-full z-50 top-0 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-black font-montserrat text-white">
+                DAE<span class="text-[#FF5722]">POLAND</span>
+            </a>
+            <a href="index.html" class="text-sm font-bold text-gray-300 hover:text-white transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                POWRÓT
+            </a>
         </div>
     </nav>
 
-    <main class="container mx-auto max-w-4xl px-4 py-32">
-        <div class="glass-card p-8 md:p-12">
-            <h1 class="text-3xl md:text-4xl font-black font-montserrat mb-8 text-accent-orange">Polityka Prywatności i Plików Cookies</h1>
+    <div class="content-container pt-32">
+        <div class="legal-box">
+            <h1 class="text-3xl md:text-4xl font-black mb-2">POLITYKA PRYWATNOŚCI</h1>
+            <p class="text-sm text-gray-500 mb-8">Ostatnia aktualizacja: 25 Listopada 2025</p>
+
+            <p>
+                Szanujemy Twoją prywatność i dbamy o bezpieczeństwo Twoich danych. Niniejsza Polityka Prywatności wyjaśnia, w jaki sposób <strong>daePoland BV</strong> gromadzi, wykorzystuje i chroni dane osobowe użytkowników serwisu <strong>daePoland.com</strong>, zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO/GDPR).
+            </p>
+
+            <h2>1. Administrator Danych Osobowych</h2>
+            <p>Administratorem Twoich danych osobowych (ADO) jest:</p>
+            <ul class="text-white font-bold bg-white/5 p-4 rounded-lg border-l-4 border-[#FF5722]">
+                <li>Nazwa firmy: daePoland BV</li>
+                <li>Adres: Uitbreidingstraat 510/202, 2600 Antwerpia, Belgia</li>
+                <li>Numer przedsiębiorstwa (KBO/BCE): [NIP IN PROCESS]</li>
+                <li>Reprezentowana przez: Jacob Sobon</li>
+                <li>Kontakt: daePoland.kontakt@gmail.com | +32 471 943 560</li>
+            </ul>
+
+            <h2>2. Jakie dane zbieramy i w jakim celu?</h2>
+            <p>Przetwarzamy tylko te dane, które są niezbędne do wykonania usługi inspekcji pojazdu oraz obsługi płatności.</p>
             
-            <div class="space-y-8 font-inter text-gray-300 text-sm leading-relaxed">
-                
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">1. Postanowienia Ogólne</h2>
-                    <p>Niniejsza polityka prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez Użytkowników w związku z korzystaniem z serwisu internetowego daePoland.com.</p>
-                    <p class="mt-2">Administratorem danych osobowych zawartych w serwisie jest <strong>daePoland</strong> z siedzibą w [TU WPISZ ADRES], NIP: [TU WPISZ NIP].</p>
-                </section>
+            <strong>A. Realizacja Zamówienia (Art. 6 ust. 1 lit. b RODO)</strong>
+            <ul>
+                <li><strong>Zakres:</strong> Imię i nazwisko, adres e-mail, numer telefonu.</li>
+                <li><strong>Cel:</strong> Kontakt w celu umówienia inspekcji, przesłanie raportu PDF, wystawienie rachunku.</li>
+            </ul>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">2. Bezpieczeństwo Danych</h2>
-                    <p>W trosce o bezpieczeństwo powierzonych nam danych opracowaliśmy wewnętrzne procedury i zalecenia, które mają zapobiec udostępnieniu danych osobom nieupoważnionym. Kontrolujemy ich wykonywanie i stale sprawdzamy ich zgodność z odpowiednimi aktami prawnymi - ustawą o ochronie danych osobowych, ustawą o świadczeniu usług drogą elektroniczną, a także wszelkiego rodzaju aktami wykonawczymi i aktami prawa wspólnotowego (RODO).</p>
-                </section>
+            <strong>B. Płatności Online (Art. 6 ust. 1 lit. b RODO)</strong>
+            <ul>
+                <li><strong>Zakres:</strong> Dane transakcyjne (kwota, metoda płatności).</li>
+                <li><strong>Cel:</strong> Pobranie opłaty za usługę.</li>
+                <li><strong>Uwaga:</strong> Nie przechowujemy numerów kart płatniczych ani kodów BLIK. Dane te są wprowadzane bezpośrednio do bezpiecznego systemu operatora płatności.</li>
+            </ul>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">3. Cel Przetwarzania Danych</h2>
-                    <p>Dane Osobowe przetwarzane są na podstawie zgody wyrażanej przez Użytkownika oraz w przypadkach, w których przepisy prawa upoważniają Administratora do przetwarzania danych osobowych na podstawie przepisów prawa lub w celu realizacji zawartej pomiędzy stronami umowy.</p>
-                    <ul class="list-disc ml-5 mt-2 space-y-1">
-                        <li>Realizacja zamówienia (inspekcji pojazdu).</li>
-                        <li>Kontakt z klientem w celu przekazania raportu.</li>
-                        <li>Wystawienie faktury/rachunku.</li>
-                        <li>Przetwarzanie płatności przez operatora Stripe.</li>
-                    </ul>
-                </section>
+            <strong>C. Dane Pojazdu (Art. 6 ust. 1 lit. f RODO)</strong>
+            <ul>
+                <li><strong>Zakres:</strong> Link do ogłoszenia, lokalizacja pojazdu, VIN (jeśli podano).</li>
+                <li><strong>Cel:</strong> Identyfikacja przedmiotu inspekcji (Prawnie uzasadniony interes administratora).</li>
+            </ul>
 
-                <section id="cookies">
-                    <h2 class="text-xl font-bold text-white mb-4">4. Pliki Cookies</h2>
-                    <p>Serwis używa plików cookies. Są to niewielkie pliki tekstowe wysyłane przez serwer www i przechowywane przez oprogramowanie komputera przeglądarki. Kiedy przeglądarka ponownie połączy się ze stroną, witryna rozpoznaje rodzaj urządzenia, z którego łączy się użytkownik.</p>
-                    <p class="mt-2">Wykorzystujemy cookies do:</p>
-                    <ul class="list-disc ml-5 mt-2 space-y-1">
-                        <li>Konfiguracji serwisu (dostosowanie do potrzeb użytkownika).</li>
-                        <li>Bezpieczeństwa i niezawodności serwisu.</li>
-                        <li>Monitorowania stanu sesji (w przypadku logowania).</li>
-                        <li>Analizy statystyk (Google Analytics) - w sposób zanonimizowany.</li>
-                    </ul>
-                </section>
+            <h2>3. Odbiorcy Danych (Procesorzy)</h2>
+            <p>Twoje dane mogą być przekazywane podmiotom współpracującym, wyłącznie w celu realizacji usługi. Korzystamy tylko z zaufanych partnerów, którzy gwarantują zgodność z RODO:</p>
+            <ul>
+                <li><strong>Stripe Inc. (USA/Irlandia)</strong> – operator bezpiecznych płatności online (Karta, BLIK, Apple Pay).</li>
+                <li><strong>Brevo (dawniej Sendinblue, Francja)</strong> – system do wysyłki powiadomień e-mail i raportów.</li>
+                <li><strong>Dostawca Hostingu</strong> – firma hostingowa (np. HostGator/Cyberfolks), na której serwerach przechowywana jest strona i baza danych.</li>
+                <li><strong>Biuro Księgowe</strong> – podmiot odpowiedzialny za rozliczenia podatkowe firmy w Belgii.</li>
+            </ul>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">5. Płatności Online</h2>
-                    <p>Płatności w naszym serwisie obsługuje firma <strong>Stripe, Inc.</strong> W przypadku wyboru płatności online, dane niezbędne do jej realizacji przekazywane są bezpośrednio do operatora płatności za pośrednictwem szyfrowanego połączenia (SSL). Administrator nie przechowuje pełnych danych kart płatniczych klientów.</p>
-                </section>
+            <h2>4. Okres Przechowywania Danych</h2>
+            <p>Twoje dane będą przechowywane przez okres:</p>
+            <ul>
+                <li><strong>Dane związane z wykonaniem usługi:</strong> Przez czas realizacji zlecenia oraz czas niezbędny do obsługi ewentualnych reklamacji (zgodnie z belgijskim prawem cywilnym).</li>
+                <li><strong>Dane księgowe (faktury/rachunki):</strong> Przez 7 lat, zgodnie z wymogami belgijskiego prawa podatkowego.</li>
+            </ul>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">6. Twoje Prawa</h2>
-                    <p>Każdej osobie, której dane dotyczą, przysługuje prawo do wglądu, edycji, przenoszenia oraz żądania usunięcia (prawo do bycia zapomnianym) swoich danych osobowych. W tym celu prosimy o kontakt mailowy na adres: <strong>daePoland.kontakt@gmail.com</strong>.</p>
-                </section>
+            <h2>5. Twoje Prawa</h2>
+            <p>Zgodnie z RODO przysługuje Ci prawo do:</p>
+            <ul>
+                <li>Dostępu do swoich danych oraz otrzymania ich kopii.</li>
+                <li>Sprostowania (poprawiania) swoich danych.</li>
+                <li>Usunięcia danych ("prawo do bycia zapomnianym") – jeśli nie ma innej podstawy prawnej do ich przetwarzania (np. obowiązku podatkowego).</li>
+                <li>Ograniczenia przetwarzania danych.</li>
+                <li>Wniesienia skargi do organu nadzorczego (w Belgii: <em>Autorité de protection des données</em>, w Polsce: <em>UODO</em>).</li>
+            </ul>
+            <p>Aby skorzystać z tych praw, skontaktuj się z nami pod adresem: <strong>daePoland.kontakt@gmail.com</strong>.</p>
 
-            </div>
-            
-            <div class="mt-12 pt-8 border-t border-white/10 text-center">
-                <p class="text-xs text-gray-500">Ostatnia aktualizacja: Listopad 2025</p>
+            <h2>6. Pliki Cookies</h2>
+            <p>Nasza strona wykorzystuje pliki cookies (ciasteczka) w minimalnym zakresie niezbędnym do działania:</p>
+            <ul>
+                <li><strong>Niezbędne:</strong> Utrzymanie sesji, obsługa koszyka i bezpiecznych płatności Stripe.</li>
+                <li><strong>Analityczne:</strong> Anonimowe statystyki ruchu (np. Google Analytics), które pomagają nam ulepszać stronę.</li>
+            </ul>
+            <p>Możesz w każdej chwili zmienić ustawienia cookies w swojej przeglądarce.</p>
+
+            <h2>7. Bezpieczeństwo</h2>
+            <p>Stosujemy środki techniczne i organizacyjne, aby chronić Twoje dane przed nieuprawnionym dostępem:</p>
+            <ul>
+                <li>Szyfrowanie połączenia certyfikatem SSL (kłódka w adresie).</li>
+                <li>Ograniczony dostęp do panelu administracyjnego (tylko upoważniony personel).</li>
+                <li>Regularne kopie zapasowe bazy danych.</li>
+            </ul>
+
+            <h2>8. Postanowienia Końcowe</h2>
+            <p>W sprawach nieuregulowanych niniejszą Polityką Prywatności zastosowanie mają przepisy prawa belgijskiego oraz RODO.</p>
+            <p>Właściwym sądem do rozstrzygania sporów jest sąd właściwy dla siedziby Administratora: <strong>Sąd w Antwerpii (Palace of Justice, Antwerp)</strong>.</p>
+
+            <div class="mt-12 border-t border-white/10 pt-8 text-center">
+                <p class="text-sm text-gray-400">&copy; 2025 daePoland BV. Wszelkie prawa zastrzeżone.</p>
             </div>
         </div>
-    </main>
+    </div>
 
 </body>
 </html>

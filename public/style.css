@@ -25,6 +25,14 @@ Zmień 40s na 20s (szybciej) lub 60s (wolniej). */
     --accent-orange: #FF5722;
 }
 
+/* Dodaj background-color, aby ukryć biały pasek przy przewijaniu na mobile */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0f; /* Ciemny kolor pasujący do wideo */
+    overscroll-behavior-y: none; /* Opcjonalnie: blokuje "gumkowanie" na niektórych przeglądarkach */
+}
+
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
 .font-inter { font-family: 'Inter', sans-serif; }
 .text-accent-orange { color: var(--accent-orange); }
@@ -104,6 +112,29 @@ html {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
+
+    /* 1. Wyłączamy przyciąganie (Scroll Snap) */
+    .snap-container {
+        scroll-snap-type: none;  /* To wyłącza "magnes" */
+        height: auto;            /* Pozwala stronie rosnąć naturalnie */
+        overflow-y: visible;     /* Używa systemowego paska przewijania */
+    }
+
+    /* 2. Sekcje mają naturalną wysokość, a nie wymuszone 100% ekranu */
+    .snap-section {
+        height: auto;            
+        min-height: auto;        
+        display: block;          /* Zdejmujemy Flexbox (centrowanie), żeby treść się układała od góry */
+        padding-top: 80px;       /* Mniejszy odstęp od góry */
+        padding-bottom: 60px;
+    }
+
+    /* 3. Fix na tekst z obrysem (na małym ekranie lepiej widać pełny kolor) */
+    .text-stroke {
+        -webkit-text-stroke: 0px;
+        color: var(--accent-orange);
+    }
+
 }
 
 .glass-nav {
@@ -262,4 +293,27 @@ html {
     
     /* Zmniejszenie odstępów w Marquee */
     .marquee-content { gap: 1rem; }
+}
+
+#order .glass-card {
+    width: 100%;
+    max-width: 32rem; /* Odpowiednik max-w-lg (ok. 512px) - idealne na PC */
+    margin: 0 auto;   /* Centrowanie */
+}
+
+/* 2. Ustawienia dla Tabletów i Telefonów (Gdy ekran jest mniejszy) */
+@media (max-width: 768px) {
+    #order .glass-card {
+        /* Kluczowa zmiana: */
+        max-width: 90vw;  /* Karta nigdy nie będzie szersza niż 90% szerokości ekranu */
+        min-width: 300px; /* Ale nie węższa niż 300px (żeby formularz się nie zgniótł) */
+        
+        padding: 1.5rem;  /* Mniejszy padding wewnątrz (więcej miejsca na treść) */
+    }
+    
+    /* Zmniejszamy też odstępy głównego kontenera na mobile */
+    #order .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
 }

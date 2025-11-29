@@ -3,74 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regulamin | daePoland</title>
+    <title>Regulamin Świadczenia Usług | daePoland</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="text-white antialiased bg-gray-900">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0f; color: #e5e7eb; }
+        
+        /* Glass Header */
+        .glass-header { 
+            background: rgba(15, 23, 42, 0.8); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
 
-    <nav class="w-full py-4 px-6 border-b border-white/10 bg-black/40 backdrop-blur-md fixed top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-xl font-black font-montserrat">DAE<span class="text-accent-orange">POLAND</span></a>
-            <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">Powrót</a>
+        .content-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Typografia */
+        h1 { font-family: 'Montserrat', sans-serif; color: #fff; }
+        h2 { font-family: 'Montserrat', sans-serif; color: #FF5722; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        h3 { font-weight: 700; color: #fff; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; }
+        
+        p, li { line-height: 1.7; color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; }
+        ul, ol { padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        ul { list-style-type: disc; }
+        ol { list-style-type: decimal; }
+        
+        a { color: #FF5722; text-decoration: underline; transition: color 0.2s; }
+        a:hover { color: #ff8a65; text-decoration: none; }
+
+        /* Kontenery */
+        .legal-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 2.5rem; border-radius: 16px; }
+        
+        /* Wyróżnienia */
+        .highlight-box { background: rgba(255, 87, 34, 0.1); border-left: 4px solid #FF5722; padding: 1.5rem; border-radius: 0 8px 8px 0; margin: 2rem 0; }
+        .warning-text { color: #ef4444; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <nav class="glass-header fixed w-full z-50 top-0 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-black font-montserrat text-white">
+                DAE<span class="text-[#FF5722]">POLAND</span>
+            </a>
+            <a href="index.html" class="text-xs md:text-sm font-bold text-gray-300 hover:text-white transition flex items-center gap-2 uppercase tracking-widest">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                Powrót do strony
+            </a>
         </div>
     </nav>
 
-    <main class="container mx-auto max-w-4xl px-4 py-32">
-        <div class="glass-card p-8 md:p-12">
-            <h1 class="text-3xl md:text-4xl font-black font-montserrat mb-8 text-accent-orange">Regulamin Świadczenia Usług</h1>
-            
-            <div class="space-y-8 font-inter text-gray-300 text-sm leading-relaxed">
-                
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">1. Definicje</h2>
-                    <p><strong>Usługodawca:</strong> daePoland z siedzibą w Antwerpii.</p>
-                    <p><strong>Klient:</strong> Osoba fizyczna lub prawna zlecająca inspekcję pojazdu.</p>
-                    <p><strong>Usługa:</strong> Weryfikacja stanu technicznego pojazdu na terenie Belgii, Holandii lub Niemiec, zakończona raportem.</p>
-                </section>
-
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">2. Zakres Usługi i Odpowiedzialność</h2>
-                    <p class="mb-2">Usługa polega na profesjonalnych oględzinach pojazdu w miejscu jego postoju. Raport z inspekcji stanowi <strong>subiektywną opinię techniczną eksperta</strong> sporządzoną na podstawie stanu faktycznego w momencie oględzin.</p>
-                    <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-lg">
-                        <p class="text-red-200 font-bold">Ważne:</p>
-                        <p>Raport nie jest gwarancją na pojazd. Usługodawca nie ponosi odpowiedzialności za wady ukryte, których wykrycie wymagałoby demontażu części pojazdu, użycia podnośnika warsztatowego (jeśli niedostępny u sprzedawcy) lub ujawniły się po czasie.</p>
-                    </div>
-                </section>
-
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">3. Zamówienia i Płatności</h2>
-                    <p>Zamówienie usługi następuje poprzez wypełnienie formularza na stronie daePoland.com i opłacenie z góry 100% wartości zamówienia. Płatności obsługiwane są przez operatora Stripe.</p>
-                    <p class="mt-2">Usługodawca przystępuje do realizacji zlecenia (kontaktu ze sprzedawcą) niezwłocznie po zaksięgowaniu wpłaty.</p>
-                </section>
-
-                <section id="refunds">
-                    <h2 class="text-xl font-bold text-white mb-4">4. Polityka Zwrotów i Odstąpienie od Umowy</h2>
-                    <ul class="list-decimal ml-5 mt-2 space-y-2">
-                        <li><strong>Auto sprzedane/niedostępne:</strong> Jeśli po przyjęciu zlecenia okaże się, że pojazd został sprzedany lub sprzedawca odmawia udostępnienia go do oględzin, Klient otrzymuje <strong>zwrot 100% wpłaconych środków</strong> w ciągu 3 dni roboczych.</li>
-                        <li><strong>Rezygnacja Klienta:</strong> Klient ma prawo zrezygnować z usługi.
-                            <ul class="list-disc ml-5 mt-1 text-gray-400">
-                                <li>Jeśli inspektor nie wyjechał jeszcze do pojazdu: Zwrot 100%.</li>
-                                <li>Jeśli inspektor jest w trakcie dojazdu lub na miejscu: Zwrot nie przysługuje.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Prawo odstąpienia (14 dni):</strong> Zgodnie z art. 38 ustawy o prawach konsumenta, prawo odstąpienia od umowy zawartej poza lokalem przedsiębiorstwa nie przysługuje w odniesieniu do umów o świadczenie usług, jeżeli przedsiębiorca wykonał w pełni usługę za wyraźną zgodą konsumenta.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-4">5. Reklamacje</h2>
-                    <p>Wszelkie reklamacje dotyczące jakości wykonanej usługi należy zgłaszać drogą mailową na adres daePoland.kontakt@gmail.com w terminie 14 dni od otrzymania raportu. Reklamacje rozpatrywane są w ciągu 14 dni.</p>
-                </section>
-
+    <div class="content-container pt-32 pb-20">
+        <div class="legal-box">
+            <h1 class="text-3xl md:text-5xl font-black mb-4">REGULAMIN USŁUG</h1>
+            <div class="flex justify-between items-center border-b border-white/10 pb-6 mb-8">
+                <p class="text-xs text-gray-500 m-0">Wersja 1.1</p>
+                <p class="text-xs text-gray-500 m-0">Obowiązuje od: 25.11.2025</p>
             </div>
+
+            <div class="highlight-box">
+                <p class="text-white font-bold text-lg m-0 mb-2">⚠️ KLUCZOWE ZASADY (STRESZCZENIE):</p>
+                <ul class="m-0 mt-2 text-sm text-gray-300 space-y-2">
+                    <li><strong>Charakter Usługi:</strong> Raport jest opinią techniczną stanu w momencie badania. Nie jest to gwarancja, że auto się nie zepsuje w przyszłości.</li>
+                    <li><strong>Puste Przebiegi:</strong> Jeśli dojedziemy na miejsce, a auta nie będzie (z winy sprzedawcy), koszt dojazdu nie jest zwracany.</li>
+                    <li><strong>Limit Odpowiedzialności:</strong> Nasza odpowiedzialność finansowa jest ograniczona do kwoty zapłaconej za usługę.</li>
+                    <li><strong>Negocjacje:</strong> Staramy się uzyskać rabat, ale nie możemy go zagwarantować (decyzja należy do sprzedawcy).</li>
+                </ul>
+            </div>
+
+            <h2>§1. Postanowienia Ogólne</h2>
+            <ol>
+                <li>Niniejszy regulamin określa zasady świadczenia usług drogą elektroniczną i terenową przez firmę <strong>daePoland BV</strong> z siedzibą w Antwerpii (Uitbreidingstraat 510/202, 2600 Antwerp, Belgia), zwaną dalej "Usługodawcą".</li>
+                <li>Klientem jest każda osoba fizyczna lub prawna zlecająca inspekcję pojazdu za pośrednictwem serwisu daePoland.com.</li>
+                <li>Kontakt z Usługodawcą odbywa się drogą mailową: <strong>daePoland.kontakt@gmail.com</strong>.</li>
+            </ol>
+
+            <h2>§2. Przedmiot Usługi</h2>
+            <ol>
+                <li>Przedmiotem usługi jest wykonanie <strong>inspekcji przedzakupowej</strong> wskazanego przez Klienta pojazdu używanego na terenie Belgii, Holandii lub Niemiec.</li>
+                <li><strong>Usługa Podstawowa:</strong> Obejmuje dojazd inspektora, weryfikację wizualną i techniczną pojazdu oraz sporządzenie Raportu Technicznego (dokument PDF + zdjęcia/wideo).</li>
+                <li><strong>Usługi Rozszerzone (Pakiet Premium):</strong> W przypadku pakietu Premium, usługa obejmuje dodatkowo wsparcie w procesie negocjacji ceny.
+                    <ul class="list-disc ml-5 mt-2 text-gray-400 text-sm border border-white/10 p-3 rounded bg-black/20">
+                        <li>Usługodawca zobowiązuje się do podjęcia próby negocjacji ceny w imieniu Klienta, wykorzystując znajomość języka i argumenty techniczne.</li>
+                        <li>Usługa negocjacji jest <strong>usługą starannego działania, a nie rezultatu</strong>. Usługodawca nie gwarantuje uzyskania rabatu. Brak obniżki ceny przez sprzedającego nie stanowi nienależytego wykonania usługi i nie jest podstawą do reklamacji.</li>
+                    </ul>
+                </li>
+                <li><strong>Charakter Raportu:</strong> Raport stanowi subiektywną, fachową ocenę stanu technicznego pojazdu w chwili oględzin. Ocena dokonywana jest metodami nieniszczącymi (bez demontażu podzespołów).</li>
+            </ol>
+
+            <h2>§3. Płatności i Ceny</h2>
+            <ol>
+                <li>Wszystkie ceny podane w serwisie są cenami brutto i zawierają belgijski podatek VAT w stawce 21%.</li>
+                <li>Płatność następuje z góry ("Pre-paid") za pośrednictwem certyfikowanego operatora płatności Stripe (karty płatnicze, Apple Pay, Google Pay).</li>
+                <li>Umowa zostaje zawarta w momencie zaksięgowania wpłaty. Od tego momentu Usługodawca rezerwuje zasoby (czas inspektora) i ponosi koszty logistyczne.</li>
+            </ol>
+
+            <h2>§4. Polityka Zwrotów i Anulowania Zleceń</h2>
+            <p>Szanujemy Twój czas i pieniądze, ale musimy też pokrywać nasze koszty operacyjne. Zasady są następujące:</p>
             
-            <div class="mt-12 pt-8 border-t border-white/10 text-center">
-                <p class="text-xs text-gray-500">Obowiązuje od: 22.11.2025</p>
+            <h3>A. Anulowanie przed wyjazdem inspektora</h3>
+            <p>Jeśli Klient zrezygnuje z usługi lub okaże się, że auto zostało sprzedane <strong>zanim</strong> inspektor wyruszył w trasę – Klient otrzymuje <strong>zwrot 100% wpłaconych środków</strong> w ciągu 3 dni roboczych.</p>
+
+            <h3>B. Anulowanie po wyjeździe / "Pusty Przebieg"</h3>
+            <p>Jeśli inspektor jest w trakcie dojazdu lub dotarł na miejsce, a inspekcja nie może się odbyć z przyczyn niezależnych od Usługodawcy (np. sprzedawca sprzedał auto chwilę wcześniej mimo rezerwacji, odmówił udostępnienia pojazdu, auto jest niesprawne i nie odpala):</p>
+            <ul>
+                <li>Usługa jest uznawana za wykonaną w części logistycznej.</li>
+                <li>Usługodawca ma prawo <strong>zatrzymać część lub całość wynagrodzenia</strong> na pokrycie kosztów dojazdu i straconego czasu pracy.</li>
+                <li><span class="text-accent-orange">Gest Handlowy:</span> W takiej sytuacji Usługodawca może (ale nie musi) zaproponować Klientowi indywidualny rabat na sprawdzenie kolejnego samochodu w tym samym rejonie.</li>
+            </ul>
+
+            <h2>§5. Wyłączenia i Ograniczenie Odpowiedzialności</h2>
+            <p class="text-sm italic text-gray-400">Prosimy o dokładne zapoznanie się z tym punktem.</p>
+            <ol>
+                <li>Inspekcja jest badaniem zewnętrznym. Usługodawca <strong>nie ponosi odpowiedzialności</strong> za:
+                    <ul>
+                        <li>Wady ukryte pojazdu (np. wnętrze silnika, skrzyni biegów, elektronika), których wykrycie wymagałoby demontażu części lub użycia specjalistycznego sprzętu warsztatowego (podnośnik), o ile nie był on dostępny.</li>
+                        <li>Usterki, które ujawniły się po dniu inspekcji (np. awarie zmęczeniowe).</li>
+                        <li>Rozbieżności między opisem ogłoszenia a stanem faktycznym (chyba że zostały pominięte w raporcie przez rażące niedbalstwo).</li>
+                        <li>Wady prawne pojazdu (zastawy, kradzież) – weryfikacja obejmuje tylko zgodność numeru VIN z dokumentami.</li>
+                    </ul>
+                </li>
+                <li><strong>Limit Kwotowy (Liability Cap):</strong> Całkowita odpowiedzialność odszkodowawcza Usługodawcy wobec Klienta z jakiegokolwiek tytułu (w tym błędów w raporcie) jest ograniczona wyłącznie do wysokości <strong>wynagrodzenia zapłaconego za daną usługę</strong>. Odpowiedzialność za utracone korzyści lub szkody pośrednie jest wyłączona.</li>
+            </ol>
+
+            <h2>§6. Prawo Odstąpienia od Umowy</h2>
+            <p>Zgodnie z prawem konsumenckim, Klient ma prawo odstąpić od umowy w terminie 14 dni. Jednakże, zgodnie z art. 38 ustawy o prawach konsumenta, prawo to <strong>wygasa w momencie pełnego wykonania usługi</strong> (przeprowadzenia inspekcji i wysłania raportu), jeśli Klient wyraził na to zgodę przed rozpoczęciem świadczenia (akceptacja Regulaminu przy zamówieniu).</p>
+
+            <h2>§7. Reklamacje i Prawo Właściwe</h2>
+            <ol>
+                <li>Reklamacje dotyczące jakości raportu należy zgłaszać mailowo w terminie 14 dni od jego otrzymania.</li>
+                <li>Usługodawca rozpatrzy reklamację w terminie 14 dni.</li>
+                <li>Prawem właściwym dla umowy jest <strong>prawo belgijskie</strong>.</li>
+                <li>Sądem właściwym do rozstrzygania sporów jest sąd właściwy dla siedziby Usługodawcy (Antwerpia, Belgia).</li>
+            </ol>
+
+            <div class="mt-16 border-t border-white/10 pt-8 text-center">
+                <p class="text-xs text-gray-500 font-mono">&copy; 2025 daePoland BV. Wszelkie prawa zastrzeżone.</p>
             </div>
         </div>
-    </main>
+    </div>
 
 </body>
 </html>
