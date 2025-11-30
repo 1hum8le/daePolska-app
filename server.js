@@ -56,59 +56,66 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
     }
 }
 
-// --- JSON WEB TOKENY (JWT) ---
+// ==========================================
+// SEKCJA ADMINA (BEZPIECZEŃSTWO JWT)
+// ==========================================
+
 const jwt = require('jsonwebtoken');
+// Sekretny klucz do szyfrowania tokenów (dodaj go w Render Environment!)
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// --- MIDDLEWARE SPRAWDZAJĄCY CZY TO ADMIN ---
+// --- MIDDLEWARE (OCHRONIARZ) ---
+// Ta funkcja sprawdza, czy wchodzący ma ważny bilet (Token)
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer TOKEN"
+    const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer KOD_TOKENU"
 
-    if (!token) return res.sendStatus(401); // Brak przepustki
+    if (!token) return res.sendStatus(401); // Brak biletu -> Wypad
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403); // Zła przepustka
+        if (err) return res.sendStatus(403); // Bilet sfałszowany/przeterminowany -> Wypad
         req.user = user;
-        next(); // Wchodzisz!
+        next(); // Bilet ważny -> Zapraszamy
     });
 }
 
-// --- API DLA ADMINA (CHRONIONE) ---
+// --- ENDPOINTY ADMINA ---
 
-// 1. Logowanie (Generuje token)
+// 1. Logowanie (Wydawanie biletu)
 app.post('/api/admin/login', async (req, res) => {
     const { username, password } = req.body;
     try {
+        // Szukamy użytkownika
         const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-        if (user.rows.length === 0) return res.status(401).json({ error: "Błędny login" });
+        if (user.rows.length === 0) return res.status(401).json({ error: "Nieznany użytkownik" });
         
+        // Sprawdzamy hasło
         const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
         if (!validPassword) return res.status(401).json({ error: "Błędne hasło" });
         
-        // Generuj token ważny 1 godzinę
-        const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
+        // Generujemy token ważny 2 godziny
+        const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '2h' });
         res.json({ token }); 
     } catch (err) {
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
 
-// 2. Pobierz Zamówienia (Wymaga tokenu)
+// 2. Pobierz Zamówienia (Tylko dla posiadacza biletu)
 app.get('/api/admin/orders', authenticateToken, async (req, res) => {
     try {
-        // Pobierz 50 ostatnich zamówień
-        const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 50");
+        const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 100");
         res.json(result.rows);
     } catch (err) {
         res.status(500).send("Błąd bazy");
     }
 });
 
-// 3. Pobierz Wiadomości (Wymaga tokenu)
+// 3. Pobierz Wiadomości (Tylko dla posiadacza biletu)
 app.get('/api/admin/messages', authenticateToken, async (req, res) => {
     try {
-        const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 50");
+        const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 100");
         res.json(result.rows);
     } catch (err) {
         res.status(500).send("Błąd bazy");

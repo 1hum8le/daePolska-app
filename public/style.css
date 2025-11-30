@@ -13,9 +13,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #0a0a0f; /* Ciemne tło ukrywa "biały pasek" przy przewijaniu */
-    overscroll-behavior-y: none; /* Zapobiega "gumkowaniu" strony na iPhone */
+    background-color: #0a0a0f;
+    overscroll-behavior-y: none;
     color: white;
+    overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
 }
 
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -24,7 +25,7 @@ body {
 .bg-accent-orange { background-color: var(--accent-orange); }
 
 /* =========================================
-   2. TŁO WIDEO (Zoptymalizowane)
+   2. TŁO WIDEO
    ========================================= */
 .video-bg-container {
     position: fixed;
@@ -34,7 +35,7 @@ body {
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    transform: translateZ(0); /* Akceleracja GPU */
+    transform: translateZ(0);
     will-change: transform; 
 }
 
@@ -57,38 +58,50 @@ body {
 /* =========================================
    3. SCROLL SNAP (Sektorowe przewijanie)
    ========================================= */
+
+/* DOMYŚLNIE (Mobile): Wyłączone przyciąganie, naturalny scroll */
 .snap-container {
-    height: 100vh;
-    height: 100dvh; /* Fix dla mobilnych */
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory; /* WŁĄCZONE PRZYCIĄGANIE */
-    scroll-behavior: smooth;
+    height: auto;
+    overflow-y: visible;
+    scroll-snap-type: none; 
 }
 
 .snap-section {
     width: 100%;
-    
-    /* WAŻNE: min-height pozwala sekcji rosnąć, jeśli treść jest długa */
-    min-height: 100vh;
-    min-height: 100dvh;
-    
-    scroll-snap-align: start; /* Przyklej do góry sekcji */
-    scroll-snap-stop: always; /* Wymuś zatrzymanie */
-    
+    min-height: 100dvh; /* Zajmuje min. cały ekran */
+    height: auto;       /* Ale może rosnąć */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
-    padding-top: 80px;
-    padding-bottom: 40px;
+    padding-top: 100px; /* Większy odstęp od góry na mobile */
+    padding-bottom: 60px;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
+
+/* DESKTOP (Powyżej 1024px): Włączamy przyciąganie */
+@media (min-width: 1025px) {
+    .snap-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory; /* Tu działa "magnes" */
+    }
+
+    .snap-section {
+        height: 100vh; /* Sekcja idealnie na ekran */
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+}
+
 /* =========================================
-   4. UI: GLASSMORPHISM (Szkło)
+   4. UI: SZKŁO
    ========================================= */
 .glass-card {
-    /* Mobile: Ciemniejsze tło, brak blura (dla wydajności) */
     background: rgba(20, 20, 30, 0.90); 
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
@@ -111,7 +124,7 @@ body {
     color: white;
     outline: none;
     transition: all 0.3s;
-    font-size: 16px; /* Zapobiega zoomowi na iPhone */
+    font-size: 16px; 
 }
 
 .glass-input:focus {
@@ -119,7 +132,6 @@ body {
     border-color: var(--accent-orange);
 }
 
-/* Desktop: Włączamy pełny efekt szkła */
 @media (min-width: 1025px) {
     .glass-card {
         background: rgba(255, 255, 255, 0.05);
@@ -133,13 +145,20 @@ body {
 }
 
 /* =========================================
-   5. ANIMACJE I ELEMENTY
+   5. ELEMENTY & ANIMACJE
    ========================================= */
 .StripeElement { background: transparent; }
 
 .text-stroke {
-    -webkit-text-stroke: 1px var(--accent-orange);
-    color: transparent;
+    -webkit-text-stroke: 0px;
+    color: var(--accent-orange);
+}
+
+@media (min-width: 1025px) {
+    .text-stroke {
+        -webkit-text-stroke: 1px var(--accent-orange);
+        color: transparent;
+    }
 }
 
 .animate-fade-up {
@@ -147,18 +166,18 @@ body {
     opacity: 0;
     transform: translateY(20px);
 }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- MARQUEE (Pionowe opinie) --- */
+/* Marquee (Opinie) */
 .marquee-vertical-container {
-    height: 600px;
+    height: 400px; /* Mobile */
     overflow: hidden;
     position: relative;
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+@media (min-width: 1025px) {
+    .marquee-vertical-container { height: 600px; }
 }
 
 .marquee-vertical-content {
@@ -167,107 +186,49 @@ body {
     gap: 1.5rem;
     animation: scrollVertical 40s linear infinite;
 }
-
-.marquee-vertical-content:hover {
-    animation-play-state: paused;
-}
+.marquee-vertical-content:hover { animation-play-state: paused; }
 
 @keyframes scrollVertical {
-    0% { transform: translateY(-50%); } /* Z góry */
-    100% { transform: translateY(0); }   /* W dół */
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0); }
 }
 
-/* --- MARQUEE (Poziome - opcjonalnie, jeśli używasz gdzie indziej) --- */
-.marquee-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.marquee-content {
-    display: flex;
-    gap: 1.5rem;
-    width: max-content;
-    animation: scrollHorizontal 40s linear infinite;
-}
-
-@keyframes scrollHorizontal {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* --- FAQ AKORDEON --- */
-.faq-item {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.3s ease;
-}
+/* FAQ */
+.faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
 .faq-item:last-child { border-bottom: none; }
-
-.faq-question {
-    cursor: pointer;
-    padding: 1.2rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    color: #e5e7eb;
-    transition: color 0.3s;
-    font-size: 0.95rem;
-}
+.faq-question { cursor: pointer; padding: 1.2rem 0; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #e5e7eb; transition: color 0.3s; font-size: 0.95rem; }
 .faq-question:hover { color: var(--accent-orange); }
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease;
-    color: #9ca3af;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    padding-bottom: 0;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    padding-bottom: 1.2rem;
-}
-
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; color: #9ca3af; font-size: 0.85rem; line-height: 1.6; padding-bottom: 0; }
+.faq-item.active .faq-answer { max-height: 500px; padding-bottom: 1.2rem; }
 .faq-icon { transition: transform 0.3s; }
 .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
 
 /* =========================================
-   6. RESPNSYWNOŚĆ (MEDIA QUERIES)
+   6. POPRAWKI FORMULARZY (MOBILE FIT)
    ========================================= */
 
-/* Ustawienia formularza zamówienia (PC) */
-#order .glass-card {
+/* Domyślnie (Mobile): Karta na całą szerokość, ale z marginesem */
+#order .glass-card,
+#contact .glass-card {
     width: 100%;
-    /* ZMIANA: z 32rem na 64rem (szeroki, wygodny panel) */
-    max-width: 64rem; 
+    max-width: 100%;
     margin: 0 auto;
+    padding: 1.5rem; /* Mniejszy padding wewnątrz */
 }
 
-/* TABLET I MOBILE (< 1024px) */
-@media (max-width: 1024px) {
-
-    .text-stroke {
-        -webkit-text-stroke: 0px;
-        color: var(--accent-orange);
-    }
-
-    /* Poprawka dla sekcji order na mobile */
+/* Desktop: Sztywne ramy */
+@media (min-width: 1025px) {
     #order .glass-card {
-        max-width: 95vw;  /* Wykorzystaj prawie cały ekran telefonu */
-        min-width: 300px;
-        padding: 1.5rem;
+        max-width: 64rem; /* Szeroki panel zamówienia */
+        padding: 0; /* Padding zerowy dla układu grid */
     }
-    #order .container {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+    #contact .glass-card {
+        padding: 2.5rem;
     }
-    
-    /* Marquee na mobile musi być niższe */
-    .marquee-vertical-container {
-        height: 400px;
-    }
+}
+
+/* Dodatkowy fix dla bardzo małych ekranów */
+@media (max-width: 380px) {
+    .glass-input { font-size: 14px; padding: 0.6rem; }
+    h1 { font-size: 2rem; }
 }
