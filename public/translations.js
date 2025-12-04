@@ -130,10 +130,29 @@ export const translations = {
         lbl_phone: "Telefon (Opcjonalnie)", ph_phone: "+48 ... (Opcjonalnie)",
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
         txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
+        
+        // --- BEFORE PURCHASE (BEZPIECZEŃSTWO) ---
+        bp_title: "NIE KUPUJ OCZAMI.<br><span class=\"text-accent-orange\">KUPUJ FAKTAMI.</span>",
+        bp_desc_1: "Auto wygląda świetnie, sprzedawca jest miły. To moment, w którym emocje wygrywają z rozsądkiem. Właśnie wtedy najłatwiej popełnić kosztowny błąd.",
+        bp_desc_2: "Jako niezależni eksperci, nie mamy \"różowych okularów\". Dajemy Ci chłodną, techniczną analizę. Dzięki nam wiesz, czy to okazja życia, czy skarbonka bez dna.",
+        bp_link: "ZOBACZ JAK CHRONIMY TWÓJ ZAKUP",
+        bp_icon1_title: "Rentgen Rzeczywistości", bp_icon1_desc: "Lśniący lakier często ukrywa powypadkową przeszłość. My patrzymy głębiej – w sterowniki i podwozie.",
+        bp_icon2_title: "Siła Negocjacji", bp_icon2_desc: "Raport z usterkami to Twój najsilniejszy argument. Inwestycja w inspekcję zwraca się w niższej cenie auta.",
+        bp_icon3_title: "Ochrona Kapitału", bp_icon3_desc: "Jeden błąd (np. uszkodzona skrzynia) może kosztować 3000 EUR. Nasza usługa to Twoja polisa ubezpieczeniowa.",
     },
 
     // ================= ANGIELSKI (EN) =================
     en: {
+
+        // --- BEFORE PURCHASE (Psychology) ---
+        bp_title: "DON'T BUY WITH YOUR EYES.<br><span class=\"text-accent-orange\">BUY WITH FACTS.</span>",
+        bp_desc_1: "The car looks shiny, the seller is nice. This is when emotions override logic. That's exactly when expensive mistakes happen.",
+        bp_desc_2: "As independent experts, we don't wear \"rose-colored glasses\". We give you a cold, technical analysis. You will know if it's the deal of a lifetime or a money pit.",
+        bp_link: "SEE HOW WE PROTECT YOU",
+        bp_icon1_title: "Reality X-Ray", bp_icon1_desc: "Shiny paint often hides a crashed past. We look deeper – into modules, chassis, and paint thickness. We see what others miss.",
+        bp_icon2_title: "Negotiation Power", bp_icon2_desc: "A report listing faults is your strongest bargaining chip. The inspection cost often pays for itself immediately through a lower car price.",
+        bp_icon3_title: "Capital Protection", bp_icon3_desc: "Buying a lemon is a bottomless pit. One mistake (e.g., gearbox) can cost 3000 EUR. Our service is your insurance policy.",
+
         // --- NAVIGATION ---
         nav_info: "Process", 
         nav_services: "Pricing", 
@@ -295,6 +314,15 @@ export const translations = {
     
     // ================= NIDERLANDZKI (NL) =================
     nl: {
+// --- BEFORE PURCHASE (Psychology) ---
+        bp_title: "KOOP NIET MET UW OGEN.<br><span class=\"text-accent-orange\">KOOP MET FEITEN.</span>",
+        bp_desc_1: "De auto glimt, de verkoper is aardig. Dit is het moment waarop emoties winnen van verstand. Precies dan worden dure fouten gemaakt.",
+        bp_desc_2: "Als onafhankelijke experts dragen wij geen \"roze bril\". Wij geven u een koele, technische analyse. U weet direct of het een buitenkans is of een bodemloze put.",
+        bp_link: "ZIE HOE WIJ U BESCHERMEN",
+        bp_icon1_title: "Röntgenfoto van de Realiteit", bp_icon1_desc: "Glanzende lak verbergt vaak een schadeverleden. Wij kijken dieper – in de modules, chassis en lakdikte. Wij zien wat de verkoper verbergt.",
+        bp_icon2_title: "Onderhandelingskracht", bp_icon2_desc: "Een rapport met gebreken is uw sterkste troef. De investering in een keuring verdient zich vaak direct terug in een lagere aankoopprijs.",
+        bp_icon3_title: "Kapitaalbescherming", bp_icon3_desc: "Een miskoop is een financiële ramp. Eén fout (bv. versnellingsbak) kan 3000 EUR kosten. Onze service is uw verzekering.",
+
         // --- NAVIGATIE ---
         nav_info: "Werkwijze", 
         nav_services: "Tarieven", 
@@ -449,6 +477,15 @@ export const translations = {
 
 // ================= FRANCUSKI (FR) =================
     fr: {
+// --- BEFORE PURCHASE (Psychology) ---
+        bp_title: "N'ACHETEZ PAS AVEC LES YEUX.<br><span class=\"text-accent-orange\">ACHETEZ AVEC DES FAITS.</span>",
+        bp_desc_1: "La voiture brille, le vendeur est sympa. C'est là que les émotions l'emportent sur la raison. C'est précisément là que les erreurs coûteuses se produisent.",
+        bp_desc_2: "En tant qu'experts indépendants, nous n'avons pas de \"lunettes roses\". Nous vous donnons une analyse technique froide. Vous saurez si c'est une bonne affaire ou un gouffre financier.",
+        bp_link: "VOIR COMMENT NOUS VOUS PROTÉGEONS",
+        bp_icon1_title: "Rayons X de la Réalité", bp_icon1_desc: "Une peinture brillante cache souvent un passé accidenté. Nous regardons plus loin : modules, châssis, épaisseur de peinture.",
+        bp_icon2_title: "Pouvoir de Négociation", bp_icon2_desc: "Un rapport de défauts est votre meilleur atout. L'investissement dans l'inspection est souvent remboursé immédiatement par une baisse du prix.",
+        bp_icon3_title: "Protection du Capital", bp_icon3_desc: "Acheter une épave est un puits sans fond. Une erreur (ex. boîte de vitesses) peut coûter 3000 EUR. Notre service est votre assurance.",
+
         nav_info: "Processus", nav_services: "Tarifs", nav_reviews: "Avis", nav_contact: "Contact", nav_whyus: "Pourquoi Nous?",
             nav_info_footer: "Processus d'Inspection", nav_services_footer: "Tarifs et Forfaits", nav_reviews_footer: "Avis Clients", nav_contact_footer: "Contact", nav_whyus_footer: "Pourquoi Nous?",
         
@@ -567,6 +604,16 @@ export const translations = {
 
     // ================= HISZPAŃSKI (ES) =================
     es: {
+
+// --- BEFORE PURCHASE (Psychology) ---
+        bp_title: "NO COMPRES CON LOS OJOS.<br><span class=\"text-accent-orange\">COMPRA CON HECHOS.</span>",
+        bp_desc_1: "El coche brilla, el vendedor es amable. Aquí es donde las emociones ganan a la razón. Es exactamente cuando ocurren los errores costosos.",
+        bp_desc_2: "Como expertos independientes, no usamos \"gafas color de rosa\". Te damos un análisis técnico frío. Sabrás si es la oportunidad de tu vida o un pozo sin fondo.",
+        bp_link: "MIRA CÓMO TE PROTEGEMOS",
+        bp_icon1_title: "Rayos X de la Realidad", bp_icon1_desc: "La pintura brillante a menudo oculta un pasado accidentado. Miramos más profundo: módulos, chasis y espesor de pintura.",
+        bp_icon2_title: "Poder de Negociación", bp_icon2_desc: "Un informe de fallos es tu mejor carta. El costo de la inspección a menudo se recupera inmediatamente en un precio más bajo del coche.",
+        bp_icon3_title: "Protección de Capital", bp_icon3_desc: "Comprar un coche defectuoso es un pozo sin fondo. Un error (ej. caja de cambios) puede costar 3000 EUR. Nuestro servicio es tu seguro.",
+
         nav_info: "Proceso", nav_services: "Precios", nav_reviews: "Reseñas", nav_contact: "Contacto", nav_whyus: "¿Por Qué Nosotros?",
             nav_info_footer: "Proceso de Inspección", nav_services_footer: "Precios y Paquetes", nav_reviews_footer: "Reseñas de Clientes", nav_contact_footer: "Contacto", nav_whyus_footer: "¿Por Qué Nosotros?",
         

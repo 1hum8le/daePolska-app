@@ -73,7 +73,25 @@ function updateContent() {
     const currencyCode = currentLang === 'pl' ? 'pln' : 'eur';
     const inputCurr = document.getElementById('current-currency');
     if(inputCurr) inputCurr.value = currencyCode;
+
+    // --- LOGIKA WIDOCZNOŚCI SEKCJI ---
+    const whyUsSection = document.getElementById('why-us');        // Sekcja "Matematyka" (PL)
+    const beforePurchaseSection = document.getElementById('before-purchase'); // Sekcja "Bezpieczeństwo" (Global)
+
+    if (whyUsSection && beforePurchaseSection) {
+        if (currentLang === 'pl') {
+            // DLA POLSKI: Pokaż matematykę, ukryj ogólne bezpieczeństwo (lub pokaż oba - wg uznania)
+            // Tutaj: Pokazujemy TYLKO matematykę dla PL, bo jest silniejsza dla importera
+            whyUsSection.classList.remove('hidden');
+            beforePurchaseSection.classList.add('hidden'); 
+        } else {
+            // DLA INNYCH: Ukryj matematykę (bo nie jadą z Polski), pokaż psychologię bezpieczeństwa
+            whyUsSection.classList.add('hidden');
+            beforePurchaseSection.classList.remove('hidden');
+        }
+    }
 }
+
 
 function updatePricesDisplay() {
     const curr = currentLang === 'pl' ? 'pln' : 'eur';
