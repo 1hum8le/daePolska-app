@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreator Raportu | daePoland PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- LAYOUT APLIKACJI (PANEL BOCZNY + PODGLĄD) --- */
+        body { display: flex; height: 100vh; overflow: hidden; background: #e5e7eb; font-family: 'Inter', sans-serif; }
+        
+        /* LEWY PANEL (STEROWANIE) */
+        #editor { 
+            width: 450px; background: #111827; color: white; overflow-y: auto; 
+            display: flex; flex-direction: column; border-right: 1px solid #374151; flex-shrink: 0;
+            padding-bottom: 100px;
+        }
+        
+        /* PRAWY PANEL (PODGLĄD LIVE) */
+        #preview { 
+            flex: 1; background: #525252; overflow-y: auto; padding: 40px; 
+            display: flex; flex-direction: column; align-items: center; gap: 30px; 
+        }
+
+        /* --- STYLE Z TWOJEGO SZABLONU (report_template_pl.html) --- */
+        .sheet { 
+            width: 210mm; min-height: 296mm; background: white; color: #263238; font-family: 'Roboto', sans-serif;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+            transform-origin: top center; flex-shrink: 0;
+        }
+        /* Skalowanie podglądu na mniejszych ekranach */
+        @media screen and (max-width: 1400px) { .sheet { transform: scale(0.75); margin-bottom: -70mm; } }
+
+        :root { 
+            --primary: #FF5722; --secondary: #263238; --light-gray: #f5f7fa; 
+            --border: #e0e0e0; --green: #27ae60; --red: #c0392b; --orange: #f39c12; 
+        }
+
+        /* HEADER & FOOTER */
+        .header { height: 18mm; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 15mm; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 18pt; letter-spacing: -0.5px; }
+        .logo span { color: var(--primary); }
+        .report-meta { text-align: right; font-size: 8pt; color: #cfd8dc; line-height: 1.4; }
+        
+        .content { padding: 10mm 15mm; }
+        .footer { position: absolute; bottom: 0; width: 100%; height: 10mm; background: var(--light-gray); border-top: 2px solid var(--primary); display: flex; align-items: center; justify-content: space-between; padding: 0 15mm; font-size: 7pt; color: #666; }
+
+        /* TYPOGRAFIA */
+        h1 { font-family: 'Montserrat'; font-weight: 800; font-size: 22pt; margin: 0; color: var(--secondary); text-transform: uppercase; }
+        h2 { font-family: 'Montserrat'; font-weight: 700; font-size: 12pt; color: var(--secondary); border-bottom: 2px solid var(--border); padding-bottom: 5px; margin: 25px 0 15px 0; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+        h2 i { color: var(--primary); }
+
+        /* ELEMENTY INFO */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .info-box { background: var(--light-gray); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .info-row { display: flex; justify-content: space-between; border-bottom: 1px solid #e0e0e0; padding: 5px 0; font-size: 9pt; }
+        .info-row:last-child { border: none; }
+        .lbl { font-weight: 600; color: #78909c; font-size: 7pt; text-transform: uppercase; }
+        .val { font-weight: 700; color: var(--secondary); }
+
+        .main-photo { width: 100%; height: 70mm; background: #eceff1; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 8px; overflow: hidden; border: 2px dashed #cfd8dc; margin: 10px 0 20px 0; cursor: pointer; }
+        .main-photo img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+
+        /* PASKI OCENY */
+        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .score-item { text-align: center; background: var(--light-gray); padding: 10px; border-radius: 6px; }
+        .score-title { font-size: 7pt; font-weight: 700; color: #546e7a; text-transform: uppercase; margin-bottom: 5px; }
+        .score-bar-bg { width: 100%; height: 6px; background: #cfd8dc; border-radius: 3px; overflow: hidden; }
+        .score-bar-fill { height: 100%; background: var(--primary); width: 80%; transition: width 0.3s; }
+        .score-val { font-size: 14pt; font-weight: 900; color: var(--secondary); margin-top: 5px; }
+
+        .expert-summary { font-size: 9.5pt; line-height: 1.6; color: #37474f; text-align: justify; background: #fff; border: 1px solid var(--border); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); min-height: 80px; white-space: pre-line; }
+
+        /* CHECKLISTA */
+        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; font-size: 9pt; }
+        .check-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px dotted #ccc; }
+        .st-badge { font-size: 7pt; font-weight: 700; padding: 2px 8px; border-radius: 4px; color: white; text-transform: uppercase; min-width: 50px; text-align: center; }
+        .ok { background: var(--green); } .warn { background: var(--orange); } .bad { background: var(--red); } .na { background: #b0bec5; }
+
+        /* MAPA LAKIERU */
+        .paint-map { position: relative; width: 100%; height: 60mm; background: #fff; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; }
+        .car-outline { width: 100%; height: 100%; opacity: 0.15; background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Sedan_top_view.svg/1280px-Sedan_top_view.svg.png') no-repeat center; background-size: contain; }
+        .pm-point { position: absolute; background: white; border: 2px solid var(--secondary); border-radius: 4px; padding: 2px 5px; font-size: 8pt; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; min-width: 40px; cursor: pointer; }
+        .pm-label { font-size: 5pt; color: #90a4ae; text-transform: uppercase; margin-bottom: 1px; }
+
+        /* TABELA OPON */
+        .tire-table { width: 100%; font-size: 8pt; border-collapse: collapse; margin-top: 10px; }
+        .tire-table th { background: var(--light-gray); text-align: left; padding: 5px; border: 1px solid #ddd; }
+        .tire-table td { padding: 5px; border: 1px solid #ddd; }
+
+        /* GALERIA STRONY */
+        .gallery-page { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px; height: 230mm; }
+        .gallery-img-box { border: 1px dashed #ccc; background: #f5f7fa; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-radius: 4px; }
+        .gallery-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- STYLE EDYTORA (Panel Lewy) --- */
+        .section-title { font-size: 12px; font-weight: 800; color: #FF5722; text-transform: uppercase; border-bottom: 2px solid #374151; padding-bottom: 5px; margin-bottom: 10px; margin-top: 20px; }
+        .inp-group { margin-bottom: 8px; }
+        .inp-label { font-size: 10px; color: #9ca3af; font-weight: 600; display: block; margin-bottom: 3px; }
+        .inp-field { width: 100%; background: #1f2937; border: 1px solid #374151; color: white; padding: 8px; border-radius: 4px; font-size: 13px; }
+        .inp-field:focus { border-color: #FF5722; outline: none; }
+
+        /* Status Buttons w Edytorze */
+        .status-switch { display: flex; gap: 1px; background: #374151; padding: 1px; border-radius: 4px; margin-top: 4px; }
+        .st-opt { flex: 1; font-size: 9px; font-weight: 700; text-align: center; padding: 5px 0; cursor: pointer; color: #9ca3af; transition: 0.2s; }
+        .st-opt:hover { color: white; }
+        .st-opt.active.ok { background: #10b981; color: white; }
+        .st-opt.active.warn { background: #f39c12; color: white; }
+        .st-opt.active.bad { background: #c0392b; color: white; }
+        .st-opt.active.na { background: #6b7280; color: white; }
+
+        /* DRUKOWANIE */
+        @media print {
+            body { display: block; background: white; height: auto; overflow: visible; }
+            #editor { display: none; }
+            #preview { padding: 0; display: block; }
+            .sheet { margin: 0; box-shadow: none; page-break-after: always; transform: none !important; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="editor">
+        <div class="p-4 bg-gray-900 sticky top-0 z-50 border-b border-gray-700 flex justify-between items-center">
+            <h1 class="text-lg font-black text-white">DAE<span class="text-[#FF5722]">APP</span></h1>
+            <button onclick="window.print()" class="bg-[#FF5722] hover:bg-orange-600 text-white px-4 py-2 rounded font-bold text-xs">
+                <i class="fas fa-print mr-1"></i> PDF
+            </button>
+        </div>
+
+        <div class="section-title">1. Dane Podstawowe</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="inp-group"><label class="inp-label">Nr Raportu</label><input class="inp-field" value="2025/10/25-01" oninput="txt('rep-id', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Data</label><input class="inp-field" value="25.11.2025" oninput="txt('rep-date', this.value)"></div>
+        </div>
+        <div class="inp-group"><label class="inp-label">Model (Nagłówek)</label><input class="inp-field" value="BMW SERIA 3 (G20)" oninput="txt('v-model', this.value)"></div>
+        <div class="inp-group"><label class="inp-label">Wersja (Podtytuł)</label><input class="inp-field" value="2.0 Diesel | M-Pakiet | 2020" oninput="txt('v-sub', this.value)"></div>
+        
+        <div class="grid grid-cols-2 gap-2">
+            <div class="inp-group"><label class="inp-label">VIN</label><input class="inp-field" value="WBA53829..." oninput="txt('v-vin', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Przebieg</label><input class="inp-field" value="142,500 km" oninput="txt('v-km', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Silnik / Moc</label><input class="inp-field" value="1995 ccm / 190 KM" oninput="txt('v-eng', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Skrzynia</label><input class="inp-field" value="Automatyczna 8HP" oninput="txt('v-gear', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Sprzedawca</label><input class="inp-field" value="Osoba Prywatna" oninput="txt('v-seller', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Lokalizacja</label><input class="inp-field" value="Essen, Niemcy" oninput="txt('v-loc', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Dokumenty</label><input class="inp-field" value="Komplet (DE)" oninput="txt('v-docs', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Inspektor</label><input class="inp-field" value="Jakub S." oninput="txt('v-insp', this.value)"></div>
+            <div class="inp-group"><label class="inp-label">Pakiet</label><input class="inp-field" value="Premium" oninput="txt('v-pack', this.value)"></div>
+        </div>
+
+        <div class="section-title">2. Oceny i Werdykt</div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div class="inp-group">
+                <label class="inp-label flex justify-between">Nadwozie <span id="val-body" class="text-[#FF5722]">4.5</span></label>
+                <input type="range" min="1" max="5" step="0.1" value="4.5" class="w-full accent-[#FF5722]" oninput="updateBar('body', this.value)">
+            </div>
+            <div class="inp-group">
+                <label class="inp-label flex justify-between">Wnętrze <span id="val-int" class="text-[#FF5722]">4.8</span></label>
+                <input type="range" min="1" max="5" step="0.1" value="4.8" class="w-full accent-[#FF5722]" oninput="updateBar('int', this.value)">
+            </div>
+            <div class="inp-group">
+                <label class="inp-label flex justify-between">Mechanika <span id="val-mech" class="text-[#FF5722]">4.0</span></label>
+                <input type="range" min="1" max="5" step="0.1" value="4.0" class="w-full accent-[#FF5722]" oninput="updateBar('mech', this.value)">
+            </div>
+            <div class="inp-group">
+                <label class="inp-label flex justify-between">Jazda <span id="val-drive" class="text-[#FF5722]">5.0</span></label>
+                <input type="range" min="1" max="5" step="0.1" value="5.0" class="w-full accent-[#FF5722]" oninput="updateBar('drive', this.value)">
+            </div>
+        </div>
+
+        <div class="inp-group bg-gray-800 p-3 rounded">
+            <label class="inp-label text-white mb-2">OCENA KOŃCOWA (1-10)</label>
+            <div class="flex items-center gap-2">
+                <input type="range" min="1" max="10" value="9" class="flex-1 accent-[#FF5722]" oninput="updateFinalScore(this.value)">
+                <span id="val-final" class="font-black text-xl text-[#FF5722]">9</span>
+            </div>
+            <div class="flex gap-2 mt-3">
+                <button onclick="setVerdict(true)" class="flex-1 bg-green-600 py-2 rounded text-xs font-bold hover:bg-green-500">POLECAMY</button>
+                <button onclick="setVerdict(false)" class="flex-1 bg-red-600 py-2 rounded text-xs font-bold hover:bg-red-500">ODRADZAMY</button>
+            </div>
+        </div>
+
+        <div class="inp-group">
+            <label class="inp-label">Opis Eksperta</label>
+            <textarea class="inp-field h-32" oninput="txt('expert-sum', this.value)">Samochód utrzymany w bardzo dobrym stanie...</textarea>
+        </div>
+
+        <div class="section-title">3. Szczegółowa Checklista</div>
+        <div id="checklist-editor"></div>
+
+        <div class="section-title">4. Pomiary Lakieru (µm)</div>
+        <div class="grid grid-cols-3 gap-2 text-xs mb-4">
+            <input placeholder="Maska" oninput="txt('p-hood', this.value)" class="inp-field">
+            <input placeholder="Dach" oninput="txt('p-roof', this.value)" class="inp-field">
+            <input placeholder="Klapa" oninput="txt('p-trunk', this.value)" class="inp-field">
+            <input placeholder="LP Błot" oninput="txt('p-fl', this.value)" class="inp-field">
+            <input placeholder="PP Błot" oninput="txt('p-fr', this.value)" class="inp-field">
+            <input placeholder="LP Drzwi" oninput="txt('p-fdl', this.value)" class="inp-field">
+            <input placeholder="PP Drzwi" oninput="txt('p-fdr', this.value)" class="inp-field">
+            <input placeholder="LT Drzwi" oninput="txt('p-rdl', this.value)" class="inp-field">
+            <input placeholder="PT Drzwi" oninput="txt('p-rdr', this.value)" class="inp-field">
+        </div>
+
+        <div class="section-title">5. Diagnostyka OBD</div>
+        <textarea class="inp-field h-24 font-mono text-xs" oninput="txt('obd-log', this.value)">> SILNIK (ECU): Brak błędów.&#10;> SKRZYNIA (TCU): Brak błędów.</textarea>
+
+        <div class="section-title">6. Zdjęcia (40+)</div>
+        <label class="block w-full p-6 border-2 border-dashed border-gray-600 rounded text-center cursor-pointer hover:border-[#FF5722] hover:bg-gray-800 transition">
+            <i class="fas fa-images text-3xl mb-2 text-gray-400"></i>
+            <div class="text-xs text-gray-300 font-bold">DODAJ PLIKI</div>
+            <div class="text-[9px] text-gray-500">Kliknij i zaznacz wiele zdjęć</div>
+            <input type="file" multiple accept="image/*" hidden onchange="handlePhotos(this)">
+        </label>
+        <div id="photo-count" class="text-xs text-center mt-2 text-green-400 font-bold">0 wybranych</div>
+    </div>
+
+
+    <div id="preview">
+
+        <div class="sheet">
+            <div class="header">
+                <div class="logo">DAE<span>POLAND</span></div>
+                <div class="report-meta">
+                    RAPORT NR: <span id="r-rep-id">2025/10/25-01</span><br>
+                    DATA: <span id="r-rep-date">25.11.2025</span>
+                </div>
+            </div>
+            <div class="content">
+                <div style="display:flex; justify-content:space-between; align-items:end;">
+                    <div>
+                        <div style="font-size: 9pt; color:var(--primary); font-weight:700; text-transform:uppercase;">Raport Przedzakupowy</div>
+                        <h1 id="r-v-model">BMW SERIA 3 (G20)</h1>
+                        <div style="font-size: 10pt; color:#666; margin-top:2px;" id="r-v-sub">2.0 Diesel | M-Pakiet | 2020</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div id="r-badge" class="st-badge ok" style="font-size:14pt; padding:5px 15px; background:#27ae60; color:white; font-weight:900; border-radius:4px;">POLECAMY</div>
+                    </div>
+                </div>
+
+                <div class="main-photo" onclick="upload(this)">
+                    <img id="r-main-img" class="hidden">
+                    <i id="r-photo-icon" class="fas fa-camera fa-3x" style="color:#b0bec5"></i>
+                    <input type="file" hidden onchange="preview(this)">
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-row"><span class="label">Numer VIN</span><span class="value" id="r-v-vin">WBA53829...</span></div>
+                        <div class="info-row"><span class="label">Data Rejestracji</span><span class="value" id="r-v-reg">15.03.2020</span></div>
+                        <div class="info-row"><span class="label">Przebieg</span><span class="value" id="r-v-km">142,500 km</span></div>
+                        <div class="info-row"><span class="label">Silnik / Moc</span><span class="value" id="r-v-eng">1995 ccm / 190 KM</span></div>
+                        <div class="info-row"><span class="label">Skrzynia</span><span class="value" id="r-v-gear">Automatyczna 8HP</span></div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-row"><span class="label">Sprzedawca</span><span class="value" id="r-v-seller">Osoba Prywatna</span></div>
+                        <div class="info-row"><span class="label">Lokalizacja</span><span class="value" id="r-v-loc">Essen, Niemcy</span></div>
+                        <div class="info-row"><span class="label">Dokumenty</span><span class="value" id="r-v-docs">Komplet (DE)</span></div>
+                        <div class="info-row"><span class="label">Inspektor</span><span class="value" id="r-v-insp">Jakub S.</span></div>
+                        <div class="info-row"><span class="label">Pakiet</span><span class="value" id="r-v-pack">Premium</span></div>
+                    </div>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-item">
+                        <div class="score-title">NADWOZIE</div>
+                        <div class="score-bar-bg"><div class="score-bar-fill" id="bar-body" style="width:90%"></div></div>
+                        <div class="score-val" id="txt-body">4.5/5</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-title">WNĘTRZE</div>
+                        <div class="score-bar-bg"><div class="score-bar-fill" id="bar-int" style="width:96%"></div></div>
+                        <div class="score-val" id="txt-int">4.8/5</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-title">MECHANIKA</div>
+                        <div class="score-bar-bg"><div class="score-bar-fill" id="bar-mech" style="width:80%"></div></div>
+                        <div class="score-val" id="txt-mech">4.0/5</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-title">JAZDA</div>
+                        <div class="score-bar-bg"><div class="score-bar-fill" id="bar-drive" style="width:100%"></div></div>
+                        <div class="score-val" id="txt-drive">5.0/5</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-comment-alt"></i> OPINIA INSPEKTORA</h2>
+                <div class="expert-summary" id="r-expert-sum">
+                    Samochód utrzymany w bardzo dobrym stanie, adekwatnym do deklarowanego przebiegu...
+                </div>
+
+                <div style="margin-top:15px; display:flex; justify-content:space-between; align-items:center; background:var(--secondary); color:white; padding:10px 20px; border-radius:8px;">
+                    <div style="font-size:9pt; font-weight:600; color:#cfd8dc;">OCENA KOŃCOWA</div>
+                    <div style="font-family:'Montserrat'; font-weight:900; font-size:24pt; color:var(--primary);"><span id="r-final-score">9</span>/10</div>
+                </div>
+            </div>
+            <div class="footer"><span>daePoland BV - Antwerpia, Belgia</span><span>Strona 1</span></div>
+        </div>
+
+        <div class="sheet">
+            <div class="header"><div class="logo">DAE<span>POLAND</span></div><div class="report-meta">TECHNIKA</div></div>
+            <div class="content">
+                <div class="check-grid">
+                    <div id="check-col-1"></div> <div id="check-col-2"></div> </div>
+
+                <h2><i class="fas fa-laptop-code"></i> DIAGNOSTYKA OBD</h2>
+                <div class="expert-summary" style="font-family:monospace; font-size:8pt; background:#f5f5f5; border:none;" id="r-obd-log">
+                    > SILNIK (ECU): Brak błędów.<br>
+                    > SKRZYNIA (TCU): Brak błędów.
+                </div>
+            </div>
+            <div class="footer"><span>daePoland BV</span><span>Strona 2</span></div>
+        </div>
+
+        <div class="sheet">
+            <div class="header"><div class="logo">DAE<span>POLAND</span></div><div class="report-meta">KAROSERIA</div></div>
+            <div class="content">
+                
+                <h2><i class="fas fa-spray-can"></i> POWŁOKA LAKIERNICZA (µm)</h2>
+                <div class="paint-map">
+                    <div class="car-outline"></div>
+                    <div class="pm-point" style="top:10%; left:46%;"><span class="pm-label">Maska</span><span id="r-p-hood">110</span></div>
+                    <div class="pm-point" style="top:45%; left:46%;"><span class="pm-label">Dach</span><span id="r-p-roof">115</span></div>
+                    <div class="pm-point" style="top:90%; left:46%;"><span class="pm-label">Klapa</span><span id="r-p-trunk">108</span></div>
+                    <div class="pm-point" style="top:25%; left:12%;"><span class="pm-label">LP Błot.</span><span id="r-p-fl">105</span></div>
+                    <div class="pm-point" style="top:25%; right:12%;"><span class="pm-label">PP Błot.</span><span id="r-p-fr">110</span></div>
+                    <div class="pm-point" style="top:45%; left:10%;"><span class="pm-label">LP Drzwi</span><span id="r-p-fdl">112</span></div>
+                    <div class="pm-point" style="top:45%; right:10%;"><span class="pm-label">PP Drzwi</span><span id="r-p-fdr">114</span></div>
+                    <div class="pm-point" style="top:65%; left:10%;"><span class="pm-label">LT Drzwi</span><span id="r-p-rdl">109</span></div>
+                    <div class="pm-point" style="top:65%; right:10%;"><span class="pm-label">PT Drzwi</span><span id="r-p-rdr">180</span></div>
+                </div>
+
+                <h2><i class="fas fa-car-side"></i> OPONY I HAMULCE</h2>
+                <table class="tire-table">
+                    <tr><th>Pozycja</th><th>Opona (Marka/DOT/Bieżnik)</th><th>Hamulce (Stan)</th></tr>
+                    <tr><td>Przód Lewy</td><td id="r-t-fl" contenteditable="true">Michelin Pilot Sport 4 (2321) 6.5mm</td><td contenteditable="true">OK / 70%</td></tr>
+                    <tr><td>Przód Prawy</td><td id="r-t-fr" contenteditable="true">Michelin Pilot Sport 4 (2321) 6.5mm</td><td contenteditable="true">OK / 70%</td></tr>
+                    <tr><td>Tył Lewy</td><td id="r-t-rl" contenteditable="true">Michelin Pilot Sport 4 (2021) 5.0mm</td><td contenteditable="true">RANT / 20%</td></tr>
+                    <tr><td>Tył Prawy</td><td id="r-t-rr" contenteditable="true">Michelin Pilot Sport 4 (2021) 5.0mm</td><td contenteditable="true">RANT / 20%</td></tr>
+                </table>
+            </div>
+            <div class="footer"><span>daePoland BV</span><span>Strona 3</span></div>
+        </div>
+        
+        <div id="gallery-container"></div>
+
+    </div>
+
+    <script>
+        // --- SKRYPTY LOGIKI ---
+
+        // 1. Aktualizacja tekstów
+        function txt(id, val) {
+            const el = document.getElementById('r-' + id);
+            if(el) el.innerText = val;
+        }
+
+        // 2. Suwaki ocen
+        function updateBar(type, val) {
+            document.getElementById('bar-' + type).style.width = (val / 5 * 100) + '%';
+            document.getElementById('txt-' + type).innerText = val + '/5';
+            document.getElementById('val-s-' + type).innerText = val;
+        }
+
+        // 3. Ocena końcowa
+        function updateFinalScore(val) {
+            document.getElementById('r-final-score').innerText = val;
+            document.getElementById('score-val-display').innerText = val;
+        }
+
+        // 4. Werdykt
+        function setVerdict(isOk) {
+            const badge = document.getElementById('r-badge');
+            if(isOk) {
+                badge.innerText = 'POLECAMY';
+                badge.style.backgroundColor = '#27ae60';
+            } else {
+                badge.innerText = 'ODRADZAMY';
+                badge.style.backgroundColor = '#c0392b';
+            }
+        }
+
+        // 5. Checklista
+        const checklistConfig = {
+            "SILNIK": ["Zimny rozruch", "Praca jałowa", "Wycieki góra", "Wycieki dół", "Dymienie", "Paski/Rolki", "Poziom Oleju", "Płyn chłodniczy"],
+            "NAPĘD": ["Skrzynia (Postój)", "Skrzynia (Jazda)", "Szarpnięcia", "Koło dwumasowe", "Półosie", "Przeguby"],
+            "ZAWIESZENIE": ["Jazda próbna", "Amortyzatory", "Luzy zawieszenia", "Układ kierowniczy", "Hamulce (działanie)"],
+            "WNĘTRZE": ["Kierownica", "Fotel Kierowcy", "Przełączniki", "Klimatyzacja", "Nawiewy", "Szyby/Lusterka", "Wilgoć/Zapach"],
+            "DOKUMENTY": ["Dowód Rej. I", "Dowód Rej. II", "Certyfikat COC", "Książka Serwisowa", "Kluczyki (Ilość)"]
+        };
+
+        function initChecklist() {
+            const editor = document.getElementById('checklist-editor');
+            const col1 = document.getElementById('check-col-1');
+            const col2 = document.getElementById('check-col-2');
+            let count = 0;
+
+            for (const [cat, items] of Object.entries(checklistConfig)) {
+                // Editor
+                let editHtml = `<div class="mb-3 pb-2 border-b border-gray-700"><div class="text-[10px] font-bold text-[#FF5722] uppercase mb-2">${cat}</div>`;
+                // Preview
+                let viewHtml = `<div><h2 style="font-size:10pt; font-weight:700; border-bottom:1px solid #ccc; margin-bottom:5px; margin-top:10px; color:#263238;">${cat}</h2>`;
+
+                items.forEach((item, idx) => {
+                    const uid = cat.replace(/\s/g, '') + idx;
+                    
+                    // Editor Buttons
+                    editHtml += `
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-[10px] w-24 truncate" title="${item}">${item}</span>
+                        <div class="status-switch">
+                            <div class="st-opt active ok" onclick="setSt('${uid}', 'OK', 'ok', this)">OK</div>
+                            <div class="st-opt" onclick="setSt('${uid}', 'UWAGA', 'warn', this)">!</div>
+                            <div class="st-opt" onclick="setSt('${uid}', 'ŹLE', 'bad', this)">X</div>
+                            <div class="st-opt" onclick="setSt('${uid}', 'N/A', 'na', this)">-</div>
+                        </div>
+                    </div>`;
+
+                    // Preview Row
+                    viewHtml += `
+                    <div class="check-row">
+                        <span>${item}</span>
+                        <span id="view-${uid}" class="st-badge ok" style="background:#27ae60">OK</span>
+                    </div>`;
+                });
+                
+                editHtml += `</div>`;
+                viewHtml += `</div>`;
+                
+                editor.innerHTML += editHtml;
+                
+                if(count % 2 === 0) col1.innerHTML += viewHtml; else col2.innerHTML += viewHtml;
+                count++;
+            }
+        }
+
+        window.setSt = function(uid, text, type, btn) {
+            // Update Preview
+            const viewEl = document.getElementById(`view-${uid}`);
+            viewEl.innerText = text;
+            if(type === 'ok') viewEl.style.background = '#27ae60';
+            if(type === 'warn') viewEl.style.background = '#f39c12';
+            if(type === 'bad') viewEl.style.background = '#c0392b';
+            if(type === 'na') viewEl.style.background = '#b0bec5';
+
+            // Update Editor
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.st-opt').forEach(b => {
+                b.classList.remove('active', 'ok', 'warn', 'bad', 'na');
+            });
+            btn.classList.add('active', type);
+        }
+
+        // 6. Galeria Masowa
+        function handlePhotos(input) {
+            const files = Array.from(input.files);
+            document.getElementById('photo-count').innerText = `${files.length} wgranych`;
+            
+            // Main photo
+            if (files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('r-main-img').src = e.target.result;
+                    document.getElementById('r-main-img').classList.remove('hidden');
+                }
+                reader.readAsDataURL(files[0]);
+            }
+
+            // Generate Pages
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = ''; 
+            let pageHtml = '';
+            let pageNum = 4;
+            
+            files.forEach((file, index) => {
+                if (index % 6 === 0) {
+                    pageHtml = `<div class="sheet"><div class="header"><div class="logo">DAE<span>POLAND</span></div><div class="report-meta">ZDJĘCIA</div></div><div class="content"><div class="gallery-page">`;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.getElementById(`g-img-${index}`);
+                    if(img) img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+
+                pageHtml += `<div class="gallery-img-box"><img id="g-img-${index}"></div>`;
+
+                if ((index + 1) % 6 === 0 || index === files.length - 1) {
+                    pageHtml += `</div></div><div class="footer"><span>daePoland BV</span><span>Strona ${pageNum}</span></div></div>`;
+                    container.innerHTML += pageHtml;
+                    pageNum++;
+                }
+            });
+        }
+
+        // Init
+        initChecklist();
+        
+        // Zdjęcie główne (pojedyncze)
+        function loadMainPhoto(input) { handlePhotos(input); } 
+        // (Dla uproszczenia podpiąłem pod to samo, ale normalnie to osobny input)
+
+    </script>
+</body>
+</html>
