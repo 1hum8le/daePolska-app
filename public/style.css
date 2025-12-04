@@ -17,6 +17,7 @@ body {
     overscroll-behavior-y: none;
     color: white;
     overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
+    width: 100%;
 }
 
 .font-montserrat { font-family: 'Montserrat', sans-serif; }

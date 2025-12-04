@@ -284,6 +284,35 @@ if(contactForm) {
     });
 }
 
+// --- LOGIKA ODKRYWANIA PŁATNOŚCI ---
+const inputsToWatch = ['name', 'email', 'phone', 'url', 'location'];
+const paymentWrapper = document.getElementById('payment-section-wrapper');
+const fillMsg = document.getElementById('fill-data-msg');
+
+function checkInputs() {
+    // Sprawdź czy wszystkie wymagane pola są pełne
+    const allFilled = inputsToWatch.every(id => {
+        const el = document.getElementById(id);
+        return el && el.value.trim() !== '';
+    });
+
+    if (allFilled) {
+        if (paymentWrapper.classList.contains('hidden')) {
+            fillMsg.classList.add('hidden');
+            paymentWrapper.classList.remove('hidden');
+            // Małe opóźnienie dla animacji fade-in
+            setTimeout(() => paymentWrapper.classList.remove('opacity-0'), 50);
+        }
+    }
+}
+
+// Dodaj nasłuchiwanie
+inputsToWatch.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', checkInputs);
+});
+
+
 // Start
 updatePricesDisplay();
 updateSelectedPackageText();
