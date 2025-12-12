@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://daepoland.com/">
     <meta property="og:title" content="daePoland | Nie kupuj kota w worku! Profesjonalne Inspekcje Aut">
     <meta property="og:description" content="Sprawdzamy auta w Belgii, Holandii i Niemczech. Oszczędź czas i pieniądze. Pełny raport techniczny, zdjęcia i wideo w 24h. Zamów online.">
-    <meta property="og:image" content="/og-image-fb.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"> 
+    <meta property="og:image" content="/src/og-image-fb.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"> 
     <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
 
     <meta property="twitter">
@@ -27,19 +27,20 @@
     <meta property="twitter:url" content="https://daepoland.com/">
     <meta property="twitter:title" content="daePoland | Profesjonalne Inspekcje Pojazdów">
     <meta property="twitter:description" content="Kupujesz auto z zachodu? Sprawdź je z nami przed zakupem. Raporty z Belgii, Holandii i Niemiec.">
-    <meta property="twitter:image" content="/og-image-fb.png"> 
+    <meta property="twitter:image" content="/public/src/og-image-fb.png"> 
     <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
 
-    <link rel="icon" type="image/png" href="/favicon.png"> <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->   
+    <link rel="icon" type="image/png" href="/public/src/favicon.png"> <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->   
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.stripe.com/v3/"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="/style.css"> <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="/public/style.css"> <!-- // CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
 </head>
 
     <style>
@@ -58,8 +59,8 @@
 
     <div class="video-bg-container">
         <div class="video-overlay"></div>
-        <video autoplay muted loop playsinline class="back-video" poster="src/poster.jpg" role="presentation">
-            <source src="src/video_bg.webm" type="video/webm"> 
+        <video autoplay muted loop playsinline class="back-video" poster="/src/poster.jpg" role="presentation">
+            <source src="/public/src/video_bg.webm" type="video/webm"> 
             <!-- CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
         </video>
     </div>
@@ -79,45 +80,37 @@
                     <a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact">Kontakt</a>
                 </div>
 
-                <div class="relative" id="lang-container" class="sr-only" aria-label:="Wybór języka">
-                    <button id="lang-btn" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md">
-                        <span id="current-flag" class="text-lg">🇵🇱</span>
-                        <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">Polski</span>
-                        <i class="fas fa-chevron-down text-xs text-accent-orange ml-1 transition-transform duration-300" id="lang-arrow"></i>
-                    </button>
+                <div class="relative group">
+    <button id="lang-btn" class="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md focus:outline-none">
+        <span id="current-flag" class="fi fi-pl text-lg rounded-sm"></span>
+        <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">POLSKI</span>
+        <i id="lang-arrow" class="fas fa-chevron-down text-xs text-accent-orange ml-1 transition-transform duration-300"></i>
+    </button>
+    
+    <div id="lang-dropdown" class="absolute right-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden transform origin-top-right transition-all duration-200 opacity-0 scale-95">
+        
+        <a href="#" onclick="changeLanguage('pl', 'fi-pl', 'POLSKI'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
+            <span class="fi fi-pl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">POLSKI</span>
+        </a>
+        
+        <a href="#" onclick="changeLanguage('en', 'fi-gb', 'ENGLISH'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
+            <span class="fi fi-gb mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">ENGLISH</span>
+        </a>
+        
+        <a href="#" onclick="changeLanguage('nl', 'fi-nl', 'NEDERLANDS'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
+            <span class="fi fi-nl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">NEDERLANDS</span>
+        </a>
+        
+        <a href="#" onclick="changeLanguage('fr', 'fi-fr', 'FRANÇAIS'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
+            <span class="fi fi-fr mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">FRANÇAIS</span>
+        </a>
+        
+        <a href="#" onclick="changeLanguage('es', 'fi-es', 'ESPAÑOL'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
+            <span class="fi fi-es mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">ESPAÑOL</span>
+        </a>
 
-                    <div id="lang-dropdown" class="absolute right-0 mt-2 w-48 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden transform origin-top-right transition-all duration-200 scale-95 opacity-0">
-                        <ul class="text-sm font-inter text-gray-300">
-                            <li>
-                                <button onclick="changeLanguage('pl', '🇵🇱', 'Polski')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
-                                    <span class="text-lg">🇵🇱</span> Polski
-                                </button>
-                            </li>
-                            <li>
-                                <button onclick="changeLanguage('en', '🇬🇧', 'English')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
-                                    <span class="text-lg">🇬🇧</span> English
-                                </button>
-                            </li>
-                            <li>
-                                <button onclick="changeLanguage('nl', '🇳🇱', 'Nederlands')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
-                                    <span class="text-lg">🇳🇱</span> Nederlands
-                                </button>
-                            </li>
-                            <li>
-                                <button onclick="changeLanguage('fr', '🇫🇷', 'Français')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition border-b border-white/5">
-                                    <span class="text-lg">🇫🇷</span> Français
-                                </button>
-                            </li>
-                            <li>
-                                <button onclick="changeLanguage('es', '🇪🇸', 'Español')" class="w-full text-left px-4 py-3 hover:bg-white/10 hover:text-white flex items-center gap-3 transition">
-                                    <span class="text-lg">🇪🇸</span> Español
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <input type="hidden" id="lang-selector" value="pl">
-                </div>
+    </div>
+</div>
             </div>
         </div>
     </nav>
@@ -531,8 +524,6 @@
                             <div>
                                 <div class="flex justify-between items-start mb-8">
                                     <h2 class="text-2xl font-black font-montserrat" data-i18n="form_title">SFINALIZUJ ZAMÓWIENIE</h2>
-                                    <a href="report_template_pl.html" target="_blank" class="text-accent-orange hover:text-white transition text-[10px] font-bold uppercase tracking-widest border border-accent-orange px-3 py-1 rounded-full">
-                                        <i class="fas fa-file-pdf mr-1"></i> <span data-i18n="btn_sample_report">PRZYKŁAD DIAGNOSTYKI</span>
                                     </a>
                                 </div>
 
