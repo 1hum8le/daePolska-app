@@ -6,25 +6,9 @@ import { translations } from './translations.js';
 const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3MzwoGaoTbfl8VWJCxhwciaFrMKikw8I6eWy12x4000FmqMoFgh'; 
 const stripe = Stripe(STRIPE_KEY); 
 
-// Konfiguracja Języków
 const availableLangs = ['pl', 'en', 'nl', 'fr', 'es'];
-
-const langFullNames = { 
-    'pl': 'POLSKI', 
-    'en': 'ENGLISH', 
-    'nl': 'NEDERLANDS', 
-    'fr': 'FRANÇAIS', 
-    'es': 'ESPAÑOL' 
-};
-
-// WAŻNE: Mapowanie języka na klasę CSS flagi (zamiast emotikon)
-const langFlagClasses = { 
-    'pl': 'fi-pl', 
-    'en': 'fi-gb', // GB dla angielskiego
-    'nl': 'fi-nl', 
-    'fr': 'fi-fr', 
-    'es': 'fi-es' 
-};
+const langFullNames = { 'pl': 'POLSKI', 'en': 'ENGLISH', 'nl': 'NEDERLANDS', 'fr': 'FRANÇAIS', 'es': 'ESPAÑOL' };
+const langFlagClasses = { 'pl': 'fi-pl', 'en': 'fi-gb', 'nl': 'fi-nl', 'fr': 'fi-fr', 'es': 'fi-es' };
 
 const prices = {
     Basic: { eur: 115, pln: 497 },
@@ -40,61 +24,56 @@ let clientSecret = null;
 // 2. ROUTING I INICJALIZACJA
 // ==========================================
 function getLangFromUrl() {
-    const path = window.location.pathname.replace('/', '');
-    return availableLangs.includes(path) ? path : null;
+    // Pobiera pierwszy segment ścieżki (np. "pl" z "/pl/...")
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    const lang = segments[0];
+    return availableLangs.includes(lang) ? lang : null;
 }
 
 let savedLang = localStorage.getItem('selectedLang');
 let urlLang = getLangFromUrl();
 let browserLang = navigator.language.slice(0, 2);
 
-// Priorytet: URL > Cache > Przeglądarka > Domyślny PL
+// Priorytet: 1. URL, 2. Zapisany wybór, 3. Przeglądarka, 4. Domyślny PL
 let currentLang = urlLang || savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
 
-// Uzupełnij URL jeśli pusty (SEO Friendly)
+// Jeśli URL jest pusty (strona główna), dopisz język dla porządku (bez przeładowania)
 if (!urlLang) {
     window.history.replaceState({}, '', `/${currentLang}`);
 }
 
 // ==========================================
-// 3. AKTUALIZACJA INTERFEJSU (UI)
+// 3. UI I AKTUALIZACJE
 // ==========================================
 
 function updateHeaderUI() {
     const nameEl = document.getElementById('current-lang-name');
     const flagEl = document.getElementById('current-flag');
-    
-    // Zabezpieczenie na wypadek nieznanego języka
     const safeLang = langFullNames[currentLang] ? currentLang : 'pl';
 
-    // Aktualizacja nazwy (np. POLSKI)
     if (nameEl) nameEl.innerText = langFullNames[safeLang];
-
-    // Aktualizacja flagi (ZMIANA KLASY CSS, nie tekstu)
     if (flagEl) {
-        // Resetujemy klasy i dodajemy bazowe + odpowiednią flagę
         flagEl.className = `fi ${langFlagClasses[safeLang]} text-lg rounded-sm shadow-sm`;
     }
 }
 
 function updateContent() {
-    // Tłumaczenie tekstów
+    // Tłumaczenia tekstów
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang]?.[key]) el.innerHTML = translations[currentLang][key];
     });
-    // Tłumaczenie placeholderów
+    // Tłumaczenia placeholderów
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLang]?.[key]) el.placeholder = translations[currentLang][key];
     });
     
-    // Ustawienie waluty w ukrytym polu
-    const currencyCode = currentLang === 'pl' ? 'pln' : 'eur';
+    // Waluta
     const inputCurr = document.getElementById('current-currency');
-    if(inputCurr) inputCurr.value = currencyCode;
+    if(inputCurr) inputCurr.value = currentLang === 'pl' ? 'pln' : 'eur';
 
-    // Przełączanie sekcji (Matematyka vs Psychologia)
+    // Sekcje PL vs Global
     const whyUs = document.getElementById('why-us');
     const beforePurchase = document.getElementById('before-purchase');
     if (whyUs && beforePurchase) {
@@ -112,7 +91,6 @@ function updatePricesDisplay() {
     const curr = currentLang === 'pl' ? 'pln' : 'eur';
     const sym = currentLang === 'pl' ? 'PLN' : '€';
     
-    // Karty cennika
     document.querySelectorAll('.price-display').forEach(el => {
         const pkg = el.getAttribute('data-pkg'); 
         if (pkg) {
@@ -123,7 +101,6 @@ function updatePricesDisplay() {
             }
         }
     });
-    // Cena w formularzu
     updateSelectedPackageText();
 }
 
@@ -143,26 +120,25 @@ function updateSelectedPackageText() {
 // 4. FUNKCJE GLOBALNE (Dla HTML onclick)
 // ==========================================
 
-// Zmiana języka z przeładowaniem (Dla SEO i odświeżenia metatagów)
 window.changeLanguage = function(langCode) {
     localStorage.setItem('selectedLang', langCode);
+    // Hard reload na nowy URL
     window.location.href = `/${langCode}`;
 }
 
 window.selectPackage = function(pkgName) {
     currentPackage = pkgName;
-    
-    // Zaktualizuj input
     const inputPkg = document.getElementById('selected-pkg');
     if(inputPkg) inputPkg.value = pkgName;
     
     updateSelectedPackageText();
     
-    // Scroll do formularza
+    // Ręczne scrollowanie (naprawa dla base href)
     const orderSection = document.getElementById('order');
-    if(orderSection) orderSection.scrollIntoView({behavior: 'smooth'});
+    if(orderSection) {
+        orderSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
     
-    // Odśwież płatność (nowa kwota)
     initializePayment();
 }
 
@@ -176,17 +152,40 @@ window.toggleMobileMenu = function() {
 }
 
 // ==========================================
-// 5. OBSŁUGA ZDARZEŃ (DOM Ready)
+// 5. INICJALIZACJA I FIXY NAWIGACJI
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Inicjalizacja widoku
+    // Init Widoku
     updateHeaderUI();
     updateContent();
     updatePricesDisplay();
     initializePayment();
 
-    // --- MENU JĘZYKOWE ---
+    // --- FIX NAWIGACJI (Anchor Links) ---
+    // Przechwytujemy wszystkie linki zaczynające się od #
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault(); // Zatrzymaj domyślne przeładowanie przez base href
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Zamknij menu mobilne jeśli otwarte
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                    mobileMenu.classList.add('translate-x-full');
+                }
+            }
+        });
+    });
+
+    // --- MENU JĘZYKOWE (Dropdown) ---
     const langBtn = document.getElementById('lang-btn');
     const dropdown = document.getElementById('lang-dropdown');
     const arrow = document.getElementById('lang-arrow');
@@ -196,9 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             if (dropdown.classList.contains('hidden')) {
                 dropdown.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    dropdown.classList.remove('opacity-0', 'scale-95');
-                });
+                requestAnimationFrame(() => dropdown.classList.remove('opacity-0', 'scale-95'));
                 if(arrow) arrow.style.transform = 'rotate(180deg)';
             } else {
                 dropdown.classList.add('opacity-0', 'scale-95');
@@ -206,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(arrow) arrow.style.transform = 'rotate(0deg)';
             }
         });
-
         document.addEventListener('click', (e) => {
             if (!dropdown.classList.contains('hidden') && !langBtn.contains(e.target) && !dropdown.contains(e.target)) {
                 dropdown.classList.add('opacity-0', 'scale-95');
@@ -216,10 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LOGIKA FORMULARZA (Ukrywanie Płatności) ---
+    // --- LOGIKA FORMULARZA ---
     const orderForm = document.getElementById('inspection-form');
     const submitBtn = document.getElementById('submit-btn');
-    
     const inputsToWatch = ['name', 'email', 'url', 'location'];
     const paymentWrapper = document.getElementById('payment-section-wrapper');
     const fillMsg = document.getElementById('fill-data-msg');
@@ -235,9 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             paymentWrapper.classList.remove('hidden');
             setTimeout(() => {
                 paymentWrapper.classList.remove('opacity-0');
-                if(window.innerWidth < 1024) {
-                    paymentWrapper.scrollIntoView({behavior: 'smooth', block: 'center'});
-                }
+                if(window.innerWidth < 1024) paymentWrapper.scrollIntoView({behavior: 'smooth', block: 'center'});
             }, 50);
         }
     }
@@ -247,12 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if(el) el.addEventListener('input', checkInputs);
     });
 
-    // --- SUBMIT ZAMÓWIENIA ---
     if(orderForm) {
         orderForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             
-            // Walidacja
             let isValid = true;
             document.querySelectorAll('.error-msg').forEach(e => e.classList.add('hidden'));
             
@@ -273,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isValid) return;
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Przetwarzanie...';
+            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> ...';
 
             const orderData = {
                 name: document.getElementById('name').value,
@@ -306,17 +297,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) {
                     document.getElementById('card-errors').innerText = error.message;
                     submitBtn.disabled = false;
-                    submitBtn.innerText = "ZAPŁAĆ";
+                    submitBtn.innerText = translations[currentLang].btn_pay;
                 }
             } catch (err) {
                 console.error(err);
                 submitBtn.disabled = false;
-                submitBtn.innerText = "ZAPŁAĆ";
+                submitBtn.innerText = translations[currentLang].btn_pay;
             }
         });
     }
 
-    // --- KONTAKT FORMULARZ ---
+    // Kontakt
     const contactForm = document.getElementById('contact-form');
     if(contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -325,7 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const orgText = btn.innerText;
             btn.disabled = true;
             btn.innerText = "...";
-            
             try {
                 const res = await fetch('/api/contact', {
                     method: 'POST',
@@ -344,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     contactForm.reset();
                 }
             } catch(err) { 
-                console.error(err);
                 const msgEl = document.getElementById('contact-status');
                 msgEl.innerText = "Error";
                 msgEl.classList.remove('hidden'); 
@@ -373,7 +362,6 @@ async function initializePayment() {
         });
         
         if (!response.ok) return;
-
         const data = await response.json();
         clientSecret = data.clientSecret;
 
@@ -391,7 +379,6 @@ async function initializePayment() {
         console.error("Stripe Error:", e);
     }
 }
-
 // --- START APLIKACJI ---
 updatePricesDisplay();
 updateSelectedPackageText();
