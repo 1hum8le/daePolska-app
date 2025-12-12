@@ -411,6 +411,56 @@ async function initializePayment() {
         console.error("Stripe Error:", e);
     }
 }
+
+// ==========================================
+// 7. FIX: OBSŁUGA MENU JĘZYKOWEGO (Na sztywno)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Ładowanie obsługi menu..."); // Diagnostyka w konsoli
+
+    const langBtn = document.getElementById('lang-btn');
+    const dropdown = document.getElementById('lang-dropdown');
+    const arrow = document.getElementById('lang-arrow');
+
+    // Sprawdź czy elementy istnieją, zanim spróbujesz ich użyć
+    if (langBtn && dropdown) {
+        
+        // Kliknięcie w przycisk (Flaga)
+        langBtn.onclick = function(e) {
+            e.stopPropagation(); // Nie zamykaj od razu
+            
+            // Sprawdź czy jest ukryte
+            const isHidden = dropdown.classList.contains('hidden');
+
+            if (isHidden) {
+                // OTWIERANIE
+                dropdown.classList.remove('hidden');
+                // Małe opóźnienie, żeby animacja opacity zadziałała
+                setTimeout(() => {
+                    dropdown.classList.remove('opacity-0', 'scale-95');
+                }, 10);
+                if(arrow) arrow.style.transform = 'rotate(180deg)';
+            } else {
+                // ZAMYKANIE
+                dropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => dropdown.classList.add('hidden'), 200);
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
+            }
+        };
+
+        // Kliknięcie gdziekolwiek indziej -> Zamknij menu
+        document.onclick = function(e) {
+            // Jeśli kliknięto poza przyciskiem i menu jest otwarte
+            if (!dropdown.classList.contains('hidden') && !langBtn.contains(e.target)) {
+                dropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => dropdown.classList.add('hidden'), 200);
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
+            }
+        };
+    } else {
+        console.error("BŁĄD: Nie znaleziono elementu #lang-btn lub #lang-dropdown w HTML!");
+    }
+});
 // --- START APLIKACJI ---
 updatePricesDisplay();
 updateSelectedPackageText();
