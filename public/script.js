@@ -146,35 +146,14 @@ function updateSelectedPackageText() {
 
 // --- 4. FUNKCJE GLOBALNE ---
 
-// Zmiana języka (Zmienia URL, Tłumaczenia i Walutę)
+// Zmiana języka (Z PRZEŁADOWANIEM STRONY)
 window.changeLanguage = function(langCode, flag, name) {
-    const flagEl = document.getElementById('current-flag');
-    const nameEl = document.getElementById('current-lang-name');
-    if(flagEl) flagEl.innerText = flag;
-    if(nameEl) nameEl.innerText = name;
-
-    currentLang = langCode;
+    // 1. Zapisz wybór w pamięci przeglądarki
     localStorage.setItem('selectedLang', langCode);
-    
-    // ZMIANA URL BEZ PRZEŁADOWANIA
-    window.history.pushState({}, '', `/${langCode}`);
-    
-    // Zamknij menu
-    const menu = document.getElementById('lang-dropdown');
-    const arrow = document.getElementById('lang-arrow');
-    if(menu) {
-        menu.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => menu.classList.add('hidden'), 200);
-    }
-    if(arrow) arrow.style.transform = 'rotate(0deg)';
-    
-    // Aktualizuj wszystko
-    updateContent();
-    updatePricesDisplay();
-    updateSelectedPackageText();
-    
-    // PRZEŁADUJ PŁATNOŚĆ (Bo zmieniła się waluta PLN <-> EUR)
-    initializePayment();
+
+    // 2. Wymuś przejście pod nowy adres (To spowoduje przeładowanie)
+    // Np. wejście na https://daepoland.com/en
+    window.location.href = `/${langCode}`;
 }
 
 // Wybór Pakietu

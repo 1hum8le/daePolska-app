@@ -5,136 +5,36 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { Pool } = require('pg');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // Wymagane do logowania!
+const path = require('path');       // Wymagane do ścieżek plików!
 
-// Import szablonów
+// Import szablonów e-mail
 const { getAdminEmailText, getClientEmailText } = require('./emailTemplates');
 
 const app = express();
-// Ustawienie proxy dla Rendera (ważne dla rate limitera)
+// Ustawienie proxy dla Rendera (wymagane dla rate limitera)
 app.set('trust proxy', 1); 
 const PORT = process.env.PORT || 3000;
 
-// --- FUNKCJA WYSYŁAJĄCA (BREVO API - HTTP FETCH) ---
-async function sendEmail(to, subject, textContent, replyToEmail = null) {
-    const url = 'https://api.brevo.com/v3/smtp/email';
-    
-    // Nadawca: Twój Gmail (Musi być zweryfikowany w Brevo -> Senders)
-    const senderEmail = process.env.EMAIL_USER; 
+// --- 1. MIDDLEWARE I BEZPIECZEŃSTWO ---
+app.use(helmet({ 
+    contentSecurityPolicy: false, 
+    crossOriginEmbedderPolicy: false 
+}));
+app.use(cors());
+app.use(express.json());
 
-    const body = {
-        sender: { name: 'daePoland', email: senderEmail },
-        to: [{ email: to }],
-        subject: subject,
-        textContent: textContent
-    };
+// WAŻNE: Pliki statyczne (HTML, CSS, JS) muszą być obsłużone PIERWSZE
+// Dzięki temu wejście na /style.css nie jest traktowane jako język /style
+app.use(express.static(path.join(__dirname, 'public')));
 
-    if (replyToEmail) {
-        body.replyTo = { email: replyToEmail };
-    }
-
-    try {
-        console.log(`Próba wysyłki API do: ${to}`);
-        
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'api-key': process.env.BREVO_API_KEY, // Klucz xkeysib...
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("❌ Błąd Brevo API:", JSON.stringify(errorData, null, 2));
-        } else {
-            console.log(`✅ Email wysłany poprawnie (HTTP 200) do: ${to}`);
-        }
-    } catch (error) {
-        console.error("❌ Błąd połączenia sieciowego (Fetch):", error);
-    }
-}
-
-// ==========================================
-// SEKCJA ADMINA (BEZPIECZEŃSTWO JWT)
-// ==========================================
-
-const jwt = require('jsonwebtoken');
-// Sekretny klucz do szyfrowania tokenów (dodaj go w Render Environment!)
-const JWT_SECRET = process.env.JWT_SECRET;
-
-// --- MIDDLEWARE (OCHRONIARZ) ---
-// Ta funkcja sprawdza, czy wchodzący ma ważny bilet (Token)
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer KOD_TOKENU"
-
-    if (!token) return res.sendStatus(401); // Brak biletu -> Wypad
-
-    jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403); // Bilet sfałszowany/przeterminowany -> Wypad
-        req.user = user;
-        next(); // Bilet ważny -> Zapraszamy
-    });
-}
-
-// --- ENDPOINTY ADMINA ---
-
-// 1. Logowanie (Wydawanie biletu)
-app.post('/api/admin/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        // Szukamy użytkownika
-        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-        if (user.rows.length === 0) return res.status(401).json({ error: "Nieznany użytkownik" });
-        
-        // Sprawdzamy hasło
-        const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
-        if (!validPassword) return res.status(401).json({ error: "Błędne hasło" });
-        
-        // Generujemy token ważny 2 godziny
-        const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '2h' });
-        res.json({ token }); 
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Server Error");
-    }
-});
-
-// 2. Pobierz Zamówienia (Tylko dla posiadacza biletu)
-app.get('/api/admin/orders', authenticateToken, async (req, res) => {
-    try {
-        const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 100");
-        res.json(result.rows);
-    } catch (err) {
-        res.status(500).send("Błąd bazy");
-    }
-});
-
-// 3. Pobierz Wiadomości (Tylko dla posiadacza biletu)
-app.get('/api/admin/messages', authenticateToken, async (req, res) => {
-    try {
-        const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 100");
-        res.json(result.rows);
-    } catch (err) {
-        res.status(500).send("Błąd bazy");
-    }
-});
-
-
-// --- ZABEZPIECZENIA ---
-app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+// Limity zapytań (Anty-DDOS / Spam)
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use(limiter);
 const contactLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 });
 
-// --- MIDDLEWARE ---
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
-
-// --- BAZA DANYCH ---
+// --- 2. BAZA DANYCH ---
 const isProduction = process.env.NODE_ENV === 'production';
 const connectionString = process.env.DATABASE_URL 
     ? process.env.DATABASE_URL 
@@ -145,17 +45,67 @@ const pool = new Pool({
     ssl: isProduction ? { rejectUnauthorized: false } : false
 });
 
-// --- ENDPOINTY ---
+// --- 3. KONFIGURACJA JWT (ADMIN) ---
+const JWT_SECRET = process.env.JWT_SECRET || 'tymczasowy_sekret_zmien_w_env';
 
-// 1. Płatność Stripe (Payment Element - BLIK, Bancontact, Apple Pay)
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+
+// --- 4. FUNKCJA EMAIL (BREVO) ---
+async function sendEmail(to, subject, textContent, replyToEmail = null) {
+    const url = 'https://api.brevo.com/v3/smtp/email';
+    const senderEmail = process.env.EMAIL_USER; 
+
+    const body = {
+        sender: { name: 'daePoland', email: senderEmail },
+        to: [{ email: to }],
+        subject: subject,
+        textContent: textContent
+    };
+
+    if (replyToEmail) body.replyTo = { email: replyToEmail };
+
+    try {
+        console.log(`📨 Wysyłanie emaila do: ${to}`);
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("❌ Błąd Brevo API:", JSON.stringify(errorData));
+        } else {
+            console.log(`✅ Email wysłany (200 OK)`);
+        }
+    } catch (error) {
+        console.error("❌ Błąd sieci (Fetch):", error);
+    }
+}
+
+// --- 5. ENDPOINTY API ---
+
+// Płatność Stripe
 app.post('/create-payment-intent', async (req, res) => {
     const { amount, currency } = req.body;
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency,
-            // To magiczna linijka: włącza BLIK, Bancontact, Klarnę itd.
-            // (pod warunkiem, że włączyłeś je w Stripe Dashboard)
             automatic_payment_methods: { enabled: true },
         });
         res.send({ clientSecret: paymentIntent.client_secret });
@@ -165,26 +115,21 @@ app.post('/create-payment-intent', async (req, res) => {
     }
 });
 
-// API ZAMÓWIENIA (ZAPIS + EMAIL)
+// Zamówienie (Baza + Emaile)
 app.post('/api/orders', async (req, res) => {
     const { name, email, phone, url, location, packageType, price, paymentId } = req.body;
-    
     try {
-        // 1. Zapisz w bazie
         const newOrder = await pool.query(
             "INSERT INTO orders (client_name, email, phone, listing_url, vehicle_location, package_type, price, status, stripe_payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7, 'paid', $8) RETURNING *",
             [name, email, phone, url, location, packageType, price, paymentId]
         );
 
-        // 2. Generuj treści z szablonów
         const adminText = getAdminEmailText({ name, email, phone, url, location, packageType, price, paymentId });
         const clientText = getClientEmailText({ name, orderId: newOrder.rows[0].id, packageType, url, location });
 
-        // 3. Wyślij przez API (w tle)
-        // Mail do Ciebie (na Gmaila)
+        // Email do Admina
         sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType} - ${name}`, adminText);
-        
-        // Mail do Klienta (Potwierdzenie)
+        // Email do Klienta
         sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id} - daePoland`, clientText);
 
         res.json(newOrder.rows[0]);
@@ -194,22 +139,20 @@ app.post('/api/orders', async (req, res) => {
     }
 });
 
-// API KONTAKT (ZAPIS + EMAIL)
+// Kontakt (Formularz)
 app.post('/api/contact', contactLimiter, async (req, res) => {
     const { name, email, message } = req.body;
     try {
-        // Baza
         await pool.query(
             "INSERT INTO messages (name, email, message) VALUES ($1, $2, $3)",
             [name, email, message]
         );
-
-        // Wysyłka przez API do Ciebie
+        
         await sendEmail(
-            process.env.EMAIL_USER, // Do Ciebie
+            process.env.EMAIL_USER, 
             `📩 WIADOMOŚĆ ZE STRONY: ${name}`, 
             `Od: ${name} (${email})\n\n${message}`,
-            email // Reply-To ustawione na klienta
+            email
         );
 
         res.json({ status: 'success' });
@@ -219,36 +162,67 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 });
 
+// Admin Logowanie (JWT)
 app.post('/api/admin/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-        if (user.rows.length === 0) return res.status(401).json("Invalid Credential");
+        if (user.rows.length === 0) return res.status(401).json({ error: "Błędny login lub hasło" });
+        
         const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
-        if (!validPassword) return res.status(401).json("Invalid Credential");
-        res.json({ status: 'logged_in' }); 
+        if (!validPassword) return res.status(401).json({ error: "Błędny login lub hasło" });
+        
+        const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '2h' });
+        res.json({ token }); 
     } catch (err) {
+        console.error(err);
         res.status(500).send("Server Error");
     }
 });
 
-app.use(express.static('public'));
+// Admin Dane (Chronione)
+app.get('/api/admin/orders', authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 100");
+        res.json(result.rows);
+    } catch (err) { res.status(500).send("DB Error"); }
+});
+
+app.get('/api/admin/messages', authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 100");
+        res.json(result.rows);
+    } catch (err) { res.status(500).send("DB Error"); }
+});
+
+// --- 6. ROUTING STRONY (JĘZYKI I NARZĘDZIA) ---
+
+// Bezpośrednie linki do narzędzi (bez .html)
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/generator', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator.html')));
+// Opcjonalnie: wersje językowe generatora
+app.get('/generator-en', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_en.html')));
+app.get('/generator-nl', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_nl.html')));
+
+// Routing Językowy (/pl, /en, /nl)
 const supportedLanguages = ['pl', 'en', 'nl', 'fr', 'es'];
 
-app.get('/:lang', (req, res) => {
+app.get('/:lang', (req, res, next) => {
     const lang = req.params.lang;
+    // Sprawdzamy czy to faktycznie język, a nie np. błędny plik
     if (supportedLanguages.includes(lang)) {
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
     } else {
-        next();
+        next(); // Jeśli to nie język, przekaż dalej (np. 404)
     }
 });
 
+// Strona główna (Root)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // --- START SERWERA ---
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
