@@ -7,6 +7,19 @@ const stripe = Stripe(STRIPE_KEY);
 // Dostępne języki
 const availableLangs = ['pl', 'en', 'nl', 'fr', 'es'];
 
+// Mapowanie skrótów na pełne nazwy (do wyświetlania w nagłówku)
+const langFullNames = {
+    'pl': 'POLSKI',
+    'en': 'ENGLISH',
+    'nl': 'NEDERLANDS',
+    'fr': 'FRANÇAIS',
+    'es': 'ESPAÑOL'
+};
+
+const langFlags = {
+    'pl': '🇵🇱', 'en': '🇬🇧', 'nl': '🇳🇱', 'fr': '🇫🇷', 'es': '🇪🇸'
+};
+
 // Funkcja: Pobierz język z URL (np. daepoland.com/en -> 'en')
 function getLangFromUrl() {
     const path = window.location.pathname.replace('/', '');
@@ -14,6 +27,21 @@ function getLangFromUrl() {
         return path;
     }
     return null;
+}
+
+function updateHeaderUI() {
+    const nameEl = document.getElementById('current-lang-name');
+    const flagEl = document.getElementById('current-flag');
+
+    // Ustaw tekst (np. NEDERLANDS)
+    if (nameEl) {
+        nameEl.innerText = langFullNames[currentLang] || 'POLSKI';
+    }
+
+    // Ustaw flagę (np. 🇳🇱)
+    if (flagEl) {
+        flagEl.innerText = langFlags[currentLang] || '🇵🇱';
+    }
 }
 
 // Inicjalizacja Języka (Priorytet: URL > Zapisany > Przeglądarka > Domyślny PL)
@@ -147,12 +175,8 @@ function updateSelectedPackageText() {
 // --- 4. FUNKCJE GLOBALNE ---
 
 // Zmiana języka (Z PRZEŁADOWANIEM STRONY)
-window.changeLanguage = function(langCode, flag, name) {
-    // 1. Zapisz wybór w pamięci przeglądarki
+window.changeLanguage = function(langCode) {
     localStorage.setItem('selectedLang', langCode);
-
-    // 2. Wymuś przejście pod nowy adres (To spowoduje przeładowanie)
-    // Np. wejście na https://daepoland.com/en
     window.location.href = `/${langCode}`;
 }
 
@@ -372,3 +396,4 @@ updatePricesDisplay();
 updateSelectedPackageText();
 updateContent();
 initializePayment();
+updateHeaderUI();
