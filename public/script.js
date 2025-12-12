@@ -183,7 +183,20 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePricesDisplay();
     initializePayment();
     
+            // --- FIX 1: NAPRAWA SCROLLOWANIA (Ignorowanie base href) ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault(); // Zatrzymaj przeładowanie!
             
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
             // Zamknij menu mobilne po kliknięciu
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
