@@ -67,7 +67,6 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            // SKRYPTY: Dodano 'unsafe-inline' i 'unsafe-eval' (dla onclick w HTML i niektórych bibliotek)
             scriptSrc: [
                 "'self'", 
                 "'unsafe-inline'", 
@@ -75,28 +74,29 @@ app.use(helmet({
                 "https://js.stripe.com", 
                 "https://cdn.tailwindcss.com"
             ],
-            // STYLE: Dodano cdn.jsdelivr.net (dla flag)
             styleSrc: [
                 "'self'", 
                 "'unsafe-inline'",
                 "https://fonts.googleapis.com", 
                 "https://cdnjs.cloudflare.com", 
-                "https://cdn.jsdelivr.net" 
+                "https://cdn.jsdelivr.net"
             ],
-            // CZCIONKI
             fontSrc: [
                 "'self'", 
                 "https://fonts.gstatic.com", 
                 "https://cdnjs.cloudflare.com"
             ],
-            // OBRAZKI
+            // --- TUTAJ BYŁ BŁĄD ---
+            // Dodajemy cdn.jsdelivr.net do obrazków, żeby flagi działały
             imgSrc: [
                 "'self'", 
                 "data:", 
                 "https://upload.wikimedia.org", 
-                "https://*.stripe.com"
+                "https://*.stripe.com",
+                "https://daepoland.com",
+                "https://cdn.jsdelivr.net" 
             ],
-            // POŁĄCZENIA
+            // ----------------------
             connectSrc: [
                 "'self'", 
                 "https://api.stripe.com"

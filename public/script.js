@@ -24,10 +24,14 @@ let clientSecret = null;
 // 2. ROUTING I INICJALIZACJA
 // ==========================================
 function getLangFromUrl() {
-    // Pobiera pierwszy segment ścieżki (np. "pl" z "/pl/...")
-    const segments = window.location.pathname.split('/').filter(Boolean);
-    const lang = segments[0];
-    return availableLangs.includes(lang) ? lang : null;
+    // Rozbijamy ścieżkę (np. "/pl/" -> ["", "pl", ""])
+    const segments = window.location.pathname.split('/');
+    
+    // Szukamy w segmentach kodu języka
+    // To jest bezpieczniejsze niż segments[0], bo omija puste elementy
+    const foundLang = segments.find(seg => availableLangs.includes(seg));
+    
+    return foundLang || null;
 }
 
 let savedLang = localStorage.getItem('selectedLang');
@@ -152,7 +156,7 @@ window.toggleMobileMenu = function() {
 }
 
 // ==========================================
-// 5. INICJALIZACJA I FIXY NAWIGACJI
+// 5. OBSŁUGA ZDARZEŃ (DOM Ready)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -162,11 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePricesDisplay();
     initializePayment();
 
-    // --- FIX NAWIGACJI (Anchor Links) ---
-    // Przechwytujemy wszystkie linki zaczynające się od #
+    // --- FIX 1: NAPRAWA SCROLLOWANIA (Ignorowanie base href) ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Zatrzymaj domyślne przeładowanie przez base href
+            e.preventDefault(); // Zatrzymaj przeładowanie!
+            
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
             
@@ -175,13 +179,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                
-                // Zamknij menu mobilne jeśli otwarte
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
-                    mobileMenu.classList.add('translate-x-full');
-                }
             }
+            
+            // Zamknij menu mobilne po kliknięciu
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                mobileMenu.classList.add('translate-x-full');
+            }
+        });
+    });
+
+    // --- FIX 2: ROZWIJANIE FAQ (Kliknięcie) ---
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Zamknij inne (opcjonalne)
+            document.querySelectorAll('.faq-item').forEach(i => {
+                if(i !== item) i.classList.remove('active');
+            });
+            // Przełącz ten
+            item.classList.toggle('active');
         });
     });
 
