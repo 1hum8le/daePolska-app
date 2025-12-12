@@ -88,36 +88,30 @@
                 </div>
 
                 <div class="relative group">
-    <button id="lang-btn" class="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md focus:outline-none">
-        <span id="current-flag" class="fi fi-pl text-lg rounded-sm"></span>
-        <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">POLSKI</span>
-        <i id="lang-arrow" class="fas fa-chevron-down text-xs text-accent-orange ml-1 transition-transform duration-300"></i>
-    </button>
-    
-    <div id="lang-dropdown" class="absolute right-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden transform origin-top-right transition-all duration-200 opacity-0 scale-95">
-        
-        <a href="#" onclick="changeLanguage('pl', 'fi-pl', 'POLSKI'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
-            <span class="fi fi-pl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">POLSKI</span>
-        </a>
-        
-        <a href="#" onclick="changeLanguage('en', 'fi-gb', 'ENGLISH'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
-            <span class="fi fi-gb mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">ENGLISH</span>
-        </a>
-        
-        <a href="#" onclick="changeLanguage('nl', 'fi-nl', 'NEDERLANDS'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
-            <span class="fi fi-nl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">NEDERLANDS</span>
-        </a>
-        
-        <a href="#" onclick="changeLanguage('fr', 'fi-fr', 'FRANÇAIS'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
-            <span class="fi fi-fr mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">FRANÇAIS</span>
-        </a>
-        
-        <a href="#" onclick="changeLanguage('es', 'fi-es', 'ESPAÑOL'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center group/item">
-            <span class="fi fi-es mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300 group-hover/item:text-white">ESPAÑOL</span>
-        </a>
-
-    </div>
-</div>
+   <div class="relative z-50"> <button id="lang-btn" class="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-2 rounded-full transition backdrop-blur-md focus:outline-none">
+                        <span id="current-flag" class="fi fi-pl text-lg rounded-sm shadow-sm"></span>
+                        <span id="current-lang-name" class="font-bold text-xs uppercase tracking-wider hidden sm:inline">POLSKI</span>
+                        <i id="lang-arrow" class="fas fa-chevron-down text-xs text-accent-orange ml-1 transition-transform duration-300"></i>
+                    </button>
+                    
+                    <div id="lang-dropdown" class="absolute right-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden hidden transform origin-top-right transition-all duration-200 opacity-0 scale-95">
+                        <a href="#" onclick="changeLanguage('pl'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center">
+                            <span class="fi fi-pl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300">POLSKI</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('en'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center">
+                            <span class="fi fi-gb mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300">ENGLISH</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('nl'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center">
+                            <span class="fi fi-nl mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300">NEDERLANDS</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('fr'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center">
+                            <span class="fi fi-fr mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300">FRANÇAIS</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('es'); return false;" class="block px-4 py-3 hover:bg-white/5 transition flex items-center">
+                            <span class="fi fi-es mr-3 text-lg rounded-sm"></span> <span class="text-xs font-bold text-gray-300">ESPAÑOL</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -713,7 +707,8 @@
                             </div>
                         </div>
 
-                        <div>
+                        <!-- Navigation Footer -->
+                        <div> 
                             <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_nav_title">Nawigacja</h4>
                             <ul class="space-y-2.5">
                                 <li><a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info_footer">Proces Inspekcji</a></li>

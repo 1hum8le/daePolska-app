@@ -7,8 +7,23 @@ const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3Mzw
 const stripe = Stripe(STRIPE_KEY); 
 
 const availableLangs = ['pl', 'en', 'nl', 'fr', 'es'];
-const langFullNames = { 'pl': 'POLSKI', 'en': 'ENGLISH', 'nl': 'NEDERLANDS', 'fr': 'FRANÇAIS', 'es': 'ESPAÑOL' };
-const langFlagClasses = { 'pl': 'fi-pl', 'en': 'fi-gb', 'nl': 'fi-nl', 'fr': 'fi-fr', 'es': 'fi-es' };
+
+const langFullNames = { 
+    'pl': 'POLSKI', 
+    'en': 'ENGLISH', 
+    'nl': 'NEDERLANDS', 
+    'fr': 'FRANÇAIS', 
+    'es': 'ESPAÑOL' 
+};
+
+// Mapowanie na klasy biblioteki flag-icons
+const langFlagClasses = { 
+    'pl': 'fi-pl', 
+    'en': 'fi-gb', 
+    'nl': 'fi-nl', 
+    'fr': 'fi-fr', 
+    'es': 'fi-es' 
+};
 
 const prices = {
     Basic: { eur: 115, pln: 497 },
@@ -24,33 +39,25 @@ let clientSecret = null;
 // 2. ROUTING I INICJALIZACJA
 // ==========================================
 function getLangFromUrl() {
-    // Pobiera "pl" z "/pl" lub "/pl/"
     const parts = window.location.pathname.split('/');
-    // Szukamy w częściach adresu czy któraś to znany język
     return parts.find(p => availableLangs.includes(p)) || null;
 }
 
-// CZYSTY START:
-let urlLang = getLangFromUrl();
 let savedLang = localStorage.getItem('selectedLang');
+let urlLang = getLangFromUrl();
 let browserLang = navigator.language.slice(0, 2);
 
-// PRIORYTET ABSOLUTNY: Adres URL > Pamięć > Przeglądarka
-// Jeśli jesteś na /pl, to currentLang MA BYĆ 'pl', nieważne co mówi localStorage
-let currentLang = urlLang; 
+// Priorytet: URL > Cache > Przeglądarka > Domyślny PL
+let currentLang = urlLang || savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
 
-if (!currentLang) {
-    // Jeśli URL jest "czysty" (strona główna), bierzemy z pamięci lub domyślny
-    currentLang = savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
-    // I dopisujemy go do URL bez przeładowania
+if (!urlLang) {
     window.history.replaceState({}, '', `/${currentLang}`);
 }
 
-// Zapisz ostateczny wynik do pamięci na przyszłość
 localStorage.setItem('selectedLang', currentLang);
 
 // ==========================================
-// 3. UI I AKTUALIZACJE
+// 3. UI FUNCTIONS (Aktualizacja widoku)
 // ==========================================
 
 function updateHeaderUI() {
@@ -59,28 +66,31 @@ function updateHeaderUI() {
     const safeLang = langFullNames[currentLang] ? currentLang : 'pl';
 
     if (nameEl) nameEl.innerText = langFullNames[safeLang];
+    
+    // Aktualizacja klasy flagi
     if (flagEl) {
         flagEl.className = `fi ${langFlagClasses[safeLang]} text-lg rounded-sm shadow-sm`;
     }
 }
 
 function updateContent() {
-    // Tłumaczenia tekstów
+    // Teksty
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang]?.[key]) el.innerHTML = translations[currentLang][key];
     });
-    // Tłumaczenia placeholderów
+    // Placeholdery
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLang]?.[key]) el.placeholder = translations[currentLang][key];
     });
     
-    // Waluta
+    // Waluta w inputach
+    const currencyCode = currentLang === 'pl' ? 'pln' : 'eur';
     const inputCurr = document.getElementById('current-currency');
-    if(inputCurr) inputCurr.value = currentLang === 'pl' ? 'pln' : 'eur';
+    if(inputCurr) inputCurr.value = currencyCode;
 
-    // Sekcje PL vs Global
+    // Sekcje
     const whyUs = document.getElementById('why-us');
     const beforePurchase = document.getElementById('before-purchase');
     if (whyUs && beforePurchase) {
@@ -129,20 +139,18 @@ function updateSelectedPackageText() {
 
 window.changeLanguage = function(langCode) {
     localStorage.setItem('selectedLang', langCode);
-    // Hard reload na nowy URL
     window.location.href = `/${langCode}`;
 }
 
 window.selectPackage = function(pkgName) {
     currentPackage = pkgName;
     
-    // 1. Zaktualizuj tekst w formularzu
     const inputPkg = document.getElementById('selected-pkg');
     if(inputPkg) inputPkg.value = pkgName;
     
     updateSelectedPackageText();
     
-    // 2. Wymuś scroll do formularza (z małym opóźnieniem dla stabilności)
+    // Przewiń do formularza z małym opóźnieniem (fix na renderowanie)
     setTimeout(() => {
         const formTarget = document.getElementById('inspection-form');
         if(formTarget) {
@@ -150,19 +158,14 @@ window.selectPackage = function(pkgName) {
         }
     }, 100);
     
-    // 3. Odśwież cenę w Stripe
+    // Odśwież cenę w Stripe
     initializePayment();
 }
 
 window.toggleFaq = function(element) {
-    // Element to div.faq-item. Dodajemy/usuwamy klasę 'active'
-    // W CSS upewnij się, że .faq-item.active .faq-answer { max-height: 200px; }
     element.classList.toggle('active');
-    
-    // Opcjonalnie: obróć strzałkę (jeśli masz ikonę w środku)
     const icon = element.querySelector('.faq-icon');
     if(icon) {
-        // Jeśli jest active, obróć o 180, jeśli nie, wróć do 0
         icon.style.transform = element.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
     }
 }
@@ -183,60 +186,51 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePricesDisplay();
     initializePayment();
 
-    // 2. NAPRAWA MENU JĘZYKOWEGO (Izolacja zdarzeń)
+    // 2. NAPRAWA MENU JĘZYKOWEGO (Metoda .onclick - zapobiega duplikatom)
     const langBtn = document.getElementById('lang-btn');
     const dropdown = document.getElementById('lang-dropdown');
     const arrow = document.getElementById('lang-arrow');
 
     if (langBtn && dropdown) {
-        // Usuwamy stare eventy poprzez klonowanie przycisku
-        const newBtn = langBtn.cloneNode(true);
-        langBtn.parentNode.replaceChild(newBtn, langBtn);
-
-        // Obsługa kliknięcia w przycisk
-        newBtn.addEventListener('click', (e) => {
+        // Kliknięcie w przycisk
+        langBtn.onclick = function(e) {
+            e.stopPropagation(); 
             e.preventDefault();
-            e.stopPropagation(); // KLUCZOWE: Stopujemy propagację do document
             
             const isHidden = dropdown.classList.contains('hidden');
+
             if (isHidden) {
-                // Otwórz
+                // Otwieramy
                 dropdown.classList.remove('hidden');
                 setTimeout(() => dropdown.classList.remove('opacity-0', 'scale-95'), 10);
                 if(arrow) arrow.style.transform = 'rotate(180deg)';
             } else {
-                // Zamknij
-                closeDropdown();
+                // Zamykamy
+                dropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => dropdown.classList.add('hidden'), 200);
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
             }
-        });
+        };
 
-        // Funkcja zamykania
-        function closeDropdown() {
-            dropdown.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => dropdown.classList.add('hidden'), 200);
-            if(arrow) arrow.style.transform = 'rotate(0deg)';
-        }
-
-        // Kliknięcie gdziekolwiek indziej zamyka menu
-        document.addEventListener('click', (e) => {
-            // Zamknij tylko jeśli kliknięto poza menu I poza przyciskiem
-            if (!dropdown.classList.contains('hidden') && !dropdown.contains(e.target) && !newBtn.contains(e.target)) {
-                closeDropdown();
+        // Kliknięcie gdziekolwiek indziej
+        document.onclick = function(e) {
+            if (!dropdown.classList.contains('hidden') && !langBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => dropdown.classList.add('hidden'), 200);
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
             }
-        });
+        };
     }
 
-    // 3. NAPRAWA SCROLLOWANIA (Ignorowanie base href dla linków #)
+    // 3. NAPRAWA SCROLLOWANIA (Dla linków w menu)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Zatrzymaj przeładowanie strony przez base href
+            e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
-            
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            
             // Zamknij mobile menu jeśli otwarte
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
@@ -245,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. OBSŁUGA FORMULARZA ZAMÓWIENIA
+    // 4. OBSŁUGA FORMULARZA
     const orderForm = document.getElementById('inspection-form');
     const submitBtn = document.getElementById('submit-btn');
     const inputsToWatch = ['name', 'email', 'url', 'location'];
@@ -341,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. KONTAKT FORMULARZ
+    // 5. KONTAKT
     const contactForm = document.getElementById('contact-form');
     if(contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -397,6 +391,7 @@ async function initializePayment() {
         });
         
         if (!response.ok) return;
+
         const data = await response.json();
         clientSecret = data.clientSecret;
 
@@ -414,59 +409,3 @@ async function initializePayment() {
         console.error("Stripe Error:", e);
     }
 }
-
-// ==========================================
-// 7. FIX: OBSŁUGA MENU JĘZYKOWEGO (Na sztywno)
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Ładowanie obsługi menu..."); // Diagnostyka w konsoli
-
-    const langBtn = document.getElementById('lang-btn');
-    const dropdown = document.getElementById('lang-dropdown');
-    const arrow = document.getElementById('lang-arrow');
-
-    // Sprawdź czy elementy istnieją, zanim spróbujesz ich użyć
-    if (langBtn && dropdown) {
-        
-        // Kliknięcie w przycisk (Flaga)
-        langBtn.onclick = function(e) {
-            e.stopPropagation(); // Nie zamykaj od razu
-            
-            // Sprawdź czy jest ukryte
-            const isHidden = dropdown.classList.contains('hidden');
-
-            if (isHidden) {
-                // OTWIERANIE
-                dropdown.classList.remove('hidden');
-                // Małe opóźnienie, żeby animacja opacity zadziałała
-                setTimeout(() => {
-                    dropdown.classList.remove('opacity-0', 'scale-95');
-                }, 10);
-                if(arrow) arrow.style.transform = 'rotate(180deg)';
-            } else {
-                // ZAMYKANIE
-                dropdown.classList.add('opacity-0', 'scale-95');
-                setTimeout(() => dropdown.classList.add('hidden'), 200);
-                if(arrow) arrow.style.transform = 'rotate(0deg)';
-            }
-        };
-
-        // Kliknięcie gdziekolwiek indziej -> Zamknij menu
-        document.onclick = function(e) {
-            // Jeśli kliknięto poza przyciskiem i menu jest otwarte
-            if (!dropdown.classList.contains('hidden') && !langBtn.contains(e.target)) {
-                dropdown.classList.add('opacity-0', 'scale-95');
-                setTimeout(() => dropdown.classList.add('hidden'), 200);
-                if(arrow) arrow.style.transform = 'rotate(0deg)';
-            }
-        };
-    } else {
-        console.error("BŁĄD: Nie znaleziono elementu #lang-btn lub #lang-dropdown w HTML!");
-    }
-});
-// --- START APLIKACJI ---
-updatePricesDisplay();
-updateSelectedPackageText();
-updateContent();
-initializePayment();
-updateHeaderUI();
