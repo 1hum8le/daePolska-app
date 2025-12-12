@@ -6,35 +6,78 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs'); // Wymagane do logowania!
-const path = require('path');       // Wymagane do ścieżek plików!
+const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs');
 
-// Import szablonów e-mail
+// Import szablonów
 const { getAdminEmailText, getClientEmailText } = require('./emailTemplates');
 
 const app = express();
-// Ustawienie proxy dla Rendera (wymagane dla rate limitera)
-app.set('trust proxy', 1); 
+app.set('trust proxy', 1); // Wymagane na Renderze do poprawnego działania Rate Limitera
 const PORT = process.env.PORT || 3000;
 
-// --- 1. MIDDLEWARE I BEZPIECZEŃSTWO ---
+// --- DANE SEO (TŁUMACZENIA METATAGÓW) ---
+const META_DATA = {
+    pl: {
+        title: "daePoland | Profesjonalne Inspekcje Pojazdów",
+        desc: "Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Sprawdzamy lakier, silnik i elektronikę. Raport nawet do 24h.",
+        ogTitle: "daePoland | Nie kupuj kota w worku! Profesjonalne Inspekcje Aut",
+        ogDesc: "Sprawdzamy auta w Belgii, Holandii i Niemczech. Oszczędź czas i pieniądze. Pełny raport techniczny, zdjęcia i wideo w 24h. Zamów online."
+    },
+    en: {
+        title: "daePoland | Professional Vehicle Inspections",
+        desc: "Buying a car in Belgium, Netherlands or Germany? Order a professional pre-purchase inspection. We check paint, engine, and electronics. Report within 24h.",
+        ogTitle: "daePoland | Don't buy a lemon! Professional Car Inspections",
+        ogDesc: "We check cars in Belgium, Netherlands and Germany. Save time and money. Full technical report, photos and video in 24h. Order online."
+    },
+    nl: {
+        title: "daePoland | Professionele Voertuiginspecties",
+        desc: "Auto kopen in België, Nederland of Duitsland? Bestel een professionele aankoopkeuring. Wij controleren lak, motor en elektronica. Rapport binnen 24u.",
+        ogTitle: "daePoland | Koop geen kat in de zak! Professionele Auto Inspecties",
+        ogDesc: "Wij controleren auto's in België, Nederland en Duitsland. Bespaar tijd en geld. Volledig technisch rapport, foto's en video in 24u. Bestel online."
+    },
+    fr: {
+        title: "daePoland | Inspection Automobile Professionnelle",
+        desc: "Vous achetez une voiture en Belgique, aux Pays-Bas ou en Allemagne? Commandez une inspection professionnelle. Nous vérifions la peinture, le moteur et l'électronique.",
+        ogTitle: "daePoland | N'achetez pas les yeux fermés! Inspection Pro",
+        ogDesc: "Nous vérifions les voitures en Belgique, aux Pays-Bas et en Allemagne. Économisez du temps et de l'argent. Rapport complet en 24h."
+    },
+    es: {
+        title: "daePoland | Inspección Profesional de Vehículos",
+        desc: "¿Compras un coche en Bélgica, Holanda o Alemania? Solicita una inspección profesional. Revisamos pintura, motor y electrónica.",
+        ogTitle: "daePoland | ¡No compres a ciegas! Inspección Profesional",
+        ogDesc: "Revisamos coches en Bélgica, Holanda y Alemania. Ahorra tiempo y dinero. Informe técnico completo en 24h."
+    }
+};
+
+// --- 1. BEZPIECZEŃSTWO I MIDDLEWARE ---
+
+// Helmet: Nagłówki bezpieczeństwa HTTP (Ochrona przed XSS, Sniffing)
 app.use(helmet({ 
-    contentSecurityPolicy: false, 
+    contentSecurityPolicy: false, // Wyłączamy CSP bo używasz zewnętrznych skryptów (Stripe, Tailwind)
     crossOriginEmbedderPolicy: false 
 }));
-app.use(cors());
-app.use(express.json());
 
-// WAŻNE: Pliki statyczne (HTML, CSS, JS) muszą być obsłużone PIERWSZE
-// Dzięki temu wejście na /style.css nie jest traktowane jako język /style
+// CORS: Pozwala przeglądarce łączyć się z Twoim API
+app.use(cors({
+    origin: ['https://daepoland.com', 'https://www.daepoland.com'], // Dozwolone Domeny 
+    methods: ['GET', 'POST',]
+}));
+
+// Ochrona przed atakami DoS (zbyt duże zapytania)
+app.use(express.json({ limit: '10kb' })); 
+
+// Rate Limiter: Ochrona przed spamem i brute-force
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }); // 100 zapytań na 15 min
+app.use(limiter);
+
+const contactLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 }); // 5 maili na godzinę z jednego IP
+
+// --- 2. PLIKI STATYCZNE (Muszą być przed routingiem językowym) ---
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Limity zapytań (Anty-DDOS / Spam)
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
-app.use(limiter);
-const contactLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 });
-
-// --- 2. BAZA DANYCH ---
+// --- 3. BAZA DANYCH (PostgreSQL) ---
 const isProduction = process.env.NODE_ENV === 'production';
 const connectionString = process.env.DATABASE_URL 
     ? process.env.DATABASE_URL 
@@ -45,22 +88,26 @@ const pool = new Pool({
     ssl: isProduction ? { rejectUnauthorized: false } : false
 });
 
-// --- 3. KONFIGURACJA JWT (ADMIN) ---
-const JWT_SECRET = process.env.JWT_SECRET || 'tymczasowy_sekret_zmien_w_env';
+// --- 4. JWT AUTH (Ochrona Admina) ---
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!process.env.JWT_SECRET) {
+    throw new Error("FATAL: Brak JWT_SECRET. Serwer zatrzymany.");
+} // Blokada startu bez JWT_SECRET
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.sendStatus(401);
+    
+    if (!token) return res.sendStatus(401); // Brak dostępu
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err) return res.sendStatus(403); // Token sfałszowany/wygasł
         req.user = user;
         next();
     });
 }
 
-// --- 4. FUNKCJA EMAIL (BREVO) ---
+// --- 5. OBSŁUGA MAILI (Brevo API) ---
 async function sendEmail(to, subject, textContent, replyToEmail = null) {
     const url = 'https://api.brevo.com/v3/smtp/email';
     const senderEmail = process.env.EMAIL_USER; 
@@ -72,11 +119,12 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
         textContent: textContent
     };
 
-    if (replyToEmail) body.replyTo = { email: replyToEmail };
+    if (replyToEmail) {
+        body.replyTo = { email: replyToEmail };
+    }
 
     try {
-        console.log(`📨 Wysyłanie emaila do: ${to}`);
-        const response = await fetch(url, {
+        await fetch(url, {
             method: 'POST',
             headers: {
                 'accept': 'application/json',
@@ -85,19 +133,12 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
             },
             body: JSON.stringify(body)
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("❌ Błąd Brevo API:", JSON.stringify(errorData));
-        } else {
-            console.log(`✅ Email wysłany (200 OK)`);
-        }
     } catch (error) {
-        console.error("❌ Błąd sieci (Fetch):", error);
+        console.error("❌ Błąd wysyłki maila:", error);
     }
 }
 
-// --- 5. ENDPOINTY API ---
+// --- 6. ENDPOINTY API ---
 
 // Płatność Stripe
 app.post('/create-payment-intent', async (req, res) => {
@@ -115,21 +156,21 @@ app.post('/create-payment-intent', async (req, res) => {
     }
 });
 
-// Zamówienie (Baza + Emaile)
+// Nowe Zamówienie
 app.post('/api/orders', async (req, res) => {
+    // SQL Injection Protection: Używamy parametrów $1, $2...
     const { name, email, phone, url, location, packageType, price, paymentId } = req.body;
+    
     try {
         const newOrder = await pool.query(
             "INSERT INTO orders (client_name, email, phone, listing_url, vehicle_location, package_type, price, status, stripe_payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7, 'paid', $8) RETURNING *",
             [name, email, phone, url, location, packageType, price, paymentId]
         );
 
-        const adminText = getAdminEmailText({ name, email, phone, url, location, packageType, price, paymentId });
-        const clientText = getClientEmailText({ name, orderId: newOrder.rows[0].id, packageType, url, location });
+        const adminText = getAdminEmailText(req.body);
+        const clientText = getClientEmailText({ ...req.body, orderId: newOrder.rows[0].id });
 
-        // Email do Admina
         sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType} - ${name}`, adminText);
-        // Email do Klienta
         sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id} - daePoland`, clientText);
 
         res.json(newOrder.rows[0]);
@@ -139,7 +180,7 @@ app.post('/api/orders', async (req, res) => {
     }
 });
 
-// Kontakt (Formularz)
+// Formularz Kontaktowy
 app.post('/api/contact', contactLimiter, async (req, res) => {
     const { name, email, message } = req.body;
     try {
@@ -150,28 +191,30 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         
         await sendEmail(
             process.env.EMAIL_USER, 
-            `📩 WIADOMOŚĆ ZE STRONY: ${name}`, 
+            `📩 WIADOMOŚĆ: ${name}`, 
             `Od: ${name} (${email})\n\n${message}`,
             email
         );
 
         res.json({ status: 'success' });
     } catch (err) {
-        console.error("Contact Error:", err);
         res.status(500).send("Server Error");
     }
 });
 
-// Admin Logowanie (JWT)
+// Logowanie Admina (Jedyny poprawny endpoint)
 app.post('/api/admin/login', async (req, res) => {
     const { username, password } = req.body;
     try {
+        // 1. Sprawdź usera
         const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-        if (user.rows.length === 0) return res.status(401).json({ error: "Błędny login lub hasło" });
+        if (user.rows.length === 0) return res.status(401).json({ error: "Błędne dane" });
         
+        // 2. Sprawdź hash hasła (Bcrypt)
         const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
-        if (!validPassword) return res.status(401).json({ error: "Błędny login lub hasło" });
+        if (!validPassword) return res.status(401).json({ error: "Błędne dane" });
         
+        // 3. Wygeneruj token
         const token = jwt.sign({ id: user.rows[0].id, role: 'admin' }, JWT_SECRET, { expiresIn: '2h' });
         res.json({ token }); 
     } catch (err) {
@@ -180,7 +223,7 @@ app.post('/api/admin/login', async (req, res) => {
     }
 });
 
-// Admin Dane (Chronione)
+// Pobieranie Danych (Chronione Tokenem)
 app.get('/api/admin/orders', authenticateToken, async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM orders ORDER BY created_at DESC LIMIT 100");
@@ -195,29 +238,65 @@ app.get('/api/admin/messages', authenticateToken, async (req, res) => {
     } catch (err) { res.status(500).send("DB Error"); }
 });
 
-// --- 6. ROUTING STRONY (JĘZYKI I NARZĘDZIA) ---
+// --- 7. ROUTING I NARZĘDZIA ---
 
-// Bezpośrednie linki do narzędzi (bez .html)
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/generator', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator.html')));
-// Opcjonalnie: wersje językowe generatora
 app.get('/generator-en', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_en.html')));
 app.get('/generator-nl', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_nl.html')));
 
-// Routing Językowy (/pl, /en, /nl)
 const supportedLanguages = ['pl', 'en', 'nl', 'fr', 'es'];
 
+// Server-Side Injection dla SEO (Podmiana metatagów)
 app.get('/:lang', (req, res, next) => {
     const lang = req.params.lang;
-    // Sprawdzamy czy to faktycznie język, a nie np. błędny plik
+
     if (supportedLanguages.includes(lang)) {
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+        const filePath = path.join(__dirname, 'public', 'index.html');
+        
+        fs.readFile(filePath, 'utf8', (err, htmlData) => {
+            if (err) return next();
+
+            // Jeśli PL, wysyłamy bez zmian (bo plik jest domyślnie po polsku)
+            if (lang === 'pl') {
+                return res.send(htmlData);
+            }
+
+            const data = META_DATA[lang];
+            if (!data) return res.send(htmlData); 
+
+            // PODMIANA METATAGÓW
+            let result = htmlData.replace('<html lang="pl">', `<html lang="${lang}">`);
+            
+            result = result.replace(
+                '<title>daePoland | Profesjonalne Inspekcje Pojazdów</title>', 
+                `<title>${data.title}</title>`
+            );
+
+            result = result.replace(
+                'content="Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Sprawdzamy lakier, silnik i elektronikę. Raport nawet do 24h."',
+                `content="${data.desc}"`
+            );
+
+            result = result.replace(
+                'content="daePoland | Nie kupuj kota w worku! Profesjonalne Inspekcje Aut"',
+                `content="${data.ogTitle}"`
+            );
+
+            result = result.replace(
+                'content="Sprawdzamy auta w Belgii, Holandii i Niemczech. Oszczędź czas i pieniądze. Pełny raport techniczny, zdjęcia i wideo w 24h. Zamów online."',
+                `content="${data.ogDesc}"`
+            );
+
+            res.send(result);
+        });
     } else {
-        next(); // Jeśli to nie język, przekaż dalej (np. 404)
+        // To nie jest kod języka, więc to pewnie API lub 404
+        next();
     }
 });
 
-// Strona główna (Root)
+// Fallback dla strony głównej
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
