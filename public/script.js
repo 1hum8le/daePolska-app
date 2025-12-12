@@ -1,11 +1,34 @@
 import { translations } from './translations.js';
 
-// --- 1. KONFIGURACJA ---
+// --- 1. KONFIGURACJA I ROUTING ---
 const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3MzwoGaoTbfl8VWJCxhwciaFrMKikw8I6eWy12x4000FmqMoFgh'; 
 const stripe = Stripe(STRIPE_KEY); 
 
+// Dostępne języki
+const availableLangs = ['pl', 'en', 'nl', 'fr', 'es'];
+
+// Funkcja: Pobierz język z URL (np. daepoland.com/en -> 'en')
+function getLangFromUrl() {
+    const path = window.location.pathname.replace('/', '');
+    if (availableLangs.includes(path)) {
+        return path;
+    }
+    return null;
+}
+
+// Inicjalizacja Języka (Priorytet: URL > Zapisany > Przeglądarka > Domyślny PL)
+let savedLang = localStorage.getItem('selectedLang');
+let urlLang = getLangFromUrl();
+let browserLang = navigator.language.slice(0, 2);
+
+let currentLang = urlLang || savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
+
+// Jeśli brak języka w URL, dopisz go (np. wejście na stronę główną -> /pl)
+if (!urlLang) {
+    window.history.replaceState({}, '', `/${currentLang}`);
+}
+
 let elements = null;
-let currentLang = 'pl';
 let currentPackage = 'Standard';
 let clientSecret = null;
 
@@ -15,83 +38,90 @@ const prices = {
     Premium: { eur: 525, pln: 2250 }
 };
 
-// --- 2. PŁATNOŚCI (PAYMENT ELEMENT) ---
+// --- 2. PŁATNOŚCI (STRIPE) ---
 
 async function initializePayment() {
     const currency = currentLang === 'pl' ? 'pln' : 'eur';
     const priceValue = prices[currentPackage][currency];
     const amount = priceValue * 100;
 
-    // Pobierz sekret z serwera
-    const response = await fetch('/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount, currency })
-    });
-    const data = await response.json();
-    clientSecret = data.clientSecret;
+    try {
+        // Pobierz sekret z serwera
+        const response = await fetch('/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount, currency })
+        });
+        
+        if (!response.ok) throw new Error('Błąd połączenia z płatnościami');
+        
+        const data = await response.json();
+        clientSecret = data.clientSecret;
 
-    // Wygląd formularza Stripe (Ciemny)
-    const appearance = {
-        theme: 'night',
-        variables: {
-            colorPrimary: '#FF5722',
-            colorBackground: '#1e1e2f',
-            colorText: '#ffffff',
-            colorDanger: '#df1b41',
-            fontFamily: 'Inter, sans-serif',
-            spacingUnit: '4px',
-            borderRadius: '8px',
-        },
-    };
+        // Wygląd formularza Stripe (Ciemny)
+        const appearance = {
+            theme: 'night',
+            variables: {
+                colorPrimary: '#FF5722',
+                colorBackground: '#1e1e2f',
+                colorText: '#ffffff',
+                colorDanger: '#df1b41',
+                fontFamily: 'Inter, sans-serif',
+                spacingUnit: '4px',
+                borderRadius: '8px',
+            },
+        };
 
-    // Rysujemy formularz (Stripe sam dobiera metody np. BLIK)
-    elements = stripe.elements({ appearance, clientSecret, locale: currentLang });
-    const paymentElement = elements.create("payment", {
-        layout: "tabs",
-    });
-    // Sprawdźmy czy element istnieje zanim zamontujemy, żeby uniknąć błędu w konsoli
-    const mountPoint = document.getElementById("payment-element");
-    if (mountPoint) {
-        paymentElement.mount("#payment-element");
-    } else {
-        console.error("Błąd: Nie znaleziono kontenera #payment-element w HTML!");
+        // Rysujemy formularz
+        elements = stripe.elements({ appearance, clientSecret, locale: currentLang });
+        const paymentElement = elements.create("payment", { layout: "tabs" });
+        
+        const mountPoint = document.getElementById("payment-element");
+        if (mountPoint) {
+            // Czyść kontener przed ponownym montowaniem (przy zmianie waluty)
+            mountPoint.innerHTML = ''; 
+            paymentElement.mount("#payment-element");
+        }
+    } catch (e) {
+        console.error("Stripe Error:", e);
     }
 }
 
 // --- 3. UI & TŁUMACZENIA ---
 
 function updateContent() {
+    // Tłumaczenie tekstów
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang]?.[key]) el.innerHTML = translations[currentLang][key];
     });
+    // Tłumaczenie placeholderów
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLang]?.[key]) el.placeholder = translations[currentLang][key];
     });
+    
+    // Ustawienie waluty w ukrytym polu
     const currencyCode = currentLang === 'pl' ? 'pln' : 'eur';
     const inputCurr = document.getElementById('current-currency');
     if(inputCurr) inputCurr.value = currencyCode;
 
-    // --- LOGIKA WIDOCZNOŚCI SEKCJI ---
+    // --- LOGIKA WIDOCZNOŚCI SEKCJI (PL vs RESZTA) ---
     const whyUsSection = document.getElementById('why-us');        // Sekcja "Matematyka" (PL)
     const beforePurchaseSection = document.getElementById('before-purchase'); // Sekcja "Bezpieczeństwo" (Global)
 
     if (whyUsSection && beforePurchaseSection) {
         if (currentLang === 'pl') {
-            // DLA POLSKI: Pokaż matematykę, ukryj ogólne bezpieczeństwo (lub pokaż oba - wg uznania)
-            // Tutaj: Pokazujemy TYLKO matematykę dla PL, bo jest silniejsza dla importera
+            // DLA POLSKI: Pokaż matematykę
             whyUsSection.classList.remove('hidden');
             beforePurchaseSection.classList.add('hidden'); 
         } else {
-            // DLA INNYCH: Ukryj matematykę (bo nie jadą z Polski), pokaż psychologię bezpieczeństwa
+            // DLA INNYCH: Pokaż bezpieczeństwo
             whyUsSection.classList.add('hidden');
             beforePurchaseSection.classList.remove('hidden');
         }
     }
 }
-
 
 function updatePricesDisplay() {
     const curr = currentLang === 'pl' ? 'pln' : 'eur';
@@ -109,12 +139,14 @@ function updateSelectedPackageText() {
     const price = prices[currentPackage][curr];
     const display = document.getElementById('display-price-form');
     if(display) display.innerText = currentLang === 'pl' ? `${price} ${sym}` : `${sym}${price}`;
-    document.getElementById('pkg-price-eur').value = prices[currentPackage]['eur'];
+    
+    const priceInput = document.getElementById('pkg-price-eur');
+    if(priceInput) priceInput.value = prices[currentPackage]['eur'];
 }
 
 // --- 4. FUNKCJE GLOBALNE ---
 
-// Zmiana języka (Odświeża płatność bo zmienia walutę)
+// Zmiana języka (Zmienia URL, Tłumaczenia i Walutę)
 window.changeLanguage = function(langCode, flag, name) {
     const flagEl = document.getElementById('current-flag');
     const nameEl = document.getElementById('current-lang-name');
@@ -122,6 +154,10 @@ window.changeLanguage = function(langCode, flag, name) {
     if(nameEl) nameEl.innerText = name;
 
     currentLang = langCode;
+    localStorage.setItem('selectedLang', langCode);
+    
+    // ZMIANA URL BEZ PRZEŁADOWANIA
+    window.history.pushState({}, '', `/${langCode}`);
     
     // Zamknij menu
     const menu = document.getElementById('lang-dropdown');
@@ -132,22 +168,25 @@ window.changeLanguage = function(langCode, flag, name) {
     }
     if(arrow) arrow.style.transform = 'rotate(0deg)';
     
+    // Aktualizuj wszystko
     updateContent();
     updatePricesDisplay();
     updateSelectedPackageText();
     
-    // PRZEŁADUJ STRIPE (Nowa waluta)
+    // PRZEŁADUJ PŁATNOŚĆ (Bo zmieniła się waluta PLN <-> EUR)
     initializePayment();
 }
 
-// Wybór Pakietu (Odświeża płatność bo zmienia kwotę)
+// Wybór Pakietu
 window.selectPackage = function(pkgName) {
     currentPackage = pkgName;
-    document.getElementById('selected-pkg').value = pkgName;
+    const inputPkg = document.getElementById('selected-pkg');
+    if(inputPkg) inputPkg.value = pkgName;
+    
     updateSelectedPackageText();
     
     document.getElementById('order').scrollIntoView({behavior: 'smooth'});
-    initializePayment();
+    initializePayment(); // Odśwież kwotę w Stripe
 }
 
 window.toggleFaq = function(element) {
@@ -182,7 +221,45 @@ document.addEventListener('click', () => {
     }
 });
 
-// --- 6. FORMULARZ ZAMÓWIENIA ---
+// --- 6. LOGIKA ODKRYWANIA PŁATNOŚCI (Mobile UX) ---
+const inputsToWatch = ['name', 'email', 'phone', 'url', 'location'];
+const paymentWrapper = document.getElementById('payment-section-wrapper');
+const fillMsg = document.getElementById('fill-data-msg');
+
+function checkInputs() {
+    const allFilled = inputsToWatch.every(id => {
+        const el = document.getElementById(id);
+        // Telefon nie jest zawsze wymagany, ale reszta tak. 
+        // Jeśli telefon jest opcjonalny w HTML (brak 'required'), pomijamy go w walidacji "czy pełne"
+        if (!el) return true;
+        if (!el.hasAttribute('required') && el.id === 'phone') return true;
+        return el.value.trim().length > 2; 
+    });
+
+    if (allFilled) {
+        if (paymentWrapper && paymentWrapper.classList.contains('hidden')) {
+            if(fillMsg) fillMsg.classList.add('hidden');
+            paymentWrapper.classList.remove('hidden');
+            
+            // Małe opóźnienie dla animacji fade-in
+            setTimeout(() => {
+                paymentWrapper.classList.remove('opacity-0');
+                // Na mobile przeskroluj delikatnie do płatności
+                if(window.innerWidth < 1024) {
+                    paymentWrapper.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }
+            }, 50);
+        }
+    }
+}
+
+// Dodaj nasłuchiwanie
+inputsToWatch.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', checkInputs);
+});
+
+// --- 7. FORMULARZ ZAMÓWIENIA ---
 const orderForm = document.getElementById('inspection-form');
 const submitBtn = document.getElementById('submit-btn');
 
@@ -204,16 +281,19 @@ if(orderForm) {
             }
         });
         
-        if(!document.getElementById('terms').checked) {
+        const termsBox = document.getElementById('terms');
+        if(termsBox && !termsBox.checked) {
             isValid = false;
-            const termErr = document.querySelector('#terms').parentElement.parentElement.querySelector('.error-msg');
+            // Znajdź komunikat błędu obok checkboxa
+            const termErr = termsBox.parentElement.parentElement.querySelector('.error-msg');
             if(termErr) termErr.classList.remove('hidden');
         }
 
         if (!isValid) return;
 
+        // Blokada przycisku
         submitBtn.disabled = true;
-        const processingText = translations[currentLang].btn_processing;
+        const processingText = translations[currentLang].btn_processing || "Przetwarzanie...";
         submitBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin mr-2"></i> ${processingText}`;
 
         const orderData = {
@@ -224,21 +304,22 @@ if(orderForm) {
             location: document.getElementById('location').value,
             packageType: currentPackage,
             price: prices[currentPackage][currentLang === 'pl' ? 'pln' : 'eur'],
-            paymentId: clientSecret
+            paymentId: clientSecret // ID intencji z serwera
         };
 
         try {
-            // 1. Zapisz wstępnie w bazie
+            // 1. Zapisz wstępnie w bazie (żeby mieć rekord nawet jak płatność przerwie)
             await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
             });
 
-            // 2. Potwierdź w Stripe (Przekierowanie do banku/BLIK)
+            // 2. Potwierdź w Stripe
             const { error } = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
+                    // Po sukcesie wróć tutaj:
                     return_url: `${window.location.origin}/success.html?name=${encodeURIComponent(orderData.name)}&pkg=${currentPackage}`,
                     payment_method_data: {
                         billing_details: {
@@ -249,22 +330,24 @@ if(orderForm) {
                 },
             });
 
-           if (error) {
+            if (error) {
                 document.getElementById('card-errors').innerText = error.message;
                 submitBtn.disabled = false;
-                // Przywracamy tekst "Zapłać" w odpowiednim języku
-                submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${translations[currentLang].btn_pay}`;
+                // Reset przycisku
+                const payText = translations[currentLang].btn_pay || "ZAPŁAĆ";
+                submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${payText}`;
             }
         } catch (err) {
             console.error(err);
-            document.getElementById('card-errors').innerText = "Błąd połączenia.";
+            document.getElementById('card-errors').innerText = "Błąd połączenia. Spróbuj ponownie.";
             submitBtn.disabled = false;
-            submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${translations[currentLang].btn_pay}`;
+            const payText = translations[currentLang].btn_pay || "ZAPŁAĆ";
+            submitBtn.innerHTML = `<i class="fas fa-lock mr-2"></i> ${payText}`;
         }
     });
 }
 
-// --- 7. KONTAKT ---
+// --- 8. KONTAKT ---
 const contactForm = document.getElementById('contact-form');
 if(contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -298,40 +381,15 @@ if(contactForm) {
             msgEl.classList.remove('hidden');
             msgEl.classList.add('text-red-500');
         } 
-        finally { btn.disabled = false; btn.innerText = orgText; }
-    });
-}
-
-// --- LOGIKA ODKRYWANIA PŁATNOŚCI ---
-const inputsToWatch = ['name', 'email', 'phone', 'url', 'location'];
-const paymentWrapper = document.getElementById('payment-section-wrapper');
-const fillMsg = document.getElementById('fill-data-msg');
-
-function checkInputs() {
-    // Sprawdź czy wszystkie wymagane pola są pełne
-    const allFilled = inputsToWatch.every(id => {
-        const el = document.getElementById(id);
-        return el && el.value.trim() !== '';
-    });
-
-    if (allFilled) {
-        if (paymentWrapper.classList.contains('hidden')) {
-            fillMsg.classList.add('hidden');
-            paymentWrapper.classList.remove('hidden');
-            // Małe opóźnienie dla animacji fade-in
-            setTimeout(() => paymentWrapper.classList.remove('opacity-0'), 50);
+        finally { 
+            btn.disabled = false; 
+            btn.innerText = orgText; 
         }
-    }
+    });
 }
 
-// Dodaj nasłuchiwanie
-inputsToWatch.forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.addEventListener('input', checkInputs);
-});
-
-
-// Start
+// --- START APLIKACJI ---
 updatePricesDisplay();
 updateSelectedPackageText();
+updateContent();
 initializePayment();

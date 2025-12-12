@@ -232,6 +232,23 @@ app.post('/api/admin/login', async (req, res) => {
     }
 });
 
+app.use(express.static('public'));
+const supportedLanguages = ['pl', 'en', 'nl', 'fr', 'es'];
+
+app.get('/:lang', (req, res) => {
+    const lang = req.params.lang;
+    if (supportedLanguages.includes(lang)) {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    } else {
+        next();
+    }
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// --- START SERWERA ---
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
