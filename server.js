@@ -67,6 +67,9 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
+            // TO JEST NOWOŚĆ - POZWALA NA ONCLICK W HTML:
+            scriptSrcAttr: ["'unsafe-inline'"], 
+            
             scriptSrc: [
                 "'self'", 
                 "'unsafe-inline'", 
@@ -86,17 +89,14 @@ app.use(helmet({
                 "https://fonts.gstatic.com", 
                 "https://cdnjs.cloudflare.com"
             ],
-            // --- TUTAJ BYŁ BŁĄD ---
-            // Dodajemy cdn.jsdelivr.net do obrazków, żeby flagi działały
             imgSrc: [
                 "'self'", 
                 "data:", 
                 "https://upload.wikimedia.org", 
                 "https://*.stripe.com",
-                "https://daepoland.com",
-                "https://cdn.jsdelivr.net" 
+                "https://daepoland.com", 
+                "https://cdn.jsdelivr.net"
             ],
-            // ----------------------
             connectSrc: [
                 "'self'", 
                 "https://api.stripe.com"
