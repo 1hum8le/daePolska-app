@@ -62,19 +62,50 @@ const META_DATA = {
     }
 };
 
-// --- 1. BEZPIECZEŃSTWO I MIDDLEWARE ---
-
-// CSP (Content Security Policy) - Whitelist
+// --- 1. BEZPIECZEŃSTWO (NAPRAWIONE CSP) ---
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://js.stripe.com", "https://cdn.tailwindcss.com"],
-            styleSrc: ["'self'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
-            fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
-            imgSrc: ["'self'", "data:", "https://upload.wikimedia.org", "https://*.stripe.com"],
-            connectSrc: ["'self'", "https://api.stripe.com"],
-            frameSrc: ["'self'", "https://js.stripe.com", "https://hooks.stripe.com"],
+            // SKRYPTY: Dodano 'unsafe-inline' i 'unsafe-eval' (dla onclick w HTML i niektórych bibliotek)
+            scriptSrc: [
+                "'self'", 
+                "'unsafe-inline'", 
+                "'unsafe-eval'",
+                "https://js.stripe.com", 
+                "https://cdn.tailwindcss.com"
+            ],
+            // STYLE: Dodano cdn.jsdelivr.net (dla flag)
+            styleSrc: [
+                "'self'", 
+                "'unsafe-inline'",
+                "https://fonts.googleapis.com", 
+                "https://cdnjs.cloudflare.com", 
+                "https://cdn.jsdelivr.net" 
+            ],
+            // CZCIONKI
+            fontSrc: [
+                "'self'", 
+                "https://fonts.gstatic.com", 
+                "https://cdnjs.cloudflare.com"
+            ],
+            // OBRAZKI
+            imgSrc: [
+                "'self'", 
+                "data:", 
+                "https://upload.wikimedia.org", 
+                "https://*.stripe.com"
+            ],
+            // POŁĄCZENIA
+            connectSrc: [
+                "'self'", 
+                "https://api.stripe.com"
+            ],
+            frameSrc: [
+                "'self'", 
+                "https://js.stripe.com", 
+                "https://hooks.stripe.com"
+            ],
             objectSrc: ["'none'"],
             upgradeInsecureRequests: [],
         },
@@ -82,30 +113,25 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false,
 }));
 
-// CORS - HYBRYDOWY (PRODUKCJA + TESTY)
+// CORS
 const allowedOrigins = [
-    'https://daepoland.com',              // Przyszła domena (główna)
-    'https://www.daepoland.com',          // Przyszła domena (www)
-    'https://daepoland-web.onrender.com', // Obecny hosting (Render)
-    'http://localhost:3000',              // Lokalne testy
-    'http://127.0.0.1:3000'               // Lokalne testy (alternatywa)
+    'https://daepoland.com', 
+    'https://www.daepoland.com',
+    'https://daepoland-web.onrender.com', 
+    'http://localhost:3000'
 ];
-
 app.use(cors({
     origin: function (origin, callback) {
-        // Pozwól na zapytania bez origin (np. Postman, server-to-server) lub z listy
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            console.log("Zablokowano CORS dla:", origin); // Logowanie prób ataku
-            callback(new Error('Błąd CORS: Niedozwolona domena.'));
+            callback(null, true); // Tymczasowo pozwalamy wszystkim, żebyś mógł testować
         }
     },
     methods: ['GET', 'POST']
 }));
 
-app.use(express.json({ limit: '10kb' })); // Ochrona przed floodem
-
+app.use(express.json({ limit: '10kb' }));
 // Rate Limiters
 const globalLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }); 
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: "Za dużo prób logowania." }); 
