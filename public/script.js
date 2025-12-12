@@ -24,27 +24,30 @@ let clientSecret = null;
 // 2. ROUTING I INICJALIZACJA
 // ==========================================
 function getLangFromUrl() {
-    // Rozbijamy ścieżkę (np. "/pl/" -> ["", "pl", ""])
-    const segments = window.location.pathname.split('/');
-    
-    // Szukamy w segmentach kodu języka
-    // To jest bezpieczniejsze niż segments[0], bo omija puste elementy
-    const foundLang = segments.find(seg => availableLangs.includes(seg));
-    
-    return foundLang || null;
+    // Pobiera "pl" z "/pl" lub "/pl/"
+    const parts = window.location.pathname.split('/');
+    // Szukamy w częściach adresu czy któraś to znany język
+    return parts.find(p => availableLangs.includes(p)) || null;
 }
 
-let savedLang = localStorage.getItem('selectedLang');
+// CZYSTY START:
 let urlLang = getLangFromUrl();
+let savedLang = localStorage.getItem('selectedLang');
 let browserLang = navigator.language.slice(0, 2);
 
-// Priorytet: 1. URL, 2. Zapisany wybór, 3. Przeglądarka, 4. Domyślny PL
-let currentLang = urlLang || savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
+// PRIORYTET ABSOLUTNY: Adres URL > Pamięć > Przeglądarka
+// Jeśli jesteś na /pl, to currentLang MA BYĆ 'pl', nieważne co mówi localStorage
+let currentLang = urlLang; 
 
-// Jeśli URL jest pusty (strona główna), dopisz język dla porządku (bez przeładowania)
-if (!urlLang) {
+if (!currentLang) {
+    // Jeśli URL jest "czysty" (strona główna), bierzemy z pamięci lub domyślny
+    currentLang = savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
+    // I dopisujemy go do URL bez przeładowania
     window.history.replaceState({}, '', `/${currentLang}`);
 }
+
+// Zapisz ostateczny wynik do pamięci na przyszłość
+localStorage.setItem('selectedLang', currentLang);
 
 // ==========================================
 // 3. UI I AKTUALIZACJE
@@ -132,22 +135,36 @@ window.changeLanguage = function(langCode) {
 
 window.selectPackage = function(pkgName) {
     currentPackage = pkgName;
+    
+    // 1. Zaktualizuj tekst w formularzu
     const inputPkg = document.getElementById('selected-pkg');
     if(inputPkg) inputPkg.value = pkgName;
     
     updateSelectedPackageText();
     
-    // Ręczne scrollowanie (naprawa dla base href)
-    const orderSection = document.getElementById('order');
-    if(orderSection) {
-        orderSection.scrollIntoView({behavior: 'smooth', block: 'start'});
-    }
+    // 2. Wymuś scroll do formularza (z małym opóźnieniem dla stabilności)
+    setTimeout(() => {
+        const formTarget = document.getElementById('inspection-form');
+        if(formTarget) {
+            formTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 100);
     
+    // 3. Odśwież cenę w Stripe
     initializePayment();
 }
 
 window.toggleFaq = function(element) {
+    // Element to div.faq-item. Dodajemy/usuwamy klasę 'active'
+    // W CSS upewnij się, że .faq-item.active .faq-answer { max-height: 200px; }
     element.classList.toggle('active');
+    
+    // Opcjonalnie: obróć strzałkę (jeśli masz ikonę w środku)
+    const icon = element.querySelector('.faq-icon');
+    if(icon) {
+        // Jeśli jest active, obróć o 180, jeśli nie, wróć do 0
+        icon.style.transform = element.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
 }
 
 window.toggleMobileMenu = function() {
@@ -165,21 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateContent();
     updatePricesDisplay();
     initializePayment();
-
-    // --- FIX 1: NAPRAWA SCROLLOWANIA (Ignorowanie base href) ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Zatrzymaj przeładowanie!
-            
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    
             
             // Zamknij menu mobilne po kliknięciu
             const mobileMenu = document.getElementById('mobile-menu');
