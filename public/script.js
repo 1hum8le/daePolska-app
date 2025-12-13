@@ -26,7 +26,7 @@ const langFlagClasses = {
 };
 
 const prices = {
-    Basic: { eur: 3, pln: 497 },
+    Basic: { eur: 1, pln: 497 },
     Standard: { eur: 235, pln: 990 },
     Premium: { eur: 525, pln: 2250 }
 };
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. OBSŁUGA FORMULARZA
+   // 4. OBSŁUGA FORMULARZA
     const orderForm = document.getElementById('inspection-form');
     const submitBtn = document.getElementById('submit-btn');
     const inputsToWatch = ['name', 'email', 'url', 'location'];
@@ -306,16 +306,24 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
+                // 1. Zapis do bazy danych
                 await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)
                 });
 
+                // --- NOWE: Generujemy ID zamówienia dla success.html ---
+                // (Normalnie ID brałoby się z odpowiedzi fetch powyżej, ale to bezpieczny fallback)
+                const tempId = 'ORD-' + Math.floor(Math.random() * 1000000); 
+
+                // 2. Potwierdzenie płatności Stripe ze zmodyfikowanym URL
                 const { error } = await stripe.confirmPayment({
                     elements,
                     confirmParams: {
-                        return_url: `${window.location.origin}/success.html?name=${encodeURIComponent(orderData.name)}&pkg=${currentPackage}`,
+                        // TUTAJ JEST ZMIANA - Doklejamy parametry: id, email, price
+                        return_url: `${window.location.origin}/success.html?id=${tempId}&name=${encodeURIComponent(orderData.name)}&email=${encodeURIComponent(orderData.email)}&pkg=${currentPackage}&price=${orderData.price}`,
+                        
                         payment_method_data: {
                             billing_details: { name: orderData.name, email: orderData.email }
                         }
