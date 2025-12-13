@@ -26,7 +26,7 @@ const langFlagClasses = {
 };
 
 const prices = {
-    Basic: { eur: 115, pln: 497 },
+    Basic: { eur: 3, pln: 497 },
     Standard: { eur: 235, pln: 990 },
     Premium: { eur: 525, pln: 2250 }
 };
