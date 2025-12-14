@@ -7,6 +7,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-y: auto;
 }
 
 body {
@@ -14,7 +15,6 @@ body {
     padding: 0;
     font-family: 'Inter', sans-serif;
     background-color: #0a0a0f;
-    overscroll-behavior-y: none;
     color: white;
     overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
     width: 100%;
@@ -78,23 +78,28 @@ body {
 /* DOMYŚLNIE (Mobile): Wyłączone przyciąganie, naturalny scroll */
 .snap-container {
     height: auto;
-    overflow-y: visible;
-    scroll-snap-type: none; 
+    overflow: visible;
+    scroll-snap-type: none;
 }
 
 .snap-section {
     width: 100%;
     min-height: 100dvh; /* Zajmuje min. cały ekran */
     height: auto;       /* Ale może rosnąć */
+
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     padding-top: 100px; /* Większy odstęp od góry na mobile */
     padding-bottom: 60px;
     padding-left: 1rem;
     padding-right: 1rem;
+
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
 }
 
 /* DESKTOP (Powyżej 1024px): Włączamy przyciąganie */
@@ -106,10 +111,11 @@ body {
     }
 
     .snap-section {
-        height: 100vh; /* Sekcja idealnie na ekran */
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        padding-top: 80px;
+        height: 100vh; /* Każda sekcja na pełny ekran */
+        scroll-snap-align: start; /* Przyciąganie do początku sekcji */
+        scroll-snap-stop: always; /* Zawsze zatrzymuj się na sekcji */
+        width: 100%;
+        padding-top: 120px;
         padding-bottom: 40px;
     }
 }
@@ -220,74 +226,109 @@ body {
 .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
 
 
-/* Styl dla kontenera ciasteczek */
+/* =========================================
+   CIASTECZKA (Wersja: Centered Slim Bar)
+   ========================================= */
+
 .cookie-banner {
     position: fixed;
-    bottom: 20px;
-    right: 20px; /* Na komputerze w prawym rogu */
-    width: 300px; /* Mała szerokość */
-    background: rgba(30, 30, 47, 0.95); /* Ciemne tło, lekko przezroczyste */
-    color: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    z-index: 9999; /* Zawsze na wierzchu */
+    bottom: 20px;       /* Unosi się nad krawędzią */
+    left: 50%;          /* Środek ekranu */
+    
+    /* Centrowanie i animacja (kluczowe dla tej wersji) */
+    transform: translateX(-50%) translateY(0); 
+    
+    /* Wygląd paska */
+    width: auto;        /* Szerokość dopasowana do treści */
+    min-width: 320px;   /* Ale nie za wąski */
+    max-width: 90%;     /* I nie szerszy niż ekran */
+    
+    background: rgba(20, 20, 30, 0.95); /* Ciemne tło */
+    backdrop-filter: blur(10px);        /* Rozmycie tła pod spodem */
+    -webkit-backdrop-filter: blur(10px);
+    
     border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 13px;
-    line-height: 1.4;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 50px; /* Mocne zaokrąglenie (kształt pigułki) */
+    padding: 10px 25px;  /* Mało góra/dół, więcej boki */
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 9999;
+    
+    /* Układ wewnątrz */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Odstęp między tekstem a przyciskiem */
+    
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Ukrywanie, gdy zaakceptowane */
+/* Stan ukryty (zjeżdża w dół) */
 .cookie-banner.hidden {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(20px);
+    /* Przesuwamy w dół i zachowujemy centrowanie poziome */
+    transform: translateX(-50%) translateY(100px); 
 }
 
-/* Układ treści */
 .cookie-content {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row; /* Tekst i guzik w jednej linii */
+    align-items: center;
+    gap: 15px;
+    margin: 0;
 }
 
-/* Styl przycisku */
+.cookie-content p {
+    margin: 0;
+    color: #ccc;
+    font-size: 13px; /* Mniejsza czcionka */
+    white-space: nowrap; /* Tekst w jednej linii (na desktopie) */
+}
+
 #accept-cookies {
-    background: #FF5722; /* Twój kolor główny */
+    background: var(--accent-orange);
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
+    padding: 6px 16px; /* Mniejszy przycisk */
+    border-radius: 20px; /* Zaokrąglony przycisk */
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 12px;
-    align-self: flex-end; /* Przycisk do prawej */
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 #accept-cookies:hover {
-    background: #e64a19;
+    background: white;
+    color: black;
+    transform: scale(1.05);
 }
 
-/* Dostosowanie do telefonów */
-@media (max-width: 600px) {
+/* Responsywność (Telefony) */
+@media (max-width: 768px) {
     .cookie-banner {
-        right: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%; /* Na telefonie na całą szerokość */
-        border-radius: 12px 12px 0 0; /* Zaokrąglenie tylko u góry */
+        width: 90%;      /* Prawie cała szerokość */
+        bottom: 15px;
+        padding: 12px 15px;
+        border-radius: 16px; /* Mniej zaokrąglone na telefonie, żeby zmieścić tekst */
+        flex-direction: column; /* Na małym ekranie jednak w pionie */
     }
-    
+
     .cookie-content {
-        flex-direction: row; /* Tekst obok przycisku */
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .cookie-content p {
+        white-space: normal; /* Pozwalamy na łamanie tekstu */
+        font-size: 12px;
     }
     
     #accept-cookies {
-        white-space: nowrap; /* Żeby tekst się nie łamał */
+        width: 100%; /* Guzik na całą szerokość */
+        padding: 8px 0;
     }
 }
 /* =========================================
