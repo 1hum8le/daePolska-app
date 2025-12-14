@@ -1,0 +1,6 @@
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType video/mp4 "access plus 1 month"
+    ExpiresByType video/webm "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 year"
+</IfModule>

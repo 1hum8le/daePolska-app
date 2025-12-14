@@ -64,13 +64,23 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <div class="video-bg-container">
-        <div class="video-overlay"></div>
-        <video autoplay muted loop playsinline class="back-video" poster="/src/poster.jpg" role="presentation">
-            <source src="/src/video_bg.webm" type="video/webm"> 
-            <!-- CHANGE AFTER WEBSITE HOSTING DEPLOYMENT - IMG PATH -->
-        </video>
-    </div>
+    <div class="video-background">
+    <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        poster="src/poster.jpg" 
+        id="bg-video">
+        
+        <source src="src/video_bg.webm" type="video/webm">
+        <source src="src/video_bg.mp4" type="video/mp4">
+        
+        Twoja przeglądarka nie obsługuje wideo w tle.
+    </video>
+    
+    <div class="overlay"></div>
+</div>
 
 <nav class="fixed w-full z-50 top-0 py-3 px-4 md:px-6 transition-all duration-300 glass-nav">
         <div class="container mx-auto flex justify-between items-center">
