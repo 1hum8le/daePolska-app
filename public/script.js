@@ -445,3 +445,51 @@ async function initializePayment() {
         console.error("Stripe Error:", e);
     }
 }
+
+// ==========================================
+// 7. BANER COOKIE
+// ==========================================
+document.addEventListener("DOMContentLoaded", function() {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+
+    // 1. Sprawdź, czy w pamięci przeglądarki jest już zgoda
+    if (!localStorage.getItem('cookiesAccepted')) {
+        // Jeśli nie ma, pokaż baner (usuń klasę 'hidden')
+        // Robimy małe opóźnienie, żeby nie atakować od razu po wejściu
+        setTimeout(() => {
+            cookieBanner.classList.remove('hidden');
+        }, 1000);
+    }
+
+    // 2. Obsługa kliknięcia
+    acceptBtn.addEventListener('click', () => {
+        // Zapisz w pamięci "Tak, użytkownik się zgodził"
+        localStorage.setItem('cookiesAccepted', 'true');
+        
+        // Ukryj baner
+        cookieBanner.classList.add('hidden');
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Czekamy aż strona się załaduje
+    const video = document.getElementById('bg-video');
+    const sources = video.getElementsByTagName('source');
+    
+    // Funkcja ładująca wideo
+    const loadVideo = () => {
+        for (let source of sources) {
+            source.src = source.getAttribute('data-src');
+        }
+        video.load();
+    };
+
+    // Jeśli to komputer -> ładuj od razu
+    // Jeśli to telefon -> poczekaj 2 sekundy, aż załadują się inne skrypty
+    if (window.innerWidth > 768) {
+        loadVideo();
+    } else {
+        setTimeout(loadVideo, 2500); 
+    }
+});

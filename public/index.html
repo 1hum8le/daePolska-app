@@ -65,19 +65,10 @@
     </a>
 
     <div class="video-background">
-    <video 
-        autoplay 
-        muted 
-        loop 
-        playsinline 
-        poster="src/poster.jpg" 
-        id="bg-video">
-        
-        <source src="src/video_bg.webm" type="video/webm">
-        <source src="src/video_bg.mp4" type="video/mp4">
-        
-        Twoja przeglądarka nie obsługuje wideo w tle.
-    </video>
+    <video autoplay muted loop playsinline poster="poster.jpg" id="bg-video">
+    <source data-src="video_bg.webm" type="video/webm">
+    <source data-src="video_bg.mp4" type="video/mp4">
+</video>
     
     <div class="overlay"></div>
 </div>
@@ -783,5 +774,12 @@
             el.classList.toggle('active');
         }
     </script>
+
+    <div id="cookie-banner" class="cookie-banner hidden">
+    <div class="cookie-content">
+        <p>🍪 Używamy plików cookies, aby zapewnić najlepszą jakość korzystania z naszej strony.</p>
+        <button id="accept-cookies">OK, rozumiem</button>
+    </div>
+</div>
 </body>
 </html>
