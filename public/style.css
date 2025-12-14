@@ -7,17 +7,19 @@
 
 html {
     scroll-behavior: smooth;
-    overflow-y: auto;
+    overflow-y: auto; /* Włączamy normalny pasek przewijania */
+    overflow-x: hidden; /* Blokujemy pasek poziomy */
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #0a0a0f;
+    /* WAŻNE: Tło body musi być przezroczyste, żeby nie zasłaniać wideo (z-index: -1) */
+    background-color: transparent; 
     color: white;
-    overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
     width: 100%;
+    position: relative;
 }
 
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -26,9 +28,8 @@ body {
 .bg-accent-orange { background-color: var(--accent-orange); }
 
 /* =========================================
-   2. TŁO WIDEO
+   2. TŁO WIDEO (NAPRAWIONE)
    ========================================= */
-/* Kontener, który trzyma wideo w ryzach */
 .video-background {
     position: fixed;
     top: 0;
@@ -36,16 +37,18 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    z-index: -1;
+    z-index: -1; /* Pod spodem */
     
-    /* NOWE: Wymuszenie osobnej warstwy renderowania */
+    /* Kolor tła dajemy TUTAJ jako fallback, zamiast w body */
+    background-color: #0a0a0f; 
+
+    /* Optymalizacja GPU */
     transform: translateZ(0); 
     -webkit-transform: translateZ(0);
-    will-change: transform; /* Informuje przeglądarkę, żeby przygotowała się na zmiany */
+    will-change: transform;
     backface-visibility: hidden;
 }
 
-/* Samo wideo */
 #bg-video {
     position: absolute;
     top: 50%;
@@ -54,74 +57,55 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
-    /* Kluczowa linia dla zachowania proporcji i wypełnienia */
     object-fit: cover; 
     transform: translate(-50%, -50%);
-    filter: brightness(0.6); /* Przyciemnienie wideo */
+    filter: brightness(0.6); 
 }
 
-/* Opcjonalna przyciemniająca warstwa */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 50% czerni */
-    z-index: 1; /* Nad wideo, ale pod tekstem strony */
-    transform: translateZ(0);
-}
 /* =========================================
-   3. SCROLL SNAP (Sektorowe przewijanie)
+   3. UKŁAD SEKCJI (NATURALNY SCROLL - NAPRAWIONE)
    ========================================= */
 
-/* DOMYŚLNIE (Mobile): Wyłączone przyciąganie, naturalny scroll */
+/* Kontener główny - czyścimy wszystkie blokady scrolla */
 .snap-container {
-    height: auto;
-    overflow: visible;
-    scroll-snap-type: none;
+    width: 100%;
+    height: auto !important; /* Ważne: usuwa sztywną wysokość */
+    overflow: visible !important; /* Ważne: usuwa wewnętrzny pasek scrolla */
+    scroll-snap-type: none !important; /* Wyłącza magnes */
 }
 
+/* Pojedyncza sekcja */
 .snap-section {
     width: 100%;
-    min-height: 100dvh; /* Zajmuje min. cały ekran */
-    height: auto;       /* Ale może rosnąć */
-
+    min-height: 100vh; /* Minimum ekran, ale może rosnąć */
+    height: auto !important;
+    
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    padding-top: 100px; /* Większy odstęp od góry na mobile */
-    padding-bottom: 60px;
+    
+    /* Odstępy */
+    padding-top: 100px;
+    padding-bottom: 80px;
     padding-left: 1rem;
     padding-right: 1rem;
-
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
+    
+    /* Wyłączamy przyciąganie */
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
 }
 
-/* DESKTOP (Powyżej 1024px): Włączamy przyciąganie */
 @media (min-width: 1025px) {
-    .snap-container {
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory; /* Tu działa "magnes" */
-    }
-
     .snap-section {
-        height: 100vh; /* Każda sekcja na pełny ekran */
-        scroll-snap-align: start; /* Przyciąganie do początku sekcji */
-        scroll-snap-stop: always; /* Zawsze zatrzymuj się na sekcji */
-        width: 100%;
         padding-top: 120px;
-        padding-bottom: 40px;
+        /* Usunięto height: 100vh i scroll-snap */
     }
 }
 
 /* =========================================
-   4. UI: SZKŁO
+   4. UI: SZKŁO (GLASSMORPHISM)
    ========================================= */
 .glass-card {
     background: rgba(20, 20, 30, 0.90); 
@@ -192,7 +176,7 @@ body {
 
 /* Marquee (Opinie) */
 .marquee-vertical-container {
-    height: 400px; /* Mobile */
+    height: 400px;
     overflow: hidden;
     position: relative;
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
@@ -225,55 +209,47 @@ body {
 .faq-icon { transition: transform 0.3s; }
 .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
 
-
 /* =========================================
-   CIASTECZKA (Wersja: Centered Slim Bar)
+   6. CIASTECZKA (Wersja: Wycentrowana Pigułka)
    ========================================= */
-
 .cookie-banner {
     position: fixed;
     bottom: 20px;       /* Unosi się nad krawędzią */
     left: 50%;          /* Środek ekranu */
+    transform: translateX(-50%) translateY(0); /* Idealne centrowanie */
     
-    /* Centrowanie i animacja (kluczowe dla tej wersji) */
-    transform: translateX(-50%) translateY(0); 
+    width: auto;        
+    min-width: 320px;   
+    max-width: 90%;     
     
-    /* Wygląd paska */
-    width: auto;        /* Szerokość dopasowana do treści */
-    min-width: 320px;   /* Ale nie za wąski */
-    max-width: 90%;     /* I nie szerszy niż ekran */
-    
-    background: rgba(20, 20, 30, 0.95); /* Ciemne tło */
-    backdrop-filter: blur(10px);        /* Rozmycie tła pod spodem */
+    background: rgba(20, 20, 30, 0.95); 
+    backdrop-filter: blur(10px);        
     -webkit-backdrop-filter: blur(10px);
     
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px; /* Mocne zaokrąglenie (kształt pigułki) */
-    padding: 10px 25px;  /* Mało góra/dół, więcej boki */
+    border-radius: 50px; /* Pigułka */
+    padding: 10px 25px;  
     
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     z-index: 9999;
     
-    /* Układ wewnątrz */
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px; /* Odstęp między tekstem a przyciskiem */
+    gap: 20px; 
     
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Stan ukryty (zjeżdża w dół) */
 .cookie-banner.hidden {
     opacity: 0;
     pointer-events: none;
-    /* Przesuwamy w dół i zachowujemy centrowanie poziome */
     transform: translateX(-50%) translateY(100px); 
 }
 
 .cookie-content {
     display: flex;
-    flex-direction: row; /* Tekst i guzik w jednej linii */
+    flex-direction: row; 
     align-items: center;
     gap: 15px;
     margin: 0;
@@ -282,16 +258,16 @@ body {
 .cookie-content p {
     margin: 0;
     color: #ccc;
-    font-size: 13px; /* Mniejsza czcionka */
-    white-space: nowrap; /* Tekst w jednej linii (na desktopie) */
+    font-size: 13px; 
+    white-space: nowrap; 
 }
 
 #accept-cookies {
     background: var(--accent-orange);
     color: white;
     border: none;
-    padding: 6px 16px; /* Mniejszy przycisk */
-    border-radius: 20px; /* Zaokrąglony przycisk */
+    padding: 6px 16px; 
+    border-radius: 20px; 
     cursor: pointer;
     font-weight: 600;
     font-size: 12px;
@@ -305,14 +281,14 @@ body {
     transform: scale(1.05);
 }
 
-/* Responsywność (Telefony) */
+/* Responsywność ciasteczek */
 @media (max-width: 768px) {
     .cookie-banner {
-        width: 90%;      /* Prawie cała szerokość */
+        width: 90%;
         bottom: 15px;
         padding: 12px 15px;
-        border-radius: 16px; /* Mniej zaokrąglone na telefonie, żeby zmieścić tekst */
-        flex-direction: column; /* Na małym ekranie jednak w pionie */
+        border-radius: 16px; 
+        flex-direction: column;
     }
 
     .cookie-content {
@@ -322,40 +298,37 @@ body {
     }
 
     .cookie-content p {
-        white-space: normal; /* Pozwalamy na łamanie tekstu */
+        white-space: normal;
         font-size: 12px;
     }
     
     #accept-cookies {
-        width: 100%; /* Guzik na całą szerokość */
+        width: 100%;
         padding: 8px 0;
     }
 }
-/* =========================================
-   6. POPRAWKI FORMULARZY (MOBILE FIT)
-   ========================================= */
 
-/* Domyślnie (Mobile): Karta na całą szerokość, ale z marginesem */
+/* =========================================
+   7. POPRAWKI FORMULARZY (MOBILE FIT)
+   ========================================= */
 #order .glass-card,
 #contact .glass-card {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 1.5rem; /* Mniejszy padding wewnątrz */
+    padding: 1.5rem;
 }
 
-/* Desktop: Sztywne ramy */
 @media (min-width: 1025px) {
     #order .glass-card {
-        max-width: 64rem; /* Szeroki panel zamówienia */
-        padding: 0; /* Padding zerowy dla układu grid */
+        max-width: 64rem;
+        padding: 0;
     }
     #contact .glass-card {
         padding: 2.5rem;
     }
 }
 
-/* Dodatkowy fix dla bardzo małych ekranów */
 @media (max-width: 380px) {
     .glass-input { font-size: 14px; padding: 0.6rem; }
     h1 { font-size: 2rem; }
