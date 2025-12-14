@@ -195,10 +195,19 @@ async function sendEmail(to, subject, textContent, replyToEmail = null) {
 // --- 5. ENDPOINTY ---
 
 app.post('/create-payment-intent', async (req, res) => {
-    const { amount, currency } = req.body;
+    const { amount, currency, description_url, description_location, package_name } = req.body;
+
     try {
         const paymentIntent = await stripe.paymentIntents.create({
-            amount, currency, automatic_payment_methods: { enabled: true },
+            amount, currency,
+             automatic_payment_methods: { enabled: true },
+
+             metadata: {
+                'URL': description_url || 'N/A',
+                'Adres': description_location || 'N/A',
+                'Package': package_name || 'Standard'
+             },
+             description: `Zamówienie: ${package_name} - ${description_location} - ${description_url}`,
         });
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (e) { res.status(500).json({ error: e.message }); }

@@ -390,12 +390,20 @@ document.addEventListener('DOMContentLoaded', () => {
 async function initializePayment() {
     const currency = currentLang === 'pl' ? 'pln' : 'eur';
     const amount = prices[currentPackage][currency] * 100;
+    const carUrl = document.getElementById('car-url').value || 'N/A';
+    const carLocation = document.getElementById('car-location').value || 'N/A';
 
     try {
         const response = await fetch('/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount, currency })
+            body: JSON.stringify({ 
+                amount, 
+                currency,
+                description_url: carUrl,
+                description_location: carLocation,
+                package_type: currentPackage
+             })
         });
         
         if (!response.ok) return;
