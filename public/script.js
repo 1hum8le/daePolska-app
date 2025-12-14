@@ -26,7 +26,7 @@ const langFlagClasses = {
 };
 
 const prices = {
-    Basic: { eur: 1, pln: 497 },
+    Basic: { eur: 1, pln: 5 },
     Standard: { eur: 235, pln: 990 },
     Premium: { eur: 525, pln: 2250 }
 };
@@ -319,16 +319,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 2. Potwierdzenie płatności Stripe ze zmodyfikowanym URL
                 const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        // TUTAJ JEST ZMIANA - Doklejamy parametry: id, email, price
-                        return_url: `${window.location.origin}/success.html?id=${tempId}&name=${encodeURIComponent(orderData.name)}&email=${encodeURIComponent(orderData.email)}&pkg=${currentPackage}&price=${orderData.price}`,
-                        
+                     elements,
+                     confirmParams: {
+                             // ZMIANA TUTAJ: Dodaliśmy na końcu "&lang=${currentLang}"
+                         return_url: `${window.location.origin}/success.html?id=${tempId}&name=${encodeURIComponent(orderData.name)}&email=${encodeURIComponent(orderData.email)}&pkg=${currentPackage}&price=${orderData.price}&lang=${currentLang}`,
+        
                         payment_method_data: {
-                            billing_details: { name: orderData.name, email: orderData.email }
-                        }
-                    },
-                });
+                         billing_details: { name: orderData.name, email: orderData.email }
+        }
+    },
+});
 
                 if (error) {
                     document.getElementById('card-errors').innerText = error.message;
