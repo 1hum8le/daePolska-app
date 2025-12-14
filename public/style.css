@@ -7,19 +7,19 @@
 
 html {
     scroll-behavior: smooth;
-    overflow-y: auto; /* Włączamy normalny pasek przewijania */
-    overflow-x: hidden; /* Blokujemy pasek poziomy */
+    /* Usuwamy overflow stąd, żeby nie gryzło się z containerem */
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    /* WAŻNE: Tło body musi być przezroczyste, żeby nie zasłaniać wideo (z-index: -1) */
+    /* Przezroczyste tło, żeby wideo było widoczne */
     background-color: transparent; 
     color: white;
     width: 100%;
-    position: relative;
+    /* WAŻNE: Ukrywamy pasek body, bo scrolluje container */
+    overflow: hidden; 
 }
 
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -28,7 +28,7 @@ body {
 .bg-accent-orange { background-color: var(--accent-orange); }
 
 /* =========================================
-   2. TŁO WIDEO (NAPRAWIONE)
+   2. TŁO WIDEO (PRZYWRÓCONE)
    ========================================= */
 .video-background {
     position: fixed;
@@ -37,9 +37,9 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    z-index: -1; /* Pod spodem */
+    z-index: -1; /* Musi być pod spodem */
     
-    /* Kolor tła dajemy TUTAJ jako fallback, zamiast w body */
+    /* Fallback koloru tła */
     background-color: #0a0a0f; 
 
     /* Optymalizacja GPU */
@@ -63,22 +63,21 @@ body {
 }
 
 /* =========================================
-   3. UKŁAD SEKCJI (NATURALNY SCROLL - NAPRAWIONE)
+   3. SCROLL SNAP (PRZYWRÓCONE SEKTOROWE)
    ========================================= */
 
-/* Kontener główny - czyścimy wszystkie blokady scrolla */
+/* DOMYŚLNIE (Mobile): Naturalny scroll */
 .snap-container {
     width: 100%;
-    height: auto !important; /* Ważne: usuwa sztywną wysokość */
-    overflow: visible !important; /* Ważne: usuwa wewnętrzny pasek scrolla */
-    scroll-snap-type: none !important; /* Wyłącza magnes */
+    height: 100vh; /* Na mobile też 100vh, ale scroll wewnątrz */
+    overflow-y: scroll;
+    scroll-snap-type: none; /* Wyłączony magnes na dotyk */
 }
 
-/* Pojedyncza sekcja */
 .snap-section {
     width: 100%;
-    min-height: 100vh; /* Minimum ekran, ale może rosnąć */
-    height: auto !important;
+    min-height: 100vh; /* Minimum ekran */
+    height: auto;
     
     position: relative;
     display: flex;
@@ -86,26 +85,31 @@ body {
     align-items: center;
     justify-content: center;
     
-    /* Odstępy */
     padding-top: 100px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
     padding-left: 1rem;
     padding-right: 1rem;
-    
-    /* Wyłączamy przyciąganie */
-    scroll-snap-align: none !important;
-    scroll-snap-stop: normal !important;
 }
 
+/* DESKTOP (Powyżej 1024px): Włączamy MAGNES */
 @media (min-width: 1025px) {
+    .snap-container {
+        height: 100vh; /* Sztywna wysokość kontenera */
+        overflow-y: scroll; /* Scrollujemy wewnątrz kontenera */
+        scroll-snap-type: y mandatory; /* Włączamy przyciąganie */
+    }
+
     .snap-section {
-        padding-top: 120px;
-        /* Usunięto height: 100vh i scroll-snap */
+        height: 100vh; /* Każda sekcja idealnie na ekran */
+        scroll-snap-align: start; /* Punkt przyciągania */
+        scroll-snap-stop: always; /* Zawsze stopuj na sekcji */
+        padding-top: 80px;
+        padding-bottom: 40px;
     }
 }
 
 /* =========================================
-   4. UI: SZKŁO (GLASSMORPHISM)
+   4. UI: SZKŁO
    ========================================= */
 .glass-card {
     background: rgba(20, 20, 30, 0.90); 
@@ -214,9 +218,9 @@ body {
    ========================================= */
 .cookie-banner {
     position: fixed;
-    bottom: 20px;       /* Unosi się nad krawędzią */
-    left: 50%;          /* Środek ekranu */
-    transform: translateX(-50%) translateY(0); /* Idealne centrowanie */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
     
     width: auto;        
     min-width: 320px;   
@@ -227,7 +231,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px; /* Pigułka */
+    border-radius: 50px;
     padding: 10px 25px;  
     
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -281,7 +285,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Responsywność ciasteczek */
 @media (max-width: 768px) {
     .cookie-banner {
         width: 90%;
@@ -290,18 +293,15 @@ body {
         border-radius: 16px; 
         flex-direction: column;
     }
-
     .cookie-content {
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-
     .cookie-content p {
         white-space: normal;
         font-size: 12px;
     }
-    
     #accept-cookies {
         width: 100%;
         padding: 8px 0;
@@ -309,7 +309,7 @@ body {
 }
 
 /* =========================================
-   7. POPRAWKI FORMULARZY (MOBILE FIT)
+   7. POPRAWKI FORMULARZY
    ========================================= */
 #order .glass-card,
 #contact .glass-card {
