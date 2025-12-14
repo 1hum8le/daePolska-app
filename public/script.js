@@ -388,10 +388,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // 6. PŁATNOŚCI
 // ==========================================
 async function initializePayment() {
+    // 1. Zabezpieczenie: Sprawdzamy czy cena dla pakietu istnieje
+    if (!prices[currentPackage]) {
+        console.error("Błąd: Brak ceny dla pakietu " + currentPackage);
+        return;
+    }
+
     const currency = currentLang === 'pl' ? 'pln' : 'eur';
     const amount = prices[currentPackage][currency] * 100;
-    const carUrl = document.getElementById('car-url').value || 'N/A';
-    const carLocation = document.getElementById('car-location').value || 'N/A';
+
+    // 2. Zabezpieczenie przed błędem "Cannot read properties of null"
+    // Używamy ID 'url' i 'location', bo takie masz w HTML (chyba że zmieniłeś HTML)
+    const urlEl = document.getElementById('url');       
+    const locEl = document.getElementById('location');
+
+    // Sprawdzamy: Czy element istnieje? JEŚLI TAK -> pobierz value. JEŚLI NIE -> wstaw pusty tekst.
+    const carUrl = urlEl ? urlEl.value : "";
+    const carLocation = locEl ? locEl.value : "";
 
     try {
         const response = await fetch('/create-payment-intent', {
@@ -400,16 +413,23 @@ async function initializePayment() {
             body: JSON.stringify({ 
                 amount, 
                 currency,
+                // Używamy nazw zgodnych z Twoim plikiem server.js
                 description_url: carUrl,
-                description_location: carLocation,
-                package_type: currentPackage
+                description_loc: carLocation,  // Backend oczekuje 'description_loc'
+                package_name: currentPackage   // Backend oczekuje 'package_name'
              })
         });
         
-        if (!response.ok) return;
+        if (!response.ok) {
+            console.error("Błąd serwera:", response.status);
+            return;
+        }
 
         const data = await response.json();
         clientSecret = data.clientSecret;
+
+        // Jeśli nie dostaliśmy clientSecret, nie ma sensu iść dalej
+        if (!clientSecret) return;
 
         const appearance = { theme: 'night', variables: { colorPrimary: '#FF5722', colorBackground: '#1e1e2f', colorText: '#ffffff' } };
         
