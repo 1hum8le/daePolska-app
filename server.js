@@ -215,18 +215,50 @@ app.post('/create-payment-intent', async (req, res) => {
 
 app.post('/api/orders', async (req, res) => {
     const { name, email, phone, url, location, packageType, price, paymentId } = req.body;
+
     try {
+        // --- 1. AKTUALIZACJA DANYCH W STRIPE (To naprawia puste pola "N/A") ---
+        if (paymentId) {
+            // Jeśli frontend wysyła client_secret (np. pi_123..._secret_456...), musimy wyciągnąć samo ID
+            const intentId = paymentId.includes('_secret_') ? paymentId.split('_secret_')[0] : paymentId;
+
+            await stripe.paymentIntents.update(intentId, {
+                receipt_email: email, // Dzięki temu email trafi do powiadomienia
+                metadata: {
+                    'Adres': location, // Nadpisujemy "N/A" prawdziwą lokalizacją
+                    'URL': url,        // Nadpisujemy "N/A" prawdziwym linkiem
+                    'Pakiet': packageType,
+                    'Klient': name,
+                    'Telefon': phone
+                },
+                description: `Zamówienie: ${packageType} od ${name}`
+            });
+            console.log(`Stripe zaktualizowany dla ID: ${intentId}`);
+        }
+        // ---------------------------------------------------------------------
+
+        // --- 2. ZAPIS DO BAZY DANYCH (Twój oryginalny kod) ---
         const newOrder = await pool.query(
             "INSERT INTO orders (client_name, email, phone, listing_url, vehicle_location, package_type, price, status, stripe_payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7, 'paid', $8) RETURNING *",
             [name, email, phone, url, location, packageType, price, paymentId]
         );
+
+        // --- 3. WYSYŁKA MAILI ---
         const adminText = getAdminEmailText(req.body);
+        // Do maila klienta dodajemy ID zamówienia z bazy
         const clientText = getClientEmailText({ ...req.body, orderId: newOrder.rows[0].id });
         
-        sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType}`, adminText);
-        sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id}`, clientText);
+        // Pamiętaj o await przy wysyłaniu maili (opcjonalne, ale dobra praktyka, żeby wyłapać błędy)
+        await sendEmail(process.env.EMAIL_USER, `💰 NOWE ZLECENIE: ${packageType}`, adminText);
+        await sendEmail(email, `Potwierdzenie zamówienia #${newOrder.rows[0].id}`, clientText);
+
+        // --- 4. ODPOWIEDŹ DO FRONTENDU ---
         res.json(newOrder.rows[0]);
-    } catch (err) { res.status(500).send("Server Error"); }
+
+    } catch (err) {
+        console.error("Błąd w /api/orders:", err); // Ważne: logowanie błędu w konsoli serwera
+        res.status(500).send("Server Error");
+    }
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
