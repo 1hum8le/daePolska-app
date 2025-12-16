@@ -64,10 +64,11 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <div class="video-background">
-    <video autoplay muted loop playsinline poster="/src/poster.jpg" id="bg-video">
-        <source src="/src/video_bg.webm" type="video/webm">
-        <source src="/src/video_bg.mp4" type="video/mp4">
+   <div class="video-background">
+    <video autoplay muted loop playsinline poster="src/video_bg.gif" id="bg-video">
+        
+        <source src="src/video_bg.webm" type="video/webm">
+        
         Twoja przeglądarka nie obsługuje wideo.
     </video>
 </div>
@@ -630,144 +631,135 @@
             </div>
         </section>
 
-        <section id="contact" class="snap-section flex flex-col justify-between pt-20 pb-0 px-0">
+       <section id="contact" class="snap-section flex flex-col justify-between pt-20 pb-0 px-0 w-full overflow-hidden relative">
             
-            <div class="container mx-auto max-w-7xl px-6 flex-grow flex flex-col justify-center z-10">
-                <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
-                    
-                    <div class="text-left space-y-8">
-                        <div class="animate-fade-up">
-                            <h2 class="text-4xl md:text-6xl font-black mb-4 font-montserrat" data-i18n="contact_title">GOTOWY NA IMPORT?</h2>
-                            <p class="text-gray-300 text-lg leading-relaxed font-inter" data-i18n="contact_desc">
-                                Masz pytania przed zamówieniem? Chcesz ustalić szczegóły nietypowego zlecenia? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość przez formularz.
-                            </p>
+    <div class="container mx-auto max-w-7xl px-6 flex-grow flex flex-col justify-center z-10 w-full">
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
+            
+            <div class="text-left space-y-8">
+                <div class="animate-fade-up">
+                    <h2 class="text-4xl md:text-6xl font-black mb-4 font-montserrat" data-i18n="contact_title">GOTOWY NA IMPORT?</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed font-inter" data-i18n="contact_desc">
+                        Masz pytania przed zamówieniem? Chcesz ustalić szczegóły nietypowego zlecenia? Skontaktuj się z nami bezpośrednio lub wyślij wiadomość przez formularz.
+                    </p>
+                </div>
+                
+                <div class="space-y-6 animate-fade-up" style="animation-delay: 0.1s;">
+                    <div class="flex items-center space-x-5 group">
+                        <div class="w-14 h-14 min-w-[3.5rem] rounded-2xl bg-accent-orange/10 border border-accent-orange/20 flex items-center justify-center text-accent-orange group-hover:bg-accent-orange group-hover:text-white transition duration-300">
+                            <i class="fas fa-phone text-2xl"></i>
                         </div>
-                        
-                        <div class="space-y-6 animate-fade-up" style="animation-delay: 0.1s;">
-                            <div class="flex items-center space-x-5 group">
-                                <div class="w-14 h-14 rounded-2xl bg-accent-orange/10 border border-accent-orange/20 flex items-center justify-center text-accent-orange group-hover:bg-accent-orange group-hover:text-white transition duration-300">
-                                    <i class="fas fa-phone text-2xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1" data-i18n="lbl_phone_title">Telefon / WhatsApp</p>
-                                    <p class="text-2xl font-bold text-white font-montserrat">+32 471 943 560</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center space-x-5 group">
-                                <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition duration-300">
-                                    <i class="fas fa-envelope text-2xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1" data-i18n="lbl_email_title">Email</p>
-                                    <p class="text-xl font-bold text-white font-montserrat">daePoland.kontakt@gmail.com</p>
-                                </div>
-                            </div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1" data-i18n="lbl_phone_title">Telefon / WhatsApp</p>
+                            <p class="text-xl md:text-2xl font-bold text-white font-montserrat whitespace-nowrap">+32 471 943 560</p>
                         </div>
                     </div>
 
-                    <div class="glass-card p-8 md:p-10 animate-fade-up" style="animation-delay: 0.2s;">
-                        <h3 class="text-xl font-bold mb-6 font-montserrat border-b border-white/10 pb-4" data-i18n="contact_form_title">Wyślij zapytanie</h3>
-                        <form id="contact-form">
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="contact-name" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_name">Imię i Nazwisko</label>
-                                    <input type="text" id="contact-name" class="glass-input text-sm py-3" required placeholder="Jan Kowalski" data-i18n-placeholder="ph_name">
-                                </div>
-                                <div>
-                                    <label for="contact-email" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_email">Email</label>
-                                    <input type="email" id="contact-email" class="glass-input text-sm py-3" required placeholder="jan@przyklad.com" data-i18n-placeholder="ph_email">
-                                </div>
-                                <div>
-                                    <label for="contact-message" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_message">Wiadomość</label>
-                                    <textarea id="contact-message" rows="4" class="glass-input text-sm py-3" data-i18n-placeholder="ph_message"></textarea>
-                                </div>
-                                <button type="submit" class="w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition text-sm tracking-widest font-montserrat" data-i18n="btn_send">WYŚLIJ WIADOMOŚĆ</button>
-                                <p id="contact-status" class="mt-3 text-xs font-bold text-center hidden"></p>
-                            </div>
-                        </form>
+                    <div class="flex items-center space-x-5 group">
+                        <div class="w-14 h-14 min-w-[3.5rem] rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition duration-300">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-1" data-i18n="lbl_email_title">Email</p>
+                            <p class="text-lg md:text-xl font-bold text-white font-montserrat break-all">daePoland.kontakt@gmail.com</p>
+                        </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="glass-card p-6 md:p-10 animate-fade-up w-full" style="animation-delay: 0.2s;">
+                <h3 class="text-xl font-bold mb-6 font-montserrat border-b border-white/10 pb-4" data-i18n="contact_form_title">Wyślij zapytanie</h3>
+                <form id="contact-form">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="contact-name" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_name">Imię i Nazwisko</label>
+                            <input type="text" id="contact-name" class="glass-input text-sm py-3 w-full" required placeholder="Jan Kowalski" data-i18n-placeholder="ph_name">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_email">Email</label>
+                            <input type="email" id="contact-email" class="glass-input text-sm py-3 w-full" required placeholder="jan@przyklad.com" data-i18n-placeholder="ph_email">
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-[10px] text-gray-400 mb-1 ml-1 uppercase font-bold" data-i18n="lbl_message">Wiadomość</label>
+                            <textarea id="contact-message" rows="4" class="glass-input text-sm py-3 w-full" data-i18n-placeholder="ph_message"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition text-sm tracking-widest font-montserrat" data-i18n="btn_send">WYŚLIJ WIADOMOŚĆ</button>
+                        <p id="contact-status" class="mt-3 text-xs font-bold text-center hidden"></p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer class="w-full border-t border-white/10 bg-black/60 backdrop-blur-xl pt-12 pb-8 mt-auto z-20">
+        <div class="container mx-auto max-w-7xl px-6 w-full">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-8 text-xs text-gray-400 font-inter">
+                
+                <div class="space-y-4">
+                    <a href="/" class="text-2xl font-black tracking-wider font-montserrat text-white block">
+                        DAE<span class="text-accent-orange">POLAND</span>
+                    </a>
+                    <p class="leading-relaxed text-gray-400" data-i18n="footer_about">
+                        Profesjonalne inspekcje przedzakupowe na terenie Belgii, Holandii i Niemiec. Chronimy Twój kapitał przed nieuczciwymi sprzedawcami.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="/" class="text-gray-400 hover:text-white transition text-lg"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/" class="text-gray-400 hover:text-white transition text-lg"><i class="fab fa-instagram"></i></a>
+                        <a href="/" class="text-gray-400 hover:text-white transition text-lg"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div> 
+                    <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_nav_title">Nawigacja</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info_footer">Proces Inspekcji</a></li>
+                        <li><a href="#why-us" class="hover:text-accent-orange transition" data-i18n="nav_whyus_footer">Dlaczego My?</a></li>
+                        <li><a href="#services" class="hover:text-accent-orange transition" data-i18n="nav_services_footer">Cennik i Pakiety</a></li>
+                        <li><a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews_footer">Opinie Klientów</a></li>
+                        <li><a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact_footer">Kontakt</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_docs_title">Dokumenty Prawne</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="terms.html" class="hover:text-accent-orange transition" data-i18n="footer_terms">Regulamin</a></li>
+                        <li><a href="privacy.html" class="hover:text-accent-orange transition" data-i18n="footer_privacy">Polityka Prywatności</a></li>
+                        <li><a href="privacy.html#cookies" class="hover:text-accent-orange transition" data-i18n="footer_cookies">Polityka Cookies</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_office_title">Dane Kontaktowe</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-0.5 w-5 text-accent-orange flex-shrink-0"></i> 
+                            <span><span data-i18n="footer_address">Antwerpia, Belgia</span></span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt w-5 text-accent-orange flex-shrink-0"></i> 
+                            <span class="whitespace-nowrap">+32 471 943 560</span>
+                        </li>
+                        <li class="flex items-center overflow-hidden">
+                            <i class="fas fa-envelope w-5 text-accent-orange flex-shrink-0"></i> 
+                            <span class="truncate">daePoland.kontakt@gmail.com</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            
-            <footer class="w-full border-t border-white/10 bg-black/60 backdrop-blur-xl pt-12 pb-8 mt-4">
-                <div class="container mx-auto max-w-[95%] px-6">
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-8 text-xs text-gray-400 font-inter">
-                        
-                        <div class="space-y-4">
-                            <a href="/" class="text-2xl font-black tracking-wider font-montserrat text-white block">
-                                DAE<span class="text-accent-orange">POLAND</span>
-                            </a>
-                            <p class="leading-relaxed text-gray-400" data-i18n="footer_about">
-                                Profesjonalne inspekcje przedzakupowe na terenie Belgii, Holandii i Niemiec. Chronimy Twój kapitał przed nieuczciwymi sprzedawcami, dostarczając rzetelną wiedzę techniczną.
-                            </p>
-                            <div class="flex space-x-4 pt-2">
-                                <a href="/" class="text-gray-400 hover:text-white transition text-lg" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="/" class="text-gray-400 hover:text-white transition text-lg" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="/" class="text-gray-400 hover:text-white transition text-lg" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                            </div>
-                        </div>
 
-                        <!-- Navigation Footer -->
-                        <div> 
-                            <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_nav_title">Nawigacja</h4>
-                            <ul class="space-y-2.5">
-                                <li><a href="#info" class="hover:text-accent-orange transition" data-i18n="nav_info_footer">Proces Inspekcji</a></li>
-                                <li><a href="#why-us" class="hover:text-accent-orange transition" data-i18n="nav_whyus_footer">Dlaczego My?</a></li>
-                                <li><a href="#services" class="hover:text-accent-orange transition" data-i18n="nav_services_footer">Cennik i Pakiety</a></li>
-                                <li><a href="#reviews-faq" class="hover:text-accent-orange transition" data-i18n="nav_reviews_footer">Opinie Klientów</a></li>
-                                <li><a href="#contact" class="hover:text-accent-orange transition" data-i18n="nav_contact_footer">Kontakt</a></li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_docs_title">Dokumenty Prawne</h4>
-                            <ul class="space-y-2.5">
-                                <li><a href="terms.html" class="hover:text-accent-orange transition" data-i18n="footer_terms">Regulamin Świadczenia Usług</a></li>
-                                <li><a href="privacy.html" class="hover:text-accent-orange transition" data-i18n="footer_privacy">Polityka Prywatności (RODO)</a></li>
-                                <li><a href="privacy.html#cookies" class="hover:text-accent-orange transition" data-i18n="footer_cookies">Polityka Plików Cookies</a></li>
-                                <li><a href="terms.html#refunds" class="hover:text-accent-orange transition" data-i18n="footer_refunds">Zwroty i Reklamacje</a></li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-bold text-white mb-4 font-montserrat uppercase tracking-widest text-[11px]" data-i18n="footer_office_title">Dane Kontaktowe</h4>
-                            <ul class="space-y-3">
-                                <li class="flex items-start">
-                                    <i class="fas fa-map-marker-alt mt-0.5 w-5 text-accent-orange"></i> 
-                                    <span>
-                                        <span data-i18n="footer_address">Antwerpia, Belgia</span><br>
-                                        <span class="text-[10px] opacity-70" data-i18n="footer_hq">(Baza Operacyjna / Siedziba)</span>
-                                    </span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-phone-alt w-5 text-accent-orange"></i> 
-                                    <span>+32 471 943 560</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-envelope w-5 text-accent-orange"></i> 
-                                    <span>daePoland.kontakt@gmail.com</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-building w-5 text-accent-orange"></i> 
-                                    <span>BE70 7390 2248 7025</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 font-inter">
-                        <p><span data-i18n="footer_rights">Wszelkie prawa zastrzeżone.</span> &copy; 2025 daePoland.</p>
-                        <div class="flex items-center gap-4 mt-3 md:mt-0">
-                            <span class="flex items-center"><i class="fas fa-lock mr-1.5"></i> <span data-i18n="footer_secured">Secure Payments by Stripe</span></span>
-                            <span class="flex items-center"><i class="fas fa-shield-alt mr-1.5"></i> <span data-i18n="footer_ssl">SSL Encrypted Connection</span></span>
-                        </div>
-                    </div>
+            <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 font-inter">
+                <p>&copy; 2025 daePoland.</p>
+                <div class="flex items-center gap-4 mt-3 md:mt-0">
+                    <span class="flex items-center"><i class="fas fa-lock mr-1.5"></i> Secure Payments</span>
+                    <span class="flex items-center"><i class="fas fa-shield-alt mr-1.5"></i> SSL Encrypted</span>
                 </div>
-            </footer>
-        </section>
+            </div>
+        </div>
+    </footer>
+</section>
 
     </main>
     
