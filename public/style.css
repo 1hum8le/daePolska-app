@@ -1,34 +1,40 @@
 /* =========================================
-   1. KONFIGURACJA PODSTAWOWA
+   1. KONFIGURACJA PODSTAWOWA & RESET
    ========================================= */
 :root {
     --accent-orange: #FF5722;
+    --bg-dark: #0a0a0f;
 }
 
 html {
     scroll-behavior: smooth;
-    /* Usuwamy overflow stąd, żeby nie gryzło się z containerem */
+    width: 100%;
+    height: 100%;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    /* Przezroczyste tło, żeby wideo było widoczne */
-    background-color: transparent; 
     color: white;
     width: 100%;
-    /* WAŻNE: Ukrywamy pasek body, bo scrolluje container */
+    height: 100%;
+    
+    /* WAŻNE: Tło przezroczyste, aby widoczne było wideo pod spodem */
+    background-color: transparent;
+    
+    /* WAŻNE: Ukrywamy pasek przewijania body, bo przewijaniem steruje .snap-container */
     overflow: hidden; 
 }
 
+/* Klasy pomocnicze */
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
 .font-inter { font-family: 'Inter', sans-serif; }
 .text-accent-orange { color: var(--accent-orange); }
 .bg-accent-orange { background-color: var(--accent-orange); }
 
 /* =========================================
-   2. TŁO WIDEO (PRZYWRÓCONE)
+   2. TŁO WIDEO (Fix Czarnego Ekranu)
    ========================================= */
 .video-background {
     position: fixed;
@@ -38,11 +44,20 @@ body {
     height: 100vh;
     overflow: hidden;
     z-index: -1; /* Musi być pod spodem */
-    
-    /* Fallback koloru tła */
-    background-color: #0a0a0f; 
 
-    /* Optymalizacja GPU */
+    /* --- ZABEZPIECZENIE PRZED CZARNYM EKRANEM --- */
+    /* 1. Kolor tła (gdyby obrazek nie wczytał się od razu) */
+    background-color: var(--bg-dark);
+    
+    /* 2. GIF jako tapeta. Jeśli wideo HTML nie ruszy (np. iPhone), to będzie widoczne.
+       UWAGA: Zakładam, że plik jest w tym samym folderze co index.html */
+    background-image: url('video_bg.gif'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    /* --------------------------------------------- */
+
+    /* Optymalizacja wydajności (GPU) */
     transform: translateZ(0); 
     -webkit-transform: translateZ(0);
     will-change: transform;
@@ -57,59 +72,65 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
+    /* Zachowanie proporcji */
     object-fit: cover; 
     transform: translate(-50%, -50%);
+    /* Lekkie przyciemnienie wideo, aby tekst był czytelny */
     filter: brightness(0.6); 
 }
 
 /* =========================================
-   3. SCROLL SNAP (PRZYWRÓCONE SEKTOROWE)
+   3. SCROLL SNAP (Przewijanie Sektorowe)
    ========================================= */
 
-/* DOMYŚLNIE (Mobile): Naturalny scroll */
+/* --- MOBILE & TABLET (Domyślnie) --- */
+/* Naturalne przewijanie, bez "magnesu", lepsze dla dotyku */
 .snap-container {
     width: 100%;
-    height: 100vh; /* Na mobile też 100vh, ale scroll wewnątrz */
-    overflow-y: scroll;
-    scroll-snap-type: none; /* Wyłączony magnes na dotyk */
+    /* Używamy dvh (Dynamic Viewport Height) dla telefonów, żeby pasek adresu nie psuł widoku */
+    height: 100dvh; 
+    overflow-y: scroll; /* Przewijanie wewnątrz kontenera */
+    scroll-snap-type: none;
+    -webkit-overflow-scrolling: touch; /* Płynność na iOS */
 }
 
 .snap-section {
     width: 100%;
-    min-height: 100vh; /* Minimum ekran */
-    height: auto;
-    
+    min-height: 100dvh; /* Minimum ekran wysokości */
+    height: auto;       /* Ale może się rozciągać (np. długi formularz) */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     
+    /* Paddingi dla wersji mobilnej */
     padding-top: 100px;
     padding-bottom: 60px;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-/* DESKTOP (Powyżej 1024px): Włączamy MAGNES */
+/* --- DESKTOP (Ekrany powyżej 1024px) --- */
+/* Włączamy efekt przyciągania (magnes) */
 @media (min-width: 1025px) {
     .snap-container {
-        height: 100vh; /* Sztywna wysokość kontenera */
-        overflow-y: scroll; /* Scrollujemy wewnątrz kontenera */
-        scroll-snap-type: y mandatory; /* Włączamy przyciąganie */
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory; /* Magnes włączony */
     }
 
     .snap-section {
-        height: 100vh; /* Każda sekcja idealnie na ekran */
+        height: 100vh; /* Sztywna wysokość sekcji */
         scroll-snap-align: start; /* Punkt przyciągania */
-        scroll-snap-stop: always; /* Zawsze stopuj na sekcji */
+        scroll-snap-stop: always; /* Zatrzymuj się zawsze na sekcji */
         padding-top: 80px;
         padding-bottom: 40px;
     }
 }
 
 /* =========================================
-   4. UI: SZKŁO
+   4. UI: SZKŁO (Glassmorphism)
    ========================================= */
 .glass-card {
     background: rgba(20, 20, 30, 0.90); 
@@ -142,6 +163,7 @@ body {
     border-color: var(--accent-orange);
 }
 
+/* Ulepszony efekt szkła na mocniejszych urządzeniach */
 @media (min-width: 1025px) {
     .glass-card {
         background: rgba(255, 255, 255, 0.05);
@@ -159,6 +181,7 @@ body {
    ========================================= */
 .StripeElement { background: transparent; }
 
+/* Obrys tekstu (Outline text) */
 .text-stroke {
     -webkit-text-stroke: 0px;
     color: var(--accent-orange);
@@ -171,14 +194,17 @@ body {
     }
 }
 
+/* Animacja wejścia (Fade Up) */
 .animate-fade-up {
     animation: fadeUp 0.8s ease-out forwards;
     opacity: 0;
     transform: translateY(20px);
 }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { 
+    to { opacity: 1; transform: translateY(0); } 
+}
 
-/* Marquee (Opinie) */
+/* Marquee (Pionowe przewijanie opinii) */
 .marquee-vertical-container {
     height: 400px;
     overflow: hidden;
@@ -203,24 +229,45 @@ body {
     100% { transform: translateY(0); }
 }
 
-/* FAQ */
+/* FAQ (Accordion) */
 .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
 .faq-item:last-child { border-bottom: none; }
-.faq-question { cursor: pointer; padding: 1.2rem 0; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #e5e7eb; transition: color 0.3s; font-size: 0.95rem; }
+
+.faq-question { 
+    cursor: pointer; 
+    padding: 1.2rem 0; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-weight: 600; 
+    color: #e5e7eb; 
+    transition: color 0.3s; 
+    font-size: 0.95rem; 
+}
 .faq-question:hover { color: var(--accent-orange); }
-.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; color: #9ca3af; font-size: 0.85rem; line-height: 1.6; padding-bottom: 0; }
+
+.faq-answer { 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.3s ease-out, padding 0.3s ease; 
+    color: #9ca3af; 
+    font-size: 0.85rem; 
+    line-height: 1.6; 
+    padding-bottom: 0; 
+}
 .faq-item.active .faq-answer { max-height: 500px; padding-bottom: 1.2rem; }
+
 .faq-icon { transition: transform 0.3s; }
 .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--accent-orange); }
 
 /* =========================================
-   6. CIASTECZKA (Wersja: Wycentrowana Pigułka)
+   6. CIASTECZKA (Wersja: Centered Pill)
    ========================================= */
 .cookie-banner {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0); /* Idealne centrowanie */
     
     width: auto;        
     min-width: 320px;   
@@ -231,7 +278,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
+    border-radius: 50px; /* Kształt pigułki */
     padding: 10px 25px;  
     
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -245,6 +292,7 @@ body {
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+/* Stan ukryty (zjeżdża w dół) */
 .cookie-banner.hidden {
     opacity: 0;
     pointer-events: none;
@@ -285,6 +333,7 @@ body {
     transform: scale(1.05);
 }
 
+/* Responsywność ciasteczek (Mobile) */
 @media (max-width: 768px) {
     .cookie-banner {
         width: 90%;
@@ -309,7 +358,7 @@ body {
 }
 
 /* =========================================
-   7. POPRAWKI FORMULARZY
+   7. FORMULARZE (Responsywność)
    ========================================= */
 #order .glass-card,
 #contact .glass-card {
@@ -319,6 +368,7 @@ body {
     padding: 1.5rem;
 }
 
+/* Desktop: Szersze ramy formularzy */
 @media (min-width: 1025px) {
     #order .glass-card {
         max-width: 64rem;
@@ -329,6 +379,7 @@ body {
     }
 }
 
+/* Małe telefony (iPhone SE itp.) */
 @media (max-width: 380px) {
     .glass-input { font-size: 14px; padding: 0.6rem; }
     h1 { font-size: 2rem; }
