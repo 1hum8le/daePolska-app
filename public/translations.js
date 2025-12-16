@@ -132,7 +132,7 @@ export const translations = {
         ph_url: "Link do ogłoszenia", ph_loc: "Miasto, Kraj",
         txt_secure: "Płatności szyfrowane SSL", txt_redirect: "Przekierowanie", txt_redirect_desc: "Zostaniesz przeniesiony do bramki płatności po kliknięciu.",
 
-        form_payment_sidebar:"Uzupełnij dane po lewej,<br>aby przejść do płatności.",
+        form_payment_sidebar:"Uzupełnij dane aby przejść do płatności.",
         
         // --- BEFORE PURCHASE (BEZPIECZEŃSTWO) ---
         bp_title: "NIE KUPUJ OCZAMI.<br><span class=\"text-accent-orange\">KUPUJ FAKTAMI.</span>",
@@ -285,7 +285,7 @@ export const translations = {
         lbl_message: "Message", ph_message: "Your message...",
         btn_send: "SEND MESSAGE",
         footer_rights: "All rights reserved.",
-        form_payment_sidebar:"Fill in the details on the left,<br>to proceed to payment.",
+        form_payment_sidebar:"Fill in the details to proceed to payment.",
 
         lbl_phone_title: "Phone / WhatsApp",
         lbl_email_title: "Email",
@@ -414,7 +414,7 @@ export const translations = {
         review_3: "\"Ik nam het Premium pakket. Dhr. Jakub onderhandelde 800 EUR korting in het Nederlands. De dienst betaalde zichzelf terug en ik maakte winst.\"",
         review_4: "\"Het PDF rapport is een meesterwerk. 50 foto's, 4K video, meting van elk carrosserie-element. Ik wist meer over de auto dan de verkoper.\"",
         
-        form_payment_sidebar:"Vul de gegevens links in,<br>om door te gaan naar betaling.",
+        form_payment_sidebar:"Vul de gegevens in om door te gaan naar betaling.",
         // --- FAQ (Nederlands - Full Sales Copy) ---
         faq_title: "VEELGESTELDE VRAGEN",
         
@@ -558,7 +558,7 @@ export const translations = {
         lbl_url: "Lien de l'annonce",       // Listing Link / Ad URL    
         lbl_loc: "Emplacement (Ville)",     // Location (City)
         form_payment_header: "Paiement",     // Payment
-        form_payment_sidebar:"Remplissez les détails à gauche,<br>pour procéder au paiement.",
+        form_payment_sidebar:"Remplissez les détails pour procéder au paiement.",
 
        // --- FAQ (Français - Full Sales Copy) ---
         faq_title: "QUESTIONS FRÉQUENTES",
@@ -688,7 +688,7 @@ export const translations = {
         lbl_url: "Enlace del anuncio",       // Listing Link / Ad URL    
         lbl_loc: "Ubicación (Ciudad)",     // Location (City)
         form_payment_header: "Pago",    // Payment
-        form_payment_sidebar:"Rellena los detalles a la izquierda,<br>para proceder al pago.",
+        form_payment_sidebar:"Rellena los detalles para proceder al pago.",
 
 // --- FAQ (Español - Full Sales Copy) ---
         faq_title: "PREGUNTAS FRECUENTES",
