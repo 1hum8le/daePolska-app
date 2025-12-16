@@ -3,6 +3,7 @@ import { translations } from './translations.js';
 // ==========================================
 // 1. KONFIGURACJA
 // ==========================================
+// Upewnij się, że używasz klucza PUBLICZNEGO (pk_live_...), a nie sekretnego!
 const STRIPE_KEY = 'pk_live_51SWHULKFe9AoXQziuebBTUPo7kPggvwQ9VVFaZomNvO5U6N3MzwoGaoTbfl8VWJCxhwciaFrMKikw8I6eWy12x4000FmqMoFgh'; 
 const stripe = Stripe(STRIPE_KEY); 
 
@@ -16,7 +17,6 @@ const langFullNames = {
     'es': 'ESPAÑOL' 
 };
 
-// Mapowanie na klasy biblioteki flag-icons
 const langFlagClasses = { 
     'pl': 'fi-pl', 
     'en': 'fi-gb', 
@@ -36,7 +36,7 @@ let elements = null;
 let clientSecret = null;
 
 // ==========================================
-// 2. ROUTING I INICJALIZACJA
+// 2. ROUTING I INICJALIZACJA JĘZYKA
 // ==========================================
 function getLangFromUrl() {
     const parts = window.location.pathname.split('/');
@@ -47,13 +47,11 @@ let savedLang = localStorage.getItem('selectedLang');
 let urlLang = getLangFromUrl();
 let browserLang = navigator.language.slice(0, 2);
 
-// Priorytet: URL > Cache > Przeglądarka > Domyślny PL
 let currentLang = urlLang || savedLang || (availableLangs.includes(browserLang) ? browserLang : 'pl');
 
 if (!urlLang) {
     window.history.replaceState({}, '', `/${currentLang}`);
 }
-
 localStorage.setItem('selectedLang', currentLang);
 
 // ==========================================
@@ -67,7 +65,6 @@ function updateHeaderUI() {
 
     if (nameEl) nameEl.innerText = langFullNames[safeLang];
     
-    // Aktualizacja klasy flagi
     if (flagEl) {
         flagEl.className = `fi ${langFlagClasses[safeLang]} text-lg rounded-sm shadow-sm`;
     }
@@ -85,12 +82,12 @@ function updateContent() {
         if (translations[currentLang]?.[key]) el.placeholder = translations[currentLang][key];
     });
     
-    // Waluta w inputach
+    // Waluta w ukrytych inputach
     const currencyCode = currentLang === 'pl' ? 'pln' : 'eur';
     const inputCurr = document.getElementById('current-currency');
     if(inputCurr) inputCurr.value = currencyCode;
 
-    // Sekcje
+    // Przełączanie sekcji "Dlaczego my" vs "Przed zakupem"
     const whyUs = document.getElementById('why-us');
     const beforePurchase = document.getElementById('before-purchase');
     if (whyUs && beforePurchase) {
@@ -150,7 +147,7 @@ window.selectPackage = function(pkgName) {
     
     updateSelectedPackageText();
     
-    // Przewiń do formularza z małym opóźnieniem (fix na renderowanie)
+    // Przewiń do formularza
     setTimeout(() => {
         const formTarget = document.getElementById('inspection-form');
         if(formTarget) {
@@ -158,7 +155,7 @@ window.selectPackage = function(pkgName) {
         }
     }, 100);
     
-    // Odśwież cenę w Stripe
+    // Odśwież cenę w Stripe (stworzy nowy intent z nową kwotą)
     initializePayment();
 }
 
@@ -176,43 +173,36 @@ window.toggleMobileMenu = function() {
 }
 
 // ==========================================
-// 5. OBSŁUGA ZDARZEŃ (DOM Ready)
+// 5. OBSŁUGA ZDARZEŃ (GŁÓWNY DOM READY)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Init Widoku
+    // --- A. Inicjalizacja Widoku ---
     updateHeaderUI();
     updateContent();
     updatePricesDisplay();
-    initializePayment();
+    initializePayment(); // Pierwsze ładowanie Stripe Elements
 
-    // 2. NAPRAWA MENU JĘZYKOWEGO (Metoda .onclick - zapobiega duplikatom)
+    // --- B. Menu Językowe ---
     const langBtn = document.getElementById('lang-btn');
     const dropdown = document.getElementById('lang-dropdown');
     const arrow = document.getElementById('lang-arrow');
 
     if (langBtn && dropdown) {
-        // Kliknięcie w przycisk
         langBtn.onclick = function(e) {
             e.stopPropagation(); 
             e.preventDefault();
-            
             const isHidden = dropdown.classList.contains('hidden');
-
             if (isHidden) {
-                // Otwieramy
                 dropdown.classList.remove('hidden');
                 setTimeout(() => dropdown.classList.remove('opacity-0', 'scale-95'), 10);
                 if(arrow) arrow.style.transform = 'rotate(180deg)';
             } else {
-                // Zamykamy
                 dropdown.classList.add('opacity-0', 'scale-95');
                 setTimeout(() => dropdown.classList.add('hidden'), 200);
                 if(arrow) arrow.style.transform = 'rotate(0deg)';
             }
         };
-
-        // Kliknięcie gdziekolwiek indziej
         document.onclick = function(e) {
             if (!dropdown.classList.contains('hidden') && !langBtn.contains(e.target) && !dropdown.contains(e.target)) {
                 dropdown.classList.add('opacity-0', 'scale-95');
@@ -222,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // 3. NAPRAWA SCROLLOWANIA (Dla linków w menu)
+    // --- C. Smooth Scroll dla linków ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -231,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            // Zamknij mobile menu jeśli otwarte
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
                 mobileMenu.classList.add('translate-x-full');
@@ -239,13 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   // 4. OBSŁUGA FORMULARZA
+    // --- D. Formularz Zamówienia (PŁATNOŚĆ) ---
     const orderForm = document.getElementById('inspection-form');
     const submitBtn = document.getElementById('submit-btn');
     const inputsToWatch = ['name', 'email', 'url', 'location'];
     const paymentWrapper = document.getElementById('payment-section-wrapper');
     const fillMsg = document.getElementById('fill-data-msg');
 
+    // Pokazywanie sekcji płatności po wypełnieniu danych
     function checkInputs() {
         const allFilled = inputsToWatch.every(id => {
             const el = document.getElementById(id);
@@ -257,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
             paymentWrapper.classList.remove('hidden');
             setTimeout(() => {
                 paymentWrapper.classList.remove('opacity-0');
-                if(window.innerWidth < 1024) paymentWrapper.scrollIntoView({behavior: 'smooth', block: 'center'});
             }, 50);
         }
     }
@@ -267,11 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if(el) el.addEventListener('input', checkInputs);
     });
 
+    // --- KLUCZOWE: WYSYŁKA ZAMÓWIENIA ---
     if(orderForm) {
         orderForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             
-            // Walidacja
+            // 1. Walidacja
             let isValid = true;
             document.querySelectorAll('.error-msg').forEach(e => e.classList.add('hidden'));
             
@@ -288,62 +278,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 const termsMsg = terms.parentElement.parentElement.querySelector('.error-msg');
                 if(termsMsg) termsMsg.classList.remove('hidden');
             }
-
             if (!isValid) return;
 
+            // 2. Blokada przycisku
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Przetwarzanie...';
 
-            const orderData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                url: document.getElementById('url').value,
-                location: document.getElementById('location').value,
-                packageType: currentPackage,
-                price: prices[currentPackage][currentLang === 'pl' ? 'pln' : 'eur'],
-                paymentId: clientSecret
-            };
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const url = document.getElementById('url').value;
+            const location = document.getElementById('location').value;
+            const price = prices[currentPackage][currentLang === 'pl' ? 'pln' : 'eur'];
 
             try {
-                // 1. Zapis do bazy danych
+                // --- KROK 1: Aktualizacja danych w Stripe (Metadata) ---
+                // To naprawia problem "N/A" w Make/Stripe
+                await fetch('/api/update-intent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paymentId: clientSecret, 
+                        email,
+                        url,
+                        location,
+                        name,
+                        packageType: currentPackage
+                    })
+                });
+
+                // --- KROK 2: Zapis do własnej bazy danych ---
                 await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
+                    body: JSON.stringify({
+                        name, email, phone, url, location,
+                        packageType: currentPackage,
+                        price,
+                        paymentId: clientSecret
+                    })
                 });
 
-                // --- NOWE: Generujemy ID zamówienia dla success.html ---
-                // (Normalnie ID brałoby się z odpowiedzi fetch powyżej, ale to bezpieczny fallback)
+                // --- KROK 3: Finalizacja Płatności Stripe ---
                 const tempId = 'ORD-' + Math.floor(Math.random() * 1000000); 
-
-                // 2. Potwierdzenie płatności Stripe ze zmodyfikowanym URL
+                
                 const { error } = await stripe.confirmPayment({
                      elements,
                      confirmParams: {
-                             // ZMIANA TUTAJ: Dodaliśmy na końcu "&lang=${currentLang}"
-                         return_url: `${window.location.origin}/success.html?id=${tempId}&name=${encodeURIComponent(orderData.name)}&email=${encodeURIComponent(orderData.email)}&pkg=${currentPackage}&price=${orderData.price}&lang=${currentLang}`,
-        
-                        payment_method_data: {
-                         billing_details: { name: orderData.name, email: orderData.email }
-        }
-    },
-});
+                         return_url: `${window.location.origin}/success.html?id=${tempId}&pkg=${currentPackage}&lang=${currentLang}`,
+                         payment_method_data: {
+                             billing_details: { name: name, email: email }
+                         }
+                     },
+                });
 
                 if (error) {
-                    document.getElementById('card-errors').innerText = error.message;
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "ZAPŁAĆ";
+                    throw new Error(error.message);
                 }
+
             } catch (err) {
-                console.error(err);
+                console.error("Błąd zamówienia:", err);
+                // Pokaż błąd pod przyciskiem
+                const errorDiv = document.getElementById('card-errors') || document.createElement('div');
+                errorDiv.id = 'card-errors';
+                errorDiv.className = 'text-red-500 text-sm mt-2 text-center';
+                errorDiv.innerText = err.message || "Wystąpił błąd płatności.";
+                if(!document.getElementById('card-errors')) submitBtn.parentElement.appendChild(errorDiv);
+                
                 submitBtn.disabled = false;
-                submitBtn.innerText = "ZAPŁAĆ";
+                submitBtn.innerText = "SPRÓBUJ PONOWNIE";
             }
         });
     }
 
-    // 5. KONTAKT
+    // --- E. Formularz Kontaktowy ---
     const contactForm = document.getElementById('contact-form');
     if(contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -373,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch(err) { 
                 const msgEl = document.getElementById('contact-status');
                 msgEl.innerText = "Error";
-                msgEl.classList.remove('hidden'); 
+                msgEl.classList.remove('hidden', 'text-green-500'); 
                 msgEl.classList.add('text-red-500');
             } 
             finally { 
@@ -382,27 +390,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- F. Ciasteczka (Cookie Banner) ---
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+
+    if (cookieBanner && acceptBtn && !localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => {
+            cookieBanner.classList.remove('hidden');
+        }, 1000);
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.add('hidden');
+        });
+    }
 });
 
+
 // ==========================================
-// 6. PŁATNOŚCI
+// 6. INICJALIZACJA STRIPE (Helper)
 // ==========================================
 async function initializePayment() {
-    // 1. Zabezpieczenie: Sprawdzamy czy cena dla pakietu istnieje
-    if (!prices[currentPackage]) {
-        console.error("Błąd: Brak ceny dla pakietu " + currentPackage);
-        return;
-    }
+    if (!prices[currentPackage]) return;
 
     const currency = currentLang === 'pl' ? 'pln' : 'eur';
     const amount = prices[currentPackage][currency] * 100;
 
-    // 2. Zabezpieczenie przed błędem "Cannot read properties of null"
-    // Używamy ID 'url' i 'location', bo takie masz w HTML (chyba że zmieniłeś HTML)
+    // Bezpieczne pobranie wartości (nawet jak puste)
     const urlEl = document.getElementById('url');       
     const locEl = document.getElementById('location');
-
-    // Sprawdzamy: Czy element istnieje? JEŚLI TAK -> pobierz value. JEŚLI NIE -> wstaw pusty tekst.
     const carUrl = urlEl ? urlEl.value : "";
     const carLocation = locEl ? locEl.value : "";
 
@@ -413,25 +430,22 @@ async function initializePayment() {
             body: JSON.stringify({ 
                 amount, 
                 currency,
-                // Używamy nazw zgodnych z Twoim plikiem server.js
                 description_url: carUrl,
-                description_loc: carLocation,  // Backend oczekuje 'description_loc'
-                package_name: currentPackage   // Backend oczekuje 'package_name'
+                description_loc: carLocation,
+                package_name: currentPackage
              })
         });
         
-        if (!response.ok) {
-            console.error("Błąd serwera:", response.status);
-            return;
-        }
+        if (!response.ok) return;
 
         const data = await response.json();
         clientSecret = data.clientSecret;
-
-        // Jeśli nie dostaliśmy clientSecret, nie ma sensu iść dalej
         if (!clientSecret) return;
 
-        const appearance = { theme: 'night', variables: { colorPrimary: '#FF5722', colorBackground: '#1e1e2f', colorText: '#ffffff' } };
+        const appearance = { 
+            theme: 'night', 
+            variables: { colorPrimary: '#FF5722', colorBackground: '#1e1e2f', colorText: '#ffffff' } 
+        };
         
         elements = stripe.elements({ appearance, clientSecret, locale: currentLang });
         const paymentElement = elements.create("payment", { layout: "tabs" });
@@ -442,54 +456,6 @@ async function initializePayment() {
             paymentElement.mount("#payment-element");
         }
     } catch (e) {
-        console.error("Stripe Error:", e);
+        console.error("Stripe Init Error:", e);
     }
 }
-
-// ==========================================
-// 7. BANER COOKIE
-// ==========================================
-document.addEventListener("DOMContentLoaded", function() {
-    const cookieBanner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('accept-cookies');
-
-    // 1. Sprawdź, czy w pamięci przeglądarki jest już zgoda
-    if (!localStorage.getItem('cookiesAccepted')) {
-        // Jeśli nie ma, pokaż baner (usuń klasę 'hidden')
-        // Robimy małe opóźnienie, żeby nie atakować od razu po wejściu
-        setTimeout(() => {
-            cookieBanner.classList.remove('hidden');
-        }, 1000);
-    }
-
-    // 2. Obsługa kliknięcia
-    acceptBtn.addEventListener('click', () => {
-        // Zapisz w pamięci "Tak, użytkownik się zgodził"
-        localStorage.setItem('cookiesAccepted', 'true');
-        
-        // Ukryj baner
-        cookieBanner.classList.add('hidden');
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Czekamy aż strona się załaduje
-    const video = document.getElementById('bg-video');
-    const sources = video.getElementsByTagName('source');
-    
-    // Funkcja ładująca wideo
-    const loadVideo = () => {
-        for (let source of sources) {
-            source.src = source.getAttribute('data-src');
-        }
-        video.load();
-    };
-
-    // Jeśli to komputer -> ładuj od razu
-    // Jeśli to telefon -> poczekaj 2 sekundy, aż załadują się inne skrypty
-    if (window.innerWidth > 768) {
-        loadVideo();
-    } else {
-        setTimeout(loadVideo, 2500); 
-    }
-});

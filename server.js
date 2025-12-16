@@ -330,6 +330,32 @@ app.get('/:lang', (req, res, next) => {
     }
 });
 
+// --- NOWY ENDPOINT: Aktualizacja danych przed płatnością ---
+app.post('/api/update-intent', async (req, res) => {
+    const { paymentId, email, url, location, name, packageType } = req.body;
+
+    try {
+        // Wyciągamy czyste ID (jeśli przyszło jako client_secret)
+        const intentId = paymentId.includes('_secret_') ? paymentId.split('_secret_')[0] : paymentId;
+
+        await stripe.paymentIntents.update(intentId, {
+            receipt_email: email, // To naprawi puste pole Email w Make
+            metadata: {
+                'Adres': location, // To naprawi "N/A"
+                'URL': url,        // To naprawi "N/A"
+                'Pakiet': packageType,
+                'Klient': name
+            },
+            description: `Zamówienie: ${packageType} od ${name}`
+        });
+
+        res.json({ success: true });
+    } catch (e) {
+        console.error("Błąd aktualizacji Stripe:", e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 app.listen(PORT, () => console.log(`🚀 Server Secure & Running on ${PORT}`));
