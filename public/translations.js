@@ -741,7 +741,7 @@ export const translations = {
         footer_ssl: "Conexión Encriptada SSL",
     },
     // ================= GERMANSKI (DE) =================
-de: {
+    de: {
         // --- BEFORE PURCHASE (Psychology) ---
         bp_title: "KAUFEN SIE NICHT NUR MIT DEN AUGEN.<br><span class=\"text-accent-orange\">KAUFEN SIE MIT FAKTEN.</span>",
         bp_desc_1: "Das Auto glänzt, der Verkäufer ist nett. In diesem Moment verdrängen Emotionen die Logik. Genau dann passieren teure Fehler.",

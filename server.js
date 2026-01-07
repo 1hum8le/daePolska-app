@@ -303,7 +303,7 @@ app.get('/generator', (req, res) => res.sendFile(path.join(__dirname, 'public', 
 app.get('/generator-en', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_en.html')));
 app.get('/generator-nl', (req, res) => res.sendFile(path.join(__dirname, 'public', 'generator_nl.html')));
 
-const supportedLanguages = ['pl', 'en', 'nl', 'fr', 'es'];
+const supportedLanguages = ['pl', 'en', 'nl', 'fr', 'es', 'de'];
 
 app.get('/:lang', (req, res, next) => {
     const lang = req.params.lang;
