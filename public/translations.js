@@ -739,5 +739,176 @@ export const translations = {
         footer_refunds: "Devoluciones y Quejas",
         footer_secured: "Pagos Seguros por Stripe",
         footer_ssl: "Conexión Encriptada SSL",
-    }
+    },
+    // ================= GERMANSKI (DE) =================
+de: {
+        // --- BEFORE PURCHASE (Psychology) ---
+        bp_title: "KAUFEN SIE NICHT NUR MIT DEN AUGEN.<br><span class=\"text-accent-orange\">KAUFEN SIE MIT FAKTEN.</span>",
+        bp_desc_1: "Das Auto glänzt, der Verkäufer ist nett. In diesem Moment verdrängen Emotionen die Logik. Genau dann passieren teure Fehler.",
+        bp_desc_2: "Als unabhängige Experten tragen wir keine „rosarote Brille“. Wir liefern Ihnen eine kühle, technische Analyse. Sie werden wissen, ob es das Schnäppchen Ihres Lebens oder ein Groschengrab jest.",
+        bp_link: "SEHEN SIE, WIE WIR SIE SCHÜTZEN",
+        bp_icon1_title: "Realitäts-Check", bp_icon1_desc: "Glänzender Lack verbirgt oft eine Unfallvergangenheit. Wir schauen tiefer – in Steuergeräte, Fahrwerk und Lackschichten. Wir sehen, was andere übersehen.",
+        bp_icon2_title: "Verhandlungsmacht", bp_icon2_desc: "Ein Bericht, der Mängel auflistet, jest Ihr stärkstes Argument. Die Inspektionskosten amortisieren sich oft sofort durch einen niedrigeren Kaufpreis.",
+        bp_icon3_title: "Kapitalschutz", bp_icon3_desc: "Ein Fehlkauf ist ein Fass ohne Boden. Ein einziger Defekt (z. B. Getriebe) kann 3000 EUR kosten. Unser Service ist Ihre Versicherungspolice.",
+
+        // --- NAVIGATION ---
+        nav_info: "Ablauf", 
+        nav_services: "Preise", 
+        nav_reviews: "Bewertungen", 
+        nav_contact: "Kontakt",
+        nav_whyus: "Warum wir?",
+        nav_info_footer: "Inspektionsablauf", nav_services_footer: "Preise und Pakete", nav_reviews_footer: "Kundenbewertungen", nav_contact_footer: "Kontakt", nav_whyus_footer: "Warum wir?",
+        
+        // --- HERO SECTION ---
+        hero_title: "AUTOKAUF IM AUSLAND<br><span class=\"text-accent-orange text-stroke\">OHNE RISIKO.</span>",
+        hero_subtitle: "Umfassende technische Berichte in Belgien, den Niederlanden und Deutschland. Wir prüfen, was der Händler Ihnen verschweigt. Sparen Sie Zeit und vermeiden Sie teure Fehler.",
+        stat_cars: "Geprüfte Fahrzeuge", 
+        stat_saved: "Geld gespart", 
+        stat_time: "Reaktionszeit", 
+        stat_satisfaction: "Servicegarantie",
+        hero_cta_desc: "Vertrauen Sie den Experten. Sparen Sie Zeit, Stress und Geld.",
+        hero_btn: "PREISE PRÜFEN",
+
+        // --- PROCESS ---
+        info_title: "WAS GENAU PRÜFEN WIR?",
+        info_body_title: "1. Karosserie & Lack", 
+        info_body_desc: "Präzise Lackschichtmessung (Erkennung von Spachtelmasse und Nachlackierungen). Prüfung der Spaltmaße, Originalität der Scheiben, Zustand von Reifen und Felgen sowie Suche nach Demontagespuren.",
+        
+        info_eng_title: "2. Motor & Komponenten", 
+        info_eng_desc: "Analyse des Motorlaufs (kalt/warm). Prüfung auf Undichtigkeiten, Injektorenleistung, Turboladerfunktion, Keilriemen und Abgase.",
+        
+        info_drive_title: "3. Antrieb & Fahrwerk", 
+        info_drive_desc: "Test der Getriebefunktion (Sanftheit, Ruckeln). Prüfung der Bremsen (Scheiben/Beläge), Stoßdämpfer, Lenkungsspiel und Fahrwerksgeräusche.",
+        
+        info_int_title: "4. Innenraum & Ausstattung", 
+        info_int_desc: "Abnutzungsprüfung (Lenkrad, Sitze) im Abgleich zum Kilometerstand. Test der gesamten Elektronik, Klimaanlage, Audiosysteme und Suche nach Feuchtigkeitsspuren.",
+        
+        info_diag_title: "5. Computerdiagnose", 
+        info_diag_desc: "Anschluss eines professionellen OBD-Scanners. Auslesen von aktiven und historischen Fehlern. Prüfung der DPF-Sättigung und Abgleich des Kilometerstands in verschiedenen Modulen.",
+        
+        info_test_title: "6. Probefahrt", 
+        info_test_desc: "Dynamischer Test bei verschiedenen Geschwindigkeiten. Überprüfung des Fahrverhaltens, der Notbremsung, der Federung auf Unebenheiten und störender Geräusche.",
+
+        // --- WHY US? ---
+        why_title: "WARUM ES SICH <span class=\"text-accent-orange\">LOHNT?</span>",
+        why_desc: "Ein Auto zu importieren bedeutet nicht nur bessere Straßen und Wartung. Es ist vor allem Mathematik. Durch den Direktkauf umgehen Sie die Händlermarge, Transportaufschläge und das Risiko von Tacho-Manipulationen.",
+        why_ex_title: "REALES BEISPIEL (BMW 3er):",
+        why_pl_label: "Händlerpreis in PL:",
+        why_be_label: "Gleiches Auto in Belgien:",
+        why_save_label: "IHRE ERSPARNIS:",
+        why_note: "*Selbst nach Abzug der Inspektions- und Transportkosten erhalten Sie ein zuverlässiges Auto und sparen Tausende Euro.",
+        
+        why_icon1_title: "Digitale Kontrolle", 
+        why_icon1_desc: "Volle Transparenz. Sie sehen das Auto, als wären Sie vor Ort. 50+ Fotos und 4K-Video.",
+        why_icon2_title: "Transporthilfe", 
+        why_icon2_desc: "Kein Anhänger? Wir helfen bei der Organisation eines sicheren Transports bis vor Ihre Haustür zu einem fairen Preis.",
+        why_icon3_title: "Preisverhandlung", 
+        why_icon3_desc: "Wir kennen die Sprache und den Markt. Oft handeln wir mehr Rabatt aus, als unser Service kostet.",
+
+     // PRICING
+        packages_title: "WÄHLEN SIE IHR PAKET",
+        package_desc: "Jedes Paket beinhaltet die Anfahrt im Umkreis von 150 km um Antwerpen. Weitere Entfernungen werden individuell berechnet.",
+        raport: "MUSTERBERICHT ANSEHEN",
+        btn_processing: "WIRD BEARBEITET...",
+        btn_sample_report: "MUSTERBERICHT",
+        // Basic
+        pkg_photos: "30-40 Fotos", pkg_photos_desc: "Hohe Auflösung. Dokumentation jedes Kratzers, jeder Delle und aller Details im Innenraum.",
+        pkg_docs: "Dokumentenprüfung", pkg_docs_desc: "Abgleich der VIN (Fahrgestellnummer), Zulassungspapiere, Car-Pass und Servicehistorie.",
+        pkg_pdf: "PDF-Bericht", pkg_pdf_desc: "Eine klare visuelle Zusammenfassung des Zustands, direkt an Ihre E-Mail gesendet.",
+        // Standard
+        pkg_basic_incl: "Alles aus Basic",
+        most_popular: "Am beliebtesten",
+        pkg_obd: "Vollständige OBD-Diagnose", pkg_obd_desc: "Computeranschluss. Scannen von Injektoren, DPF, Getriebe und Kilometerstandsabgleich in Modulen.",
+        pkg_paint: "Lackschichtmessung", pkg_paint_desc: "Professionelle Messung der Beschichtung. Wir erkennen Spachtelmasse und Unfallhistorie.",
+        pkg_drive: "Probefahrt", pkg_drive_desc: "Dynamischer Test. Prüfung von Fahrwerk, Bremsen, Kupplung und Handling.",
+        // Premium
+        pkg_standard_incl: "Alles aus Standard",
+        pkg_negotiation: "Preisverhandlung", pkg_negotiation_desc: "Wir verhandeln in Ihrem Namen in der Landessprache. Oft holen wir die Servicekosten mit Zinsen wieder rein.",
+        pkg_video: "4K Video + VIP", pkg_video_desc: "Detaillierte Aufnahme mit Expertenkommentar. Priorisierte Auftragsausführung.",
+
+        // BUTTONS
+        btn_select_basic: "BASIC WÄHLEN",
+        btn_select_standard: "STANDARD WÄHLEN",
+        btn_select_premium: "PREMIUM WÄHLEN",
+
+        // --- REVIEWS ---
+        reviews_title: "KUNDENSTIMMEN",
+        review_1: "\"Der Händler schwor, das Auto sei perfekt. Der DAE-Bericht zeigte ein geschweißtes Seitenteil und fehlende Airbags. Sie haben mir 60.000 PLN gespart. Danke!\"",
+        review_2: "\"Ich wollte 1200 km blind hinfahren. Die Inspektion ergab defekte Injektoren und ein kaputtes Zweimassenschwungrad. Die Reparatur hätte den Wert überstiegen.\"",
+        review_3: "\"Ich habe das Premium-Paket gewählt. Herr Jakub handelte 800 EUR Rabatt auf Niederländisch aus. Der Service hat sich selbst bezahlt gemacht.\"",
+        review_4: "\"Der PDF-Bericht ist ein Meisterwerk. 50 Fotos, 4K-Video, Messung jedes Karosserieteils. Ich wusste mehr über das Auto als der Verkäufer.\"",
+
+        lbl_client_data: "Kundendaten", 
+        lbl_url: "Link zum Inserat",       
+        lbl_loc: "Standort (Stadt)",     
+        form_payment_header: "Zahlung",     
+
+
+// --- FAQ (German) ---
+        faq_title: "HÄUFIG GESTELLTE FRAGEN",
+        
+        faq_q1: "Wie schnell erhalte ich den Bericht?", 
+        faq_a1: "Wir respektieren Ihre Zeit, und gute Autos sind schnell weg. Wir werden sofort nach Zahlungseingang aktiv. Wir kontaktieren den Verkäufer, vereinbaren den Termin und liefern den Bericht meist innerhalb von 24-48 Werktunsten.",
+        
+        faq_q2: "Verhandeln Sie den Preis?", 
+        faq_a2: "Ja, das ist ein Kernelement des Premium-Pakets. Wir kennen den lokalen Markt, die Sprache und technische Argumente, die man am Telefon aus dem Ausland schwer vorbringen kann. Oft erzielen wir Rabatte, die unsere Kosten übersteigen.",
+        
+        faq_q3: "Wo genau sind Sie tätig?", 
+        faq_a3: "Unser Stützpunkt liegt strategisch günstig in Antwerpen. Von dort erreichen wir schnell jedes Fahrzeug in Belgien, den gesamten Niederlanden und Westdeutschland (NRW). Weitere Strecken auf Anfrage.",
+        
+        faq_q4: "Was, wenn das Auto vor Ihrer Ankunft verkauft wird?", 
+        faq_a4: "Sie riskieren nichts. Wir spielen fair. Sollte das Auto bereits verkauft sein oder der Verkäufer die Prüfung ablehnen, bevor wir losfahren, erhalten Sie eine 100%ige Rückerstattung.",
+        
+        faq_q5: "Kann ich bei der Inspektion dabei sein?", 
+        faq_a5: "Unser Modell basiert auf Schnelligkeit und Logik – Prüfer bearbeiten oft mehrere Aufträge auf einer Route. Wir sind Ihre Augen vor Ort. Für individuelle Begleitung kontaktieren Sie uns bitte für einen Concierge-Service.",
+        
+        faq_q6: "Wie sehen Zahlung und Rechnung aus?", 
+        faq_a6: "Sicherheit steht an erster Stelle. Die Zahlung erfolgt über Stripe (Karte, Google Pay, Apple Pay). Für jede Dienstleistung stellen wir eine ordnungsgemäße Rechnung aus.",
+
+        // --- ORDER FORM & CONTACT ---
+        form_title: "BESTELLUNG ABSCHLIESSEN", 
+        form_selected: "Ausgewählt", 
+        form_payment_method: "Zahlungsmethode",
+        form_car_details: "FAHRZEUGDETAILS", 
+        btn_pay: "SICHER BEZAHLEN",
+        
+        contact_title: "BEREIT FÜR DEN IMPORT?",
+        contact_desc: "Haben Sie Fragen vor der Bestellung? Möchten Sie Details besprechen? Kontaktieren Sie uns direkt oder senden Sie eine Nachricht.",
+        contact_form_title: "Anfrage senden", 
+        lbl_name: "Vollständiger Name", ph_name: "Max Mustermann",
+        lbl_email: "E-Mail", ph_email: "max@beispiel.de", 
+        lbl_message: "Nachricht", ph_message: "Ihre Nachricht...",
+        btn_send: "NACHRICHT SENDEN",
+        footer_rights: "Alle Rechte vorbehalten.",
+        form_payment_sidebar: "Geben Sie die Daten ein, um zur Zahlung fortzufahren.",
+
+        lbl_phone_title: "Telefon / WhatsApp",
+        lbl_email_title: "E-Mail",
+        
+        lbl_phone: "Telefon (Optional)", ph_phone: "+49 ... (Optional)",
+        ph_url: "Link zum Inserat", ph_loc: "Stadt, Land",
+        
+        txt_secure: "Verschlüsselt durch Stripe SSL", 
+        txt_redirect: "Weiterleitung...", 
+        txt_redirect_desc: "Sie werden zum Zahlungsanbieter weitergeleitet.",
+        // ...
+        terms_text: "Ich akzeptiere die <a href='terms.html' target='_blank' class='underline hover:text-accent-orange'>AGB</a> & <a href='privacy.html' target='_blank' class='underline hover:text-accent-orange'>Datenschutzbestimmungen</a>. Ich verstehe, dass die Dienstleistung eine technische Stellungnahme darstellt.",
+        err_required: "Dieses Feld ist erforderlich.",
+        err_terms: "Sie müssen die Bedingungen akzeptieren.",
+        // ...
+        // --- FOOTER ---
+        footer_about: "Professionelle Fahrzeugprüfungen vor dem Kauf in Belgien, den Niederlanden und Deutschland. Wir schützen Ihr Kapital vor unehrlichen Verkäufern durch fundiertes technisches Wissen.",
+        footer_nav_title: "Navigation",
+        footer_docs_title: "Rechtliches",
+        footer_office_title: "Kontaktdaten",
+        footer_address: "Antwerpen, Belgien",
+        footer_hq: "(Operative Basis / Hauptsitz)",
+        footer_terms: "Allgemeine Geschäftsbedingungen",
+        footer_privacy: "Datenschutzerklärung (DSGVO)",
+        footer_cookies: "Cookie-Richtlinie",
+        footer_refunds: "Rückerstattung & Reklamation",
+        footer_secured: "Sichere Zahlungen mit Stripe",
+        footer_ssl: "SSL-verschlüsselte Verbindung",
+        
+    },
 };
