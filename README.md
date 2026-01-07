@@ -1,6 +1,6 @@
-# 🚗 daePoland - Vehicle Inspection Platform
+# 🚗 daeCenter - Vehicle Inspection Platform
 
-**daePoland** (Diagnostic Auto Export) is a comprehensive web platform designed to connect car buyers from Poland with professional vehicle inspectors in Belgium, the Netherlands, and Germany. The application facilitates the booking process, secure payments, and automated communication between the client and the business.
+**daeCenter** (Diagnostic Auto Export) is a comprehensive web platform designed to connect car buyers from Poland with professional vehicle inspectors in Belgium, the Netherlands, and Germany. The application facilitates the booking process, secure payments, and automated communication between the client and the business.
 
 ![Project Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 ![License](https://img.shields.io/badge/License-Proprietary-blue)
@@ -89,7 +89,7 @@ STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLIC_KEY=pk_test_...
 
 # Email Configuration (Gmail App Password Required)
-EMAIL_USER=daePoland.kontakt@gmail.com
+EMAIL_USER=daeCenter.kontakt@gmail.com
 EMAIL_PASS=your_16_char_app_password
 
 # Server Config
@@ -180,7 +180,7 @@ This project is configured for deployment on **Render**.
 
 -----
 
-© 2025 daePoland. All rights reserved.
+© 2025 daeCenter. All rights reserved.
 
 ```
 ```

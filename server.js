@@ -31,33 +31,33 @@ const PORT = process.env.PORT || 3000;
 // --- DANE SEO ---
 const META_DATA = {
     pl: {
-        title: "daePoland | Profesjonalne Inspekcje Pojazdów",
+        title: "daeCenter | Profesjonalne Inspekcje Pojazdów",
         desc: "Kupujesz auto w Belgii, Holandii lub Niemczech? Zleć profesjonalną inspekcję przed zakupem. Raport w 24h.",
-        ogTitle: "daePoland | Nie kupuj kota w worku!",
+        ogTitle: "daeCenter | Nie kupuj kota w worku!",
         ogDesc: "Sprawdzamy auta w Belgii, Holandii i Niemczech. Oszczędź czas i pieniądze. Pełny raport techniczny."
     },
     en: {
-        title: "daePoland | Professional Vehicle Inspections",
+        title: "daeCenter | Professional Vehicle Inspections",
         desc: "Buying a car in Belgium, Netherlands or Germany? Order a professional pre-purchase inspection. Report within 24h.",
-        ogTitle: "daePoland | Don't buy a lemon!",
+        ogTitle: "daeCenter | Don't buy a lemon!",
         ogDesc: "We check cars in Belgium, Netherlands and Germany. Save time and money. Full technical report."
     },
     nl: {
-        title: "daePoland | Professionele Aankoopkeuring",
+        title: "daeCenter | Professionele Aankoopkeuring",
         desc: "Auto kopen in België, Nederland of Duitsland? Bestel een professionele aankoopkeuring. Rapport binnen 24u.",
-        ogTitle: "daePoland | Koop geen kat in de zak!",
+        ogTitle: "daeCenter | Koop geen kat in de zak!",
         ogDesc: "Wij controleren auto's in België, Nederland en Duitsland. Bespaar tijd en geld. Volledig technisch rapport."
     },
     fr: {
-        title: "daePoland | Inspection Automobile Pro",
+        title: "daeCenter | Inspection Automobile Pro",
         desc: "Vous achetez une voiture en Belgique? Commandez une inspection professionnelle. Rapport complet en 24h.",
-        ogTitle: "daePoland | N'achetez pas les yeux fermés!",
+        ogTitle: "daeCenter | N'achetez pas les yeux fermés!",
         ogDesc: "Nous vérifions les voitures en Belgique, aux Pays-Bas et en Allemagne. Économisez du temps et de l'argent."
     },
     es: {
-        title: "daePoland | Inspección Profesional",
+        title: "daeCenter | Inspección Profesional",
         desc: "¿Compras un coche en Bélgica o Alemania? Solicita una inspección profesional. Informe en 24h.",
-        ogTitle: "daePoland | ¡No compres a ciegas!",
+        ogTitle: "daeCenter | ¡No compres a ciegas!",
         ogDesc: "Revisamos coches en Bélgica, Holanda y Alemania. Ahorra tiempo y dinero. Informe técnico completo."
     }
 };
@@ -94,7 +94,7 @@ app.use(helmet({
                 "data:", 
                 "https://upload.wikimedia.org", 
                 "https://*.stripe.com",
-                "https://daepoland.com", 
+                "https://daeCenter.com", 
                 "https://cdn.jsdelivr.net"
             ],
             connectSrc: [
@@ -115,9 +115,9 @@ app.use(helmet({
 
 // CORS
 const allowedOrigins = [
-    'https://daepoland.com', 
-    'https://www.daepoland.com',
-    'https://daepoland-web.onrender.com', 
+    'https://daeCenter.com', 
+    'https://www.daeCenter.com',
+    'https://daeCenter-web.onrender.com', 
     'http://localhost:3000'
 ];
 app.use(cors({
@@ -172,7 +172,7 @@ function authenticateToken(req, res, next) {
 async function sendEmail(to, subject, textContent, replyToEmail = null) {
     const url = 'https://api.brevo.com/v3/smtp/email';
     const body = {
-        sender: { name: 'daePoland', email: process.env.EMAIL_USER },
+        sender: { name: 'daeCenter', email: process.env.EMAIL_USER },
         to: [{ email: to }],
         subject: subject,
         textContent: textContent
@@ -318,9 +318,9 @@ app.get('/:lang', (req, res, next) => {
 
             // Podmiana tagów dla SEO/Facebooka
             let result = htmlData.replace('<html lang="pl">', `<html lang="${lang}">`)
-                .replace('<title>daePoland | Profesjonalne Inspekcje Pojazdów</title>', `<title>${data.title}</title>`)
+                .replace('<title>daeCenter | Profesjonalne Inspekcje Pojazdów</title>', `<title>${data.title}</title>`)
                 .replace(/content="Kupujesz auto w Belgii.*?Raport nawet do 24h\."/, `content="${data.desc}"`)
-                .replace(/content="daePoland \| Nie kupuj kota.*?Inspekcje Aut"/, `content="${data.ogTitle}"`)
+                .replace(/content="daeCenter \| Nie kupuj kota.*?Inspekcje Aut"/, `content="${data.ogTitle}"`)
                 .replace(/content="Sprawdzamy auta w Belgii.*?Zamów online\."/, `content="${data.ogDesc}"`);
 
             res.send(result);
@@ -357,5 +357,4 @@ app.post('/api/update-intent', async (req, res) => {
 });
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-
 app.listen(PORT, () => console.log(`🚀 Server Secure & Running on ${PORT}`));

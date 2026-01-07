@@ -51,11 +51,11 @@ W razie pytań prosimy o kontakt poprzez formularz na stronie lub bezpośrednio 
 Dziękujemy za zaufanie!
 
 Pozdrawiamy,
-Zespół daePoland
+Zespół daeCenter
 
 --
-Email: daePoland.kontakt@gmail.com
-Strona: https://daepoland.com
+Email: daeCenter.kontakt@gmail.com
+Strona: https://daeCenter.com
 `;
 };
 
